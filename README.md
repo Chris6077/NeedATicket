@@ -8,10 +8,10 @@ This group of applications will act as a platform for local ticket sales. Both v
 
 # Developers
 
-* ### Berisa (Val9000)
-* ### Blaschke (vanessa000)
-* ### Judth (xjudthxx)
-* ### Winkler (Chris6077)
+* ### Berisa (Val9000) - Android APP | Java APP
+* ### Blaschke (vanessa000) - Database | Webservices
+* ### Judth (xjudthxx) - Database | Webservices
+* ### Winkler (Chris6077) - Android APP | Modelling/Planning | Project Management
 
 # Android APP for customers
 

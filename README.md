@@ -8,10 +8,10 @@ This group of applications will act as a platform for concert ticket sales. Both
 
 # Developers
 
-* ### Berisa (Val9000) - Android APP | Java APP
+* ### Berisa ([Val9000](https://github.com/Val9000)) - Android APP | Java APP
 * ### Blaschke ([vanessa000](https://github.com/vanessa000)) - Database | Webservices
-* ### Judth (Judth34) - Database | Webservices
-* ### Winkler (Chris6077) - Android APP | Modelling/Planning | Project Management
+* ### Judth ([Judth34](https://github.com/Judth34)) - Database | Webservices
+* ### Winkler ([Chris6077](https://github.com/Chris6077)) - Android APP | Github and Project Management | Modelling/Planning
 
 # Android APP for customers
 

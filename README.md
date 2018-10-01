@@ -1,6 +1,6 @@
 # NeedATicket
 
-This repository is only a project overview and planning. You can find links to the coding repositories below.
+Ticket selling platform.
 
 # Description
 

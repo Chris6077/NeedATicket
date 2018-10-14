@@ -1,0 +1,54 @@
+title Buy ticket
+
+Buyer -> App: buy(ticket)
+activate Buyer
+activate App
+App -> WebService: buy(tID, uID)
+activate WebService
+WebService -> Database: select(uID)
+activate Database
+Database --> WebService: wID
+deactivate Database 
+alt wID != error
+WebService -> Database: select (wID)
+activate Database 
+Database --> WebService: balance
+deactivate Database 
+WebService -> Database: select (tID)
+activate Database 
+Database --> WebService: price
+deactivate Database 
+alt price > balance
+WebService --> App: balance too low
+App --> Buyer: Balance too low
+else
+WebService --> Database: startTrans
+activate Database 
+WebService -> Database : update(tID, uID)
+Database --> WebService : status
+alt status == error
+WebService --> Database: rollback
+WebService --> App: error
+App--> Buyer: error
+else
+WebService -> Database: update(wID, balance-price)
+Database --> WebService : status
+alt status == error
+WebService --> Database: rollback
+WebService --> App: error
+App--> Buyer: error
+else
+WebService --> Database : commit
+deactivate Database 
+WebService --> App: success
+App --> Buyer: success
+end alt
+end alt
+end alt
+else
+WebService --> App: invalid user
+deactivate WebService
+App --> Buyer: login
+end alt
+deactivate App
+deactivate Buyer

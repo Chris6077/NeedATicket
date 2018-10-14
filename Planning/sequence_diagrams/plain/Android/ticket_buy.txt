@@ -38,10 +38,18 @@ WebService --> Database: rollback
 WebService --> App: error
 App--> Buyer: error
 else
+WebService -> Database: Insert(transaction)
+Database --> WebService : status
+alt status == error
+WebService --> Database: rollback
+WebService --> App: error
+App--> Buyer: error
+else
 WebService --> Database : commit
 deactivate Database 
 WebService --> App: success
 App --> Buyer: success
+end alt
 end alt
 end alt
 end alt

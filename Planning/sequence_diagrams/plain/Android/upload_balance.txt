@@ -1,9 +1,9 @@
-title Upload balance Java
+title Upload balance Android
 
-Seller -> Program: upload(amount)
-activate Seller
-activate Program
-Program -> WebService: upload(amount, uID)
+Buyer -> App: upload(amount)
+activate Buyer
+activate App
+App -> WebService: upload(amount, uID)
 activate WebService
 WebService -> Database: select(uID)
 activate Database
@@ -19,14 +19,15 @@ activate Database
 Database --> WebService: message
 deactivate Database 
 alt message == error
-WebService --> Program: error
-Program --> Seller: error
+WebService --> App: error
+App --> Buyer: error
 else
-WebService --> Program: balance + amount
-Program --> Seller: new balance
+WebService --> App: balance + amount
+App --> Buyer: new balance
 end alt
-WebService --> Program: error
+else
+WebService --> App: error
 deactivate WebService
-Program --> Seller: error
-deactivate Program
-deactivate Seller
+App --> Buyer: error
+deactivate App
+deactivate Buyer

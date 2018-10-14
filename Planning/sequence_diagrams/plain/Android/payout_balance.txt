@@ -1,9 +1,9 @@
-title Upload balance Android
+title Payout balance Android
 
-Buyer -> App: upload(amount)
+Buyer -> App: payout(amount)
 activate Buyer
 activate App
-App -> WebService: upload(amount, uID)
+App -> WebService: payout(amount, uID)
 activate WebService
 WebService -> Database: select(uID)
 activate Database
@@ -14,7 +14,7 @@ WebService -> Database: select (wID)
 activate Database 
 Database --> WebService: balance
 deactivate Database 
-WebService -> Database: update(wID, balance + amount)
+WebService -> Database: update(wID, balance - amount)
 activate Database 
 Database --> WebService: message
 deactivate Database 
@@ -22,10 +22,9 @@ alt message == error
 WebService --> App: error
 App --> Buyer: error
 else
-WebService --> App: balance + amount
+WebService --> App: balance - amount
 App --> Buyer: new balance
 end alt
-else
 WebService --> App: error
 deactivate WebService
 App --> Buyer: error

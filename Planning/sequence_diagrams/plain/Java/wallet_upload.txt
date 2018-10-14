@@ -9,7 +9,7 @@ WebService -> Database: select(uID)
 activate Database
 Database --> WebService: wID
 deactivate Database 
-alt uID != error
+alt wID != error
 WebService -> Database: select (wID)
 activate Database 
 Database --> WebService: balance

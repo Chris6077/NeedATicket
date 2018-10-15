@@ -1,6 +1,4 @@
-# NeedATicket
-
-Ticket selling platform.
+[Logo](https://raw.githubusercontent.com/Chris6077/NeedATicket/master/Logos/Header.png)
 
 # Description
 

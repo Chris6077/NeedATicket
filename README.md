@@ -14,8 +14,16 @@ This group of applications will act as a platform for concert ticket sales. Both
 * ### Winkler ([Chris6077](https://github.com/Chris6077) | [LOG](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/ERyPsAQ3_odIjNxfVFiSWokBSq8NU3joNkktwLWi76b_ZA?e=it808g)) - Android APP | Github and Project Management | Modelling/Planning
 
 # Android APP for customers
+## Links
+[Repository](https://github.com/Chris6077/NeedATicket/tree/master/Android%20App)
+## Tools
+* Android Studio
 
 # Java APP for vendors
+## Links
+[Repository](https://github.com/Chris6077/NeedATicket/tree/master/Java%20App)
+## Tools
+* IntelliJ
 
 # Web Service
 

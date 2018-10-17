@@ -4,6 +4,8 @@
 
 This group of applications will act as a platform for concert ticket sales. Both vendors and customers need an account to use our platform. Our Webservice saves passwords encrypted in an Oracle database. A vendor can sell a Ticket for an existing concert or add a concert to our database before selling tickets for it. A customer pays via platform integrated money in the Android app, and the vendor receives the money on his platform integrated wallet. Checks if the customer has enough money to pay for the ticket(s) are made using database triggers. All transactions are saved in a table so vendors and customers can see which transactions they made in the past. The platform integrated wallet can be filled by uploading real money (simulated) and the balance can be cashed out to real money (simulated). The Android App lets the user purchase tickets, see where concerts are and a lot more. The Java App enables the vendor to manage his tickets and transactions. All the applications communicate using a Glassfish server implementing REST webservices.
 
+# [Weekly Log](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EVWIyvfUJz9GngEGW6lmbqABx9kWJooJ1uZkRGe397p05w?e=AGXQYS)
+
 # Developers
 
 * ### Berisa ([Val9000](https://github.com/Val9000) | [LOG](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EaywpY8L53dIrqwx0smyrDYB3zoYszAfeuJwvZiYw6LNEQ?e=l5l0AD)) - Android APP | Java APP

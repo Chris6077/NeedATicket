@@ -26,5 +26,7 @@ This group of applications will act as a platform for concert ticket sales. Both
 * IntelliJ
 
 # Web Service
+## Links
+[API Documentation](https://documenter.getpostman.com/view/5557635/RWgp1Kcn#071bf632-ccf4-43c2-8bab-eda7d66ec974)
 
 # Database

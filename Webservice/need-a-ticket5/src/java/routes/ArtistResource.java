@@ -7,6 +7,7 @@ package routes;
 
 import com.google.gson.Gson;
 import database.Database;
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,6 +18,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import pojo.Artist;
 
@@ -25,7 +27,7 @@ import pojo.Artist;
  *
  * @author Julian
  */
-@Path("artist")
+@Path("artists")
 public class ArtistResource {
 
     @Context
@@ -43,16 +45,18 @@ public class ArtistResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
+    public String getArtists() {
         try {
             Database.Connect();
-        } catch (Exception ex) {
+            return new Gson().toJson(Database.getArtists());
+        } catch (ClassNotFoundException ex) {
+            return ex.toString();
+        } catch (SQLException ex) {
             return ex.toString();
         }
-        return new Gson().toJson(new Artist(11,"judth"));
     }
-
-    /**
+    
+        /**
      * PUT method for updating or creating an instance of ArtistResource
      * @param content representation for the resource
      */
@@ -60,4 +64,24 @@ public class ArtistResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public void putJson(String content) {
     }
+    
+    @GET
+    @Path("/{artistid}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getArtist(@PathParam("artistid") int artistid) {
+        try {
+            Database.Connect();
+            return new Gson().toJson(Database.getArtist(artistid));
+        } catch (ClassNotFoundException ex) {
+            return ex.toString();
+        } catch (SQLException ex) {
+            return ex.toString();
+        } catch (FileNotFoundException ex) {
+            return ex.toString();
+        }  
+    }
+    
+    
+
+
 }

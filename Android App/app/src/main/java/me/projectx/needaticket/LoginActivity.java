@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,36 +64,64 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
+    // VideoView
+    private VideoView videoBG;
+    MediaPlayer mMediaPlayer;
+    int mCurrentVideoPosition;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        populateAutoComplete();
+        // VideoView
+        videoBG = (VideoView) findViewById(R.id.videoView);
 
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        //Video URI
+        Uri uri = Uri.parse("android.resource://"
+                + getPackageName()
+                + "/"
+                + R.raw.c1);
+
+        //Set URI to video
+        videoBG.setVideoURI(uri);
+
+        //Start video
+        videoBG.start();
+        videoBG.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
+            public void onPrepared(MediaPlayer mp) {
+                mMediaPlayer = mp;
+                mMediaPlayer.setLooping(true);
+                if(mCurrentVideoPosition != 0){
+                    mMediaPlayer.seekTo(mCurrentVideoPosition);
+                    mMediaPlayer.start();
                 }
-                return false;
             }
         });
+    }
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
+    // IMPORTANT FOR VIDEO VIEW
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Capture the current video position and pause the video.
+        mCurrentVideoPosition = mMediaPlayer.getCurrentPosition();
+        videoBG.pause();
+    }
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Restart the video when resuming the Activity
+        videoBG.start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // When the Activity is destroyed, release our MediaPlayer and set it to null.
+        mMediaPlayer.release();
+        mMediaPlayer = null;
     }
 
     private void populateAutoComplete() {
@@ -345,6 +375,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
+
+
+
+
     }
 }
 

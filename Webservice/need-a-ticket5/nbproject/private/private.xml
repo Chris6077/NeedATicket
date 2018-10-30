@@ -3,8 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/need-a-ticket5/src/java/routes/ArtistResource.java</file>
-            <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/need-a-ticket5/src/java/pojo/Artist.java</file>
+            <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/Webservice/need-a-ticket5/src/java/database/Database.java</file>
+            <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/Webservice/need-a-ticket5/src/java/pojo/Artist.java</file>
+            <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/Webservice/need-a-ticket5/src/java/filter/BearerTokenFilter.java</file>
+            <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/Webservice/need-a-ticket5/src/java/logic/Logic.java</file>
+            <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/Webservice/need-a-ticket5/src/java/helloworld/ApplicationConfig.java</file>
+            <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/Webservice/need-a-ticket5/src/java/routes/ConcertsResource.java</file>
+            <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/Webservice/need-a-ticket5/src/java/routes/ArtistResource.java</file>
+            <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/Webservice/need-a-ticket5/src/java/database/statements/statements.java</file>
         </group>
     </open-files>
 </project-private>

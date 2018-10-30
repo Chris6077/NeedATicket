@@ -8,6 +8,7 @@ package database;
 import database.statements.statements;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +16,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import pojo.Artist;
+import pojo.Concert;
 
 /**
  *
@@ -43,7 +45,7 @@ public class Database {
     public static ArrayList<Artist> getArtists() throws SQLException, ClassNotFoundException{
         Connect();
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(statements.GET_ARTISTS.getStatement());
+        ResultSet resultSet = statement.executeQuery(statements.SELECT_ARTISTS.getStatement());
         ArrayList<Artist> artists = new ArrayList<Artist>();
         //extract data from result set
         while(resultSet.next()){
@@ -60,7 +62,7 @@ public class Database {
     
     public static Artist getArtist(Integer id) throws SQLException, FileNotFoundException, ClassNotFoundException{
         Connect();
-        PreparedStatement preparedStatement = connection.prepareStatement(statements.GET_ARTIST_BY_ID.getStatement());
+        PreparedStatement preparedStatement = connection.prepareStatement(statements.SELECT_ARTIST_BY_ID.getStatement());
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         Artist artist = null;
@@ -103,4 +105,78 @@ public class Database {
         connection.close();
     }
     
+    //functions related to concerts
+    
+    public static ArrayList<Concert> getConcerts() throws ClassNotFoundException, SQLException, SQLException, FileNotFoundException{
+        Connect();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(statements.SELECT_CONCERTS.getStatement());
+        ArrayList<Concert> concerts = new ArrayList<Concert>();
+        //extract data from result set
+        while(resultSet.next()){
+            Integer id = resultSet.getInt("id");
+            String title = resultSet.getString("title");
+            Date date = resultSet.getDate("cdate");
+            String genre = resultSet.getString("genre");
+            String address = resultSet.getString("address");
+            Artist artist = getArtist(resultSet.getInt("id_artist"));
+            concerts.add(new Concert(id,title,date,genre,address,artist));
+        }
+        //clean up
+        resultSet.close();
+        statement.close();
+        connection.close();
+        return concerts;
+    }
+
+    public static Concert getConcert(Integer id) throws SQLException, FileNotFoundException, ClassNotFoundException{
+        Connect();
+        PreparedStatement preparedStatement = connection.prepareStatement(statements.SELECT_CONCERT_BY_ID.getStatement());
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Concert concert = null;
+        //extract data from result set
+        while (resultSet.next()) {
+            String title = resultSet.getString("title");
+            Date date = resultSet.getDate("cdate");
+            String genre = resultSet.getString("genre");
+            String address = resultSet.getString("address");
+            Artist artist = getArtist(resultSet.getInt("id_artist"));
+            concert = new Concert(id,title,date,genre,address,artist);
+        }
+        //clean up
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+        if(concert == null)
+            throw new FileNotFoundException("concert not found");
+        return concert;
+    }
+    
+    public static void createConcert(Concert concert) throws SQLException, ClassNotFoundException{
+        Connect();
+        PreparedStatement statement = connection.prepareStatement(statements.INSERT_CONCERT.getStatement());
+        statement.setString(1, concert.getTitle());
+        statement.setDate(2, concert.getDate());
+        statement.setString(3, concert.getGenre());
+        statement.setString(4, concert.getAddress());
+        statement.setInt(5, concert.getArtist().getId());
+        statement.executeUpdate();
+        connection.close();
+    }
+    
+    public static void updateConcert(Concert concert) throws ClassNotFoundException, ClassNotFoundException, SQLException {
+        Connect();
+        PreparedStatement statement = connection.prepareStatement(statements.UPDATE_ARTIST.getStatement());
+        statement.setString(1, concert.getTitle());
+        statement.setDate(2, concert.getDate());
+        statement.setString(3, concert.getGenre());
+        statement.setString(4, concert.getAddress());
+        statement.setInt(5, concert.getArtist().getId());
+        statement.setInt(6, concert.getId());
+        statement.executeUpdate();
+        connection.close();
+    }
+    
+
 }

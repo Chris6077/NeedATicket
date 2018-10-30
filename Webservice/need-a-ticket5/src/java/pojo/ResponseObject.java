@@ -16,5 +16,6 @@ public class ResponseObject {
     public ResponseObject(Object data, String message) {
         this.data = data;
         this.message = message;
-    }
+    }    
+    
 }

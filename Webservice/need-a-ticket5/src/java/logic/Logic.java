@@ -7,9 +7,12 @@ package logic;
 
 import database.Database;
 import java.io.FileNotFoundException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import pojo.Artist;
+import pojo.Concert;
 
 /**
  *
@@ -17,6 +20,7 @@ import pojo.Artist;
  */
 public class Logic {
     
+    //functions related to artists
     public static List<Artist> getArtists() throws SQLException, ClassNotFoundException{
         return Database.getArtists();
     }
@@ -52,4 +56,25 @@ public class Logic {
         getArtist(id);
         Database.deleteArtist(id);
     }
+    
+    //functions related to concerts
+    public static List<Concert> getConcerts() throws ClassNotFoundException, SQLException, FileNotFoundException {
+        return Database.getConcerts();
+    }
+    
+    public static Concert getConcert(Integer id) throws SQLException, FileNotFoundException, ClassNotFoundException{
+        return Database.getConcert(id);
+    }
+   
+    public static void createConcert(String title,String dateUnformatted, String genre, String address, Integer artistid) throws NoSuchFieldException, SQLException, ClassNotFoundException{
+        Date date = Date.valueOf(LocalDate.parse(dateUnformatted));
+        Database.createConcert(new Concert(-1,title,date,genre,address,new Artist(artistid,null)));
+    }
+    
+    public static void updateConcert(Integer id, String title,String dateUnformatted, String genre, String address, Integer artistid) throws NoSuchFieldException, SQLException, ClassNotFoundException, FileNotFoundException{
+        Date date = Date.valueOf(LocalDate.parse(dateUnformatted));
+        getArtist(artistid);
+        Database.updateConcert(new Concert(id,title,date,genre,address,new Artist(artistid,null)));
+    }
+
 }

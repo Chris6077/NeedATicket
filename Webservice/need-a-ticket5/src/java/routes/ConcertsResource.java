@@ -6,17 +6,13 @@
 package routes;
 
 import com.google.gson.Gson;
-import database.Database;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -25,7 +21,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import logic.Logic;
-import pojo.Artist;
 import pojo.ResponseObject;
 
 /**
@@ -33,44 +28,46 @@ import pojo.ResponseObject;
  *
  * @author Julian
  */
-@Path("artists")
-public class ArtistResource {
+@Path("concerts")
+public class ConcertsResource {
 
     @Context
     private UriInfo context;
 
     /**
-     * Creates a new instance of ArtistResource
+     * Creates a new instance of ConcertsResource
      */
-    public ArtistResource() {
+    public ConcertsResource() {
     }
 
-    /**
-     * @return all artists
+    /** Gets all Concerts
+     * @return all Concerts
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getArtists() {
+    public Response getConcerts() {
         try {
-            return Response.status(Response.Status.OK).entity(new Gson().toJson(new ResponseObject(Logic.getArtists(),null))).build();
+            return Response.status(Response.Status.OK).entity(new Gson().toJson(new ResponseObject(Logic.getConcerts(),null))).build();
         } catch (SQLException ex) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
         } catch (ClassNotFoundException ex) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
+        } catch (FileNotFoundException ex) {
+            return Response.status(Response.Status.NOT_FOUND).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
         }
     }
-    
+
     /**
      *
-     * @param artistid id of the artist to return
+     * @param concertid id of the concert to return
      * @return
      */
     @GET
-    @Path("/{artistid}")
+    @Path("/{concertid}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getArtist(@PathParam("artistid") int artistid) {
+    public Response getConcert(@PathParam("concertid") int concertid) {
         try {
-            return Response.status(Response.Status.OK).entity(new Gson().toJson(new ResponseObject(Logic.getArtist(artistid),null))).build();
+            return Response.status(Response.Status.OK).entity(new Gson().toJson(new ResponseObject(Logic.getConcert(concertid),null))).build();
         } catch (ClassNotFoundException ex) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
         } catch (SQLException ex) {
@@ -80,18 +77,21 @@ public class ArtistResource {
         }  
     }
     
-    
     /**
-     * @param name name of the artist to create
+     * @param title title of the concert to create
+     * @param date date of which the concert takes place
+     * @param address address at which the concert takes place
+     * @param genre genre of wich the concert belongs to 
+     * @param artistid Id of the leading artist at the conncert
      * @return the response wether the operation was sucessful or not
      */
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createArtist(@FormParam("name") String name) {
+    public Response createConcert(@FormParam("title") String title, @FormParam("date") String date, @FormParam("genre") String genre, @FormParam("address") String address,@FormParam("artistid") Integer artistid) {
         try {
-            Logic.createArtist(name);
-            return Response.status(Response.Status.CREATED).entity(new Gson().toJson(new ResponseObject(null,"artist successfuly created."))).build();
+            Logic.createConcert(title, date, genre, address, artistid);
+            return Response.status(Response.Status.CREATED).entity(new Gson().toJson(new ResponseObject(null,"concert sucessfully created."))).build();
         } catch (NoSuchFieldException ex) {
             return Response.status(Response.Status.BAD_REQUEST).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
         } catch (SQLException ex) {
@@ -102,18 +102,22 @@ public class ArtistResource {
     }
     
     /**
-     * PUT method for updating or creating an instance of ArtistResource
-     * @param artistid id of the artist to update
-     * @param name name of the artist to update
+     * 
+     * @param concertid
+     * @param title
+     * @param genre
+     * @param date
+     * @param address
+     * @param artistid
      * @return wether the operation was successful or not
      */
     @PUT
-    @Path("/{artistid}")
+    @Path("/{concertid}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateArtist(@PathParam("artistid") int artistid, @FormParam("name") String name) {
+    public Response updateConcert(@PathParam("concertid") int concertid, @FormParam("title") String title, @FormParam("date") String date, @FormParam("genre") String genre, @FormParam("address") String address,@FormParam("artistid") Integer artistid) {
         try {
-            Logic.updateArtist(artistid,name);
+            Logic.updateConcert(concertid, title, date, genre, address, artistid);
             return Response.status(Response.Status.OK).entity(new Gson().toJson(new ResponseObject(null,"successfully updated"))).build();
         } catch (NoSuchFieldException ex) {
             return Response.status(Response.Status.BAD_REQUEST).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
@@ -125,28 +129,4 @@ public class ArtistResource {
             return Response.status(Response.Status.NOT_FOUND).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
         }
     }
-    
-    @DELETE
-    @Path("/{artistid}")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteArtist(@PathParam("artistid") int artistid) {
-        try {
-            Logic.deleteArtist(artistid);
-            return Response.status(Response.Status.OK).entity(new Gson().toJson(new ResponseObject(null,"successfully deleted"))).build();
-        } catch (NoSuchFieldException ex) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
-        } catch (ClassNotFoundException ex) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
-        } catch (SQLException ex) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
-        } catch (FileNotFoundException ex) {
-            return Response.status(Response.Status.NOT_FOUND).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
-        }
-    }
-    
-    
-    
-
-
 }

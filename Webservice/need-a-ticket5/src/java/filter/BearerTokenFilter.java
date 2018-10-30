@@ -5,12 +5,14 @@
  */
 package filter;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.List;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
+import pojo.ResponseObject;
 
 /**
  *
@@ -34,7 +36,7 @@ public class BearerTokenFilter implements ContainerRequestFilter{
         }
         Response respone = Response
                 .status(Response.Status.UNAUTHORIZED)
-                .entity("invalid api key supplied")
+                .entity(new Gson().toJson(new ResponseObject(null,"invalid api key supplied")))
                 .build();
         
         requestContext.abortWith(respone);

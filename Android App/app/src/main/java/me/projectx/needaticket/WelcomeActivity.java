@@ -57,7 +57,6 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        Intent login_activity = new Intent(this, LoginActivity.class);
-        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, new Pair<View, String>(image_logo, "logo"), new Pair<View, String>(textview_app_name, "content"));
+        showNewIntent();
     }
 }

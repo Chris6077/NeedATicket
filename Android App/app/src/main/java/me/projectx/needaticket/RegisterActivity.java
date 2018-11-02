@@ -45,7 +45,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class RegisterActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -67,10 +67,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     // UI references.
     private EditText mEmailView;
     private EditText mPasswordView;
+    private EditText mPasswordConfirmView;
     private View mProgressView;
     private View mLoginFormView;
-    private Button btLogin;
     private Button btRegister;
+    private Button btSignIn;
     private ImageView image_logo;
 
 
@@ -114,29 +115,30 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void setViews() {
         image_logo = (ImageView) findViewById(R.id.imageView);
         btRegister = (Button)findViewById(R.id.btRegister);
-        btLogin = (Button)findViewById(R.id.btLogin);
+        btSignIn = (Button)findViewById(R.id.btSignIn);
         mEmailView = (EditText) findViewById(R.id.etEmailAddress);
         mPasswordView = (EditText) findViewById(R.id.etPassword);
+        mPasswordConfirmView = (EditText) findViewById(R.id.etPasswordConfirm);
     }
     private void registrateEventHandlers(){
         btRegister.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                showRegisterIntent();
-            }
-        });
-        btLogin.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 attemptLogin();
             }
         });
+        btSignIn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLoginIntent();
+            }
+        });
     }
-    private void showRegisterIntent(){
-        final Intent register_activity = new Intent(this, RegisterActivity.class);
+    private void showLoginIntent(){
+        final Intent login_activity = new Intent(this, LoginActivity.class);
         try{
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, new Pair<View, String>(image_logo, "logo"));
-            startActivity(register_activity);
+            startActivity(login_activity);
         } catch (Exception e){
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
@@ -222,10 +224,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
+        mPasswordConfirmView.setError(null);
 
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
+        String confirmPassword = mPasswordConfirmView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -237,6 +241,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             cancel = true;
         }
 
+        // Check for a valid Confirmed password, if the user entered one.
+        if (!TextUtils.isEmpty(password) && !isPasswordValid(password) && password != confirmPassword) {
+            mPasswordConfirmView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordConfirmView;
+            cancel = true;
+        }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {

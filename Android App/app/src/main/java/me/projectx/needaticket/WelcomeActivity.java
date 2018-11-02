@@ -34,15 +34,15 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void animate() {
-        /*Animation anim_splash = AnimationUtils.loadAnimation(this, R.anim.anim_splash);
+        Animation anim_splash = AnimationUtils.loadAnimation(this, R.anim.anim_splash);
         image_logo.startAnimation(anim_splash);
-        textview_app_name.startAnimation(anim_splash);*/
+        textview_app_name.startAnimation(anim_splash);
     }
 
     private void setViews() {
-        /*image_logo = (ImageView) findViewById(R.id.image_welcome_logo);
+        image_logo = (ImageView) findViewById(R.id.image_welcome_logo);
         textview_app_name = (TextView) this.findViewById(R.id.textview_welcome_app_name_lowercase);
-        content = (LinearLayout) findViewById(R.id.content_welcome);*/
+        content = (LinearLayout) findViewById(R.id.content_welcome);
     }
 
     private void showNewIntent(){

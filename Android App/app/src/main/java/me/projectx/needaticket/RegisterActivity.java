@@ -83,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
         // VideoView
         videoBG = (VideoView) findViewById(R.id.videoView);
 
@@ -138,6 +138,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         final Intent login_activity = new Intent(this, LoginActivity.class);
         try{
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, new Pair<View, String>(image_logo, "logo"));
+            finish();
             startActivity(login_activity);
         } catch (Exception e){
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();

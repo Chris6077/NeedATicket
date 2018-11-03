@@ -136,6 +136,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         final Intent register_activity = new Intent(this, RegisterActivity.class);
         try{
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, new Pair<View, String>(image_logo, "logo"));
+            finish();
             startActivity(register_activity);
         } catch (Exception e){
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();

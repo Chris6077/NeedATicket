@@ -28,7 +28,7 @@ public class BearerTokenFilter implements ContainerRequestFilter{
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
         List<String> header = requestContext.getHeaders().get(AUTHORIZATION_HEADER_KEY);
-        if (header!= null && header.size() > 0){
+        if (header!= null && header.size()  > 0){
             String token = header.get(0);
             token = token.replaceFirst(AUTHORIZATION_HEADER_PREFIX, "");
             if(token.equals(BEARER_TOKEN))

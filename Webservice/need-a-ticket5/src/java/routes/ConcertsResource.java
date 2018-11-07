@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
@@ -118,7 +119,7 @@ public class ConcertsResource {
     public Response updateConcert(@PathParam("concertid") int concertid, @FormParam("title") String title, @FormParam("date") String date, @FormParam("genre") String genre, @FormParam("address") String address,@FormParam("artistid") Integer artistid) {
         try {
             Logic.updateConcert(concertid, title, date, genre, address, artistid);
-            return Response.status(Response.Status.OK).entity(new Gson().toJson(new ResponseObject(null,"successfully updated"))).build();
+            return Response.status(Response.Status.OK).entity(new Gson().toJson(new ResponseObject(null,"concert successfully updated."))).build();
         } catch (NoSuchFieldException ex) {
             return Response.status(Response.Status.BAD_REQUEST).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
         } catch (ClassNotFoundException ex) {
@@ -129,4 +130,25 @@ public class ConcertsResource {
             return Response.status(Response.Status.NOT_FOUND).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
         }
     }
+
+    @DELETE
+    @Path("/{concertid}")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteConcert(@PathParam("concertid") int concertid, @FormParam("title") String title, @FormParam("date") String date, @FormParam("genre") String genre, @FormParam("address") String address,@FormParam("artistid") Integer artistid) {
+        try {
+            Logic.updateConcert(concertid, title, date, genre, address, artistid);
+            return Response.status(Response.Status.OK).entity(new Gson().toJson(new ResponseObject(null,"concert successfully updated."))).build();
+        } catch (NoSuchFieldException ex) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
+        } catch (ClassNotFoundException ex) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
+        } catch (SQLException ex) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
+        } catch (FileNotFoundException ex) {
+            return Response.status(Response.Status.NOT_FOUND).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
+        }
+    }
+
+
 }

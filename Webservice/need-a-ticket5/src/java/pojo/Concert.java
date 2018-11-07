@@ -76,5 +76,9 @@ public class Concert {
         this.artist = artist;
     }
 
+    @Override
+    public String toString() {
+        return "Concert{" + "id=" + id + ", title=" + title + ", date=" + date + ", genre=" + genre + ", address=" + address + ", artist=" + artist + '}';
+    }
     
 }

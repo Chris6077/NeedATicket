@@ -167,7 +167,7 @@ public class Database {
     
     public static void updateConcert(Concert concert) throws ClassNotFoundException, ClassNotFoundException, SQLException {
         Connect();
-        PreparedStatement statement = connection.prepareStatement(statements.UPDATE_ARTIST.getStatement());
+        PreparedStatement statement = connection.prepareStatement(statements.UPDATE_CONCERT.getStatement());
         statement.setString(1, concert.getTitle());
         statement.setDate(2, concert.getDate());
         statement.setString(3, concert.getGenre());

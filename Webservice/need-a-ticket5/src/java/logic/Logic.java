@@ -35,7 +35,7 @@ public class Logic {
             throw new Exception("password incorrect");
         Algorithm algorithm = Algorithm.HMAC256(Config.SECRET.getValue());
         Map<String, Object> headerClaims = new HashMap();
-        headerClaims.put("user", user);
+        headerClaims.put("userId", user.getId());
         String token = JWT.create()
             .withIssuer("auth0")
             .withHeader(headerClaims)
@@ -49,6 +49,9 @@ public class Logic {
         return login(email,password);
     }
     
+    public static List<User> getUsers() throws SQLException, ClassNotFoundException{
+        return Database.getUsers();
+    }
     
     //functions related to artists
     public static List<Artist> getArtists() throws SQLException, ClassNotFoundException{

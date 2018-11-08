@@ -14,6 +14,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.google.gson.Gson;
 import interfaces.RequiresJWT;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -30,8 +31,6 @@ import pojo.ResponseObject;
 public class JWTFilter implements ContainerRequestFilter{
 
     private static final String AUTHORIZATION_HEADER_KEY = "x-access-token";
-    private static final String AUTHORIZATION_HEADER_PREFIX = "";
-    private static final String BEARER_TOKEN = "uP(m#Y_|33[s&/y4N.ek3:mGp0w^R>=BwkX?w97+WD)ah]V/$r$|E11Odq|3:MQ-";
     
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
@@ -45,12 +44,28 @@ public class JWTFilter implements ContainerRequestFilter{
                     .build(); //Reusable verifier instance
                 DecodedJWT jwt = verifier.verify(token);
                 return;    
-            }catch(Exception ex){
+            }catch(JWTVerificationException ex){
                 Response respone = Response
                     .status(Response.Status.FORBIDDEN)
                     .entity(new Gson().toJson(new ResponseObject(null,"invalid token supplied")))
                     .build();
 
+                requestContext.abortWith(respone);
+                return;
+            } catch (UnsupportedEncodingException ex) {
+                Response respone = Response
+                        .status(Response.Status.FORBIDDEN)
+                        .entity(new Gson().toJson(new ResponseObject(null,"invalid token supplied")))
+                        .build();
+                
+                requestContext.abortWith(respone);
+                return;
+            } catch (IllegalArgumentException ex) {
+                Response respone = Response
+                        .status(Response.Status.FORBIDDEN)
+                        .entity(new Gson().toJson(new ResponseObject(null,"invalid token supplied")))
+                        .build();
+                
                 requestContext.abortWith(respone);
                 return;
             }

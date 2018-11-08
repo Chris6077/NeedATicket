@@ -41,6 +41,18 @@ public class UserResource {
      */
     public UserResource() {
     }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUsers() {
+        try {
+            return Response.status(Response.Status.OK).entity(new Gson().toJson(new ResponseObject(Logic.getUsers(),null))).build();
+        } catch (SQLException ex) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
+        } catch (ClassNotFoundException ex) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
+        } 
+    }
 
     /**
      * Retrieves representation of an instance of routes.UserResource

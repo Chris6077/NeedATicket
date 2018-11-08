@@ -12,8 +12,10 @@ package database.statements;
 public enum statements {
 
     //statements related to users
-    SELECZT_USER_BY_EMAIL ("select * from account where email LIKE ?"),
+    SELECT_USERS("select * from account"),
+    SELECT_USER_BY_EMAIL ("select * from account where email LIKE ?"),
     INSERT_USER ("insert into account values (?,?,?,?,1)"),
+    
     
     //statements realted to wallets
     INSERT_WALLET("insert into wallet values(null,?)"),

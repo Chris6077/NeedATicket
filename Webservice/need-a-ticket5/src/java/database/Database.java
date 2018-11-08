@@ -44,9 +44,29 @@ public class Database {
     }
     
     //functions related to users
+    public static ArrayList<User> getUsers() throws SQLException, ClassNotFoundException{
+        Connect();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(statements.SELECT_USERS.getStatement());
+        ArrayList<User> users = new ArrayList<User>();
+        //extract data from result set
+        while(resultSet.next()){
+            Integer id = resultSet.getInt("id");
+            String email = resultSet.getString("email");
+            String password  = resultSet.getString("password");
+            Role type = Role.valueOf(resultSet.getString("type").toUpperCase());
+            users.add(new User(id,email,password,type));
+        }
+        //clean up
+        resultSet.close();
+        statement.close();
+        connection.close();
+        return users;
+    }
+    
     public static User getUser (String email) throws ClassNotFoundException, SQLException, FileNotFoundException{
         Connect();
-        PreparedStatement preparedStatement = connection.prepareStatement(statements.SELECZT_USER_BY_EMAIL.getStatement());
+        PreparedStatement preparedStatement = connection.prepareStatement(statements.SELECT_USER_BY_EMAIL.getStatement());
         preparedStatement.setString(1,email );
         ResultSet resultSet = preparedStatement.executeQuery();
         User user = null;

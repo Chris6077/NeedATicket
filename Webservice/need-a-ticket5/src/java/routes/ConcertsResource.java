@@ -46,7 +46,6 @@ public class ConcertsResource {
      * @return all Concerts
      */
     @GET
-    @RequiresJWT
     @Produces(MediaType.APPLICATION_JSON)
     public Response getConcerts() {
         try {

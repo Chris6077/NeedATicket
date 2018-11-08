@@ -17,6 +17,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import pojo.Artist;
 import pojo.Concert;
+import pojo.User;
 
 /**
  *
@@ -40,8 +41,31 @@ public class Database {
         connection = DriverManager.getConnection(DB_URL,USER,PASS);
     }
     
-    //functions related to artists
+    //functions related to users
+    public static User getUser (String email) throws ClassNotFoundException, SQLException{
+                Connect();
+        PreparedStatement preparedStatement = connection.prepareStatement(statements.SELECT_ARTIST_BY_ID.getStatement());
+        preparedStatement.setString(1,email );
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Artist artist = null;
+        //extract data from result set
+        while (resultSet.next()) {
+            Integer id = resultSet.getInt("id");
+            String name = resultSet.getString("email");
+            String  = resultSet.getString("name");
+            User = new User (id,name);
+        }
+        //clean up
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+        if(artist == null)
+            throw new FileNotFoundException("artist not found");
+        return artist;
+    }
     
+    
+    //functions related to artists
     public static ArrayList<Artist> getArtists() throws SQLException, ClassNotFoundException{
         Connect();
         Statement statement = connection.createStatement();

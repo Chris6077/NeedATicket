@@ -20,6 +20,11 @@ import pojo.Concert;
  */
 public class Logic {
     
+    //functions related to users
+    public static void login(String email, String password){
+        
+    }
+    
     //functions related to artists
     public static List<Artist> getArtists() throws SQLException, ClassNotFoundException{
         return Database.getArtists();

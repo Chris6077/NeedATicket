@@ -10,8 +10,13 @@ package Config;
  * @author Julian
  */
 public enum Config {
-    
+   
+    //Auth
+    AUTHORIZATION_HEADER_KEY("Authorization"),
+    AUTHORIZATION_HEADER_PREFIX("Bearer"),
+    BEARER_TOKEN("uP(m#Y_|33[s&/y4N.ek3:mGp0w^R>=BwkX?w97+WD)ah]V/$r$|E11Odq|3:MQ-"),
     SECRET("need-a-ticket");
+
     
     private final String value;
     

@@ -6,6 +6,7 @@
 package routes;
 
 import com.google.gson.Gson;
+import interfaces.RequiresJWT;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import javax.ws.rs.core.Context;
@@ -45,6 +46,7 @@ public class ConcertsResource {
      * @return all Concerts
      */
     @GET
+    @RequiresJWT
     @Produces(MediaType.APPLICATION_JSON)
     public Response getConcerts() {
         try {

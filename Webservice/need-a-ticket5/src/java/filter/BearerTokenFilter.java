@@ -5,6 +5,7 @@
  */
 package filter;
 
+import Config.Config;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.List;
@@ -20,7 +21,6 @@ import pojo.ResponseObject;
  */
 @Provider
 public class BearerTokenFilter implements ContainerRequestFilter{
-
     private static final String AUTHORIZATION_HEADER_KEY = "Authorization";
     private static final String AUTHORIZATION_HEADER_PREFIX = "Bearer ";
     private static final String BEARER_TOKEN = "uP(m#Y_|33[s&/y4N.ek3:mGp0w^R>=BwkX?w97+WD)ah]V/$r$|E11Odq|3:MQ-";

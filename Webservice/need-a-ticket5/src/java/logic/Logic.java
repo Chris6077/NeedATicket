@@ -43,6 +43,13 @@ public class Logic {
         return token;
     }
     
+    public static String register(String email,String password,String type) throws ClassNotFoundException, SQLException, IllegalArgumentException, UnsupportedEncodingException, Exception{
+        User user = new User(null,email,password,type);
+        Database.createUser(user);
+        return login(email,password);
+    }
+    
+    
     //functions related to artists
     public static List<Artist> getArtists() throws SQLException, ClassNotFoundException{
         return Database.getArtists();

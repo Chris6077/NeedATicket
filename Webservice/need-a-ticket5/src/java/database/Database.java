@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import pojo.Artist;
 import pojo.Concert;
 import pojo.User;
+import pojo.Wallet;
 import pojo.enums.Role;
 
 /**
@@ -66,6 +67,28 @@ public class Database {
         return user;
     }
     
+    public static void createUser(User user) throws ClassNotFoundException, SQLException{
+        Integer walletid = createWallet(new Wallet(null, 0.0));
+        Connect();
+        PreparedStatement statement = connection.prepareStatement(statements.INSERT_USER.getStatement());
+        statement.setString(1, user.getEmail());
+        statement.setString(2, user.getPassword());
+        statement.setString(3, user.getRole().toString());
+        statement.setInt(4, walletid);
+        statement.executeUpdate();
+        connection.close();
+    }
+    
+    
+    //functions related to wallets
+    public static Integer createWallet(Wallet wallet) throws ClassNotFoundException, SQLException{
+        Connect();
+        PreparedStatement statement = connection.prepareStatement(statements.INSERT_WALLET.getStatement());
+        statement.setDouble(1, wallet.getBalance());
+        Integer id = statement.executeUpdate();
+        connection.close();
+        return id;
+    }
     
     //functions related to artists
     public static ArrayList<Artist> getArtists() throws SQLException, ClassNotFoundException{

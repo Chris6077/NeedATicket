@@ -17,6 +17,7 @@ public class User {
     private String email;
     private String password;
     private Role role;
+    private Wallet wallet;
 
     public User(Integer id, String email, String password, Role role) {
         this.id = id;
@@ -30,6 +31,26 @@ public class User {
         this.email = email;
         this.password = password;
         this.role = Role.valueOf(role);
+    }
+
+    public User(Integer id, String email, String password, Role role, Wallet wallet) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.wallet = wallet;
+    }
+
+    public User() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Wallet getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
     }
     
     public Integer getId() {

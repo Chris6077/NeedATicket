@@ -44,16 +44,37 @@ public class UserResource {
 
     /**
      * Retrieves representation of an instance of routes.UserResource
+     * @param email
+     * @param password
+     * @param type
      * @return an instance of java.lang.String
      */
     @POST
     @Path("/register")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response register() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
+    public Response register(@FormParam("email") String email,@FormParam("password") String password,@FormParam("type") String type) {
+        try {
+            String token = Logic.register(email, password, type);
+            return Response.status(Response.Status.OK).entity(new Gson().toJson(new ResponseObject(token,null))).build();
+        } catch (SQLException ex) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
+        } catch (FileNotFoundException ex) {
+            return Response.status(Response.Status.NOT_FOUND).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
+        } catch (IllegalArgumentException ex) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
+        } catch (UnsupportedEncodingException ex) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
+        } catch (Exception ex) {
+            return Response.status(Response.Status.UNAUTHORIZED).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
+        }
     }
     
+    /**
+     *
+     * @param email
+     * @param password
+     * @return
+     */
     @POST
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)

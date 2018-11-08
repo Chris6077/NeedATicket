@@ -19,6 +19,7 @@ public enum statements {
     
     //statements realted to wallets
     INSERT_WALLET("insert into wallet values(null,?)"),
+    SELECT_WALLET_BY_ID ("select * from wallet where id = ?"),
     
     //statements related to artists
     SELECT_ARTISTS ("select * from artist"),

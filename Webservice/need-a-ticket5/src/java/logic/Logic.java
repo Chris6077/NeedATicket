@@ -49,7 +49,7 @@ public class Logic {
         return login(email,password);
     }
     
-    public static List<User> getUsers() throws SQLException, ClassNotFoundException{
+    public static List<User> getUsers() throws SQLException, ClassNotFoundException, FileNotFoundException{
         return Database.getUsers();
     }
     

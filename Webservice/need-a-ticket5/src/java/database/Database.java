@@ -44,7 +44,7 @@ public class Database {
     }
     
     //functions related to users
-    public static ArrayList<User> getUsers() throws SQLException, ClassNotFoundException{
+    public static ArrayList<User> getUsers() throws SQLException, ClassNotFoundException, FileNotFoundException{
         Connect();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(statements.SELECT_USERS.getStatement());
@@ -55,7 +55,8 @@ public class Database {
             String email = resultSet.getString("email");
             String password  = resultSet.getString("password");
             Role type = Role.valueOf(resultSet.getString("type").toUpperCase());
-            users.add(new User(id,email,password,type));
+            Wallet wallet = getWallet(resultSet.getInt("id_wallet"));
+            users.add(new User(id,email,password,type,wallet));
         }
         //clean up
         resultSet.close();
@@ -109,6 +110,28 @@ public class Database {
         connection.close();
         return id;
     }
+    
+    public static Wallet getWallet(Integer id) throws SQLException, FileNotFoundException, ClassNotFoundException{
+        Connect();
+        PreparedStatement preparedStatement = connection.prepareStatement(statements.SELECT_WALLET_BY_ID.getStatement());
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Wallet wallet = null;
+        //extract data from result set
+        while (resultSet.next()) {
+            Double balance = resultSet.getDouble("balance");
+            wallet = new Wallet(id,balance);
+        }
+        //clean up
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+        if(wallet == null)
+            throw new FileNotFoundException("artist not found");
+        return wallet;
+    }
+    
+    
     
     //functions related to artists
     public static ArrayList<Artist> getArtists() throws SQLException, ClassNotFoundException{

@@ -5,14 +5,22 @@
  */
 package logic;
 
+import Config.Config;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
 import database.Database;
 import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import pojo.Artist;
 import pojo.Concert;
+import pojo.User;
 
 /**
  *
@@ -21,8 +29,18 @@ import pojo.Concert;
 public class Logic {
     
     //functions related to users
-    public static void login(String email, String password){
-        
+    public static String login(String email, String password) throws  SQLException, FileNotFoundException, IllegalArgumentException, UnsupportedEncodingException, Exception{
+        User user = Database.getUser(email);
+        if(!user.getPassword().equals(password))
+            throw new Exception("password incorrect");
+        Algorithm algorithm = Algorithm.HMAC256(Config.SECRET.getValue());
+        Map<String, Object> headerClaims = new HashMap();
+        headerClaims.put("user", user);
+        String token = JWT.create()
+            .withIssuer("auth0")
+            .withHeader(headerClaims)
+            .sign(algorithm);
+        return token;
     }
     
     //functions related to artists

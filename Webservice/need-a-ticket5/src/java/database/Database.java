@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import pojo.Artist;
 import pojo.Concert;
 import pojo.User;
+import pojo.enums.Role;
 
 /**
  *
@@ -42,26 +43,27 @@ public class Database {
     }
     
     //functions related to users
-    public static User getUser (String email) throws ClassNotFoundException, SQLException{
-                Connect();
-        PreparedStatement preparedStatement = connection.prepareStatement(statements.SELECT_ARTIST_BY_ID.getStatement());
+    public static User getUser (String email) throws ClassNotFoundException, SQLException, FileNotFoundException{
+        Connect();
+        PreparedStatement preparedStatement = connection.prepareStatement(statements.SELECZT_USER_BY_EMAIL.getStatement());
         preparedStatement.setString(1,email );
         ResultSet resultSet = preparedStatement.executeQuery();
-        Artist artist = null;
+        User user = null;
         //extract data from result set
         while (resultSet.next()) {
             Integer id = resultSet.getInt("id");
             String name = resultSet.getString("email");
-            String  = resultSet.getString("name");
-            User = new User (id,name);
+            String password  = resultSet.getString("password");
+            Role type = Role.valueOf(resultSet.getString("type").toUpperCase());
+            user = new User (id,email,password,type);
         }
         //clean up
         resultSet.close();
         preparedStatement.close();
         connection.close();
-        if(artist == null)
-            throw new FileNotFoundException("artist not found");
-        return artist;
+        if(user == null)
+            throw new FileNotFoundException("user not found");
+        return user;
     }
     
     

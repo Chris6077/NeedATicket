@@ -11,6 +11,9 @@ package database.statements;
  */
 public enum statements {
 
+    //statements related to users
+    SELECZT_USER_BY_EMAIL("select * from account where email LIKE ?"),
+    
     //statements related to artists
     SELECT_ARTISTS ("select * from artist"),
     SELECT_ARTIST_BY_ID ("select * from artist where id = ?"),

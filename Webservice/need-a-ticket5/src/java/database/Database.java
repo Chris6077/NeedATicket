@@ -38,7 +38,6 @@ public class Database {
     static final String PASS = "d5a";
     
     public static void Connect() throws ClassNotFoundException, SQLException{
-    
         DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
         connection = DriverManager.getConnection(DB_URL,USER,PASS);
     }

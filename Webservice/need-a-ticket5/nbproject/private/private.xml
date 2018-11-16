@@ -4,11 +4,18 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/Webservice/need-a-ticket5/src/java/pojo/User.java</file>
+            <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/Webservice/need-a-ticket5/src/java/routes/TicketsResource.java</file>
+            <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/Webservice/need-a-ticket5/src/java/filter/BearerTokenFilter.java</file>
+            <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/Webservice/need-a-ticket5/src/java/routes/UserResource.java</file>
+            <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/Webservice/need-a-ticket5/src/java/database/statements/statements.java</file>
             <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/Webservice/need-a-ticket5/src/java/database/Database.java</file>
             <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/Webservice/need-a-ticket5/src/java/pojo/enums/Role.java</file>
+            <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/Webservice/need-a-ticket5/src/java/filter/JWTFilter.java</file>
             <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/Webservice/need-a-ticket5/src/java/logic/Logic.java</file>
-            <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/Webservice/need-a-ticket5/src/java/routes/UserResource.java</file>
+            <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/Webservice/need-a-ticket5/src/java/routes/ConcertsResource.java</file>
             <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/Webservice/need-a-ticket5/src/java/routes/ArtistResource.java</file>
+            <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/Webservice/need-a-ticket5/src/java/Config/Config.java</file>
+            <file>file:/C:/Users/Julian/Documents/GitHub/NeedATicket/Webservice/need-a-ticket5/src/java/interfaces/RequiresJWT.java</file>
         </group>
     </open-files>
 </project-private>

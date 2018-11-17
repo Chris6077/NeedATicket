@@ -1,33 +1,25 @@
 package me.projectx.needaticket;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import me.projectx.needaticket.adapter.AdapterListViewConcerts;
-import me.projectx.needaticket.adapter.AdapterListViewTickets;
+import me.projectx.needaticket.adapter.AdapterListViewTicket;
 import me.projectx.needaticket.asynctask.TaskGetMyTickets;
 import me.projectx.needaticket.handler.HandlerState;
-import me.projectx.needaticket.interfaces.InterfaceGetTickets;
-import me.projectx.needaticket.InterfaceTaskDefault;
+import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.listener.ListenerCreateTicket;
 import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.logging.Handler;
 
-public class TicketListActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
+public class TicketsActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
 
     private DrawerLayout mdl;
     private ActionBarDrawerToggle toggle;

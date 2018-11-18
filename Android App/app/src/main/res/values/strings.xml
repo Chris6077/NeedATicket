@@ -14,4 +14,13 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+    <!-- Strings related to asynctasks -->
+    <string name="webservice_get_my_tickets_url">https://www.bashit.me/</string>
+    <string name="webservice_login_url">https://www.bashit.me/</string>
+    <string name="webservice_register_url">https://www.bashit.me/</string>
+
+    <!-- Strings related to actionbar -->
+    <string name="actionbar_open">Open</string>
+    <string name="actionbar_close">Close</string>
 </resources>

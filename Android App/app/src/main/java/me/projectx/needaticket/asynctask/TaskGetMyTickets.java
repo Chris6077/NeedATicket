@@ -17,11 +17,11 @@ import java.util.Collection;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.pojo.Ticket;
 
-public class TaskGetTickets extends AsyncTask<Object, Object, ArrayList<Ticket>> {
+public class TaskGetMyTickets extends AsyncTask<Object, Object, ArrayList<Ticket>> {
     private String url;
     private InterfaceTaskDefault listener;
 
-    public TaskGetTickets(String url, InterfaceTaskDefault listener) {
+    public TaskGetMyTickets(String url, InterfaceTaskDefault listener) {
         this.setUrl(url);
         this.setListener(listener);
     }

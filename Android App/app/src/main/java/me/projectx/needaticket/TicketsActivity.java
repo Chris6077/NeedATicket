@@ -13,9 +13,9 @@ import me.projectx.needaticket.adapter.AdapterListViewTicket;
 import me.projectx.needaticket.asynctask.TaskGetMyTickets;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
-import me.projectx.needaticket.listener.ListenerCreateTicket;
 import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
+import me.projectx.needaticket.pojo.Ticket;
 
 import java.util.ArrayList;
 
@@ -60,7 +60,7 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
     public void onPostExecute(Object result, Class resource) {
         try{
             swipeRefreshLayout.setRefreshing(false);
-            ArrayList<SlimTicket> tickets = (ArrayList<SlimTicket>) result;
+            ArrayList<Ticket> tickets = (ArrayList<Ticket>) result;
             fillList(tickets);
         }catch(Exception error){
             HandlerState.handle(error,getApplicationContext());
@@ -102,7 +102,7 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
     }
 
 
-    private void fillList(ArrayList<SlimTicket> tickets) throws Exception {
+    private void fillList(ArrayList<Ticket> tickets) throws Exception {
         if(tickets == null) {
             throw new Exception("no Content found");
         }else {
@@ -113,7 +113,7 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
 
     private void getTickets(){
         try{
-            TaskGetTickets get_tickets = new TaskGetTickets(getString(R.string.webservice_get_Tickets_url), this);
+            TaskGetMyTickets get_tickets = new TaskGetMyTickets(getString(R.string.webservice_get_my_tickets_url);
             get_tickets.execute();
         }catch(Exception error){
             HandlerState.handle(error,this);

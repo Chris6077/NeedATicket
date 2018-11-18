@@ -1037,6 +1037,7 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable shadow_box
+drawable ticket_price
 drawable ticket_seats
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -1157,6 +1158,7 @@ id list_item_concert_name
 id list_item_genre
 id list_item_header_title
 id list_item_location
+id list_item_price
 id list_item_seats
 id list_item_ticket_price
 id list_item_ticket_seats
@@ -1372,6 +1374,7 @@ mipmap ic_launcher
 mipmap ic_launcher_round
 raw c1
 raw c2
+string APIKEY
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description
@@ -1442,6 +1445,7 @@ string prompt_email
 string prompt_password
 string search_menu_title
 string status_bar_notification_info_overflow
+string uID
 string webservice_get_my_tickets_url
 string webservice_login_url
 string webservice_register_url

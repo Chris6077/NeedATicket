@@ -1,5 +1,6 @@
 package me.projectx.needaticket.asynctask;
 
+import android.content.res.Resources;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
@@ -14,6 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import me.projectx.needaticket.R;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.pojo.Ticket;
 
@@ -77,8 +79,8 @@ public class TaskGetMyTickets extends AsyncTask<Object, Object, ArrayList<Ticket
 
         try{
             conn.setRequestMethod("GET");
-            conn.setRequestProperty("API_KEY", "dmFsaTEyMzRpMjMwOGhnaW9zZ2Rqb2lqY3hvaTgwN");
-            conn.setRequestProperty("uID", "5b2776116358aa0004540d92");
+            conn.setRequestProperty("API_KEY", Resources.getSystem().getString(R.string.APIKEY));
+            conn.setRequestProperty("uID", Resources.getSystem().getString(R.string.uID));
 
             reader = new BufferedReader(new InputStreamReader(
                     conn.getInputStream()));

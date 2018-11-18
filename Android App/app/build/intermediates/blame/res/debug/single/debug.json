@@ -104,12 +104,12 @@
         "source": "/home/anonymous/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/cceb637f3dc30279f267f73139658972/res/drawable-hdpi-v4/abc_btn_radio_to_on_mtrl_015.png"
     },
     {
-        "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/drawable-v21_avd_hide_password.xml.flat",
-        "source": "/home/anonymous/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/e663f062a9cadcf5898be1f01e42ce60/res/drawable-v21/avd_hide_password.xml"
-    },
-    {
         "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/layout_design_text_input_password_icon.xml.flat",
         "source": "/home/anonymous/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/e663f062a9cadcf5898be1f01e42ce60/res/layout/design_text_input_password_icon.xml"
+    },
+    {
+        "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/drawable-v21_avd_hide_password.xml.flat",
+        "source": "/home/anonymous/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/e663f062a9cadcf5898be1f01e42ce60/res/drawable-v21/avd_hide_password.xml"
     },
     {
         "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/drawable_logout.png.flat",
@@ -252,12 +252,12 @@
         "source": "/home/anonymous/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/e663f062a9cadcf5898be1f01e42ce60/res/drawable-hdpi-v4/design_ic_visibility.png"
     },
     {
-        "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_normal.9.png.flat",
-        "source": "/home/anonymous/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/230c009a72de99207ce0d0cfc7608b08/res/drawable-mdpi-v4/notification_bg_normal.9.png"
-    },
-    {
         "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/drawable_ticket_seats.png.flat",
         "source": "/media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/res/drawable/ticket_seats.png"
+    },
+    {
+        "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_normal.9.png.flat",
+        "source": "/home/anonymous/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/230c009a72de99207ce0d0cfc7608b08/res/drawable-mdpi-v4/notification_bg_normal.9.png"
     },
     {
         "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_list_selector_disabled_holo_dark.9.png.flat",
@@ -336,12 +336,12 @@
         "source": "/home/anonymous/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/cceb637f3dc30279f267f73139658972/res/drawable/abc_ratingbar_material.xml"
     },
     {
-        "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/color_abc_primary_text_material_light.xml.flat",
-        "source": "/home/anonymous/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/cceb637f3dc30279f267f73139658972/res/color/abc_primary_text_material_light.xml"
-    },
-    {
         "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/drawable-ldrtl-xxhdpi-v17_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
         "source": "/home/anonymous/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/cceb637f3dc30279f267f73139658972/res/drawable-ldrtl-xxhdpi-v17/abc_ic_menu_copy_mtrl_am_alpha.png"
+    },
+    {
+        "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/color_abc_primary_text_material_light.xml.flat",
+        "source": "/home/anonymous/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/cceb637f3dc30279f267f73139658972/res/color/abc_primary_text_material_light.xml"
     },
     {
         "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/layout_select_dialog_singlechoice_material.xml.flat",
@@ -536,16 +536,16 @@
         "source": "/home/anonymous/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/cceb637f3dc30279f267f73139658972/res/drawable-xxhdpi-v4/abc_list_pressed_holo_light.9.png"
     },
     {
+        "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/layout_listview_item_concert.xml.flat",
+        "source": "/media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/res/layout/listview_item_concert.xml"
+    },
+    {
         "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/color_mtrl_text_btn_text_color_selector.xml.flat",
         "source": "/home/anonymous/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/e663f062a9cadcf5898be1f01e42ce60/res/color/mtrl_text_btn_text_color_selector.xml"
     },
     {
         "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/drawable_abc_ratingbar_small_material.xml.flat",
         "source": "/home/anonymous/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/cceb637f3dc30279f267f73139658972/res/drawable/abc_ratingbar_small_material.xml"
-    },
-    {
-        "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/layout_listview_item_concert.xml.flat",
-        "source": "/media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/res/layout/listview_item_concert.xml"
     },
     {
         "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_abc_list_pressed_holo_dark.9.png.flat",
@@ -726,6 +726,10 @@
     {
         "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_list_selector_disabled_holo_light.9.png.flat",
         "source": "/home/anonymous/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/cceb637f3dc30279f267f73139658972/res/drawable-hdpi-v4/abc_list_selector_disabled_holo_light.9.png"
+    },
+    {
+        "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/drawable_ticket_price.png.flat",
+        "source": "/media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/res/drawable/ticket_price.png"
     },
     {
         "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/anim_abc_grow_fade_in_from_bottom.xml.flat",

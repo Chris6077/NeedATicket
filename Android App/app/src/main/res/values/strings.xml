@@ -28,4 +28,8 @@
     <string name="navmenu_concerts">Concerts</string>
     <string name="navmenu_my_tickets">My Tickets</string>
     <string name="navmenu_logout">Logout</string>
+
+    <!-- TEST -->
+    <string name="APIKEY">SIOFHIOERHGO325973298572398GJKDSH</string>
+    <string name="uID">u827539875923759237</string>
 </resources>

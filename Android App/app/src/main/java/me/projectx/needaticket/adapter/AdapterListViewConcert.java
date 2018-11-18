@@ -17,6 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import me.projectx.needaticket.ConcertActivity;
+import me.projectx.needaticket.R;
 import me.projectx.needaticket.listener.ListenerDoubleTap;
 import me.projectx.needaticket.pojo.Artist;
 import me.projectx.needaticket.pojo.Concert;
@@ -47,9 +48,9 @@ public class AdapterListViewConcert extends ArrayAdapter<Concert> {
         Concert concert = this.data.get(position);
         System.out.println(concert);
         LayoutInflater inflater = (LayoutInflater) this.getAppCompatActivityResource().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.listview_item_event, parent, false);
+        View rowView = inflater.inflate(R.layout.listview_item_concert, parent, false);
         TextView header = (TextView) rowView.findViewById(R.id.list_item_concert_name);
-        TextView genre = (TextView) rowView.findViewById(R.id.list_item_genre);
+        TextView genre = (TextView) rowView.findViewById(R.id.list_item_concert_genre);
         TextView artist = (TextView) rowView.findViewById(R.id.list_item_concert_artist);
         String artists = "";
         for(Artist a : concert.getArtists()){
@@ -66,7 +67,7 @@ public class AdapterListViewConcert extends ArrayAdapter<Concert> {
     }
 
     private void setUpIconCategory(View rowView, TicketType ticketType){
-        ImageView imageview_header_image_category = (ImageView) rowView.findViewById(R.id.category_image_event_list_item);
+        ImageView imageview_header_image_category = (ImageView) rowView.findViewById(R.id.category_image_concert_list_item);
         switch (ticketType){
             case CONCERT:
                 imageview_header_image_category.setImageResource(R.drawable.category_concert);

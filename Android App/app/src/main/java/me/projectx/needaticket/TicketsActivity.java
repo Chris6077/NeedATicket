@@ -113,7 +113,7 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
 
     private void getTickets(){
         try{
-            TaskGetMyTickets get_tickets = new TaskGetMyTickets(getString(R.string.webservice_get_my_tickets_url);
+            TaskGetMyTickets get_tickets = new TaskGetMyTickets(getString(R.string.webservice_get_my_tickets_url),this);
             get_tickets.execute();
         }catch(Exception error){
             HandlerState.handle(error,this);

@@ -93,6 +93,6 @@ public class Ticket {
 
     public String getSeats() {
         //ToDo implement
-
+        return "";
     }
 }

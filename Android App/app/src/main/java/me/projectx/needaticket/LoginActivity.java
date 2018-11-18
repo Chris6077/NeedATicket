@@ -175,10 +175,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void showTickets() {
-        final Intent register_activity = new Intent(this, TicketsActivity.class);
+        final Intent mytickets_activity = new Intent(this, TicketsActivity.class);
         try{
             finish();
-            startActivity(register_activity);
+            startActivity(mytickets_activity);
         } catch (Exception e){
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }

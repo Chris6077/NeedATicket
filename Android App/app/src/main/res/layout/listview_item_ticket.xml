@@ -32,22 +32,29 @@
                 android:id="@+id/list_item_ticket_title"
                 android:textSize="20sp"
                 android:layout_gravity="center"
-                android:text="Ticket"
+                android:text="Ticket Title"
                 android:textColor="#000000"
                 android:layout_marginLeft="20dp"
                 />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/list_item_price"
+                android:src="@drawable/ticket_price"
+                android:layout_marginLeft="47dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:textSize="17sp"
                 android:id="@+id/list_item_ticket_price"
                 android:transitionName="text_view_profile"
-                android:text="price"
-                android:layout_marginLeft="50dp"/>
+                android:text="Price €"
+                android:layout_marginLeft="10dp"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -64,13 +71,13 @@
             android:layout_height="25dp"
             android:id="@+id/list_item_seats"
             android:src="@drawable/ticket_seats"
-            android:layout_marginLeft="50dp" />
+            android:layout_marginLeft="47dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/list_item_ticket_seats"
-            android:textSize="17sp"
             android:gravity="center"
+            android:text="Seats"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             />

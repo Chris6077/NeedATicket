@@ -64,10 +64,10 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
         ImageView imageview_header_image_category = (ImageView) rowView.findViewById(R.id.category_image_ticket_list_item);
         switch (ticketType){
             case CONCERT:
-                imageview_header_image_category.setImageResource(R.drawable.category_concert);
+                imageview_header_image_category.setImageResource(R.drawable.category_ticket_concert);
                 break;
             case FESTIVAL:
-                imageview_header_image_category.setImageResource(R.drawable.category_festival);
+                imageview_header_image_category.setImageResource(R.drawable.category_ticket_festival);
                 break;
         }
     }

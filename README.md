@@ -16,8 +16,9 @@ This group of applications will act as a platform for concert ticket sales. Both
 # Android APP for customers
 ## Links
 [Repository](https://github.com/Chris6077/NeedATicket/tree/master/Android%20App)
-## Tools
+## Tools and Frameworks
 * Android Studio
+* GSON
 
 # Java APP for vendors
 ## Links

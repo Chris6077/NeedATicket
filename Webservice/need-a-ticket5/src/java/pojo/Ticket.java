@@ -5,10 +5,68 @@
  */
 package pojo;
 
+import java.util.ArrayList;
+import pojo.enums.TicketType;
+
 /**
  *
  * @author Julian
  */
 public class Ticket {
     private Integer id;
+    private TicketType ticketType;
+    private int price;
+    private User seller;
+    private User buyer;
+    private ArrayList<Concert> concerts; 
+
+    public Ticket(Integer id, TicketType ticketType, int price, User seller, User buyer) {
+        this.id = id;
+        this.ticketType = ticketType;
+        this.price = price;
+        this.seller = seller;
+        this.buyer = buyer;
+    }
+
+    public TicketType getTicketType() {
+        return ticketType;
+    }
+
+    public void setTicketType(TicketType ticketType) {
+        this.ticketType = ticketType;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public User getSeller() {
+        return seller;
+    }
+
+    public void setSeller(User seller) {
+        this.seller = seller;
+    }
+
+    public User getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(User buyer) {
+        this.buyer = buyer;
+    }
+
+    public ArrayList<Concert> getConcerts() {
+        return concerts;
+    }
+
+    public void setConcerts(Concert concert) {
+        this.concerts.add(concert);
+    }
+    
+        
 }

@@ -32,7 +32,10 @@ public enum statements {
     SELECT_CONCERTS ("select * from concert"),
     SELECT_CONCERT_BY_ID ("select * from concert where id = ?"), 
     INSERT_CONCERT ("insert into concert values( null, ? , ? , ? , ? , ? )"),
-    UPDATE_CONCERT ("update concert set title = ?, cdate = ?, genre = ?, address = ?, id_artist = ? where id = ?");
+    UPDATE_CONCERT ("update concert set title = ?, cdate = ?, genre = ?, address = ?, id_artist = ? where id = ?"),
+    
+    //statements related to tickets
+    SElECT_TICKETS ("select * from ticket");
     
     private final String statement;
     

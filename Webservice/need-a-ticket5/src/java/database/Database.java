@@ -17,9 +17,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import pojo.Artist;
 import pojo.Concert;
+import pojo.Ticket;
 import pojo.User;
 import pojo.Wallet;
 import pojo.enums.Role;
+import pojo.enums.TicketType;
 
 /**
  *
@@ -132,8 +134,26 @@ public class Database {
     
     
     //functions related to tickets
-    public static ArrayList<Artist> getTickets() throws SQLException, ClassNotFoundException{
-        return null;
+    public static ArrayList<Ticket> getTickets() throws SQLException, ClassNotFoundException{
+        Connect();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(statements.SElECT_TICKETS.getStatement());
+        ArrayList<Ticket> tickets = new ArrayList<Ticket>();
+        //extract data from result set
+        while(resultSet.next()){
+            Integer id = resultSet.getInt("id");
+            String type = resultSet.getString("type");
+            int price = resultSet.getInt("PRICE");
+            int sellerId = resultSet.getInt("ID_SELLER");
+            int buyerId = resultSet.getInt("ID_BUYER");
+
+            tickets.add(new Ticket(id, TicketType.CONCERT, price, new User(), new User()));
+        }
+        //clean up
+        resultSet.close();
+        statement.close();
+        connection.close();
+        return tickets;
     }
     
     

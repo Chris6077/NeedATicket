@@ -15,11 +15,13 @@ import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import pojo.Artist;
 import pojo.Concert;
+import pojo.Ticket;
 import pojo.User;
 
 /**
@@ -110,4 +112,8 @@ public class Logic {
         Database.updateConcert(new Concert(id,title,date,genre,address,new Artist(artistid,null)));
     }
 
+    public static List<Ticket> getTickets() throws SQLException, ClassNotFoundException {
+        return Database.getTickets();
+    }
+    
 }

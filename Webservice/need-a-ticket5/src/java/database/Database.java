@@ -131,6 +131,11 @@ public class Database {
     }
     
     
+    //functions related to tickets
+    public static ArrayList<Artist> getTickets() throws SQLException, ClassNotFoundException{
+        return null;
+    }
+    
     
     //functions related to artists
     public static ArrayList<Artist> getArtists() throws SQLException, ClassNotFoundException{

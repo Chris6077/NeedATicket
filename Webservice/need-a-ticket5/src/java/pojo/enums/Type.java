@@ -9,7 +9,7 @@ package pojo.enums;
  *
  * @author Marcel Judth
  */
-public enum TicketType {
+public enum Type {
     CONCERT,
     SPORTEVENT,
     EXHIBITION;

@@ -14,8 +14,8 @@ public enum statements {
     //statements related to users
     SELECT_USERS("select * from account"),
     SELECT_USER_BY_EMAIL ("select * from account where email LIKE ?"),
-    INSERT_USER ("insert into account values (?,?,?,?,1)"),
-    
+    SElECT_USER_BY_ID ("select * from account where id = ?"),
+    INSERT_USER ("insert into account values (?,?,?,?,1)"),    
     
     //statements realted to wallets
     INSERT_WALLET("insert into wallet values(null,?)"),
@@ -35,8 +35,11 @@ public enum statements {
     UPDATE_CONCERT ("update concert set title = ?, cdate = ?, genre = ?, address = ?, id_artist = ? where id = ?"),
     
     //statements related to tickets
-    SElECT_TICKETS ("select * from ticket");
-    
+    SElECT_TICKETS ("select * from ticket"),
+    SElECT_TICKET_BY_ID ("select * from ticket where id = ?"),
+    INSERT_TICKET ("insert into ticket values (null, ? , ?, ?, null)"),
+    DELETE_TICKET ("delete from ticket where id = ?");
+
     private final String statement;
     
     private statements(String name){

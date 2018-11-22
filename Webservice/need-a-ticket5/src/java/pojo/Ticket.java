@@ -6,7 +6,7 @@
 package pojo;
 
 import java.util.ArrayList;
-import pojo.enums.TicketType;
+import pojo.enums.Type;
 
 /**
  *
@@ -14,26 +14,26 @@ import pojo.enums.TicketType;
  */
 public class Ticket {
     private Integer id;
-    private TicketType ticketType;
+    private Type type;
     private int price;
     private User seller;
     private User buyer;
     private ArrayList<Concert> concerts; 
 
-    public Ticket(Integer id, TicketType ticketType, int price, User seller, User buyer) {
+    public Ticket(Integer id, Type ticketType, int price, User seller, User buyer) {
         this.id = id;
-        this.ticketType = ticketType;
+        this.type = ticketType;
         this.price = price;
         this.seller = seller;
         this.buyer = buyer;
     }
 
-    public TicketType getTicketType() {
-        return ticketType;
+    public Type getType() {
+        return type;
     }
 
-    public void setTicketType(TicketType ticketType) {
-        this.ticketType = ticketType;
+    public void setTicketType(Type ticketType) {
+        this.type = ticketType;
     }
 
     public int getPrice() {

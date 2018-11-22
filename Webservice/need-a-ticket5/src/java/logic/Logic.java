@@ -23,6 +23,7 @@ import pojo.Artist;
 import pojo.Concert;
 import pojo.Ticket;
 import pojo.User;
+import pojo.enums.Type;
 
 /**
  *
@@ -112,8 +113,20 @@ public class Logic {
         Database.updateConcert(new Concert(id,title,date,genre,address,new Artist(artistid,null)));
     }
 
-    public static List<Ticket> getTickets() throws SQLException, ClassNotFoundException {
+    public static List<Ticket> getTickets() throws SQLException, ClassNotFoundException, FileNotFoundException {
         return Database.getTickets();
     }
     
+    public static Ticket getTicket(int ticketid) throws ClassNotFoundException, SQLException, SQLException, FileNotFoundException{
+        return Database.getTicket(ticketid);
+    }
+    
+    public static void createTicket(String type, int price, int buyerID) throws ClassNotFoundException, SQLException, FileNotFoundException{
+        Ticket ticket = new Ticket(null, Type.valueOf(type.toUpperCase()), price, Database.getUser(buyerID), null);
+        Database.createTicket(ticket);
+    }
+    
+    public static void deleteTicket(int ticketid) throws ClassNotFoundException, SQLException{
+        Database.deletTicket(ticketid);
+    }
 }

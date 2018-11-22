@@ -21,7 +21,7 @@ import pojo.Ticket;
 import pojo.User;
 import pojo.Wallet;
 import pojo.enums.Role;
-import pojo.enums.TicketType;
+import pojo.enums.Type;
 
 /**
  *
@@ -69,16 +69,37 @@ public class Database {
     public static User getUser (String email) throws ClassNotFoundException, SQLException, FileNotFoundException{
         Connect();
         PreparedStatement preparedStatement = connection.prepareStatement(statements.SELECT_USER_BY_EMAIL.getStatement());
-        preparedStatement.setString(1,email );
+        preparedStatement.setString(1, email);
         ResultSet resultSet = preparedStatement.executeQuery();
         User user = null;
         //extract data from result set
         while (resultSet.next()) {
             Integer id = resultSet.getInt("id");
-            String name = resultSet.getString("email");
             String password  = resultSet.getString("password");
             Role type = Role.valueOf(resultSet.getString("type").toUpperCase());
             user = new User (id,email,password,type);
+        }
+        //clean up
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+        if(user == null)
+            throw new FileNotFoundException("user not found");
+        return user;
+    }
+    
+    public static User getUser(int id) throws SQLException, ClassNotFoundException, FileNotFoundException{
+        Connect();
+        PreparedStatement preparedStatement = connection.prepareStatement(statements.SElECT_USER_BY_ID.getStatement());
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        User user = null;
+        //extract data from result set
+        while (resultSet.next()) {
+            String email = resultSet.getString("email");
+            String password  = resultSet.getString("password");
+            Role type = Role.valueOf(resultSet.getString("type").toUpperCase());
+            user = new User (id, email, password, type);
         }
         //clean up
         resultSet.close();
@@ -128,13 +149,13 @@ public class Database {
         preparedStatement.close();
         connection.close();
         if(wallet == null)
-            throw new FileNotFoundException("artist not found");
+            throw new FileNotFoundException("wallet not found");
         return wallet;
     }
     
     
     //functions related to tickets
-    public static ArrayList<Ticket> getTickets() throws SQLException, ClassNotFoundException{
+    public static ArrayList<Ticket> getTickets() throws SQLException, ClassNotFoundException, FileNotFoundException{
         Connect();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(statements.SElECT_TICKETS.getStatement());
@@ -142,12 +163,13 @@ public class Database {
         //extract data from result set
         while(resultSet.next()){
             Integer id = resultSet.getInt("id");
-            String type = resultSet.getString("type");
+            Type type = Type.valueOf(resultSet.getString("type").toUpperCase());
             int price = resultSet.getInt("PRICE");
             int sellerId = resultSet.getInt("ID_SELLER");
             int buyerId = resultSet.getInt("ID_BUYER");
-
-            tickets.add(new Ticket(id, TicketType.CONCERT, price, new User(), new User()));
+            User seller = Database.getUser(sellerId);
+            User buyer = Database.getUser(buyerId);
+            tickets.add(new Ticket(id, type, price, seller, buyer));
         }
         //clean up
         resultSet.close();
@@ -156,6 +178,46 @@ public class Database {
         return tickets;
     }
     
+    public static Ticket getTicket(int id) throws ClassNotFoundException, SQLException, FileNotFoundException{
+        Connect();
+        PreparedStatement preparedStatement = connection.prepareStatement(statements.SElECT_TICKET_BY_ID.getStatement());
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Ticket ticket = null;
+        //extract data from result set
+        while (resultSet.next()) {
+            int price = resultSet.getInt("PRICE");
+            User seller = Database.getUser(resultSet.getInt("ID_SELLER"));
+            User buyer = Database.getUser(resultSet.getInt("ID_BUYER"));
+            Type type = Type.valueOf(resultSet.getString("type").toUpperCase());
+            ticket = new Ticket (id, type, price, buyer, seller);
+        }
+        //clean up
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+        if(ticket == null)
+            throw new FileNotFoundException("ticket not found");
+        return ticket;
+    }
+    
+    public static void createTicket(Ticket ticket) throws ClassNotFoundException, SQLException{
+        Connect();
+        PreparedStatement statement = connection.prepareStatement(statements.INSERT_TICKET.getStatement());
+        statement.setString(1, ticket.getType().toString());
+        statement.setInt(2, ticket.getPrice());
+        statement.setInt(3, ticket.getSeller().getId());
+        statement.executeUpdate();
+        connection.close();
+    }
+    
+    public static void deletTicket(int id) throws ClassNotFoundException, SQLException{
+        Connect();
+        PreparedStatement statement = connection.prepareStatement(statements.DELETE_TICKET.getStatement());
+        statement.setInt(1, id);
+        statement.executeUpdate();
+        connection.close();
+    }
     
     //functions related to artists
     public static ArrayList<Artist> getArtists() throws SQLException, ClassNotFoundException{

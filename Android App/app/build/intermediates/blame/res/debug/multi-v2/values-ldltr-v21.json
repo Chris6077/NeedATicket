@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ldltr-v21/values-ldltr-v21.xml",
+            "outputFile": "D:\\Documents\\GitHub\\NeedATicket\\Android App\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ldltr-v21\\values-ldltr-v21.xml",
             "map": [
                 {
-                    "source": "/home/anonymous/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/cceb637f3dc30279f267f73139658972/res/values-ldltr-v21/values-ldltr-v21.xml",
+                    "source": "C:\\Users\\Christian Winkler\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\1075ae049d73d89a250b9bca0f48b7d8\\res\\values-ldltr-v21\\values-ldltr-v21.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

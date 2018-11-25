@@ -1096,9 +1096,11 @@ id chronometer
 id clip_horizontal
 id clip_vertical
 id collapseActionView
+id concerts_list_fab_anchor
 id container
 id content
 id contentPanel
+id content_concerts_list
 id content_ticket_list
 id content_welcome
 id coordinator
@@ -1172,7 +1174,9 @@ id list_item_ticket_price
 id list_item_ticket_seats
 id list_item_ticket_seller
 id list_item_ticket_title
+id list_view_concerts_swipe_to_refresh_layout
 id list_view_tickets_swipe_to_refresh_layout
+id listview_concerts
 id listview_tickets
 id login_form
 id login_progress
@@ -1456,6 +1460,7 @@ string prompt_password
 string search_menu_title
 string status_bar_notification_info_overflow
 string uID
+string webservice_get_concerts_url
 string webservice_get_my_tickets_url
 string webservice_login_url
 string webservice_register_url

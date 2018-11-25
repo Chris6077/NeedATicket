@@ -26,6 +26,7 @@
         <activity
             android:name="me.projectx.needaticket.LoginActivity"
             android:label="@string/app_name" >
+https://www.mydealz.de/gutscheine/gratis-6er-musli-probierpaket-ab-9eur-bestellwert-1261611
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -45,6 +46,8 @@
             </intent-filter>
         </activity>
         <activity android:name="me.projectx.needaticket.TicketsActivity" >
+        </activity>
+        <activity android:name="me.projectx.needaticket.ConcertsActivity" >
         </activity>
 
         <provider

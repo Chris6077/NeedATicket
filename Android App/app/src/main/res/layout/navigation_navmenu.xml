@@ -10,5 +10,4 @@
         android:title="@string/navmenu_logout"
         android:icon="@drawable/logout">
     </item>
-
 </menu>

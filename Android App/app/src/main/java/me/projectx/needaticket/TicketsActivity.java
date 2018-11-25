@@ -28,8 +28,6 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
     private View progressView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    //super
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,21 +99,20 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-
     private void fillList(ArrayList<Ticket> tickets) throws Exception {
         if(tickets == null) {
             throw new Exception("no Content found");
-        }else {
+        } else {
             AdapterListViewTicket adapter = new AdapterListViewTicket(this, R.layout.listview_item_ticket, tickets);
             this.listView_tickets.setAdapter(adapter);
         }
     }
 
     private void getTickets(){
-        try{
+        try {
             TaskGetMyTickets get_tickets = new TaskGetMyTickets(getString(R.string.webservice_get_my_tickets_url),this);
             get_tickets.execute();
-        }catch(Exception error){
+        } catch(Exception error){
             HandlerState.handle(error,this);
         }
     }

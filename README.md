@@ -6,7 +6,7 @@ This group of applications will act as a platform for concert ticket sales. Both
 
 # [Weekly Log](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EVWIyvfUJz9GngEGW6lmbqABx9kWJooJ1uZkRGe397p05w?e=AGXQYS)
 
-# [Requirements] (https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EUjFprJmCJdIgAN7whjcOFkBiH8XCveoNxQ3UB9oFQDYPg?e=rfrKiP)
+# [Requirements](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EUjFprJmCJdIgAN7whjcOFkBiH8XCveoNxQ3UB9oFQDYPg?e=rfrKiP)
 
 # Developers
 

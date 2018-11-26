@@ -6,6 +6,8 @@ This group of applications will act as a platform for concert ticket sales. Both
 
 # [Weekly Log](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EVWIyvfUJz9GngEGW6lmbqABx9kWJooJ1uZkRGe397p05w?e=AGXQYS)
 
+# [Requirements] (https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EUjFprJmCJdIgAN7whjcOFkBiH8XCveoNxQ3UB9oFQDYPg?e=rfrKiP)
+
 # Developers
 
 * ### Berisa ([Val9000](https://github.com/Val9000) | [LOG](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EaywpY8L53dIrqwx0smyrDYB3zoYszAfeuJwvZiYw6LNEQ?e=l5l0AD)) - Android APP | Java APP

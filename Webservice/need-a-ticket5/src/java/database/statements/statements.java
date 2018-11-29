@@ -38,7 +38,12 @@ public enum statements {
     SElECT_TICKETS ("select * from ticket"),
     SElECT_TICKET_BY_ID ("select * from ticket where id = ?"),
     INSERT_TICKET ("insert into ticket values (null, ? , ?, ?, null)"),
-    DELETE_TICKET ("delete from ticket where id = ?");
+    DELETE_TICKET ("delete from ticket where id = ?"),
+    
+    //statements related to transactions
+    SElECT_TRANSACTIONS ("select * from transaction"),
+    INSERT_TRANSACTIONS ("insert into transaction values (null, ? , ?, ?, ?, ?)");
+    
 
     private final String statement;
     

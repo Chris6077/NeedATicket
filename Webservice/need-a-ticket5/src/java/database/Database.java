@@ -168,7 +168,9 @@ public class Database {
             int sellerId = resultSet.getInt("ID_SELLER");
             int buyerId = resultSet.getInt("ID_BUYER");
             User seller = Database.getUser(sellerId);
-            User buyer = Database.getUser(buyerId);
+            User buyer = null;
+            if(buyerId != 0)
+                buyer = Database.getUser(buyerId);
             tickets.add(new Ticket(id, type, price, seller, buyer));
         }
         //clean up

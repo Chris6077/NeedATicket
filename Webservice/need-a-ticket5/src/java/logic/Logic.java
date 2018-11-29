@@ -113,6 +113,7 @@ public class Logic {
         Database.updateConcert(new Concert(id,title,date,genre,address,new Artist(artistid,null)));
     }
 
+    //functions related to tickets
     public static List<Ticket> getTickets() throws SQLException, ClassNotFoundException, FileNotFoundException {
         return Database.getTickets();
     }
@@ -126,7 +127,15 @@ public class Logic {
         Database.createTicket(ticket);
     }
     
+    public static void buyTicket(int ticketid, int buyerid) throws ClassNotFoundException, SQLException, FileNotFoundException{
+        Ticket ticket = Database.getTicket(ticketid);
+        User buyer = Database.getUser(buyerid);
+        User seller = ticket.getSeller();
+    }
+    
     public static void deleteTicket(int ticketid) throws ClassNotFoundException, SQLException{
         Database.deletTicket(ticketid);
     }
+    
+    //functions related to transactions
 }

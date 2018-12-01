@@ -8,20 +8,20 @@ package logic;
 import Config.Config;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTCreationException;
 import database.Database;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import pojo.Artist;
 import pojo.Concert;
 import pojo.Ticket;
+import pojo.Transaction;
 import pojo.User;
 import pojo.enums.Type;
 
@@ -122,20 +122,39 @@ public class Logic {
         return Database.getTicket(ticketid);
     }
     
-    public static void createTicket(String type, int price, int buyerID) throws ClassNotFoundException, SQLException, FileNotFoundException{
-        Ticket ticket = new Ticket(null, Type.valueOf(type.toUpperCase()), price, Database.getUser(buyerID), null);
+    public static void createTicket(String type, int price, int buyerid) throws ClassNotFoundException, SQLException, FileNotFoundException{
+        Ticket ticket = new Ticket(null, Type.valueOf(type.toUpperCase()), price, Database.getUser(buyerid), null);
         Database.createTicket(ticket);
     }
     
-    public static void buyTicket(int ticketid, int buyerid) throws ClassNotFoundException, SQLException, FileNotFoundException{
+    public static void buyTicket(int ticketid, int buyerid, double amount) throws ClassNotFoundException, SQLException, FileNotFoundException, Exception{
         Ticket ticket = Database.getTicket(ticketid);
+        if(ticket.getBuyer() != null)
+            throw new Exception("Ticket has alreaedy been sold");
         User buyer = Database.getUser(buyerid);
-        User seller = ticket.getSeller();
+        User seller = Database.getUser(ticket.getSeller().getId());
+        ticket.setBuyer(buyer);
+        Transaction transaction = new Transaction(-1, amount, new Date(Calendar.getInstance().getTime().getTime()), buyer.getWallet(), seller.getWallet(), ticket);
+        Database.createTransaction(transaction);
+        buyer.getWallet().pay(amount);
+        seller.getWallet().receive(amount);
+        Database.updateWallet(buyer.getWallet());
+        Database.updateWallet(seller.getWallet());
+        Database.updateTicket(ticket);
+    }
+    
+    public static void updateTicket(String type, int price, int buyerid) throws SQLException, ClassNotFoundException, FileNotFoundException{
+        Ticket ticket = new Ticket(null,Type.valueOf(type.toUpperCase()), price, Database.getUser(buyerid), null);
+        Database.updateTicket(ticket);
     }
     
     public static void deleteTicket(int ticketid) throws ClassNotFoundException, SQLException{
-        Database.deletTicket(ticketid);
+        Database.deleteTicket(ticketid);
     }
     
     //functions related to transactions
+    
+    public static List<Transaction> getTransactions() throws ClassNotFoundException, SQLException, FileNotFoundException{
+        return Database.getTransactions();
+    }
 }

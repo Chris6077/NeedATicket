@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import pojo.Artist;
 import pojo.Concert;
 import pojo.Ticket;
+import pojo.Transaction;
 import pojo.User;
 import pojo.Wallet;
 import pojo.enums.Role;
@@ -41,7 +42,7 @@ public class Database {
     
     public static void Connect() throws ClassNotFoundException, SQLException{
         DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
-        connection = DriverManager.getConnection(DB_URL,USER,PASS);
+        connection = DriverManager.getConnection(DB_URL_EXT ,USER,PASS);
     }
     
     //functions related to users
@@ -99,7 +100,11 @@ public class Database {
             String email = resultSet.getString("email");
             String password  = resultSet.getString("password");
             Role type = Role.valueOf(resultSet.getString("type").toUpperCase());
-            user = new User (id, email, password, type);
+            int walletid = resultSet.getInt("id_wallet");
+            Wallet wallet = null;
+            if(walletid != 0)
+                wallet = Database.getWallet(walletid);
+            user = new User (id, email, password, type, wallet);    
         }
         //clean up
         resultSet.close();
@@ -153,6 +158,14 @@ public class Database {
         return wallet;
     }
     
+    public static void updateWallet(Wallet wallet) throws ClassNotFoundException, ClassNotFoundException, SQLException {
+        Connect();
+        PreparedStatement statement = connection.prepareStatement(statements.UPDATE_WALLET.getStatement());
+        statement.setDouble(1, wallet.getBalance());
+        statement.setInt(2, wallet.getId());
+        statement.executeUpdate();
+        connection.close();
+    }
     
     //functions related to tickets
     public static ArrayList<Ticket> getTickets() throws SQLException, ClassNotFoundException, FileNotFoundException{
@@ -190,9 +203,12 @@ public class Database {
         while (resultSet.next()) {
             int price = resultSet.getInt("PRICE");
             User seller = Database.getUser(resultSet.getInt("ID_SELLER"));
-            User buyer = Database.getUser(resultSet.getInt("ID_BUYER"));
+            int buyerid = resultSet.getInt("ID_BUYER");
+            User buyer = null;
+            if(buyerid != 0)
+                buyer = Database.getUser(buyerid);
             Type type = Type.valueOf(resultSet.getString("type").toUpperCase());
-            ticket = new Ticket (id, type, price, buyer, seller);
+            ticket = new Ticket (id, type, price, seller, buyer);
         }
         //clean up
         resultSet.close();
@@ -207,13 +223,25 @@ public class Database {
         Connect();
         PreparedStatement statement = connection.prepareStatement(statements.INSERT_TICKET.getStatement());
         statement.setString(1, ticket.getType().toString());
-        statement.setInt(2, ticket.getPrice());
+        statement.setDouble(2, ticket.getPrice());
         statement.setInt(3, ticket.getSeller().getId());
         statement.executeUpdate();
         connection.close();
     }
     
-    public static void deletTicket(int id) throws ClassNotFoundException, SQLException{
+    public static void updateTicket(Ticket ticket) throws ClassNotFoundException, SQLException, SQLException {
+        Connect();
+        PreparedStatement statement = connection.prepareStatement(statements.UPDATE_TICKET.getStatement());
+        statement.setString(1, ticket.getType().toString());
+        statement.setDouble(2, ticket.getPrice());
+        statement.setInt(3, ticket.getSeller().getId());
+        statement.setInt(4, ticket.getBuyer().getId());
+        statement.setInt(5, ticket.getId());
+        statement.executeUpdate();
+        connection.close();
+    }
+    
+    public static void deleteTicket(int id) throws ClassNotFoundException, SQLException{
         Connect();
         PreparedStatement statement = connection.prepareStatement(statements.DELETE_TICKET.getStatement());
         statement.setInt(1, id);
@@ -357,6 +385,42 @@ public class Database {
         statement.executeUpdate();
         connection.close();
     }
-    
 
+    //functions related to transactions
+    
+    public static ArrayList<Transaction> getTransactions() throws ClassNotFoundException, SQLException, FileNotFoundException{
+        Connect();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(statements.SElECT_TRANSACTIONS.getStatement());
+        ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+        //extract data from result set
+        while(resultSet.next()){
+            Integer id = resultSet.getInt("ID");
+            double amount = resultSet.getDouble("AMOUNT");
+            Date date = resultSet.getDate("CDATE");
+            Wallet payerWallet = Database.getWallet(resultSet.getInt("ID_PAYER_WALLET"));
+            Wallet recieverWallet = Database.getWallet(resultSet.getInt("ID_RECIEVER_WALLET"));
+            Ticket ticket = Database.getTicket(resultSet.getInt("ID_TICKET"));
+
+            transactions.add(new Transaction(id, amount, date, payerWallet, recieverWallet, ticket));
+        }
+        //clean up
+        resultSet.close();
+        statement.close();
+        connection.close();
+        return transactions;
+    }
+        
+    public static void createTransaction(Transaction transaction) throws SQLException, ClassNotFoundException {
+        Connect();
+        PreparedStatement statement = connection.prepareStatement(statements.INSERT_TRANSACTION.getStatement());
+        statement.setInt(1, transaction.getPayerWallet().getId());
+        statement.setInt(2, transaction.getReceiverWallet().getId());
+        statement.setInt(3, transaction.getTicket().getId());
+        statement.setDouble(4, transaction.getAmount());
+        statement.setDate(5, transaction.getDate());
+        statement.executeUpdate();
+        connection.close();
+    }
+    
 }

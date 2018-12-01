@@ -15,12 +15,12 @@ import pojo.enums.Type;
 public class Ticket {
     private Integer id;
     private Type type;
-    private int price;
+    private double price;
     private User seller;
     private User buyer;
     private ArrayList<Concert> concerts; 
 
-    public Ticket(Integer id, Type ticketType, int price, User seller, User buyer) {
+    public Ticket(Integer id, Type ticketType, double price, User seller, User buyer) {
         this.id = id;
         this.type = ticketType;
         this.price = price;
@@ -28,6 +28,10 @@ public class Ticket {
         this.buyer = buyer;
     }
 
+    public Integer getId() {
+        return id;
+    }
+    
     public Type getType() {
         return type;
     }
@@ -36,11 +40,11 @@ public class Ticket {
         this.type = ticketType;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

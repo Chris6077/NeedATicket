@@ -20,6 +20,7 @@ public enum statements {
     //statements realted to wallets
     INSERT_WALLET("insert into wallet values(null,?)"),
     SELECT_WALLET_BY_ID ("select * from wallet where id = ?"),
+    UPDATE_WALLET ("update wallet set balance = ? where id = ?"),
     
     //statements related to artists
     SELECT_ARTISTS ("select * from artist"),
@@ -39,10 +40,11 @@ public enum statements {
     SElECT_TICKET_BY_ID ("select * from ticket where id = ?"),
     INSERT_TICKET ("insert into ticket values (null, ? , ?, ?, null)"),
     DELETE_TICKET ("delete from ticket where id = ?"),
+    UPDATE_TICKET ("update ticket set type = ?, price = ?, id_seller = ?, id_buyer = ? where id = ?"),
     
     //statements related to transactions
     SElECT_TRANSACTIONS ("select * from transaction"),
-    INSERT_TRANSACTIONS ("insert into transaction values (null, ? , ?, ?, ?, ?)");
+    INSERT_TRANSACTION ("insert into transaction values (null, ? , ?, ?, ?, ?)");
     
 
     private final String statement;

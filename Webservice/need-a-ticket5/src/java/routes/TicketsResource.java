@@ -8,6 +8,8 @@ package routes;
 import com.google.gson.Gson;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
@@ -95,8 +97,18 @@ public class TicketsResource {
     @POST
     @Path("/{ticketid}/buy")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response buyTicket(@PathParam("ticketid") int ticketid, @PathParam("buyerID") int buyerid) {
-        Logic.buyTicket(ticketid, buyerid);
+    public Response buyTicket(@PathParam("ticketid") int ticketid, @FormParam("buyerid") int buyerid, @FormParam("amount") double amount) {
+        try {
+            Logic.buyTicket(ticketid, buyerid, amount);
+        } catch (ClassNotFoundException ex) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
+        } catch (SQLException ex) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
+        } catch (FileNotFoundException ex) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
+        } catch (Exception ex) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
+        }
         return Response.status(Response.Status.CREATED).entity(new Gson().toJson(new ResponseObject(null,"ticket successfuly bought."))).build();
     }
 

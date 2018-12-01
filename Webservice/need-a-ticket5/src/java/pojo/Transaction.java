@@ -13,13 +13,13 @@ import java.sql.Date;
  */
 public class Transaction {
     private int id;
-    private int amount;
+    private double amount;
     private Date date;
     private Wallet payerWallet;
     private Wallet receiverWallet;
     private Ticket ticket;
 
-    public Transaction(int id, int amount, Date date, Wallet payerWallet, Wallet receiverWallet, Ticket ticket) {
+    public Transaction(int id, double amount, Date date, Wallet payerWallet, Wallet receiverWallet, Ticket ticket) {
         this.id = id;
         this.amount = amount;
         this.date = date;
@@ -40,7 +40,7 @@ public class Transaction {
         return id;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 

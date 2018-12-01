@@ -17,6 +17,22 @@ public class Wallet {
         this.id = id;
         this.balance = balance;
     }
+    
+    public void pay(double amount) throws Exception{
+        if(this.balance < amount)
+            throw new Exception("not enough money");
+        this.balance = this.balance - amount;
+    }
+    
+    public void receive(double amount){
+        this.balance = this.balance + amount;
+    }
+    
+    public void payout(double amount) throws Exception{
+        if(this.balance < amount)
+            throw new Exception("not enough money");
+        this.balance = this.balance - amount;
+    }
 
     public Integer getId() {
         return id;
@@ -32,8 +48,5 @@ public class Wallet {
 
     public void setBalance(Double balance) {
         this.balance = balance;
-    }
-    
-    
-    
+    }    
 }

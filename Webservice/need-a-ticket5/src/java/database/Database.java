@@ -7,6 +7,7 @@ package database;
 
 import database.statements.statements;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -241,8 +242,10 @@ public class Database {
         connection.close();
     }
     
-    public static void deleteTicket(int id) throws ClassNotFoundException, SQLException{
+    public static void deleteTicket(int id) throws ClassNotFoundException, SQLException, FileNotFoundException, IOException{
         Connect();
+        if(Database.getTicket(id).getBuyer() != null)
+                throw new IOException("ticket has already been sold");
         PreparedStatement statement = connection.prepareStatement(statements.DELETE_TICKET.getStatement());
         statement.setInt(1, id);
         statement.executeUpdate();
@@ -411,8 +414,10 @@ public class Database {
         return transactions;
     }
         
-    public static void createTransaction(Transaction transaction) throws SQLException, ClassNotFoundException {
+    public static void createTransaction(Transaction transaction) throws SQLException, ClassNotFoundException, FileNotFoundException, IOException {
         Connect();
+        if(Database.getTicket(transaction.getTicket().getId()).getBuyer() != null)
+                throw new IOException("ticket has already been sold");
         PreparedStatement statement = connection.prepareStatement(statements.INSERT_TRANSACTION.getStatement());
         statement.setInt(1, transaction.getPayerWallet().getId());
         statement.setInt(2, transaction.getReceiverWallet().getId());

@@ -43,7 +43,7 @@ public enum statements {
     UPDATE_TICKET ("update ticket set type = ?, price = ?, id_seller = ?, id_buyer = ? where id = ?"),
     
     //statements related to transactions
-    SElECT_TRANSACTIONS ("select * from transaction"),
+        SElECT_TRANSACTIONS ("select * from transaction"),
     INSERT_TRANSACTION ("insert into transaction values (null, ? , ?, ?, ?, ?)");
     
 

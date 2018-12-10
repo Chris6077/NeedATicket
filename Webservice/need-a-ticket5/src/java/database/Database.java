@@ -42,7 +42,7 @@ public class Database {
     
     public static void Connect() throws ClassNotFoundException, SQLException{
         DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
-        connection = DriverManager.getConnection(DB_URL_EXT ,USER,PASS);
+        connection = DriverManager.getConnection(DB_URL ,USER,PASS);
     }
     
     //functions related to users

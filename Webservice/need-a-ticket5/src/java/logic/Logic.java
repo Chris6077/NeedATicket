@@ -23,6 +23,7 @@ import pojo.Concert;
 import pojo.Ticket;
 import pojo.Transaction;
 import pojo.User;
+import pojo.Wallet;
 import pojo.enums.Type;
 
 /**
@@ -153,8 +154,26 @@ public class Logic {
     }
     
     //functions related to transactions
-    
     public static List<Transaction> getTransactions() throws ClassNotFoundException, SQLException, FileNotFoundException{
         return Database.getTransactions();
     }
+    
+    public static List<Transaction> getTransactions(int userid) throws SQLException, ClassNotFoundException, FileNotFoundException {
+        User user = Database.getUser(userid);
+        return Database.getTransactions(user.getWallet().getId());
+    }
+    
+    //functions related to wallets
+    public static void uploadWallet(int walletid, double amount) throws SQLException, ClassNotFoundException, FileNotFoundException {
+        Wallet wallet = Database.getWallet(walletid);
+        wallet.receive(amount);
+        Database.updateWallet(Database.getWallet(walletid));
+    }
+
+    public static void cashout(int walletid, double amount) throws SQLException, FileNotFoundException, ClassNotFoundException, Exception {
+        Wallet wallet = Database.getWallet(walletid);
+        wallet.payout(amount);
+        Database.updateWallet(wallet);
+    }
+
 }

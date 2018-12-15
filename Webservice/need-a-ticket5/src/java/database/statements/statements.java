@@ -44,8 +44,8 @@ public enum statements {
     
     //statements related to transactions
     SElECT_TRANSACTIONS ("select * from transaction"),
+    SElECT_TRANSACTIONS_BY_WALLET ("select * from transaction where ID_PAYER_WALLET = ?"),
     INSERT_TRANSACTION ("insert into transaction values (null, ? , ?, ?, ?, ?)");
-    
 
     private final String statement;
     

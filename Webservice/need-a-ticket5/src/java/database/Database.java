@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import pojo.Artist;
 import pojo.Concert;
 import pojo.Ticket;
@@ -410,6 +411,31 @@ public class Database {
         connection.close();
         return transactions;
     }
+    
+     public static List<Transaction> getTransactions(int userid) throws SQLException, ClassNotFoundException, FileNotFoundException {
+         Connect();
+        PreparedStatement statement = connection.prepareStatement(statements.SElECT_TRANSACTIONS_BY_WALLET.getStatement());
+         System.out.println("aslkdfjaösdf" + userid);
+        statement.setInt(1, userid);
+        ResultSet resultSet = statement.executeQuery();
+        ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+        //extract data from result set
+        while(resultSet.next()){
+            Integer id = resultSet.getInt("ID");
+            double amount = resultSet.getDouble("AMOUNT");
+            Date date = resultSet.getDate("CDATE");
+            Wallet payerWallet = Database.getWallet(resultSet.getInt("ID_PAYER_WALLET"));
+            Wallet recieverWallet = Database.getWallet(resultSet.getInt("ID_RECIEVER_WALLET"));
+            Ticket ticket = Database.getTicket(resultSet.getInt("ID_TICKET"));
+
+            transactions.add(new Transaction(id, amount, date, payerWallet, recieverWallet, ticket));
+        }
+        //clean up
+        resultSet.close();
+        statement.close();
+        connection.close();
+        return transactions;
+    }
         
     public static void createTransaction(Transaction transaction) throws SQLException, ClassNotFoundException {
         Connect();
@@ -422,5 +448,5 @@ public class Database {
         statement.executeUpdate();
         connection.close();
     }
-    
+
 }

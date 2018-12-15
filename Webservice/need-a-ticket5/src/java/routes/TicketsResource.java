@@ -8,8 +8,6 @@ package routes;
 import com.google.gson.Gson;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
@@ -68,7 +66,7 @@ public class TicketsResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getTicket(@PathParam("ticketid") int ticketid) {
         try {
-            return Response.status(Response.Status.OK).entity(new Gson().toJson(new ResponseObject(Logic.getTicket(ticketid),null))).build();
+            return Response.status(Response.Status.FOUND).entity(new Gson().toJson(new ResponseObject(Logic.getTicket(ticketid),null))).build();
         } catch (ClassNotFoundException ex) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
         } catch (SQLException ex) {
@@ -100,6 +98,7 @@ public class TicketsResource {
     public Response buyTicket(@PathParam("ticketid") int ticketid, @FormParam("buyerid") int buyerid, @FormParam("amount") double amount) {
         try {
             Logic.buyTicket(ticketid, buyerid, amount);
+            return Response.status(Response.Status.CREATED).entity(new Gson().toJson(new ResponseObject(null,"ticket successfuly bought."))).build();
         } catch (ClassNotFoundException ex) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
         } catch (SQLException ex) {
@@ -109,7 +108,6 @@ public class TicketsResource {
         } catch (Exception ex) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
         }
-        return Response.status(Response.Status.CREATED).entity(new Gson().toJson(new ResponseObject(null,"ticket successfuly bought."))).build();
     }
 
     @DELETE
@@ -118,7 +116,7 @@ public class TicketsResource {
     public Response deleteTicket(@PathParam("ticketid") int ticketid) {
         try {
             Logic.deleteTicket(ticketid);
-            return Response.status(Response.Status.OK).entity(new Gson().toJson(new ResponseObject(null,"successfully deleted"))).build();
+            return Response.status(Response.Status.FOUND).entity(new Gson().toJson(new ResponseObject(null,"successfully deleted"))).build();
         } catch (ClassNotFoundException ex) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
         } catch (SQLException ex) {

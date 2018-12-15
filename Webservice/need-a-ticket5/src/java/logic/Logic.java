@@ -10,6 +10,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import database.Database;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -149,7 +150,7 @@ public class Logic {
         Database.updateTicket(ticket);
     }
     
-    public static void deleteTicket(int ticketid) throws ClassNotFoundException, SQLException{
+    public static void deleteTicket(int ticketid) throws ClassNotFoundException, SQLException, IOException{
         Database.deleteTicket(ticketid);
     }
     

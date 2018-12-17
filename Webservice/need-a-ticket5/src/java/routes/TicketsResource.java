@@ -6,6 +6,7 @@
 package routes;
 
 import com.google.gson.Gson;
+import interfaces.RequiresJWT;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -77,6 +78,7 @@ public class TicketsResource {
         }  
     }
     
+    @RequiresJWT
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
@@ -93,6 +95,7 @@ public class TicketsResource {
         }
     }
     
+    @RequiresJWT
     @POST
     @Path("/{ticketid}/buy")
     @Produces(MediaType.APPLICATION_JSON)
@@ -107,7 +110,7 @@ public class TicketsResource {
         } catch (FileNotFoundException ex) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
         } catch (Exception ex) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
         }
     }
 

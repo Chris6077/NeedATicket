@@ -1,0 +1,32 @@
+title Payout balance Java
+
+Seller -> Program: payout(amount)
+activate Seller
+activate Program
+Program -> WebService: payout(amount, uID)
+activate WebService
+WebService -> Database: select(uID)
+activate Database
+Database --> WebService: wID
+deactivate Database 
+alt uID != error
+WebService -> Database: select (wID)
+activate Database 
+Database --> WebService: balance
+deactivate Database 
+WebService -> Database: update(wID, balance - amount)
+activate Database 
+Database --> WebService: message
+deactivate Database 
+alt message == error
+WebService --> Program: error
+Program --> Seller: error
+else
+WebService --> Program: balance - amount
+Program --> Seller: new balance
+end alt
+WebService --> Program: error
+deactivate WebService
+Program --> Seller: error
+deactivate Program
+deactivate Seller

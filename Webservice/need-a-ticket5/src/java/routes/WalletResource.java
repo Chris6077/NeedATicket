@@ -6,6 +6,7 @@
 package routes;
 
 import com.google.gson.Gson;
+import interfaces.RequiresJWT;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import javax.ws.rs.core.Context;
@@ -44,6 +45,7 @@ public class WalletResource {
      * @param amount
      * @return an instance of java.lang.String
      */
+    @RequiresJWT
     @POST
     @Path("/upload")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -67,6 +69,7 @@ public class WalletResource {
      * @param amount
      * @return an instance of java.lang.String
      */
+    @RequiresJWT
     @POST
     @Path("/cashout")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -74,7 +77,7 @@ public class WalletResource {
     public Response cashout(@FormParam("walletid") int walletid, @FormParam("amount") double amount) {
         try {
             Logic.cashout(walletid, amount);
-            return Response.status(Response.Status.CREATED).entity(new Gson().toJson(new ResponseObject(null, "wallet successfully uploaded"))).build();
+            return Response.status(Response.Status.CREATED).entity(new Gson().toJson(new ResponseObject(null, "cash successfully withdrawn"))).build();
         } catch (SQLException ex) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
         } catch (ClassNotFoundException ex) {

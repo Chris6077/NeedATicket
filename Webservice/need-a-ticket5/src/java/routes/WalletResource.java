@@ -45,6 +45,7 @@ public class WalletResource {
      * @param amount
      * @return an instance of java.lang.String
      */
+    @RequiresJWT
     @POST
     @Path("/upload")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)

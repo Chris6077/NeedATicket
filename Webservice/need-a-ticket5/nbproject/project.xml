@@ -49,7 +49,7 @@
             <extension file="rest-build.xml" id="rest.2"/>
         </buildExtensions>
         <data xmlns="http://www.netbeans.org/ns/web-project/3">
-            <name>need-a-ticket5</name>
+            <name>need-a-ticket-webservice</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library dirs="200">

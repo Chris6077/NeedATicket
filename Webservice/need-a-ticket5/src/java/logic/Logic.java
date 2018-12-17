@@ -168,7 +168,7 @@ public class Logic {
     public static void uploadWallet(int walletid, double amount) throws SQLException, ClassNotFoundException, FileNotFoundException {
         Wallet wallet = Database.getWallet(walletid);
         wallet.receive(amount);
-        Database.updateWallet(Database.getWallet(walletid));
+        Database.updateWallet(wallet);
     }
 
     public static void cashout(int walletid, double amount) throws SQLException, FileNotFoundException, ClassNotFoundException, Exception {

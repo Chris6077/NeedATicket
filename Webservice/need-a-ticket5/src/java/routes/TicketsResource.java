@@ -6,6 +6,7 @@
 package routes;
 
 import com.google.gson.Gson;
+import interfaces.RequiresJWT;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -77,6 +78,7 @@ public class TicketsResource {
         }  
     }
     
+    @RequiresJWT
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
@@ -93,6 +95,7 @@ public class TicketsResource {
         }
     }
     
+    @RequiresJWT
     @POST
     @Path("/{ticketid}/buy")
     @Produces(MediaType.APPLICATION_JSON)

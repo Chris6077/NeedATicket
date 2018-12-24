@@ -33,4 +33,5 @@
     <string name="APIKEY">SIOFHIOERHGO325973298572398GJKDSH</string>
     <string name="uID">u827539875923759237</string>
     <string name="webservice_get_concerts_url">https://www.bashit.me</string>
+    <string name="webservice_get_concert_url">https://www.bashit.me</string>
 </resources>

@@ -1013,6 +1013,7 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable edit
 drawable firstframe
 drawable ic_account_circle_black_24dp
 drawable ic_launcher_background
@@ -1051,6 +1052,7 @@ id FUNCTION
 id META
 id SHIFT
 id SYM
+id User_header_img
 id action_bar
 id action_bar_activity_content
 id action_bar_container
@@ -1075,6 +1077,7 @@ id alertTitle
 id all
 id always
 id anchor
+id appBar
 id async
 id auto
 id barrier
@@ -1096,6 +1099,7 @@ id chronometer
 id clip_horizontal
 id clip_vertical
 id collapseActionView
+id collapsingToolbar_user
 id concert_list_fab_anchor
 id concerts_list_fab_anchor
 id container
@@ -1103,6 +1107,7 @@ id content
 id contentPanel
 id content_concerts_list
 id content_ticket_list
+id content_user
 id content_welcome
 id coordinator
 id custom
@@ -1127,6 +1132,7 @@ id etPasswordConfirm
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
+id fab_editProfile
 id fill
 id fill_horizontal
 id fill_vertical
@@ -1278,6 +1284,7 @@ id time
 id title
 id titleDividerNoCustom
 id title_template
+id toolbar
 id top
 id topPanel
 id touch_outside
@@ -1290,6 +1297,7 @@ id uniform
 id unlabeled
 id up
 id useLogo
+id user_header
 id videoView
 id view_offset_helper
 id visible

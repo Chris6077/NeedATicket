@@ -55,8 +55,6 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
         price.setText(ticket.getPrice() + "€");
         setUpIconCategory(rowView,ticket.getType());
         header.setText(ticket.getTitle());
-        this.setUpRowViewListener(rowView, ticket);
-        this.setUpTitleListener(rowView, ticket);
         return rowView;
     }
 
@@ -70,39 +68,5 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
                 imageview_header_image_category.setImageResource(R.drawable.category_ticket_festival);
                 break;
         }
-    }
-
-    private void setUpRowViewListener(final View rowView, final Ticket ticket){
-
-        rowView.setOnClickListener(new ListenerDoubleTap() {
-
-            @Override
-            public void onSingleClick(View v) {
-                changeActivity(rowView, ticket);
-            }
-
-            @Override
-            public void onDoubleClick(View v) {
-                changeActivity(rowView, ticket);
-            }
-        });
-    }
-
-    private void setUpTitleListener(View rowView, final Ticket ticket){
-        changeActivity(rowView, ticket);
-    }
-
-    private void changeActivity(View rowView, final Ticket ticket){
-        final LinearLayout content_title = (LinearLayout) rowView.findViewById(R.id.list_item_header_title);
-        content_title.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent buy_activity = new Intent(getAppCompatActivityResource(), BuyActivity.class);
-                        buy_activity.putExtra("tID", ticket.getId());
-                        getAppCompatActivityResource().startActivity(buy_activity);
-                    }
-                }
-        );
     }
 }

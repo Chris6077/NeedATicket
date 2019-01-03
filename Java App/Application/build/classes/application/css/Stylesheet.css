@@ -1,0 +1,131 @@
+.parent{
+/*    -fx-background-color: #303138;*/
+}
+
+.close-btn{
+    -fx-background-color: transparent;
+}
+.close-btn:hover{
+    -fx-background-color: #E81123;
+}
+
+.createArtistName-tf{
+-fx-text-fill: black;
+}
+
+.min-btn{
+    -fx-background-color: transparent;
+}
+.min-btn:hover{
+    -fx-background-color: #171717;
+}
+.txtfield{
+    -fx-background-color: #3B4148;
+    -fx-background-radius: 0px;
+    -fx-prompt-text-fill: #ADADAD;
+    -fx-text-fill: #FFFFFF;
+}
+.txtfield:focused{
+    -fx-background-color:  #292C34;
+    -fx-background-radius: 0px;
+    -fx-prompt-text-fill: #ADADAD;
+    -fx-text-fill: #FFFFFF;
+}
+.login-btn{
+    -fx-background-color: #EA4C88;
+    -fx-text-fill: #FFFFFF;
+}
+
+
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+
+.jfx-button {
+    -jfx-button-type: RAISED;
+    -fx-background-color: white;
+    -fx-text-fill: red;
+    -fx-prompt-text-fill: WHITE;
+}
+
+.jfx-text-field, .jfx-password-field {
+    -fx-prompt-text-fill: WHITE;
+    -jfx-focus-color: WHITE;
+    -jfx-unfocus-color: WHITE;
+}
+
+
+.hyperlink:hover {
+    -fx-underline: true;
+    -fx-text-fill: white;
+}
+
+
+.pane {
+    -fx-background-size: 1200 900;
+    -fx-border-radius: 10 10 0 0;
+    -fx-background-radius: 10 10 0 0;
+    -fx-border-color: #FC3D44;
+}
+
+
+/*Dialog styling*/
+.dialog-button{
+    -fx-backgroud : green;
+    -fx-text-fill: white;   
+}
+
+
+.scroll-pane {
+    -fx-background-color: red;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: white;
+    -fx-background-radius: 5em;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: red;
+}
+
+
+.wallet-btn{
+    -fx-background-color: #66bf00;
+    -fx-text-fill: WHITE;
+}
+
+.checkOut-btn{
+    -fx-text-fill: WHITE;
+}
+
+.checkOutMax-btn{
+    -fx-text-fill: WHITE;
+}
+
+
+.walletTft{
+    -fx-text-inner-color: WHITE;
+}
+

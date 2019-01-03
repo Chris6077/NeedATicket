@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="70.0" prefWidth="250.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="application.controllers.CreateArtistController">
+   <children>
+      <JFXTextField fx:id="tf_name" focusColor="#ab4641" labelFloat="true" layoutX="14.0" layoutY="14.0" promptText="name" styleClass="createArtistName-tf" />
+      <JFXButton fx:id="btn_CreateArtist" buttonType="RAISED" layoutX="170.0" layoutY="20.0" onAction="#handleBtn" ripplerFill="WHITE" text="Create" textFill="WHITE" />
+   </children>
+</AnchorPane>

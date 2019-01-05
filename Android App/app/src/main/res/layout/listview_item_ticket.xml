@@ -44,7 +44,6 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:id="@+id/list_item_price"
                 android:src="@drawable/ticket_price"
                 android:layout_marginLeft="47dp"/>
             <TextView
@@ -69,7 +68,6 @@
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:id="@+id/list_item_seats"
             android:src="@drawable/ticket_seats"
             android:layout_marginLeft="47dp" />
         <TextView

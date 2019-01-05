@@ -44,7 +44,6 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:id="@+id/list_item_price"
                 android:src="@drawable/ticket_price"
                 android:layout_marginLeft="47dp"/>
             <TextView
@@ -69,13 +68,11 @@
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:id="@+id/list_item_seller"
             android:src="@drawable/ticket_seller"
             android:layout_marginLeft="47dp" />
         <TextView
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:id="@+id/list_item_ticket_seller"
             android:gravity="left"
             android:text="Seller"
             android:layout_gravity="center"
@@ -84,13 +81,11 @@
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:id="@+id/list_item_count"
             android:layout_marginLeft="10dp"
             android:src="@drawable/ticket_count"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/list_item_ticket_count"
             android:text="Count"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="3dp"/>

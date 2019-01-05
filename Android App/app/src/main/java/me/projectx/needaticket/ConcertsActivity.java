@@ -1,23 +1,24 @@
 package me.projectx.needaticket;
+
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+
+import java.util.ArrayList;
 
 import me.projectx.needaticket.adapter.AdapterListViewConcert;
 import me.projectx.needaticket.asynctask.TaskGetConcerts;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
-import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
+import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
 import me.projectx.needaticket.pojo.Concert;
-
-import java.util.ArrayList;
 
 public class ConcertsActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
 
@@ -81,7 +82,7 @@ public class ConcertsActivity extends AppCompatActivity implements InterfaceTask
     private void setListener(){
         this.navigation.setNavigationItemSelectedListener(new ListenerNavigationMenu(this));
         this.setListenerNavigationHeader();
-        this.setActionBarToggle();
+        this.navigation.setItemIconTintList(null); //THIS LITTLE PIECE OF ... FIXES THE ICONS NOT SHOWING IN THE NAVMENU >:(
         this.swipeRefreshLayout.setOnRefreshListener(this);
     }
 
@@ -89,14 +90,6 @@ public class ConcertsActivity extends AppCompatActivity implements InterfaceTask
         View navHeader;
         navHeader = navigation.getHeaderView(0);
         navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this));
-    }
-
-    private void setActionBarToggle(){
-        this.toggle = new ActionBarDrawerToggle(this,mdl,R.string.actionbar_open,R.string.actionbar_close);
-        this.mdl.addDrawerListener(this.toggle);
-        toggle.syncState();
-        toggle.setDrawerSlideAnimationEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void fillList(ArrayList<Concert> concerts) throws Exception {

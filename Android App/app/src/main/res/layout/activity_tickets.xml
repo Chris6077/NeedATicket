@@ -10,13 +10,11 @@
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/anchor">
+        android:orientation="vertical">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:id="@+id/ticket_list_fab_anchor"
             android:nestedScrollingEnabled="true">
             <LinearLayout
                 android:layout_width="match_parent"

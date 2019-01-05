@@ -3,10 +3,6 @@
     <string name="app_name_lower_case">needaticket</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
@@ -17,8 +13,6 @@
 
     <!-- Strings related to asynctasks -->
     <string name="webservice_get_my_tickets_url">https://www.bashit.me/</string>
-    <string name="webservice_login_url">https://www.bashit.me/</string>
-    <string name="webservice_register_url">https://www.bashit.me/</string>
 
     <!-- Strings related to actionbar -->
     <string name="actionbar_open">Open</string>
@@ -34,4 +28,5 @@
     <string name="uID">u827539875923759237</string>
     <string name="webservice_get_concerts_url">https://www.bashit.me</string>
     <string name="webservice_get_concert_url">https://www.bashit.me</string>
+    <string name="webservice_get_user">https://www.bashit.me</string>
 </resources>

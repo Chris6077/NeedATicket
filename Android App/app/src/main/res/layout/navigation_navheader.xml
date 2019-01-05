@@ -4,16 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:gravity="center_vertical"
-    android:id="@+id/navmenu_header"
     android:background="@color/colorPrimary">
 
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_margin="10dp"
-        android:id="@+id/navHeader_image"
         android:src="@drawable/ic_account_circle_black_24dp"
-        android:background="@color/colorAccent"
+        android:tint="@color/white"
         android:transitionName="img_profile"/>
     <LinearLayout
         android:layout_width="wrap_content"

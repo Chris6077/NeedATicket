@@ -12,8 +12,6 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;

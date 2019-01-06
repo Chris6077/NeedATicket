@@ -352,6 +352,10 @@
         "source": "/home/anonymous/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/cceb637f3dc30279f267f73139658972/res/layout/select_dialog_singlechoice_material.xml"
     },
     {
+        "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/drawable_round_corners.xml.flat",
+        "source": "/media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/res/drawable/round_corners.xml"
+    },
+    {
         "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_ic_commit_search_api_mtrl_alpha.png.flat",
         "source": "/home/anonymous/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/cceb637f3dc30279f267f73139658972/res/drawable-xhdpi-v4/abc_ic_commit_search_api_mtrl_alpha.png"
     },
@@ -1808,6 +1812,10 @@
         "source": "/media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"
     },
     {
+        "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/drawable_x.png.flat",
+        "source": "/media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/res/drawable/x.png"
+    },
+    {
         "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_ic_star_black_36dp.png.flat",
         "source": "/home/anonymous/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/cceb637f3dc30279f267f73139658972/res/drawable-xhdpi-v4/abc_ic_star_black_36dp.png"
     },
@@ -1954,6 +1962,10 @@
     {
         "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_design_ic_visibility.png.flat",
         "source": "/home/anonymous/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/e663f062a9cadcf5898be1f01e42ce60/res/drawable-mdpi-v4/design_ic_visibility.png"
+    },
+    {
+        "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/layout_dialog_edit_user.xml.flat",
+        "source": "/media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/res/layout/dialog_edit_user.xml"
     },
     {
         "merged": "/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_abc_ic_menu_selectall_mtrl_alpha.png.flat",

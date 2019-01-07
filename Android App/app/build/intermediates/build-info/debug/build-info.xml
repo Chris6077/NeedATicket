@@ -2,85 +2,59 @@
 <instant-run
     abi="arm64-v8a,armeabi-v7a,armeabi"
     api-level="24"
-    build-mode="FULL"
+    build-mode="COLD"
     density="xxhdpi"
     format="10"
+    ir-eligibility="FIELD_REMOVED"
     plugin-version="3.2.1"
-    timestamp="1546804201776"
+    timestamp="1546854921898"
     token="3829907203725264822"
-    verifier="FULL_BUILD_REQUESTED" >
+    verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="110" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="166" />
+        duration="15" />
     <task
         name="verifier"
-        duration="0" />
+        duration="3" />
 
-    <artifact
-        location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/dep/dependencies.apk"
-        type="SPLIT" />
-    <artifact
-        location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_9.apk"
-        type="SPLIT" />
-    <artifact
-        location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_7.apk"
-        type="SPLIT" />
-    <artifact
-        location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_4.apk"
-        type="SPLIT" />
-    <artifact
-        location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_6.apk"
-        type="SPLIT" />
-    <artifact
-        location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_0.apk"
-        type="SPLIT" />
-    <artifact
-        location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_5.apk"
-        type="SPLIT" />
-    <artifact
-        location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
-        type="SPLIT" />
-    <artifact
-        location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_8.apk"
-        type="SPLIT" />
-    <artifact
-        location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_1.apk"
-        type="SPLIT" />
     <artifact
         location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_2.apk"
         type="SPLIT" />
-    <artifact
-        location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/instant-run-apk/debug/app-debug.apk"
-        type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
-        timestamp="1546804201776"
+        timestamp="1546854637226"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
-            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/dep/dependencies.apk"
-            type="SPLIT" />
-        <artifact
-            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_9.apk"
-            type="SPLIT" />
+            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/instant-run-apk/debug/app-debug.apk"
+            type="SPLIT_MAIN" />
         <artifact
             location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_7.apk"
             type="SPLIT" />
         <artifact
-            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_4.apk"
+            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_1.apk"
+            type="SPLIT" />
+        <artifact
+            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_8.apk"
+            type="SPLIT" />
+        <artifact
+            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_0.apk"
             type="SPLIT" />
         <artifact
             location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_6.apk"
             type="SPLIT" />
         <artifact
-            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_0.apk"
+            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/dep/dependencies.apk"
+            type="SPLIT" />
+        <artifact
+            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_2.apk"
             type="SPLIT" />
         <artifact
             location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_5.apk"
@@ -89,17 +63,29 @@
             location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
             type="SPLIT" />
         <artifact
-            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_8.apk"
+            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_4.apk"
             type="SPLIT" />
         <artifact
-            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_1.apk"
+            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_9.apk"
             type="SPLIT" />
-        <artifact
-            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_2.apk"
-            type="SPLIT" />
+    </build>
+    <build
+        build-mode="COLD"
+        ir-eligibility="FIELD_TYPE_CHANGE"
+        timestamp="1546854738236"
+        verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/instant-run-apk/debug/app-debug.apk"
             type="SPLIT_MAIN" />
+    </build>
+    <build
+        build-mode="COLD"
+        ir-eligibility="FIELD_REMOVED"
+        timestamp="1546854921898"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_2.apk"
+            type="SPLIT" />
     </build>
 
 </instant-run>

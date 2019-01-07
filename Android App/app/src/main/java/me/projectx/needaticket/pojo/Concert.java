@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Concert {
-    private int id;
+    private String id;
     private String title;
     private Date date;
     private String address;
@@ -12,7 +12,7 @@ public class Concert {
     private Genre genre;
     private ArrayList<Ticket> tickets;
 
-    public Concert(int id, String title, Date date, String address, ArrayList<Artist> artists, Genre genre, ArrayList<Ticket> tickets) {
+    public Concert(String id, String title, Date date, String address, ArrayList<Artist> artists, Genre genre, ArrayList<Ticket> tickets) {
         this.id = id;
         this.title = title;
         this.date = date;
@@ -22,11 +22,11 @@ public class Concert {
         this.tickets = tickets;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

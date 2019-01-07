@@ -17,9 +17,14 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import me.projectx.needaticket.asynctask.TaskChangeEmail;
+import me.projectx.needaticket.asynctask.TaskChangePassword;
+import me.projectx.needaticket.asynctask.TaskGetConcertTickets;
 import me.projectx.needaticket.asynctask.TaskGetUser;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
@@ -35,6 +40,11 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
     private DrawerLayout mdl;
     private TextView email;
     private TextView password;
+    private EditText dialog_oldPassword;
+    private EditText dialog_newPassword;
+    private EditText dialog_confirmNewPassword;
+    private EditText dialog_Password;
+    private EditText dialog_newEmail;
     private TextView boughtTickets;
     private NavigationView navigation;
     private FloatingActionButton fab_user;
@@ -69,6 +79,11 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
         this.password = (TextView) findViewById(R.id.textview_password);
         this.boughtTickets = (TextView) findViewById(R.id.textview_bought);
         this.fab_user = (FloatingActionButton) findViewById(R.id.fab_user);
+        this.dialog_oldPassword = (EditText) findViewById(R.id.etOldPassword);
+        this.dialog_newPassword = (EditText) findViewById(R.id.etNewPassword);
+        this.dialog_confirmNewPassword = (EditText) findViewById(R.id.etPasswordConfirm);
+        this.dialog_newEmail = (EditText) findViewById(R.id.etEmailAddress);
+        this.dialog_Password = (EditText) findViewById(R.id.etPassword);
     }
 
     private void setListener(){
@@ -77,6 +92,39 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
         this.setListenerNavigationHeader();
         this.swipeRefreshLayout.setOnRefreshListener(this);
         this.fab_user.setOnClickListener(new editUserListener());
+    }
+
+    private class changeEmailListener implements View.OnClickListener{
+        @Override
+        public void onClick(View v){
+            changeMail();
+        }
+    }
+
+    private void changeMail(){
+        try {
+            TaskChangeEmail change_mail = new TaskChangeEmail(getString(R.string.webservice_change_email) + "/" + user.getId(), user.getId(), dialog_newEmail.getText().toString(), dialog_Password.getText().toString(), this);
+            change_mail.execute();
+        } catch(Exception error){
+            HandlerState.handle(error,this);
+        }
+    }
+
+    private class changePasswordListener implements View.OnClickListener{
+        @Override
+        public void onClick(View v){
+            changePassword();
+        }
+    }
+
+    private void changePassword(){
+        try {
+            if(dialog_newPassword != dialog_confirmNewPassword) throw new Exception("Passwords don't match!");
+            TaskChangePassword change_password = new TaskChangePassword(getString(R.string.webservice_change_password) + "/" + user.getId(), user.getId(), dialog_oldPassword.getText().toString(), dialog_newPassword.getText().toString(), this);
+            change_password.execute();
+        } catch(Exception error){
+            HandlerState.handle(error,this);
+        }
     }
 
     private class editUserListener implements View.OnClickListener{
@@ -99,6 +147,10 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
                 revealShow(dialogView, false, dialog);
             }
         });
+        Button changeEmail = (Button)dialog.findViewById(R.id.btChangeEmail);
+        changeEmail.setOnClickListener(new changeEmailListener());
+        Button changePassword = (Button)dialog.findViewById(R.id.btChangePassword);
+        changePassword.setOnClickListener(new changePasswordListener());
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialogInterface) {

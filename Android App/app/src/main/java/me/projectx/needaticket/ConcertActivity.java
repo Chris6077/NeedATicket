@@ -156,7 +156,7 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
 
     private void getTickets(){
         try {
-            TaskGetConcertTickets get_tickets = new TaskGetConcertTickets(getString(R.string.webservice_get_concert_url) + "/" + concert.getId() + "/tickets",this);
+            TaskGetConcertTickets get_tickets = new TaskGetConcertTickets(getString(R.string.webservice_get_concert_url) + "/" + concert.getId() + "/tickets", concert.getId(),this);
             get_tickets.execute();
         } catch(Exception error){
             HandlerState.handle(error,this);

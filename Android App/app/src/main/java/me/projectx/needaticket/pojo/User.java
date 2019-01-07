@@ -3,23 +3,23 @@ package me.projectx.needaticket.pojo;
 import java.util.ArrayList;
 
 public class User {
-    private int id;
+    private String id;
     private String email;
     private ArrayList<Ticket> tickets;
     private Wallet wallet;
 
-    public User(int id, String email, ArrayList<Ticket> tickets, Wallet wallet) {
+    public User(String id, String email, ArrayList<Ticket> tickets, Wallet wallet) {
         this.id = id;
         this.email = email;
         this.tickets = tickets;
         this.wallet = wallet;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

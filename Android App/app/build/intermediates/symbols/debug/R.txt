@@ -693,7 +693,8 @@ int color switch_thumb_normal_material_dark 0x7f05007e
 int color switch_thumb_normal_material_light 0x7f05007f
 int color tooltip_background_dark 0x7f050080
 int color tooltip_background_light 0x7f050081
-int color white 0x7f050082
+int color transparency 0x7f050082
+int color white 0x7f050083
 int dimen abc_action_bar_content_inset_material 0x7f060000
 int dimen abc_action_bar_content_inset_with_nav 0x7f060001
 int dimen abc_action_bar_default_height_material 0x7f060002
@@ -1458,10 +1459,12 @@ int string permission_rationale 0x7f0e0040
 int string search_menu_title 0x7f0e0041
 int string status_bar_notification_info_overflow 0x7f0e0042
 int string uID 0x7f0e0043
-int string webservice_get_concert_url 0x7f0e0044
-int string webservice_get_concerts_url 0x7f0e0045
-int string webservice_get_my_tickets_url 0x7f0e0046
-int string webservice_get_user 0x7f0e0047
+int string webservice_change_email 0x7f0e0044
+int string webservice_change_password 0x7f0e0045
+int string webservice_get_concert_url 0x7f0e0046
+int string webservice_get_concerts_url 0x7f0e0047
+int string webservice_get_my_tickets_url 0x7f0e0048
+int string webservice_get_user 0x7f0e0049
 int style AlertDialog_AppCompat 0x7f0f0000
 int style AlertDialog_AppCompat_Light 0x7f0f0001
 int style Animation_AppCompat_Dialog 0x7f0f0002

@@ -75,6 +75,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         //Set URI to video
         videoBG.setVideoURI(uri);
+        videoBG.setBackgroundColor(getResources().getColor(R.color.transparency));
 
         //Start video
         videoBG.start();

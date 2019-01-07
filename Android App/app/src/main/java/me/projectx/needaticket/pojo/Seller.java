@@ -3,21 +3,21 @@ package me.projectx.needaticket.pojo;
 import java.util.ArrayList;
 
 public class Seller {
-    private int id;
+    private String id;
     private String name;
     private ArrayList<Ticket> tickets;
 
-    public Seller(int id, String name, ArrayList<Ticket> tickets) {
+    public Seller(String id, String name, ArrayList<Ticket> tickets) {
         this.id = id;
         this.name = name;
         this.tickets = tickets;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

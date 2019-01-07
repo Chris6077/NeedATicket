@@ -29,4 +29,6 @@
     <string name="webservice_get_concerts_url">https://www.bashit.me</string>
     <string name="webservice_get_concert_url">https://www.bashit.me</string>
     <string name="webservice_get_user">https://www.bashit.me</string>
+    <string name="webservice_change_email">https://www.bashit.me</string>
+    <string name="webservice_change_password">https://www.bashit.me</string>
 </resources>

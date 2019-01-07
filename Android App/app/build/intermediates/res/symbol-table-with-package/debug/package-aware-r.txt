@@ -694,6 +694,7 @@ color switch_thumb_normal_material_dark
 color switch_thumb_normal_material_light
 color tooltip_background_dark
 color tooltip_background_light
+color transparency
 color white
 dimen abc_action_bar_content_inset_material
 dimen abc_action_bar_content_inset_with_nav
@@ -1459,6 +1460,8 @@ string permission_rationale
 string search_menu_title
 string status_bar_notification_info_overflow
 string uID
+string webservice_change_email
+string webservice_change_password
 string webservice_get_concert_url
 string webservice_get_concerts_url
 string webservice_get_my_tickets_url

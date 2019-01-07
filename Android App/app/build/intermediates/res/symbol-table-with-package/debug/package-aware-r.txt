@@ -1466,6 +1466,8 @@ string webservice_get_concert_url
 string webservice_get_concerts_url
 string webservice_get_my_tickets_url
 string webservice_get_user
+string webservice_login
+string webservice_register
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style Animation_AppCompat_Dialog

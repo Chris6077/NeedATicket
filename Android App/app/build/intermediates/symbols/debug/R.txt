@@ -1465,6 +1465,8 @@ int string webservice_get_concert_url 0x7f0e0046
 int string webservice_get_concerts_url 0x7f0e0047
 int string webservice_get_my_tickets_url 0x7f0e0048
 int string webservice_get_user 0x7f0e0049
+int string webservice_login 0x7f0e004a
+int string webservice_register 0x7f0e004b
 int style AlertDialog_AppCompat 0x7f0f0000
 int style AlertDialog_AppCompat_Light 0x7f0f0001
 int style Animation_AppCompat_Dialog 0x7f0f0002

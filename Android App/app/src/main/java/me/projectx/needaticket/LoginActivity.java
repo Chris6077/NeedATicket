@@ -23,10 +23,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import me.projectx.needaticket.asynctask.TaskLogin;
+import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
+
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, InterfaceTaskDefault {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -43,7 +46,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
+    private TaskLogin mAuthTask = null;
 
     // UI references.
     private EditText mEmailView;
@@ -152,8 +155,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void attemptLogin(){
-        UserLoginTask ut = new UserLoginTask(mEmailView.getText().toString(), mPasswordView.getText().toString());
-        if(ut.doInBackground()) showTickets("testUserId");
+        TaskLogin login_task = new TaskLogin(getString(R.string.webservice_login), mEmailView.getText().toString(), mPasswordView.getText().toString(), this);
+        login_task.execute();
     }
 
     private void showTickets(String uID) {
@@ -218,58 +221,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
+    @Override
+    public void onPreExecute(Class resource) {
 
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    }
 
-        private final String mEmail;
-        private final String mPassword;
-
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-            try {
-                showProgress(true);
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                showProgress(false);
-                return false;
-            }
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-            showProgress(false);
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-            if (success) {
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
+    @Override
+    public void onPostExecute(Object result, Class resource) {
+        Intent ticket_activity = new Intent(this, TicketsActivity.class);
+        ticket_activity.putExtra("uID", (String)result);
+        try{
+            finish();
+            startActivity(ticket_activity);
+        } catch (Exception e){
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 }

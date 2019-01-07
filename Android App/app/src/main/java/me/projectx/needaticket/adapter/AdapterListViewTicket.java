@@ -20,11 +20,13 @@ import me.projectx.needaticket.pojo.TicketType;
 
 public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
 
-    AppCompatActivity appCompatActivityResource;
-    ArrayList<Ticket> data;
+    private AppCompatActivity appCompatActivityResource;
+    private ArrayList<Ticket> data;
+    private String uID;
 
-    public AdapterListViewTicket(AppCompatActivity res, @LayoutRes int resource, ArrayList<Ticket> data){
+    public AdapterListViewTicket(AppCompatActivity res, String uID, @LayoutRes int resource, ArrayList<Ticket> data){
         super(res, resource, data);
+        this.uID = uID;
         this.appCompatActivityResource = res;
         this.data = data;
     }

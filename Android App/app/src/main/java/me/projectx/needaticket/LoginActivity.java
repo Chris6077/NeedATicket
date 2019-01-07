@@ -153,11 +153,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void attemptLogin(){
         UserLoginTask ut = new UserLoginTask(mEmailView.getText().toString(), mPasswordView.getText().toString());
-        if(ut.doInBackground()) showTickets();
+        if(ut.doInBackground()) showTickets("testUserId");
     }
 
-    private void showTickets() {
+    private void showTickets(String uID) {
         final Intent mytickets_activity = new Intent(this, TicketsActivity.class);
+        mytickets_activity.putExtra("uID", uID);
         try{
             finish();
             startActivity(mytickets_activity);

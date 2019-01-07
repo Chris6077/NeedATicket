@@ -19,10 +19,12 @@ import me.projectx.needaticket.pojo.Concert;
 
 public class TaskGetConcert extends AsyncTask<Object, Object, Concert> {
     private String url;
+    private String uID;
     private InterfaceTaskDefault listener;
 
-    public TaskGetConcert(String url, InterfaceTaskDefault listener) {
+    public TaskGetConcert(String url, String uID, InterfaceTaskDefault listener) {
         this.setUrl(url);
+        this.uID = uID;
         this.setListener(listener);
     }
 
@@ -78,7 +80,7 @@ public class TaskGetConcert extends AsyncTask<Object, Object, Concert> {
         try{
             conn.setRequestMethod("GET");
             conn.setRequestProperty("API_KEY", Resources.getSystem().getString(R.string.APIKEY));
-            conn.setRequestProperty("uID", Resources.getSystem().getString(R.string.uID));
+            conn.setRequestProperty("uID", uID);
 
             reader = new BufferedReader(new InputStreamReader(
                     conn.getInputStream()));

@@ -10,13 +10,14 @@ import me.projectx.needaticket.ConcertsActivity;
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.TicketsActivity;
 import me.projectx.needaticket.WelcomeActivity;
-import me.projectx.needaticket.pojo.LocalDatabase;
 
 public class ListenerNavigationMenu implements NavigationView.OnNavigationItemSelectedListener {
     private Context resource;
+    private String uID;
 
-    public ListenerNavigationMenu(Context obj){
+    public ListenerNavigationMenu(Context obj, String uID){
         this.resource = obj;
+        this.uID = uID;
     }
 
     @Override
@@ -26,7 +27,6 @@ public class ListenerNavigationMenu implements NavigationView.OnNavigationItemSe
         } else if(item.getItemId() == R.id.mntm_my_tickets){
             startActivity(TicketsActivity.class);
         } else if(item.getItemId() == R.id.mntm_logout){
-            LocalDatabase.setuID(null);
             startActivity(WelcomeActivity.class);
         }
         return true;
@@ -34,6 +34,7 @@ public class ListenerNavigationMenu implements NavigationView.OnNavigationItemSe
 
     private void startActivity(Class classname){
         Intent activity = new Intent(this.resource,classname);
+        activity.putExtra("uID", uID);
         activity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         this.resource.startActivity(activity);
         //((AppCompatActivity)obj).overridePendingTransition(R.anim.anim_slide_in_right,R.anim.anim_slide_out_left);

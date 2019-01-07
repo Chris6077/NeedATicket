@@ -21,10 +21,12 @@ import me.projectx.needaticket.pojo.Ticket;
 
 public class TaskGetMyTickets extends AsyncTask<Object, Object, ArrayList<Ticket>> {
     private String url;
+    private String uID;
     private InterfaceTaskDefault listener;
 
-    public TaskGetMyTickets(String url, InterfaceTaskDefault listener) {
+    public TaskGetMyTickets(String url, String uID, InterfaceTaskDefault listener) {
         this.setUrl(url);
+        this.uID = uID;
         this.setListener(listener);
     }
 
@@ -80,7 +82,7 @@ public class TaskGetMyTickets extends AsyncTask<Object, Object, ArrayList<Ticket
         try{
             conn.setRequestMethod("GET");
             conn.setRequestProperty("API_KEY", Resources.getSystem().getString(R.string.APIKEY));
-            conn.setRequestProperty("uID", Resources.getSystem().getString(R.string.uID));
+            conn.setRequestProperty("uID", uID);
 
             reader = new BufferedReader(new InputStreamReader(
                     conn.getInputStream()));

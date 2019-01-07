@@ -36,6 +36,7 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private User user;
+    private String uID;
     private ActionBarDrawerToggle toggle;
     private DrawerLayout mdl;
     private TextView email;
@@ -57,6 +58,7 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
 
         this.setViews();
         this.setListener();
+        this.uID = getIntent().getStringExtra("uID");
         this.getUser();
     }
 
@@ -69,7 +71,7 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
     private void setListenerNavigationHeader(){
         View navHeader;
         navHeader = navigation.getHeaderView(0);
-        navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this));
+        navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this, uID));
     }
     private void setViews() {
         this.navigation = (NavigationView) findViewById(R.id.navigation_drawer);
@@ -87,7 +89,7 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
     }
 
     private void setListener(){
-        this.navigation.setNavigationItemSelectedListener(new ListenerNavigationMenu(this));
+        this.navigation.setNavigationItemSelectedListener(new ListenerNavigationMenu(this, uID));
         this.navigation.setItemIconTintList(null); //THIS LITTLE PIECE OF ... FIXES THE ICONS NOT SHOWING IN THE NAVMENU >:(
         this.setListenerNavigationHeader();
         this.swipeRefreshLayout.setOnRefreshListener(this);
@@ -206,9 +208,7 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
 
     private void getUser(){
         try{
-            Intent intent = getIntent();
-            String uID = intent.getStringExtra("uID");
-            TaskGetUser getUser = new TaskGetUser(getString(R.string.webservice_get_user) + uID,this);
+            TaskGetUser getUser = new TaskGetUser(getString(R.string.webservice_get_user) + uID, uID,this);
             getUser.execute();
         }catch(Exception error){
             HandlerState.handle(error,this);

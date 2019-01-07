@@ -31,6 +31,7 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
 
     private DrawerLayout mdl;
     private ActionBarDrawerToggle toggle;
+    private String uID;
     private ListView listView_concert_tickets;
     private NavigationView navigation;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -43,6 +44,7 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         try {
             this.setViews();
             this.setListener();
+            this.uID = getIntent().getStringExtra("uID");
             this.getConcert();
             this.getTickets();
         } catch (Exception e) {
@@ -62,7 +64,7 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         try{
             Intent intent = getIntent();
             String cID = intent.getStringExtra("cID");
-            TaskGetConcert getConcert = new TaskGetConcert(getString(R.string.webservice_get_concert_url) + cID,this);
+            TaskGetConcert getConcert = new TaskGetConcert(getString(R.string.webservice_get_concert_url) + cID, uID,this);
             getConcert.execute();
         }catch(Exception error){
             HandlerState.handle(error,this);
@@ -133,7 +135,7 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
     }
 
     private void setListener(){
-        this.navigation.setNavigationItemSelectedListener(new ListenerNavigationMenu(this));
+        this.navigation.setNavigationItemSelectedListener(new ListenerNavigationMenu(this, uID));
         this.setListenerNavigationHeader();
         this.navigation.setItemIconTintList(null); //THIS LITTLE PIECE OF ... FIXES THE ICONS NOT SHOWING IN THE NAVMENU >:(
         this.swipeRefreshLayout.setOnRefreshListener(this);
@@ -142,21 +144,21 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
     private void setListenerNavigationHeader(){
         View navHeader;
         navHeader = navigation.getHeaderView(0);
-        navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this));
+        navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this, uID));
     }
 
     private void fillList(ArrayList<Ticket> tickets) throws Exception {
         if(tickets == null) {
             throw new Exception("no Content found");
         } else {
-            AdapterListViewTicket adapter = new AdapterListViewTicket(this, R.layout.listview_item_concert_ticket, tickets);
+            AdapterListViewTicket adapter = new AdapterListViewTicket(this, uID, R.layout.listview_item_concert_ticket, tickets);
             this.listView_concert_tickets.setAdapter(adapter);
         }
     }
 
     private void getTickets(){
         try {
-            TaskGetConcertTickets get_tickets = new TaskGetConcertTickets(getString(R.string.webservice_get_concert_url) + "/" + concert.getId() + "/tickets", concert.getId(),this);
+            TaskGetConcertTickets get_tickets = new TaskGetConcertTickets(getString(R.string.webservice_get_concert_url) + "/" + concert.getId() + "/tickets", uID, concert.getId(),this);
             get_tickets.execute();
         } catch(Exception error){
             HandlerState.handle(error,this);

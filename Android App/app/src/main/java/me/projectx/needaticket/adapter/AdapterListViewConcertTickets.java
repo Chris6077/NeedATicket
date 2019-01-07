@@ -24,11 +24,13 @@ import me.projectx.needaticket.pojo.TicketType;
 
 public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> {
 
-    AppCompatActivity appCompatActivityResource;
-    ArrayList<Ticket> data;
+    private AppCompatActivity appCompatActivityResource;
+    private ArrayList<Ticket> data;
+    private String uID;
 
-    public AdapterListViewConcertTickets(AppCompatActivity res, @LayoutRes int resource, ArrayList<Ticket> data){
+    public AdapterListViewConcertTickets(AppCompatActivity res, String uID, @LayoutRes int resource, ArrayList<Ticket> data){
         super(res, resource, data);
+        this.uID = uID;
         this.appCompatActivityResource = res;
         this.data = data;
     }
@@ -99,6 +101,7 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> {
                     @Override
                     public void onClick(View v) {
                         Intent buy_activity = new Intent(getAppCompatActivityResource(), BuyActivity.class);
+                        buy_activity.putExtra("uID", uID);
                         buy_activity.putExtra("tID", ticket.getId());
                         getAppCompatActivityResource().startActivity(buy_activity);
                     }

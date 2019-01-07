@@ -26,6 +26,7 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
     private ActionBarDrawerToggle toggle;
     private ListView listView_tickets;
     private NavigationView navigation;
+    private String uID;
     private View progressView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -37,6 +38,7 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
             this.setViews();
             this.setListener();
             this.getTickets();
+            this.uID = getIntent().getStringExtra("uID");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -80,7 +82,7 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
     }
 
     private void setListener(){
-        this.navigation.setNavigationItemSelectedListener(new ListenerNavigationMenu(this));
+        this.navigation.setNavigationItemSelectedListener(new ListenerNavigationMenu(this, uID));
         this.setListenerNavigationHeader();
         this.navigation.setItemIconTintList(null); //THIS LITTLE PIECE OF ... FIXES THE ICONS NOT SHOWING IN THE NAVMENU >:(
         this.swipeRefreshLayout.setOnRefreshListener(this);
@@ -89,21 +91,21 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
     private void setListenerNavigationHeader(){
         View navHeader;
         navHeader = navigation.getHeaderView(0);
-        navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this));
+        navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this, uID));
     }
 
     private void fillList(ArrayList<Ticket> tickets) throws Exception {
         if(tickets == null) {
             throw new Exception("no Content found");
         } else {
-            AdapterListViewTicket adapter = new AdapterListViewTicket(this, R.layout.listview_item_ticket, tickets);
+            AdapterListViewTicket adapter = new AdapterListViewTicket(this, uID, R.layout.listview_item_ticket, tickets);
             this.listView_tickets.setAdapter(adapter);
         }
     }
 
     private void getTickets(){
         try {
-            TaskGetMyTickets get_tickets = new TaskGetMyTickets(getString(R.string.webservice_get_my_tickets_url),this);
+            TaskGetMyTickets get_tickets = new TaskGetMyTickets(getString(R.string.webservice_get_my_tickets_url), uID,this);
             get_tickets.execute();
         } catch(Exception error){
             HandlerState.handle(error,this);

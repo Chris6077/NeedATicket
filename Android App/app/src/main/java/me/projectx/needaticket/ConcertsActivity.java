@@ -26,6 +26,7 @@ public class ConcertsActivity extends AppCompatActivity implements InterfaceTask
     private ActionBarDrawerToggle toggle;
     private ListView listView_concerts;
     private NavigationView navigation;
+    private String uID;
     private View progressView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -37,6 +38,7 @@ public class ConcertsActivity extends AppCompatActivity implements InterfaceTask
             this.setViews();
             this.setListener();
             this.getConcerts();
+            this.uID = getIntent().getStringExtra("uID");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -80,7 +82,7 @@ public class ConcertsActivity extends AppCompatActivity implements InterfaceTask
     }
 
     private void setListener(){
-        this.navigation.setNavigationItemSelectedListener(new ListenerNavigationMenu(this));
+        this.navigation.setNavigationItemSelectedListener(new ListenerNavigationMenu(this, uID));
         this.setListenerNavigationHeader();
         this.navigation.setItemIconTintList(null); //THIS LITTLE PIECE OF ... FIXES THE ICONS NOT SHOWING IN THE NAVMENU >:(
         this.swipeRefreshLayout.setOnRefreshListener(this);
@@ -89,21 +91,21 @@ public class ConcertsActivity extends AppCompatActivity implements InterfaceTask
     private void setListenerNavigationHeader(){
         View navHeader;
         navHeader = navigation.getHeaderView(0);
-        navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this));
+        navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this, uID));
     }
 
     private void fillList(ArrayList<Concert> concerts) throws Exception {
         if(concerts == null) {
             throw new Exception("no Content found");
         } else {
-            AdapterListViewConcert adapter = new AdapterListViewConcert(this, R.layout.listview_item_concert, concerts);
+            AdapterListViewConcert adapter = new AdapterListViewConcert(this, uID, R.layout.listview_item_concert, concerts);
             this.listView_concerts.setAdapter(adapter);
         }
     }
 
     private void getConcerts(){
         try {
-            TaskGetConcerts get_concerts = new TaskGetConcerts(getString(R.string.webservice_get_concerts_url),this);
+            TaskGetConcerts get_concerts = new TaskGetConcerts(getString(R.string.webservice_get_concerts_url), uID,this);
             get_concerts.execute();
         } catch(Exception error){
             HandlerState.handle(error,this);

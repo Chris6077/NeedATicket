@@ -7,7 +7,9 @@
     android:orientation="vertical"
     android:focusableInTouchMode="true"
     android:layout_margin="2.5dp"
+    android:layout_marginBottom="5dp"
     android:padding="20dp"
+    android:elevation="2px"
     android:background="@drawable/shadow_box">
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +29,7 @@
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/category_concert"/>
             <TextView
-                android:layout_width="200dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/list_item_concert_name"
                 android:textSize="20sp"
@@ -40,11 +42,12 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:src="@drawable/concert_date"
-                android:layout_marginLeft="10dp" />
+                android:layout_marginLeft="0dp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:id="@+id/list_item_concert_date"
                 android:layout_marginTop="3dp"
                 android:text="Date"/>
         </LinearLayout>
@@ -62,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="17sp"
                 android:transitionName="text_view_profile"
+                android:id="@+id/list_item_concert_location"
                 android:text="Location"
                 android:layout_marginLeft="13dp"/>
         </LinearLayout>

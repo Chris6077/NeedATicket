@@ -1,5 +1,8 @@
 package me.projectx.needaticket.asynctask;
 import android.os.AsyncTask;
+
+import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -12,15 +15,11 @@ import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.pojo.EmailWrapper;
 
 public class TaskChangeEmail extends AsyncTask<String, Void, String> {
-
-    //fields
     private String url;
     private String uID;
     private String email;
     private String password;
     private InterfaceTaskDefault listener;
-
-    //constructors
 
     public TaskChangeEmail(String url, String uID, String email, String password, InterfaceTaskDefault listener) {
         this.url = url;
@@ -29,8 +28,6 @@ public class TaskChangeEmail extends AsyncTask<String, Void, String> {
         this.password = password;
         this.listener = listener;
     }
-
-    //super
 
     @Override
     protected String doInBackground(String... params) {
@@ -56,38 +53,29 @@ public class TaskChangeEmail extends AsyncTask<String, Void, String> {
         super.onPreExecute();
     }
 
-    //custom
-
     private void PostData(HttpURLConnection conn, String... params) {
         BufferedWriter writer;
-
         try {
-            //posting the data
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
             writer = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             EmailWrapper ew = new EmailWrapper(uID, email, password);
-            writer.write(ew.toString()); //product - object in json-format
+            writer.write(new Gson().toJson(ew));
             writer.flush();
             writer.close();
             conn.getResponseCode();
         } catch (Exception error) {
             System.out.println("ERROR --- " + error);
         }
-
     }
 
     private String GetData(HttpURLConnection conn) {
         BufferedReader reader;
         String content = null;
-
         try {
-            //reading the result
-            reader = new BufferedReader(new InputStreamReader(
-                    conn.getInputStream()));
+            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             StringBuilder sb = new StringBuilder();
             String line;
-
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }
@@ -99,5 +87,4 @@ public class TaskChangeEmail extends AsyncTask<String, Void, String> {
         }
         return content;
     }
-
 }

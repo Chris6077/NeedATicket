@@ -88,10 +88,9 @@ public class TaskGetConcertTickets extends AsyncTask<Object, Object, ArrayList<T
     private String GetData(HttpURLConnection conn){
         BufferedReader reader;
         String content = null;
-
         try{
             conn.setRequestMethod("GET");
-            conn.setRequestProperty("API_KEY", Resources.getSystem().getString(R.string.APIKEY));
+            conn.setRequestProperty("API_KEY", Resources.getSystem().getString(R.string.API_KEY));
             conn.setRequestProperty("uID", uID);
             conn.setRequestProperty("cID", cID);
 
@@ -107,7 +106,6 @@ public class TaskGetConcertTickets extends AsyncTask<Object, Object, ArrayList<T
             content = sb.toString();
             reader.close();
             conn.disconnect();
-
         }catch(Exception error){
             error.printStackTrace();
         }

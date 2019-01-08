@@ -8,7 +8,8 @@
     android:focusableInTouchMode="true"
     android:layout_margin="2.5dp"
     android:padding="20dp"
-    android:background="@drawable/shadow_box">
+    android:elevation="2px"
+    android:background="#dddddd">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,6 +76,7 @@
             android:layout_height="wrap_content"
             android:gravity="left"
             android:text="Seller"
+            android:id="@+id/list_item_ticket_seller"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             />
@@ -88,6 +90,7 @@
             android:layout_height="wrap_content"
             android:text="Count"
             android:layout_marginLeft="10dp"
+            android:id="@+id/list_item_ticket_count"
             android:layout_marginTop="3dp"/>
     </LinearLayout>
 </LinearLayout>

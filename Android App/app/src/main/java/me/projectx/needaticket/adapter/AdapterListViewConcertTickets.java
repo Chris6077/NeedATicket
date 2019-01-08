@@ -12,21 +12,25 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import me.projectx.needaticket.BuyActivity;
 import me.projectx.needaticket.R;
+import me.projectx.needaticket.customGUI.NumberPickerDialog;
 import me.projectx.needaticket.listener.ListenerDoubleTap;
+import me.projectx.needaticket.listener.ListenerNumberPicked;
 import me.projectx.needaticket.pojo.Ticket;
 import me.projectx.needaticket.pojo.TicketType;
 
-public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> {
+public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implements ListenerNumberPicked {
 
     private AppCompatActivity appCompatActivityResource;
     private ArrayList<Ticket> data;
     private String uID;
+    private ListenerNumberPicked listener = this;
 
     public AdapterListViewConcertTickets(AppCompatActivity res, String uID, @LayoutRes int resource, ArrayList<Ticket> data){
         super(res, resource, data);
@@ -49,12 +53,14 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> {
         Ticket ticket = this.data.get(position);
         System.out.println(ticket);
         LayoutInflater inflater = (LayoutInflater) this.getAppCompatActivityResource().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.listview_item_ticket, parent, false);
+        View rowView = inflater.inflate(R.layout.listview_item_concert_ticket, parent, false);
         TextView header = (TextView) rowView.findViewById(R.id.list_item_ticket_title);
-        TextView seats = (TextView) rowView.findViewById(R.id.list_item_ticket_seats);
+        TextView seller = (TextView) rowView.findViewById(R.id.list_item_ticket_seller);
         TextView price = (TextView) rowView.findViewById(R.id.list_item_ticket_price);
-        seats.setText(ticket.getSeats());
+        TextView amount = (TextView) rowView.findViewById(R.id.list_item_ticket_count);
+        seller.setText(ticket.getSeller().getName());
         price.setText(ticket.getPrice() + "€");
+        amount.setText("0");
         setUpIconCategory(rowView,ticket.getType());
         header.setText(ticket.getTitle());
         this.setUpRowViewListener(rowView, ticket);
@@ -80,12 +86,12 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> {
 
             @Override
             public void onSingleClick(View v) {
-                changeActivity(rowView, ticket);
+                //ToDo: Implement AmountSelector
             }
 
             @Override
             public void onDoubleClick(View v) {
-                changeActivity(rowView, ticket);
+                //ToDo: Implement AmountSelector
             }
         });
     }
@@ -100,12 +106,24 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent buy_activity = new Intent(getAppCompatActivityResource(), BuyActivity.class);
-                        buy_activity.putExtra("uID", uID);
-                        buy_activity.putExtra("tID", ticket.getId());
-                        getAppCompatActivityResource().startActivity(buy_activity);
-                    }
+                        NumberPickerDialog npd = new NumberPickerDialog(ticket, 25);
+                        npd.setValueChangeListener(listener);
+                        npd.show(appCompatActivityResource.getSupportFragmentManager(), "time picker");
+                   }
                 }
         );
+    }
+
+    @Override
+    public void onValueChange(NumberPicker picker, int oldVal, int newVal, Ticket t) {
+        Intent buy_activity = new Intent(getAppCompatActivityResource(),BuyActivity.class);
+        buy_activity.putExtra("uID", uID);
+        buy_activity.putExtra("sellerName", t.getSeller().getName());
+        buy_activity.putExtra("ticketTitle", t.getTitle());
+        buy_activity.putExtra("price", t.getPrice());
+        buy_activity.putExtra("ticketType", t.getType());
+        buy_activity.putExtra("amount", "25");
+        buy_activity.putExtra("amountSelected", newVal);
+        getAppCompatActivityResource().startActivity(buy_activity);
     }
 }

@@ -81,7 +81,7 @@ public class TaskGetMyTickets extends AsyncTask<Object, Object, ArrayList<Ticket
 
         try{
             conn.setRequestMethod("GET");
-            conn.setRequestProperty("API_KEY", Resources.getSystem().getString(R.string.APIKEY));
+            conn.setRequestProperty("API_KEY", Resources.getSystem().getString(R.string.API_KEY));
             conn.setRequestProperty("uID", uID);
 
             reader = new BufferedReader(new InputStreamReader(

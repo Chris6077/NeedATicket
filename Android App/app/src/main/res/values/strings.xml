@@ -14,17 +14,13 @@
     <!-- Strings related to asynctasks -->
     <string name="webservice_get_my_tickets_url">https://www.bashit.me/</string>
 
-    <!-- Strings related to actionbar -->
-    <string name="actionbar_open">Open</string>
-    <string name="actionbar_close">Close</string>
-
     <!-- Strings related to navbar -->
     <string name="navmenu_concerts">Concerts</string>
     <string name="navmenu_my_tickets">My Tickets</string>
     <string name="navmenu_logout">Logout</string>
 
     <!-- TEST -->
-    <string name="APIKEY">SIOFHIOERHGO325973298572398GJKDSH</string>
+    <string name="API_KEY">API_111</string>
     <string name="uID">u827539875923759237</string>
     <string name="webservice_get_concerts_url">https://www.bashit.me</string>
     <string name="webservice_get_concert_url">https://www.bashit.me</string>
@@ -33,4 +29,5 @@
     <string name="webservice_change_password">https://www.bashit.me</string>
     <string name="webservice_login">https://www.bashit.me</string>
     <string name="webservice_register">https://www.bashit.me</string>
+    <string name="webservice_purchase_ticket">https://www.bashit.me</string>
 </resources>

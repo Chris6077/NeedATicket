@@ -84,10 +84,8 @@ public class Ticket {
                 "id=" + id +
                 ", type=" + type +
                 ", title=" + title +
-                ", price=" + price +
-                ", seller=" + seller +
-                ", buyer=" + buyer +
-                ", concerts=" + concerts +
+                ", price=" + price
+                +
                 '}';
     }
 

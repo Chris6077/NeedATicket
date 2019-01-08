@@ -14,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import me.projectx.needaticket.ConcertActivity;
@@ -54,6 +57,8 @@ public class AdapterListViewConcert extends ArrayAdapter<Concert> {
         TextView header = (TextView) rowView.findViewById(R.id.list_item_concert_name);
         TextView genre = (TextView) rowView.findViewById(R.id.list_item_concert_genre);
         TextView artist = (TextView) rowView.findViewById(R.id.list_item_concert_artist);
+        TextView location = (TextView) rowView.findViewById(R.id.list_item_concert_location);
+        TextView date = (TextView) rowView.findViewById(R.id.list_item_concert_date);
         String artists = "";
         for(Artist a : concert.getArtists()){
             artists += a.getName() + ", ";
@@ -61,6 +66,9 @@ public class AdapterListViewConcert extends ArrayAdapter<Concert> {
         artists = artists.substring(0, artists.length()-2);
         artist.setText(artists);
         genre.setText(concert.getGenre().toString());
+        location.setText(concert.getAddress());
+        SimpleDateFormat dateFormat= new SimpleDateFormat("dd/MM/yy");
+        date.setText(dateFormat.format(concert.getDate()));
         setUpIconCategory(rowView,concert.getTickets().get(0).getType());
         header.setText(concert.getTitle());
         this.setUpRowViewListener(rowView, concert);

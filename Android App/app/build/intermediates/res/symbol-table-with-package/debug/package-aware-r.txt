@@ -124,6 +124,8 @@ attr cardPreventCornerOverlap
 attr cardUseCompatPadding
 attr cardViewStyle
 attr chainUseRtl
+attr checkView_strokeColor
+attr checkView_strokeWidth
 attr checkboxStyle
 attr checkedChip
 attr checkedIcon
@@ -630,8 +632,10 @@ color error_color_material_dark
 color error_color_material_light
 color foreground_material_dark
 color foreground_material_light
+color green
 color highlighted_text_material_dark
 color highlighted_text_material_light
+color invisible
 color material_blue_grey_800
 color material_blue_grey_900
 color material_blue_grey_950
@@ -774,6 +778,7 @@ dimen abc_text_size_title_material_toolbar
 dimen cardview_compat_inset_shadow
 dimen cardview_default_elevation
 dimen cardview_default_radius
+dimen check_stroke_width
 dimen compat_button_inset_horizontal_material
 dimen compat_button_inset_vertical_material
 dimen compat_button_padding_horizontal_material
@@ -1038,6 +1043,7 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable round_box
 drawable round_corners
 drawable shadow_box
 drawable ticket_count
@@ -1078,6 +1084,7 @@ id alertTitle
 id all
 id always
 id anchor
+id anchorFade
 id async
 id auto
 id barrier
@@ -1087,8 +1094,11 @@ id bottom
 id btChangeEmail
 id btChangePassword
 id btLogin
+id btPurchase
 id btRegister
 id btSignIn
+id button1
+id button2
 id buttonPanel
 id category_image_concert_list_item
 id category_image_ticket_list_item
@@ -1096,6 +1106,7 @@ id center
 id center_horizontal
 id center_vertical
 id chains
+id check
 id checkbox
 id chronometer
 id clip_horizontal
@@ -1169,11 +1180,15 @@ id line3
 id listMode
 id list_item
 id list_item_concert_artist
+id list_item_concert_date
 id list_item_concert_genre
+id list_item_concert_location
 id list_item_concert_name
 id list_item_header_title
+id list_item_ticket_count
 id list_item_ticket_price
 id list_item_ticket_seats
+id list_item_ticket_seller
 id list_item_ticket_title
 id list_view_concert_swipe_to_refresh_layout
 id list_view_concerts_swipe_to_refresh_layout
@@ -1181,8 +1196,8 @@ id list_view_tickets_swipe_to_refresh_layout
 id listview_concert_tickets
 id listview_concerts
 id listview_tickets
+id loadingPanel
 id login_form
-id login_progress
 id masked
 id message
 id middle
@@ -1201,6 +1216,7 @@ id normal
 id notification_background
 id notification_main_column
 id notification_main_column_container
+id numberPicker1
 id outline
 id packed
 id parallax
@@ -1212,6 +1228,7 @@ id pin
 id progress_circular
 id progress_horizontal
 id radio
+id register_form
 id right
 id right_icon
 id right_side
@@ -1286,6 +1303,8 @@ id transition_layout_save
 id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
+id tvAmount
+id tvPrice
 id uniform
 id unlabeled
 id up
@@ -1344,7 +1363,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
-layout activity_bought
+layout activity_buy
 layout activity_concert
 layout activity_concerts
 layout activity_login
@@ -1368,7 +1387,9 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_password_icon
 layout dialog_edit_user
+layout dialog_pick_ticket_amount
 layout layout_login
+layout layout_register
 layout listview_item_concert
 layout listview_item_concert_ticket
 layout listview_item_ticket
@@ -1392,7 +1413,7 @@ layout video_sign_up
 mipmap ic_launcher
 mipmap ic_launcher_round
 raw c1
-string APIKEY
+string API_KEY
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description
@@ -1432,8 +1453,6 @@ string abc_searchview_description_voice
 string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
-string actionbar_close
-string actionbar_open
 string app_name
 string app_name_lower_case
 string appbar_scrolling_view_behavior
@@ -1467,6 +1486,7 @@ string webservice_get_concerts_url
 string webservice_get_my_tickets_url
 string webservice_get_user
 string webservice_login
+string webservice_purchase_ticket
 string webservice_register
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
@@ -1666,6 +1686,7 @@ style Base_Widget_MaterialComponents_TextInputLayout
 style CardView
 style CardView_Dark
 style CardView_Light
+style MyNumberPickerTheme
 style Platform_AppCompat
 style Platform_AppCompat_Light
 style Platform_MaterialComponents
@@ -1988,6 +2009,7 @@ styleable BottomNavigationView elevation itemBackground itemHorizontalTranslatio
 styleable BottomSheetBehavior_Layout behavior_fitToContents behavior_hideable behavior_peekHeight behavior_skipCollapsed
 styleable ButtonBarLayout allowStacking
 styleable CardView android_minWidth android_minHeight cardBackgroundColor cardCornerRadius cardElevation cardMaxElevation cardPreventCornerOverlap cardUseCompatPadding contentPadding contentPaddingBottom contentPaddingLeft contentPaddingRight contentPaddingTop
+styleable CheckView checkView_strokeColor checkView_strokeWidth
 styleable Chip android_textAppearance android_ellipsize android_maxWidth android_text android_checkable checkedIcon checkedIconEnabled checkedIconVisible chipBackgroundColor chipCornerRadius chipEndPadding chipIcon chipIconEnabled chipIconSize chipIconTint chipIconVisible chipMinHeight chipStartPadding chipStrokeColor chipStrokeWidth closeIcon closeIconEnabled closeIconEndPadding closeIconSize closeIconStartPadding closeIconTint closeIconVisible hideMotionSpec iconEndPadding iconStartPadding rippleColor showMotionSpec textEndPadding textStartPadding
 styleable ChipGroup checkedChip chipSpacing chipSpacingHorizontal chipSpacingVertical singleLine singleSelection
 styleable CollapsingToolbarLayout collapsedTitleGravity collapsedTitleTextAppearance contentScrim expandedTitleGravity expandedTitleMargin expandedTitleMarginBottom expandedTitleMarginEnd expandedTitleMarginStart expandedTitleMarginTop expandedTitleTextAppearance scrimAnimationDuration scrimVisibleHeightTrigger statusBarScrim title titleEnabled toolbarId

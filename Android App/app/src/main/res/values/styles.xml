@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -11,5 +11,9 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowBackground">@color/colorAccent</item>
+    </style>
+    <style name="MyNumberPickerTheme" parent="@android:style/Widget.Material.NumberPicker" tools:targetApi="n">
+        <item name="colorControlNormal ">#01579b</item>
+        <item name="android:background">#64b5f6</item>
     </style>
 </resources>

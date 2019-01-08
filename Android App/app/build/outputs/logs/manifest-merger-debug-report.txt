@@ -1,18 +1,18 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:2:1-58:12
-INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:2:1-58:12
-INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:2:1-58:12
-INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:2:1-58:12
+ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:2:1-55:12
+INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:2:1-55:12
+INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:2:1-55:12
+INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:2:1-55:12
 MERGED from [com.android.support:design:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/e663f062a9cadcf5898be1f01e42ce60/AndroidManifest.xml:17:1-24:12
+MERGED from [com.github.cdflynn:checkview:v1.1] /home/anonymous/.gradle/caches/transforms-1/files-1.1/checkview-v1.1.aar/3f04e5352e4be0829b5ef21e4253f262/AndroidManifest.xml:2:1-11:12
 MERGED from [com.android.support:appcompat-v7:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/cceb637f3dc30279f267f73139658972/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/anonymous/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/fceaabfbfd60fe44243da22784aebc06/AndroidManifest.xml:2:1-11:12
 MERGED from [com.android.support:support-fragment:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/2ee7bc5a09b2d3a20f3bf73312c5bcea/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:animated-vector-drawable:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/6d5695b29bea1bbc1d6147e8358e2f96/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:recyclerview-v7:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-28.0.0.aar/166df743a01a743aa1245d69e2669b18/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/6d5695b29bea1bbc1d6147e8358e2f96/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-core-ui:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/d13bb621023a901d3b1e866f416ad06c/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-core-utils:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0.aar/c64a2d34fc5de81db5ec3389aa6bbd8d/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-vector-drawable:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/c491d06a32d40b7b7f11cab649f860e5/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:transition:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/transition-28.0.0.aar/858578d641c1cb0b47dfb4f9344eb5c5/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:loader:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/c5e0cac9687f61b4257f956f423f3cab/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:viewpager:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/viewpager-28.0.0.aar/6160afa7716d6e06b29b6d4f3828acc2/AndroidManifest.xml:17:1-22:12
@@ -22,9 +22,9 @@ MERGED from [com.android.support:slidingpanelayout:28.0.0] /home/anonymous/.grad
 MERGED from [com.android.support:customview:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/customview-28.0.0.aar/67fc7c7514f99cda76f103cb423426d0/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:swiperefreshlayout:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0.aar/c8d4f1633f6f6c176af04b40e6d5c1ea/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:asynclayoutinflater:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/7c1ea8418cf9d307254a6b096889af0d/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/c491d06a32d40b7b7f11cab649f860e5/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-compat:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/230c009a72de99207ce0d0cfc7608b08/AndroidManifest.xml:17:1-24:12
 MERGED from [com.android.support:versionedparcelable:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/95af8724c6afb6af89cf19640ebd24a2/AndroidManifest.xml:17:1-25:12
-MERGED from [com.android.support:cursoradapter:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/cc43d44cf85c6b63d63afff7595c726f/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:cardview-v7:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/cardview-v7-28.0.0.aar/c0f9b47caa7feb66908f1e920283312e/AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.lifecycle:runtime:1.1.1] /home/anonymous/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/e91a6e6740a42ecc461641dc093b8d7a/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:documentfile:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/documentfile-28.0.0.aar/400a1e66e4ddecde73cee914ae2b119e/AndroidManifest.xml:17:1-22:12
@@ -32,23 +32,24 @@ MERGED from [com.android.support:localbroadcastmanager:28.0.0] /home/anonymous/.
 MERGED from [com.android.support:print:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/print-28.0.0.aar/569454d6d5daa53adddf2d0c97742dd7/AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /home/anonymous/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/7beedde86e8ec60fa1c25d02009d8bd1/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:interpolator:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/interpolator-28.0.0.aar/ce0ae89507c45a33ebedd1ea01ee7275/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:cursoradapter:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/cc43d44cf85c6b63d63afff7595c726f/AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.lifecycle:livedata:1.1.1] /home/anonymous/.gradle/caches/transforms-1/files-1.1/livedata-1.1.1.aar/969369a9296a413e0711feb68b295c97/AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /home/anonymous/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/4a288b78c07ad0957ad634b743f356e2/AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.core:runtime:1.1.1] /home/anonymous/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/775cb31f2b8df9bedebdc9b1fae35d87/AndroidManifest.xml:17:1-22:12
-INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:2:1-58:12
-INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:2:1-58:12
-INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:2:1-58:12
+INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:2:1-55:12
+INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:2:1-55:12
+INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:2:1-55:12
 	package
 		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:3:5-38
 		INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml
 		INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:2:1-58:12
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:2:1-55:12
 		INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml
 	android:versionCode
 		INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:2:1-58:12
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:2:1-55:12
 		INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:2:11-69
@@ -64,8 +65,12 @@ uses-permission#android.permission.READ_CONTACTS
 ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:8:5-72
 	android:name
 		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:8:22-69
+uses-permission#android.permission.INTERNET
+ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:9:5-67
+	android:name
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:9:22-64
 application
-ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:10:5-56:19
+ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:11:5-53:19
 MERGED from [com.android.support:design:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/e663f062a9cadcf5898be1f01e42ce60/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:design:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/e663f062a9cadcf5898be1f01e42ce60/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/anonymous/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/fceaabfbfd60fe44243da22784aebc06/AndroidManifest.xml:9:5-20
@@ -77,95 +82,91 @@ MERGED from [com.android.support:versionedparcelable:28.0.0] /home/anonymous/.gr
 	android:appComponentFactory
 		ADDED from [com.android.support:support-compat:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/230c009a72de99207ce0d0cfc7608b08/AndroidManifest.xml:22:18-91
 	android:supportsRtl
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:15:9-35
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:16:9-35
 	android:label
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:13:9-41
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:14:9-41
 	android:roundIcon
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:14:9-54
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:15:9-54
 	android:icon
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:12:9-43
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:13:9-43
 	android:allowBackup
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:11:9-35
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:12:9-35
 	android:theme
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:16:9-40
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:17:9-40
 activity#me.projectx.needaticket.LoginActivity
-ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:17:9-24:20
+ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:18:9-25:20
 	android:label
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:19:13-45
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:20:13-45
 	android:name
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:18:13-42
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:19:13-42
 intent-filter#category:name:android.intent.category.LAUNCHER
-ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:20:13-23:29
+ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:21:13-24:29
 category#android.intent.category.LAUNCHER
-ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:22:17-77
+ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:23:17-77
 	android:name
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:22:27-74
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:23:27-74
 activity#me.projectx.needaticket.WelcomeActivity
-ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:25:9-31:20
+ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:26:9-32:20
 	android:name
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:25:19-50
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:26:19-50
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:26:13-30:29
+ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:27:13-31:29
 action#android.intent.action.MAIN
-ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:27:17-69
+ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:28:17-69
 	android:name
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:27:25-66
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:28:25-66
 activity#me.projectx.needaticket.RegisterActivity
-ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:32:9-39:20
+ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:33:9-40:20
 	android:label
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:35:13-45
+	android:name
 		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:34:13-45
-	android:name
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:33:13-45
 activity#me.projectx.needaticket.TicketsActivity
-ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:40:9-41:20
+ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:41:9-42:20
 	android:name
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:40:19-50
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:41:19-50
 activity#me.projectx.needaticket.ConcertsActivity
-ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:42:9-43:20
+ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:43:9-44:20
 	android:name
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:42:19-51
-activity#me.projectx.needaticket.BoughtActivity
-ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:44:9-45:20
-	android:name
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:44:19-49
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:43:19-51
 activity#me.projectx.needaticket.BuyActivity
-ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:46:9-47:20
+ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:45:9-46:20
 	android:name
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:46:19-46
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:45:19-46
 activity#me.projectx.needaticket.ConcertActivity
-ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:48:9-49:20
+ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:47:9-48:20
 	android:name
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:48:19-50
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:47:19-50
 activity#me.projectx.needaticket.UserActivity
-ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:52:9-53:20
+ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:49:9-50:20
 	android:name
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:52:19-47
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:49:19-47
 activity#me.projectx.needaticket.WalletActivity
-ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:54:9-55:20
+ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:51:9-52:20
 	android:name
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:54:19-49
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:51:19-49
 uses-sdk
 INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml
 INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml
 MERGED from [com.android.support:design:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/e663f062a9cadcf5898be1f01e42ce60/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:design:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/e663f062a9cadcf5898be1f01e42ce60/AndroidManifest.xml:20:5-44
+MERGED from [com.github.cdflynn:checkview:v1.1] /home/anonymous/.gradle/caches/transforms-1/files-1.1/checkview-v1.1.aar/3f04e5352e4be0829b5ef21e4253f262/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.cdflynn:checkview:v1.1] /home/anonymous/.gradle/caches/transforms-1/files-1.1/checkview-v1.1.aar/3f04e5352e4be0829b5ef21e4253f262/AndroidManifest.xml:7:5-9:41
 MERGED from [com.android.support:appcompat-v7:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/cceb637f3dc30279f267f73139658972/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:appcompat-v7:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/cceb637f3dc30279f267f73139658972/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/anonymous/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/fceaabfbfd60fe44243da22784aebc06/AndroidManifest.xml:5:5-7:41
 MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/anonymous/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/fceaabfbfd60fe44243da22784aebc06/AndroidManifest.xml:5:5-7:41
 MERGED from [com.android.support:support-fragment:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/2ee7bc5a09b2d3a20f3bf73312c5bcea/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-fragment:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/2ee7bc5a09b2d3a20f3bf73312c5bcea/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:animated-vector-drawable:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/6d5695b29bea1bbc1d6147e8358e2f96/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:animated-vector-drawable:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/6d5695b29bea1bbc1d6147e8358e2f96/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:recyclerview-v7:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-28.0.0.aar/166df743a01a743aa1245d69e2669b18/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:recyclerview-v7:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-28.0.0.aar/166df743a01a743aa1245d69e2669b18/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/6d5695b29bea1bbc1d6147e8358e2f96/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/6d5695b29bea1bbc1d6147e8358e2f96/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-core-ui:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/d13bb621023a901d3b1e866f416ad06c/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-core-ui:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/d13bb621023a901d3b1e866f416ad06c/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-core-utils:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0.aar/c64a2d34fc5de81db5ec3389aa6bbd8d/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-core-utils:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0.aar/c64a2d34fc5de81db5ec3389aa6bbd8d/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-vector-drawable:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/c491d06a32d40b7b7f11cab649f860e5/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-vector-drawable:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/c491d06a32d40b7b7f11cab649f860e5/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:transition:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/transition-28.0.0.aar/858578d641c1cb0b47dfb4f9344eb5c5/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:transition:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/transition-28.0.0.aar/858578d641c1cb0b47dfb4f9344eb5c5/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:loader:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/c5e0cac9687f61b4257f956f423f3cab/AndroidManifest.xml:20:5-44
@@ -184,12 +185,12 @@ MERGED from [com.android.support:swiperefreshlayout:28.0.0] /home/anonymous/.gra
 MERGED from [com.android.support:swiperefreshlayout:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0.aar/c8d4f1633f6f6c176af04b40e6d5c1ea/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:asynclayoutinflater:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/7c1ea8418cf9d307254a6b096889af0d/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:asynclayoutinflater:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/7c1ea8418cf9d307254a6b096889af0d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/c491d06a32d40b7b7f11cab649f860e5/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/c491d06a32d40b7b7f11cab649f860e5/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-compat:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/230c009a72de99207ce0d0cfc7608b08/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-compat:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/230c009a72de99207ce0d0cfc7608b08/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:versionedparcelable:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/95af8724c6afb6af89cf19640ebd24a2/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:versionedparcelable:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/95af8724c6afb6af89cf19640ebd24a2/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:cursoradapter:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/cc43d44cf85c6b63d63afff7595c726f/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:cursoradapter:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/cc43d44cf85c6b63d63afff7595c726f/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:cardview-v7:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/cardview-v7-28.0.0.aar/c0f9b47caa7feb66908f1e920283312e/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:cardview-v7:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/cardview-v7-28.0.0.aar/c0f9b47caa7feb66908f1e920283312e/AndroidManifest.xml:20:5-44
 MERGED from [android.arch.lifecycle:runtime:1.1.1] /home/anonymous/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/e91a6e6740a42ecc461641dc093b8d7a/AndroidManifest.xml:20:5-44
@@ -204,6 +205,8 @@ MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /home/anonymous/.gradle/cac
 MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /home/anonymous/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/7beedde86e8ec60fa1c25d02009d8bd1/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:interpolator:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/interpolator-28.0.0.aar/ce0ae89507c45a33ebedd1ea01ee7275/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:interpolator:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/interpolator-28.0.0.aar/ce0ae89507c45a33ebedd1ea01ee7275/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/cc43d44cf85c6b63d63afff7595c726f/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/cc43d44cf85c6b63d63afff7595c726f/AndroidManifest.xml:20:5-44
 MERGED from [android.arch.lifecycle:livedata:1.1.1] /home/anonymous/.gradle/caches/transforms-1/files-1.1/livedata-1.1.1.aar/969369a9296a413e0711feb68b295c97/AndroidManifest.xml:20:5-44
 MERGED from [android.arch.lifecycle:livedata:1.1.1] /home/anonymous/.gradle/caches/transforms-1/files-1.1/livedata-1.1.1.aar/969369a9296a413e0711feb68b295c97/AndroidManifest.xml:20:5-44
 MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /home/anonymous/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/4a288b78c07ad0957ad634b743f356e2/AndroidManifest.xml:20:5-44

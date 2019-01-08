@@ -13,8 +13,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
+import me.projectx.needaticket.adapter.AdapterListViewConcertTickets;
 import me.projectx.needaticket.adapter.AdapterListViewTicket;
 import me.projectx.needaticket.asynctask.TaskGetConcert;
 import me.projectx.needaticket.asynctask.TaskGetConcertTickets;
@@ -24,8 +27,12 @@ import me.projectx.needaticket.listener.ListenerNavigationMenu;
 import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
 import me.projectx.needaticket.pojo.Artist;
 import me.projectx.needaticket.pojo.Concert;
+import me.projectx.needaticket.pojo.Genre;
+import me.projectx.needaticket.pojo.Seller;
 import me.projectx.needaticket.pojo.Ticket;
 import me.projectx.needaticket.pojo.TicketType;
+import me.projectx.needaticket.pojo.User;
+import me.projectx.needaticket.pojo.Wallet;
 
 public class ConcertActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
 
@@ -45,8 +52,31 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
             this.setViews();
             this.setListener();
             this.uID = getIntent().getStringExtra("uID");
-            this.getConcert();
-            this.getTickets();
+            //this.getConcert();
+            //this.getTickets();
+            Artist a = new Artist("lol", "Martin Garrix");
+            ArrayList<Artist> artists = new ArrayList<>();
+            artists.add(a);
+            ArrayList<Ticket> tickets = new ArrayList<>(0);
+            Concert c1 = new Concert("lol", "We are here", new Date(), "Loliweg 3", artists, Genre.DANCE, tickets);
+            ArrayList<Concert> c = new ArrayList<Concert>();
+            c.add(c1);
+            Seller oe = new Seller("iiooo", "OETicket@oe.com", new ArrayList<Ticket>());
+            Ticket t1 = new Ticket(1, TicketType.CONCERT, "Day 1 Ticket", (float)22.99, oe, null, c);
+            Ticket t2 = new Ticket(2, TicketType.CONCERT, "Day 2 Ticket", (float)22.99, oe, null, c);
+            Ticket t3 = new Ticket(3, TicketType.FESTIVAL, "Festival Pass", (float)33.99, oe, null, c);
+            tickets.add(t1);
+            tickets.add(t2);
+            tickets.add(t3);
+            tickets.add(t1);
+            tickets.add(t2);
+            tickets.add(t3);
+            tickets.add(t1);
+            tickets.add(t2);
+            tickets.add(t3);
+            oe.setTickets(tickets);
+            setConcertContent(c1);
+            fillList(tickets);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -97,11 +127,16 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         TextView header = (TextView) findViewById(R.id.list_item_concert_name);
         TextView genre = (TextView) findViewById(R.id.list_item_concert_genre);
         TextView artist = (TextView) findViewById(R.id.list_item_concert_artist);
+        TextView location = (TextView) findViewById(R.id.list_item_concert_location);
+        TextView date = (TextView) findViewById(R.id.list_item_concert_date);
         String artists = "";
         for(Artist a : concert.getArtists()){
             artists += a.getName() + ", ";
         }
         artists = artists.substring(0, artists.length()-2);
+        location.setText(concert.getAddress());
+        SimpleDateFormat dateFormat= new SimpleDateFormat("dd/MM/yy");
+        date.setText(dateFormat.format(concert.getDate()));
         artist.setText(artists);
         genre.setText(concert.getGenre().toString());
         setUpIconCategory(concert.getTickets().get(0).getType());
@@ -128,10 +163,11 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
 
     //custom
     private void setViews() throws Exception {
+        setContentView(R.layout.activity_concert);
         this.mdl = (DrawerLayout) findViewById(R.id.content_ticket_list);
         this.listView_concert_tickets = (ListView) findViewById(R.id.listview_concert_tickets);
         this.navigation = (NavigationView) findViewById(R.id.navigation_drawer);
-        this.swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.list_view_tickets_swipe_to_refresh_layout);
+        this.swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.list_view_concert_swipe_to_refresh_layout);
     }
 
     private void setListener(){
@@ -151,7 +187,7 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         if(tickets == null) {
             throw new Exception("no Content found");
         } else {
-            AdapterListViewTicket adapter = new AdapterListViewTicket(this, uID, R.layout.listview_item_concert_ticket, tickets);
+            AdapterListViewConcertTickets adapter = new AdapterListViewConcertTickets(this, uID, R.layout.listview_item_concert_ticket, tickets);
             this.listView_concert_tickets.setAdapter(adapter);
         }
     }
@@ -161,6 +197,7 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
             TaskGetConcertTickets get_tickets = new TaskGetConcertTickets(getString(R.string.webservice_get_concert_url) + "/" + concert.getId() + "/tickets", uID, concert.getId(),this);
             get_tickets.execute();
         } catch(Exception error){
+            swipeRefreshLayout.setRefreshing(false);
             HandlerState.handle(error,this);
         }
     }

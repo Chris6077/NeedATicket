@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -48,13 +49,9 @@
         </activity>
         <activity android:name="me.projectx.needaticket.ConcertsActivity" >
         </activity>
-        <activity android:name="me.projectx.needaticket.BoughtActivity" >
-        </activity>
         <activity android:name="me.projectx.needaticket.BuyActivity" >
         </activity>
         <activity android:name="me.projectx.needaticket.ConcertActivity" >
-        </activity>
-        <activity android:name="me.projectx.needaticket.ConcertsActivity" >
         </activity>
         <activity android:name="me.projectx.needaticket.UserActivity" >
         </activity>

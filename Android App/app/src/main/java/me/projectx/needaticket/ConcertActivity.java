@@ -35,7 +35,6 @@ import me.projectx.needaticket.pojo.User;
 import me.projectx.needaticket.pojo.Wallet;
 
 public class ConcertActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
-
     private DrawerLayout mdl;
     private ActionBarDrawerToggle toggle;
     private String uID;
@@ -125,11 +124,11 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
     }
 
     private void setConcertContent(Concert concert) {
-        TextView header = (TextView) findViewById(R.id.list_item_concert_name);
-        TextView genre = (TextView) findViewById(R.id.list_item_concert_genre);
-        TextView artist = (TextView) findViewById(R.id.list_item_concert_artist);
-        TextView location = (TextView) findViewById(R.id.list_item_concert_location);
-        TextView date = (TextView) findViewById(R.id.list_item_concert_date);
+        TextView header = findViewById(R.id.list_item_concert_name);
+        TextView genre = findViewById(R.id.list_item_concert_genre);
+        TextView artist = findViewById(R.id.list_item_concert_artist);
+        TextView location = findViewById(R.id.list_item_concert_location);
+        TextView date = findViewById(R.id.list_item_concert_date);
         String artists = "";
         for(Artist a : concert.getArtists()){
             artists += a.getName() + ", ";
@@ -145,7 +144,7 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
     }
 
     private void setUpIconCategory(TicketType ticketType){
-        ImageView imageview_header_image_category = (ImageView) findViewById(R.id.category_image_concert_list_item);
+        ImageView imageview_header_image_category = findViewById(R.id.category_image_concert_list_item);
         switch (ticketType){
             case CONCERT:
                 imageview_header_image_category.setImageResource(R.drawable.category_concert);
@@ -161,13 +160,12 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         this.getTickets();
     }
 
-    //custom
-    private void setViews() throws Exception {
+    private void setViews() {
         setContentView(R.layout.activity_concert);
-        this.mdl = (DrawerLayout) findViewById(R.id.content_ticket_list);
-        this.listView_concert_tickets = (ListView) findViewById(R.id.listview_concert_tickets);
-        this.navigation = (NavigationView) findViewById(R.id.navigation_drawer);
-        this.swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.list_view_concert_swipe_to_refresh_layout);
+        this.mdl = findViewById(R.id.content_ticket_list);
+        this.listView_concert_tickets = findViewById(R.id.listview_concert_tickets);
+        this.navigation = findViewById(R.id.navigation_drawer);
+        this.swipeRefreshLayout = findViewById(R.id.list_view_concert_swipe_to_refresh_layout);
     }
 
     private void setListener(){

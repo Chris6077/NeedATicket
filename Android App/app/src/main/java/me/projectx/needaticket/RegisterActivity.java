@@ -1,24 +1,11 @@
 package me.projectx.needaticket;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.app.ActivityOptions;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Pair;
@@ -27,19 +14,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import me.projectx.needaticket.asynctask.TaskLogin;
 import me.projectx.needaticket.asynctask.TaskRegister;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
-
-import static android.Manifest.permission.READ_CONTACTS;
 
 public class RegisterActivity extends AppCompatActivity implements InterfaceTaskDefault {
     private TaskRegister mAuthTask;
@@ -60,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         // VideoView
-        videoBG = (VideoView) findViewById(R.id.videoView);
+        videoBG = findViewById(R.id.videoView);
 
         //Video URI
         Uri uri = Uri.parse("android.resource://"
@@ -89,14 +69,14 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
         registrateEventHandlers();
     }
     private void setViews() {
-        image_logo = (ImageView) findViewById(R.id.imageView);
-        btRegister = (Button)findViewById(R.id.btRegister);
-        btSignIn = (Button)findViewById(R.id.btSignIn);
-        mEmailView = (EditText) findViewById(R.id.etEmailAddress);
-        mPasswordView = (EditText) findViewById(R.id.etPassword);
-        mPasswordConfirmView = (EditText) findViewById(R.id.etPasswordConfirm);
-        mProgressView = (RelativeLayout) findViewById(R.id.loadingPanel);
-        mLoginFormView = (ConstraintLayout) findViewById(R.id.register_form);
+        image_logo = findViewById(R.id.imageView);
+        btRegister = findViewById(R.id.btRegister);
+        btSignIn = findViewById(R.id.btSignIn);
+        mEmailView = findViewById(R.id.etEmailAddress);
+        mPasswordView = findViewById(R.id.etPassword);
+        mPasswordConfirmView = findViewById(R.id.etPasswordConfirm);
+        mProgressView = findViewById(R.id.loadingPanel);
+        mLoginFormView = findViewById(R.id.register_form);
     }
     private void registrateEventHandlers(){
         btRegister.setOnClickListener(new OnClickListener() {
@@ -198,12 +178,10 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 

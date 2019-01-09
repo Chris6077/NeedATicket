@@ -1053,6 +1053,7 @@ drawable ticket_seller
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 drawable transparent_bar
+drawable wallet
 drawable x
 id ALT
 id CTRL
@@ -1091,12 +1092,14 @@ id barrier
 id beginning
 id blocking
 id bottom
+id btCashOut
 id btChangeEmail
 id btChangePassword
 id btLogin
 id btPurchase
 id btRegister
 id btSignIn
+id btUpload
 id button1
 id button2
 id buttonPanel
@@ -1121,6 +1124,7 @@ id content_buy
 id content_concerts_list
 id content_ticket_list
 id content_user
+id content_wallet
 id content_welcome
 id coordinator
 id custom
@@ -1139,6 +1143,7 @@ id disableHome
 id divider
 id edit_password
 id edit_query
+id edittext_amount
 id end
 id enterAlways
 id enterAlwaysCollapsed
@@ -1206,6 +1211,7 @@ id mini
 id mntm_concerts
 id mntm_logout
 id mntm_my_tickets
+id mntm_wallet
 id mtrl_child_content_container
 id mtrl_internal_children_alpha_tag
 id multiply
@@ -1288,6 +1294,7 @@ id text_input_password_toggle
 id textinput_counter
 id textinput_error
 id textinput_helper_text
+id textview_balance
 id textview_bought
 id textview_email
 id textview_password
@@ -1471,6 +1478,7 @@ string mtrl_chip_close_icon_content_description
 string navmenu_concerts
 string navmenu_logout
 string navmenu_my_tickets
+string navmenu_wallet
 string password_toggle_content_description
 string path_password_eye
 string path_password_eye_mask_strike_through
@@ -1480,15 +1488,18 @@ string permission_rationale
 string search_menu_title
 string status_bar_notification_info_overflow
 string uID
+string webservice_cashout
 string webservice_change_email
 string webservice_change_password
 string webservice_get_concert_url
 string webservice_get_concerts_url
 string webservice_get_my_tickets_url
 string webservice_get_user
+string webservice_get_wallet
 string webservice_login
 string webservice_purchase_ticket
 string webservice_register
+string webservice_upload
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style Animation_AppCompat_Dialog

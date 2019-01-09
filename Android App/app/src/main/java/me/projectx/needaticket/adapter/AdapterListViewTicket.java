@@ -46,9 +46,9 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
         System.out.println(ticket);
         LayoutInflater inflater = (LayoutInflater) this.getAppCompatActivityResource().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.listview_item_ticket, parent, false);
-        TextView header = (TextView) rowView.findViewById(R.id.list_item_ticket_title);
-        TextView seats = (TextView) rowView.findViewById(R.id.list_item_ticket_seats);
-        TextView price = (TextView) rowView.findViewById(R.id.list_item_ticket_price);
+        TextView header = rowView.findViewById(R.id.list_item_ticket_title);
+        TextView seats = rowView.findViewById(R.id.list_item_ticket_seats);
+        TextView price = rowView.findViewById(R.id.list_item_ticket_price);
         seats.setText(ticket.getSeats());
         price.setText(ticket.getPrice() + "€");
         setUpIconCategory(rowView,ticket.getType());
@@ -57,7 +57,7 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
     }
 
     private void setUpIconCategory(View rowView, TicketType ticketType){
-        ImageView imageview_header_image_category = (ImageView) rowView.findViewById(R.id.category_image_ticket_list_item);
+        ImageView imageview_header_image_category = rowView.findViewById(R.id.category_image_ticket_list_item);
         switch (ticketType){
             case CONCERT:
                 imageview_header_image_category.setImageResource(R.drawable.category_ticket_concert);

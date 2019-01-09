@@ -87,8 +87,8 @@
     <Button
         android:id="@+id/btRegister"
         android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="18dp"
         android:background="@drawable/transparent_bar"
         android:textColor="#ffffff"
         android:gravity="center"
@@ -100,7 +100,7 @@
     <Button
         android:id="@+id/btSignIn"
         android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/transparent_bar"
         android:ems="10"

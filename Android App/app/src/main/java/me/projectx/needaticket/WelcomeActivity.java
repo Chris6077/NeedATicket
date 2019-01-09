@@ -1,10 +1,8 @@
 package me.projectx.needaticket;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Pair;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -14,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {
-
     private ImageView image_logo;
     private TextView textview_app_name;
     private LinearLayout content;
@@ -40,15 +37,14 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void setViews() {
-        image_logo = (ImageView) findViewById(R.id.image_welcome_logo);
-        textview_app_name = (TextView) this.findViewById(R.id.textview_welcome_app_name_lowercase);
-        content = (LinearLayout) findViewById(R.id.content_welcome);
+        image_logo = findViewById(R.id.image_welcome_logo);
+        textview_app_name = this.findViewById(R.id.textview_welcome_app_name_lowercase);
+        content = findViewById(R.id.content_welcome);
     }
 
     private void showNewIntent(){
         final Intent login_activity = new Intent(this, LoginActivity.class);
         try{
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, new Pair<View, String>(image_logo, "logo"));
             startActivity(login_activity);
         } catch (Exception e){
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();

@@ -9,6 +9,9 @@
     <item android:id="@+id/mntm_my_tickets"
         android:title="@string/navmenu_my_tickets"
         android:icon="@drawable/category_ticket_concert"/>
+    <item android:id="@+id/mntm_wallet"
+        android:title="@string/navmenu_wallet"
+        android:icon="@drawable/wallet"/>
     <item android:id="@+id/mntm_logout"
         android:title="@string/navmenu_logout"
         android:icon="@drawable/logout">

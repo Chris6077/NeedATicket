@@ -21,7 +21,6 @@ import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
 import me.projectx.needaticket.pojo.Ticket;
 
 public class TicketsActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
-
     private DrawerLayout mdl;
     private ActionBarDrawerToggle toggle;
     private ListView listView_tickets;
@@ -73,12 +72,11 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
         this.getTickets();
     }
 
-    //custom
-    private void setViews() throws Exception {
-        this.mdl = (DrawerLayout) findViewById(R.id.content_ticket_list);
-        this.listView_tickets = (ListView) findViewById(R.id.listview_tickets);
-        this.navigation = (NavigationView) findViewById(R.id.navigation_drawer);
-        this.swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.list_view_tickets_swipe_to_refresh_layout);
+    private void setViews() {
+        this.mdl = findViewById(R.id.content_ticket_list);
+        this.listView_tickets = findViewById(R.id.listview_tickets);
+        this.navigation = findViewById(R.id.navigation_drawer);
+        this.swipeRefreshLayout = findViewById(R.id.list_view_tickets_swipe_to_refresh_layout);
     }
 
     private void setListener(){

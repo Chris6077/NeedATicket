@@ -22,7 +22,7 @@ public class TaskPurchaseTicket extends AsyncTask<String, Void, String> {
     private int amount;
     private InterfaceTaskDefault listener;
 
-    public TaskPurchaseTicket(String url, String tID, String uID, int amount, InterfaceTaskDefault listener) throws Exception {
+    public TaskPurchaseTicket(String url, String tID, String uID, int amount, InterfaceTaskDefault listener) {
         this.url = url;
         this.uID = uID;
         this.tID = tID;

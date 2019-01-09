@@ -17,6 +17,7 @@
     <!-- Strings related to navbar -->
     <string name="navmenu_concerts">Concerts</string>
     <string name="navmenu_my_tickets">My Tickets</string>
+    <string name="navmenu_wallet">Wallet</string>
     <string name="navmenu_logout">Logout</string>
 
     <!-- TEST -->
@@ -30,4 +31,7 @@
     <string name="webservice_login">https://www.bashit.me</string>
     <string name="webservice_register">https://www.bashit.me</string>
     <string name="webservice_purchase_ticket">https://www.bashit.me</string>
+    <string name="webservice_get_wallet">https://www.bashit.me</string>
+    <string name="webservice_upload">https://www.bashit.me</string>
+    <string name="webservice_cashout">https://www.bashit.me</string>
 </resources>

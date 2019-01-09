@@ -4,14 +4,11 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -24,7 +21,6 @@ import android.widget.TextView;
 
 import me.projectx.needaticket.asynctask.TaskChangeEmail;
 import me.projectx.needaticket.asynctask.TaskChangePassword;
-import me.projectx.needaticket.asynctask.TaskGetConcertTickets;
 import me.projectx.needaticket.asynctask.TaskGetUser;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
@@ -33,12 +29,9 @@ import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
 import me.projectx.needaticket.pojo.User;
 
 public class UserActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
-
     private SwipeRefreshLayout swipeRefreshLayout;
     private User user;
     private String uID;
-    private ActionBarDrawerToggle toggle;
-    private DrawerLayout mdl;
     private TextView email;
     private TextView password;
     private EditText dialog_oldPassword;
@@ -50,19 +43,16 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
     private NavigationView navigation;
     private FloatingActionButton fab_user;
 
-    //super
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-
         this.setViews();
         this.setListener();
         this.uID = getIntent().getStringExtra("uID");
         this.getUser();
     }
 
-    //custom
     private void setContent(User user){
         email.setText(user.getEmail());
         boughtTickets.setText(user.getTickets().size());
@@ -74,18 +64,17 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
         navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this, uID));
     }
     private void setViews() {
-        this.navigation = (NavigationView) findViewById(R.id.navigation_drawer);
-        this.swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.user_swipe_to_refresh_layout);
-        this.mdl = (DrawerLayout) findViewById(R.id.content_user);
-        this.email = (TextView) findViewById(R.id.textview_email);
-        this.password = (TextView) findViewById(R.id.textview_password);
-        this.boughtTickets = (TextView) findViewById(R.id.textview_bought);
-        this.fab_user = (FloatingActionButton) findViewById(R.id.fab_user);
-        this.dialog_oldPassword = (EditText) findViewById(R.id.etOldPassword);
-        this.dialog_newPassword = (EditText) findViewById(R.id.etNewPassword);
-        this.dialog_confirmNewPassword = (EditText) findViewById(R.id.etPasswordConfirm);
-        this.dialog_newEmail = (EditText) findViewById(R.id.etEmailAddress);
-        this.dialog_Password = (EditText) findViewById(R.id.etPassword);
+        this.navigation = findViewById(R.id.navigation_drawer);
+        this.swipeRefreshLayout = findViewById(R.id.user_swipe_to_refresh_layout);
+        this.email = findViewById(R.id.textview_email);
+        this.password = findViewById(R.id.textview_password);
+        this.boughtTickets = findViewById(R.id.textview_bought);
+        this.fab_user = findViewById(R.id.fab_user);
+        this.dialog_oldPassword = findViewById(R.id.etOldPassword);
+        this.dialog_newPassword = findViewById(R.id.etNewPassword);
+        this.dialog_confirmNewPassword = findViewById(R.id.etPasswordConfirm);
+        this.dialog_newEmail = findViewById(R.id.etEmailAddress);
+        this.dialog_Password = findViewById(R.id.etPassword);
     }
 
     private void setListener(){
@@ -141,7 +130,7 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
         final Dialog dialog = new Dialog(this,R.style.UserAlertStyle);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(dialogView);
-        ImageView imageView = (ImageView)dialog.findViewById(R.id.closeDialog);
+        ImageView imageView = dialog.findViewById(R.id.closeDialog);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,9 +138,9 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
                 revealShow(dialogView, false, dialog);
             }
         });
-        Button changeEmail = (Button)dialog.findViewById(R.id.btChangeEmail);
+        Button changeEmail = dialog.findViewById(R.id.btChangeEmail);
         changeEmail.setOnClickListener(new changeEmailListener());
-        Button changePassword = (Button)dialog.findViewById(R.id.btChangePassword);
+        Button changePassword = dialog.findViewById(R.id.btChangePassword);
         changePassword.setOnClickListener(new changePasswordListener());
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override

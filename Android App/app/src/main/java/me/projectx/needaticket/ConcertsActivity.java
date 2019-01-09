@@ -80,12 +80,11 @@ public class ConcertsActivity extends AppCompatActivity implements InterfaceTask
         this.getConcerts();
     }
 
-    //custom
-    private void setViews() throws Exception {
-        this.mdl = (DrawerLayout) findViewById(R.id.content_concerts_list);
-        this.listView_concerts = (ListView) findViewById(R.id.listview_concerts);
-        this.navigation = (NavigationView) findViewById(R.id.navigation_drawer);
-        this.swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.list_view_concerts_swipe_to_refresh_layout);
+    private void setViews() {
+        this.mdl = findViewById(R.id.content_concerts_list);
+        this.listView_concerts = findViewById(R.id.listview_concerts);
+        this.navigation = findViewById(R.id.navigation_drawer);
+        this.swipeRefreshLayout = findViewById(R.id.list_view_concerts_swipe_to_refresh_layout);
     }
 
     private void setListener(){

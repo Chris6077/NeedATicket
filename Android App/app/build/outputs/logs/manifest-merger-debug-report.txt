@@ -86,9 +86,9 @@ MERGED from [com.android.support:versionedparcelable:28.0.0] /home/anonymous/.gr
 	android:label
 		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:14:9-41
 	android:roundIcon
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:15:9-54
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:15:9-43
 	android:icon
-		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:13:9-43
+		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:13:9-38
 	android:allowBackup
 		ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:12:9-35
 	android:theme

@@ -56,10 +56,10 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
         System.out.println(ticket);
         LayoutInflater inflater = (LayoutInflater) this.getAppCompatActivityResource().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.listview_item_concert_ticket, parent, false);
-        TextView header = (TextView) rowView.findViewById(R.id.list_item_ticket_title);
-        TextView seller = (TextView) rowView.findViewById(R.id.list_item_ticket_seller);
-        TextView price = (TextView) rowView.findViewById(R.id.list_item_ticket_price);
-        TextView amount = (TextView) rowView.findViewById(R.id.list_item_ticket_count);
+        TextView header = rowView.findViewById(R.id.list_item_ticket_title);
+        TextView seller = rowView.findViewById(R.id.list_item_ticket_seller);
+        TextView price = rowView.findViewById(R.id.list_item_ticket_price);
+        TextView amount = rowView.findViewById(R.id.list_item_ticket_count);
         seller.setText(ticket.getSeller().getName());
         price.setText(ticket.getPrice() + "€");
         amount.setText("0");
@@ -71,7 +71,7 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
     }
 
     private void setUpIconCategory(View rowView, TicketType ticketType){
-        ImageView imageview_header_image_category = (ImageView) rowView.findViewById(R.id.category_image_ticket_list_item);
+        ImageView imageview_header_image_category = rowView.findViewById(R.id.category_image_ticket_list_item);
         switch (ticketType){
             case CONCERT:
                 imageview_header_image_category.setImageResource(R.drawable.category_ticket_concert);
@@ -103,7 +103,7 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
     }
 
     private void changeActivity(View rowView, final Ticket ticket){
-        final LinearLayout content_title = (LinearLayout) rowView.findViewById(R.id.list_item_header_title);
+        final LinearLayout content_title = rowView.findViewById(R.id.list_item_header_title);
         content_title.setOnClickListener(
                 new View.OnClickListener() {
                     @Override

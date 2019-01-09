@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import me.projectx.needaticket.ConcertsActivity;
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.TicketsActivity;
+import me.projectx.needaticket.WalletActivity;
 import me.projectx.needaticket.WelcomeActivity;
 
 public class ListenerNavigationMenu implements NavigationView.OnNavigationItemSelectedListener {
@@ -26,6 +27,8 @@ public class ListenerNavigationMenu implements NavigationView.OnNavigationItemSe
             startActivity(ConcertsActivity.class);
         } else if(item.getItemId() == R.id.mntm_my_tickets){
             startActivity(TicketsActivity.class);
+        } else if(item.getItemId() == R.id.mntm_wallet) {
+            startActivity(WalletActivity.class);
         } else if(item.getItemId() == R.id.mntm_logout){
             startActivity(WelcomeActivity.class);
         }

@@ -1,19 +1,10 @@
 package me.projectx.needaticket;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.app.ActivityOptions;
-import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Pair;
 import android.view.View;
@@ -21,13 +12,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.VideoView;
 
 import me.projectx.needaticket.asynctask.TaskLogin;
-import me.projectx.needaticket.asynctask.TaskRegister;
-import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 
 public class LoginActivity extends AppCompatActivity implements InterfaceTaskDefault {
@@ -48,7 +36,7 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // VideoView
-        videoBG = (VideoView) findViewById(R.id.videoView);
+        videoBG = findViewById(R.id.videoView);
 
         //Video URI
         Uri uri = Uri.parse("android.resource://"
@@ -78,13 +66,13 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
         registrateEventHandlers();
     }
     private void setViews() {
-        image_logo = (ImageView) findViewById(R.id.imageView);
-        btRegister = (Button)findViewById(R.id.btRegister);
-        btLogin = (Button)findViewById(R.id.btLogin);
-        mEmailView = (EditText) findViewById(R.id.etEmailAddress);
-        mPasswordView = (EditText) findViewById(R.id.etPassword);
-        mLoginFormView = (ConstraintLayout) findViewById(R.id.login_form);
-        mProgressView = (RelativeLayout) findViewById(R.id.loadingPanel);
+        image_logo = findViewById(R.id.imageView);
+        btRegister = findViewById(R.id.btRegister);
+        btLogin = findViewById(R.id.btLogin);
+        mEmailView = findViewById(R.id.etEmailAddress);
+        mPasswordView = findViewById(R.id.etPassword);
+        mLoginFormView = findViewById(R.id.login_form);
+        mProgressView = findViewById(R.id.loadingPanel);
     }
     private void registrateEventHandlers(){
         btRegister.setOnClickListener(new OnClickListener() {

@@ -1,46 +1,27 @@
 package me.projectx.needaticket;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewAnimationUtils;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import cdflynn.android.library.checkview.CheckView;
-import me.projectx.needaticket.asynctask.TaskChangeEmail;
-import me.projectx.needaticket.asynctask.TaskChangePassword;
-import me.projectx.needaticket.asynctask.TaskGetConcertTickets;
-import me.projectx.needaticket.asynctask.TaskGetUser;
 import me.projectx.needaticket.asynctask.TaskPurchaseTicket;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
 import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
 import me.projectx.needaticket.pojo.TicketType;
-import me.projectx.needaticket.pojo.User;
 
 public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefault{
     private String uID;
@@ -60,7 +41,6 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
     private NavigationView navigation;
     private AppCompatActivity cx;
 
-    //super
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +54,6 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
         cx = this;
     }
 
-    //custom
     private void setContent(){
         header.setText(getIntent().getStringExtra("ticketTitle"));
         seller.setText(getIntent().getStringExtra("sellerName"));
@@ -109,18 +88,18 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
         navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this, uID));
     }
     private void setViews() {
-        this.navigation = (NavigationView) findViewById(R.id.navigation_drawer);
-        this.imageview_header_image_category = (ImageView) findViewById(R.id.category_image_ticket_list_item);
-        this.mdl = (DrawerLayout) findViewById(R.id.content_buy);
-        this.header = (TextView) findViewById(R.id.list_item_ticket_title);
-        this.seller = (TextView) findViewById(R.id.list_item_ticket_seller);
-        this.price = (TextView) findViewById(R.id.list_item_ticket_price);
-        this.totalPrice = (TextView) findViewById(R.id.tvPrice);
-        this.amount = (TextView) findViewById(R.id.list_item_ticket_count);
-        this.amountSelected = (TextView) findViewById(R.id.tvAmount);
-        this.btPurchase = (Button) findViewById(R.id.btPurchase);
-        this.anchor = (FrameLayout) findViewById(R.id.anchorFade);
-        this.checker = (CheckView) findViewById(R.id.check);
+        this.navigation = findViewById(R.id.navigation_drawer);
+        this.imageview_header_image_category = findViewById(R.id.category_image_ticket_list_item);
+        this.mdl = findViewById(R.id.content_buy);
+        this.header = findViewById(R.id.list_item_ticket_title);
+        this.seller = findViewById(R.id.list_item_ticket_seller);
+        this.price = findViewById(R.id.list_item_ticket_price);
+        this.totalPrice = findViewById(R.id.tvPrice);
+        this.amount = findViewById(R.id.list_item_ticket_count);
+        this.amountSelected = findViewById(R.id.tvAmount);
+        this.btPurchase = findViewById(R.id.btPurchase);
+        this.anchor = findViewById(R.id.anchorFade);
+        this.checker = findViewById(R.id.check);
     }
 
     private void setListener(){
@@ -164,7 +143,7 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
                             startActivity(concert_activity);
                         }
                     },
-                    1500);
+                    1300);
         }
         catch(Exception e){
             HandlerState.handle(e,getApplicationContext());

@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -111,7 +113,7 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         try{
             swipeRefreshLayout.setRefreshing(false);
             try {
-                concert = (Concert) result;
+                concert = new Gson().fromJson((String) result, Concert.class);
                 setConcertContent(concert);
             }
             catch(Exception e){

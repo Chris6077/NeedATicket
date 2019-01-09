@@ -58,7 +58,7 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
+        setContentView(R.layout.activity_buy);
 
         this.setViews();
         this.setListener();
@@ -99,6 +99,7 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
         this.seller = (TextView) findViewById(R.id.list_item_ticket_seller);
         this.price = (TextView) findViewById(R.id.list_item_ticket_price);
         this.amount = (TextView) findViewById(R.id.list_item_ticket_count);
+        this.amountSelected = (TextView) findViewById(R.id.tvAmount);
         this.btPurchase = (Button) findViewById(R.id.btPurchase);
         this.anchor = (FrameLayout) findViewById(R.id.anchorFade);
         this.checker = (CheckView) findViewById(R.id.check);

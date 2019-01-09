@@ -173,4 +173,5 @@
             </LinearLayout>
         </FrameLayout>
     </android.support.design.widget.CoordinatorLayout>
+    <include layout="@layout/navigation_drawer"></include>
 </android.support.constraint.ConstraintLayout>

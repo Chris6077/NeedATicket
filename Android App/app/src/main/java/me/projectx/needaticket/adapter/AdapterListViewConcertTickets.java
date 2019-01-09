@@ -120,10 +120,10 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
         buy_activity.putExtra("uID", uID);
         buy_activity.putExtra("sellerName", t.getSeller().getName());
         buy_activity.putExtra("ticketTitle", t.getTitle());
-        buy_activity.putExtra("price", t.getPrice());
-        buy_activity.putExtra("ticketType", t.getType());
+        buy_activity.putExtra("price", "" + t.getPrice());
+        buy_activity.putExtra("ticketType", t.getType().toString());
         buy_activity.putExtra("amount", "25");
-        buy_activity.putExtra("amountSelected", newVal);
+        buy_activity.putExtra("amountSelected", "" + newVal);
         getAppCompatActivityResource().startActivity(buy_activity);
     }
 }

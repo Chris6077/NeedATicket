@@ -155,7 +155,6 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         }
     }
 
-
     @Override
     public void onRefresh() {
         this.getTickets();

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+    <item android:id="@+id/mntm_concerts"
+        android:title="@string/navmenu_concerts"
+        android:icon="@drawable/category_concert"/>
+    <item android:id="@+id/mntm_my_tickets"
+        android:title="@string/navmenu_my_tickets"
+        android:icon="@drawable/category_ticket_concert"/>
+    <item android:id="@+id/mntm_wallet"
+        android:title="@string/navmenu_wallet"
+        android:icon="@drawable/wallet"/>
+    <item android:id="@+id/mntm_logout"
+        android:title="@string/navmenu_logout"
+        android:icon="@drawable/logout">
+    </item>
+</menu>

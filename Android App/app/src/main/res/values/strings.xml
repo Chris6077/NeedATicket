@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">NeedATicket</string>
+    <string name="app_name_lower_case">needaticket</string>
+
+    <!-- Strings related to login -->
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <!-- Strings related to asynctasks -->
+    <string name="webservice_get_my_tickets_url">https://www.bashit.me/</string>
+
+    <!-- Strings related to navbar -->
+    <string name="navmenu_concerts">Concerts</string>
+    <string name="navmenu_my_tickets">My Tickets</string>
+    <string name="navmenu_wallet">Wallet</string>
+    <string name="navmenu_logout">Logout</string>
+
+    <!-- TEST -->
+    <string name="API_KEY">API_111</string>
+    <string name="uID">u827539875923759237</string>
+    <string name="webservice_get_concerts_url">https://www.bashit.me</string>
+    <string name="webservice_get_concert_url">https://www.bashit.me</string>
+    <string name="webservice_get_user">https://www.bashit.me</string>
+    <string name="webservice_change_email">https://www.bashit.me</string>
+    <string name="webservice_change_password">https://www.bashit.me</string>
+    <string name="webservice_login">https://www.bashit.me</string>
+    <string name="webservice_register">https://www.bashit.me</string>
+    <string name="webservice_purchase_ticket">https://www.bashit.me</string>
+    <string name="webservice_get_wallet">https://www.bashit.me</string>
+    <string name="webservice_upload">https://www.bashit.me</string>
+    <string name="webservice_cashout">https://www.bashit.me</string>
+</resources>

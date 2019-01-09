@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:id="@+id/dialog"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent">
+    android:background="#EE0024">
 <ImageView
 android:id="@+id/closeDialog"
     android:layout_width="30dp"

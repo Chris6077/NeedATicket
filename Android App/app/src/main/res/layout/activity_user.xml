@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
+            android:layout_marginTop="40dp"
             android:layout_marginBottom="50dp" >
             <ImageView
                 android:layout_width="200dp"
@@ -42,17 +43,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingTop="15sp"
+            android:elevation="2px"
             android:padding="2.5dp"
             android:background="@drawable/round_box">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
                 android:text="E-Mail"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
                 android:id="@+id/textview_email"
                 android:text="{email}"/>
         </LinearLayout>
@@ -62,17 +66,20 @@
             android:orientation="vertical"
             android:paddingTop="15sp"
             android:padding="2.5dp"
+            android:elevation="2px"
             android:layout_marginTop="10dp"
             android:background="@drawable/round_box">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
                 android:text="Password"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
                 android:id="@+id/textview_password"
                 android:text="***********************"/>
         </LinearLayout>
@@ -82,17 +89,20 @@
             android:orientation="vertical"
             android:paddingTop="15sp"
             android:padding="2.5dp"
+            android:elevation="2px"
             android:layout_marginTop="10dp"
             android:background="@drawable/round_box">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
                 android:text="Tickets Bought"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
                 android:id="@+id/textview_bought"
                 android:text="{bought}"/>
         </LinearLayout>

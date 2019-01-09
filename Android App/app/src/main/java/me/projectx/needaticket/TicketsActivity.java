@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import me.projectx.needaticket.adapter.AdapterListViewTicket;
 import me.projectx.needaticket.asynctask.TaskGetMyTickets;
@@ -18,7 +19,12 @@ import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
 import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
+import me.projectx.needaticket.pojo.Artist;
+import me.projectx.needaticket.pojo.Concert;
+import me.projectx.needaticket.pojo.Genre;
+import me.projectx.needaticket.pojo.Seller;
 import me.projectx.needaticket.pojo.Ticket;
+import me.projectx.needaticket.pojo.TicketType;
 
 public class TicketsActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
     private DrawerLayout mdl;
@@ -36,7 +42,8 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
         try {
             this.setViews();
             this.setListener();
-            this.getTickets();
+            //this.getTickets();
+            fillList(new ArrayList<Ticket>());
             this.uID = getIntent().getStringExtra("uID");
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,12 +100,26 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
     }
 
     private void fillList(ArrayList<Ticket> tickets) throws Exception {
+        fillWithDummy(tickets);
         if(tickets == null) {
             throw new Exception("no Content found");
         } else {
             AdapterListViewTicket adapter = new AdapterListViewTicket(this, uID, R.layout.listview_item_ticket, tickets);
             this.listView_tickets.setAdapter(adapter);
         }
+    }
+
+    private void fillWithDummy(ArrayList<Ticket> tickets){
+        Artist a = new Artist("lol", "Martin Garrix");
+        ArrayList<Ticket> tickets2 = new ArrayList<>();
+        ArrayList<Artist> artists = new ArrayList<>();
+        artists.add(a);
+        Concert c1 = new Concert("lol", "We are here", new Date(), "Loliweg 3", artists, Genre.DANCE, tickets2);
+        ArrayList<Concert> c = new ArrayList<>();
+        c.add(c1);
+        Seller oe = new Seller("iiooo", "OETicket@oe.com", new ArrayList<Ticket>());
+        Ticket t1 = new Ticket(1, TicketType.CONCERT, "Day 1 Ticket", (float)22.99, oe, null, c);
+        tickets.add(t1);
     }
 
     private void getTickets(){

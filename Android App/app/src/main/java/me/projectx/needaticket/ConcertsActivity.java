@@ -112,21 +112,38 @@ public class ConcertsActivity extends AppCompatActivity implements InterfaceTask
 
     private void fillWithDummy(ArrayList<Concert> concerts){
         Artist a = new Artist("lol", "Martin Garrix");
+        Artist b = new Artist("lol2", "Kollegah");
+        Artist e = new Artist("lol3", "Beethoven");
+        Artist d = new Artist("lol4", "Madonna");
         ArrayList<Artist> artists = new ArrayList<>();
         artists.add(a);
-        ArrayList<Ticket> tickets = new ArrayList<>(0);
-        Concert c1 = new Concert("lol", "We are here", new Date(), "Loliweg 3", artists, Genre.DANCE, tickets);
+        ArrayList<Artist> artists2 = new ArrayList<>();
+        artists2.add(b);
+        ArrayList<Artist> artists3 = new ArrayList<>();
+        artists3.add(e);
+        ArrayList<Artist> artists4 = new ArrayList<>();
+        artists4.add(d);
+        ArrayList<Ticket> tickets1 = new ArrayList<>(0);
+        ArrayList<Ticket> tickets2 = new ArrayList<>(0);
+        Concert c1 = new Concert("lol", "We are here", new Date(), "Loliweg 3", artists, Genre.DANCE, tickets2);
+        Concert c2 = new Concert("lol2", "Kollegah", new Date(), "Leelstraße 5", artists2, Genre.RAP, tickets1);
+        Concert c3 = new Concert("lol3", "Beethoven", new Date(), "London 4", artists3, Genre.CLASSICAL, tickets1);
+        Concert c4 = new Concert("lol4", "Madonna", new Date(), "Suedalley 8", artists4, Genre.POP, tickets1);
         ArrayList<Concert> c = new ArrayList<Concert>();
         c.add(c1);
         Seller oe = new Seller("iiooo", "OETicket@oe.com", new ArrayList<Ticket>());
         Ticket t1 = new Ticket(1, TicketType.CONCERT, "Day 1 Ticket", (float)22.99, oe, null, c);
         Ticket t2 = new Ticket(2, TicketType.CONCERT, "Day 2 Ticket", (float)22.99, oe, null, c);
         Ticket t3 = new Ticket(3, TicketType.FESTIVAL, "Festival Pass", (float)33.99, oe, null, c);
-        tickets.add(t1);
-        tickets.add(t2);
-        tickets.add(t3);
-        oe.setTickets(tickets);
+        tickets1.add(t1);
+        tickets1.add(t2);
+        tickets1.add(t3);
+        tickets2.add(t3);
+        oe.setTickets(tickets1);
         concerts.add(c1);
+        concerts.add(c2);
+        concerts.add(c3);
+        concerts.add(c4);
     }
 
     private void getConcerts(){

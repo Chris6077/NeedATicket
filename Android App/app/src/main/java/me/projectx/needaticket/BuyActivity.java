@@ -25,6 +25,9 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import cdflynn.android.library.checkview.CheckView;
 import me.projectx.needaticket.asynctask.TaskChangeEmail;
 import me.projectx.needaticket.asynctask.TaskChangePassword;
@@ -47,6 +50,7 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
     private TextView header;
     private TextView seller;
     private TextView price;
+    private TextView totalPrice;
     private TextView amount;
     private TextView amountSelected;
     private FrameLayout anchor;
@@ -74,8 +78,18 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
         price.setText(getIntent().getStringExtra("price"));
         amount.setText(getIntent().getStringExtra("amount"));
         amountSelected.setText(getIntent().getStringExtra("amountSelected"));
+        totalPrice.setText("" + round(Double.parseDouble(price.getText().toString()) * Double.parseDouble(amountSelected.getText().toString()),2));
         setUpIconCategory(TicketType.valueOf(getIntent().getStringExtra("ticketType")));
     }
+
+    private double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
     private void setUpIconCategory(TicketType ticketType){
         switch (ticketType){
             case CONCERT:
@@ -94,10 +108,11 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
     private void setViews() {
         this.navigation = (NavigationView) findViewById(R.id.navigation_drawer);
         this.imageview_header_image_category = (ImageView) findViewById(R.id.category_image_ticket_list_item);
-        this.mdl = (DrawerLayout) findViewById(R.id.content_user);
+        this.mdl = (DrawerLayout) findViewById(R.id.content_buy);
         this.header = (TextView) findViewById(R.id.list_item_ticket_title);
         this.seller = (TextView) findViewById(R.id.list_item_ticket_seller);
         this.price = (TextView) findViewById(R.id.list_item_ticket_price);
+        this.totalPrice = (TextView) findViewById(R.id.tvPrice);
         this.amount = (TextView) findViewById(R.id.list_item_ticket_count);
         this.amountSelected = (TextView) findViewById(R.id.tvAmount);
         this.btPurchase = (Button) findViewById(R.id.btPurchase);

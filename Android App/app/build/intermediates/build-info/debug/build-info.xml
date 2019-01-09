@@ -2,71 +2,70 @@
 <instant-run
     abi="x86"
     api-level="28"
-    build-mode="COLD"
+    build-mode="HOT_WARM"
     density="420dpi"
     format="10"
-    ir-eligibility="COMPATIBLE"
     plugin-version="3.2.1"
-    timestamp="1547012345676"
+    timestamp="1547013860474"
     token="3829907203725264822"
-    verifier="COLD_SWAP_REQUESTED" >
+    verifier="COMPATIBLE" >
 
     <task
         name="javac"
-        duration="143" />
+        duration="0" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="4" />
+        duration="0" />
     <task
         name="verifier"
-        duration="2" />
+        duration="0" />
 
     <artifact
-        location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_6.apk"
+        location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/resources/instant-run/debug/resources-debug.apk"
         type="SPLIT" />
 
     <build
         build-mode="FULL"
-        timestamp="1547011017657"
+        timestamp="1547013125074"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
-            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_7.apk"
-            type="SPLIT" />
-        <artifact
-            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_1.apk"
-            type="SPLIT" />
-        <artifact
-            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_8.apk"
-            type="SPLIT" />
-        <artifact
-            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_0.apk"
-            type="SPLIT" />
-        <artifact
-            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/dep/dependencies.apk"
-            type="SPLIT" />
-        <artifact
-            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_6.apk"
-            type="SPLIT" />
-        <artifact
-            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_5.apk"
-            type="SPLIT" />
-        <artifact
-            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_2.apk"
-            type="SPLIT" />
-        <artifact
-            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
+            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/resources/instant-run/debug/resources-debug.apk"
             type="SPLIT" />
         <artifact
             location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_4.apk"
             type="SPLIT" />
         <artifact
-            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_9.apk"
+            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_0.apk"
             type="SPLIT" />
         <artifact
-            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/resources/instant-run/debug/resources-debug.apk"
+            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_6.apk"
+            type="SPLIT" />
+        <artifact
+            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_7.apk"
+            type="SPLIT" />
+        <artifact
+            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_5.apk"
+            type="SPLIT" />
+        <artifact
+            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_8.apk"
+            type="SPLIT" />
+        <artifact
+            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_1.apk"
+            type="SPLIT" />
+        <artifact
+            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_3.apk"
+            type="SPLIT" />
+        <artifact
+            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_2.apk"
+            type="SPLIT" />
+        <artifact
+            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/dep/dependencies.apk"
+            type="SPLIT" />
+        <artifact
+            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_9.apk"
             type="SPLIT" />
         <artifact
             location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/instant-run-apk/debug/app-debug.apk"
@@ -74,20 +73,18 @@
     </build>
     <build
         build-mode="COLD"
-        ir-eligibility="COMPATIBLE"
-        timestamp="1547011785207"
-        verifier="COLD_SWAP_REQUESTED" >
+        timestamp="1547013699519"
+        verifier="METHOD_ADDED" >
         <artifact
             location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_2.apk"
             type="SPLIT" />
     </build>
     <build
-        build-mode="COLD"
-        ir-eligibility="COMPATIBLE"
-        timestamp="1547012345676"
-        verifier="COLD_SWAP_REQUESTED" >
+        build-mode="HOT_WARM"
+        timestamp="1547013860474"
+        verifier="COMPATIBLE" >
         <artifact
-            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/split-apk/debug/slices/slice_6.apk"
+            location="/media/external/Documents/GitHub/NeedATicket/Android App/app/build/intermediates/resources/instant-run/debug/resources-debug.apk"
             type="SPLIT" />
     </build>
 

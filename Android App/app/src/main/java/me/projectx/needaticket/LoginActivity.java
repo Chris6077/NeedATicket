@@ -135,14 +135,24 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
     }
 
     private void attemptLogin(){
+        final Intent concerts_activity = new Intent(this, ConcertsActivity.class);
+        concerts_activity.putExtra("uID", "lol");
+        try{
+            finish();
+            startActivity(concerts_activity);
+        } catch (Exception e){
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        /*
         try {
+            showProgress(true);
             mAuthTask = new TaskLogin(getString(R.string.webservice_login), mEmailView.getText().toString(), mPasswordView.getText().toString(), this);
             mAuthTask.execute();
         }
         catch(Exception ex){
             showProgress(false);
             HandlerState.handle(ex,this);
-        }
+        }*/
     }
 
     private void showProgress(final boolean show) {

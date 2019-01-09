@@ -19,6 +19,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import me.projectx.needaticket.asynctask.TaskChangeEmail;
 import me.projectx.needaticket.asynctask.TaskChangePassword;
 import me.projectx.needaticket.asynctask.TaskGetUser;
@@ -26,7 +29,14 @@ import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
 import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
+import me.projectx.needaticket.pojo.Artist;
+import me.projectx.needaticket.pojo.Concert;
+import me.projectx.needaticket.pojo.Genre;
+import me.projectx.needaticket.pojo.Seller;
+import me.projectx.needaticket.pojo.Ticket;
+import me.projectx.needaticket.pojo.TicketType;
 import me.projectx.needaticket.pojo.User;
+import me.projectx.needaticket.pojo.Wallet;
 
 public class UserActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -50,12 +60,25 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
         this.setViews();
         this.setListener();
         this.uID = getIntent().getStringExtra("uID");
-        this.getUser();
+        //this.getUser();
+        ArrayList<Ticket> tickets = new ArrayList<>();
+        Artist a = new Artist("lol", "Martin Garrix");
+        ArrayList<Ticket> tickets2 = new ArrayList<>();
+        ArrayList<Artist> artists = new ArrayList<>();
+        artists.add(a);
+        Concert c1 = new Concert("lol", "We are here", new Date(), "Loliweg 3", artists, Genre.DANCE, tickets2);
+        ArrayList<Concert> c = new ArrayList<>();
+        c.add(c1);
+        Seller oe = new Seller("iiooo", "OETicket@oe.com", new ArrayList<Ticket>());
+        Ticket t1 = new Ticket(1, TicketType.CONCERT, "Day 1 Ticket", (float)22.99, oe, null, c);
+        tickets.add(t1);
+        User u = new User("lol", "user@bashit.me", tickets, new Wallet(1, Float.parseFloat("1337.17")));
+        setContent(u);
     }
 
     private void setContent(User user){
         email.setText(user.getEmail());
-        boughtTickets.setText(user.getTickets().size());
+        boughtTickets.setText("" + user.getTickets().size());
         password.setText("Strong");
     }
     private void setListenerNavigationHeader(){

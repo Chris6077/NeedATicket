@@ -62,7 +62,7 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
         TextView amount = rowView.findViewById(R.id.list_item_ticket_count);
         seller.setText(ticket.getSeller().getName());
         price.setText(ticket.getPrice() + "€");
-        amount.setText("0");
+        amount.setText("25");
         setUpIconCategory(rowView,ticket.getType());
         header.setText(ticket.getTitle());
         this.setUpRowViewListener(rowView, ticket);
@@ -88,12 +88,12 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
 
             @Override
             public void onSingleClick(View v) {
-                //ToDo: Implement AmountSelector
+                changeActivity(v, ticket);
             }
 
             @Override
             public void onDoubleClick(View v) {
-                //ToDo: Implement AmountSelector
+                changeActivity(v, ticket);
             }
         });
     }

@@ -3,6 +3,7 @@ package me.projectx.needaticket;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -57,6 +58,7 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
     private CheckView checker;
     private Button btPurchase;
     private NavigationView navigation;
+    private AppCompatActivity cx;
 
     //super
     @Override
@@ -69,6 +71,7 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
         this.uID = getIntent().getStringExtra("uID");
         this.tID = getIntent().getStringExtra("tID");
         this.setContent();
+        cx = this;
     }
 
     //custom
@@ -151,6 +154,17 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
         try {
             anchor.setVisibility(View.GONE);
             checker.check();
+            new android.os.Handler().postDelayed(
+                    new Runnable() {
+                        public void run() {
+                            Intent concert_activity = new Intent(cx,ConcertActivity.class);
+                            concert_activity.putExtra("uID", uID);
+                            concert_activity.putExtra("cID", getIntent().getStringExtra("cID"));
+                            finish();
+                            startActivity(concert_activity);
+                        }
+                    },
+                    1500);
         }
         catch(Exception e){
             HandlerState.handle(e,getApplicationContext());

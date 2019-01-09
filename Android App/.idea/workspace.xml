@@ -36,24 +36,12 @@
       <file leaf-file-name="AdapterListViewConcertTickets.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/adapter/AdapterListViewConcertTickets.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="555">
-              <caret line="62" column="28" selection-start-line="62" selection-start-column="28" selection-end-line="62" selection-end-column="28" />
+            <state relative-caret-position="1382">
+              <caret line="128" column="42" selection-start-line="128" selection-start-column="42" selection-end-line="128" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dialog_pick_ticket_amount.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_pick_ticket_amount.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="47" selection-start-line="4" selection-start-column="47" selection-end-line="4" selection-end-column="47" />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
           </provider>
         </entry>
       </file>
@@ -69,10 +57,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_buy.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="activity_buy.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_buy.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
+            <state relative-caret-position="1845">
               <caret line="123" column="60" selection-start-line="123" selection-start-column="60" selection-end-line="123" selection-end-column="60" />
             </state>
           </provider>
@@ -84,17 +72,40 @@
       <file leaf-file-name="LoginActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/LoginActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="428">
+            <state relative-caret-position="1950">
               <caret line="162" column="13" selection-start-line="162" selection-start-column="13" selection-end-line="162" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BuyActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="BuyActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/BuyActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="89" column="32" selection-start-line="89" selection-start-column="32" selection-end-line="89" selection-end-column="32" />
+            <state relative-caret-position="678">
+              <caret line="166" column="22" selection-start-line="166" selection-start-column="22" selection-end-line="166" selection-end-column="22" />
+              <folding>
+                <element signature="e#5696#5742#0" expanded="true" />
+                <element signature="e#6247#6713#0" expanded="true" />
+                <element signature="e#6712#6713#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AdapterListViewConcert.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/adapter/AdapterListViewConcert.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1290">
+              <caret line="116" column="24" selection-start-line="116" selection-start-column="24" selection-end-line="119" selection-end-column="87" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConcertActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/ConcertActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="77" column="25" selection-start-line="77" selection-start-column="25" selection-end-line="77" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -113,6 +124,15 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="60">
               <caret line="34" column="107" selection-start-line="34" selection-start-column="107" selection-end-line="34" selection-end-column="107" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WelcomeActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/WelcomeActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="555">
+              <caret line="48" column="53" selection-start-line="48" selection-start-column="49" selection-end-line="48" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -2456,12 +2476,12 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/PurchaseTicketWrapper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskPurchaseTicket.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/ConcertActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_pick_ticket_amount.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/adapter/AdapterListViewConcertTickets.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/LoginActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/BuyActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_buy.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/adapter/AdapterListViewConcertTickets.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/ConcertActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/BuyActivity.java" />
       </list>
     </option>
   </component>
@@ -2476,8 +2496,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -2499,19 +2517,9 @@
             <path>
               <item name="Android App" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="Android App" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="Android App" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="needaticket" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="adapter" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Android App" type="1abcf292:AndroidViewProjectNode" />
@@ -2522,13 +2530,15 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
-    <property name="device.picker.selection" value="Nexus_5X_API_28_x86" />
+    <property name="device.picker.selection" value="UGM0217327000740" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../Downloads/4.universal-full-multipurpose-android-app/Template" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
@@ -2785,32 +2795,33 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info anchor="bottom" id="Android Profiler" order="7" />
+      <window_info anchor="bottom" id="Android Profiler" order="12" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Palette&#9;" order="3" />
-      <window_info id="Image Layers" order="2" />
-      <window_info id="Build Variants" order="2" side_tool="true" />
+      <window_info anchor="right" id="Palette&#9;" order="9" />
+      <window_info id="Image Layers" order="7" />
+      <window_info id="Build Variants" order="3" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5002767" side_tool="true" weight="0.39935064" />
-      <window_info anchor="right" id="Preview" order="3" weight="0.32982844" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5002767" side_tool="true" weight="0.39935064" />
+      <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Logcat" order="7" />
-      <window_info id="Captures" order="2" />
-      <window_info id="Capture Tool" order="2" />
+      <window_info anchor="bottom" id="Terminal" order="11" />
+      <window_info anchor="bottom" id="Logcat" order="10" />
+      <window_info id="Captures" order="4" />
+      <window_info id="Capture Tool" order="6" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24958494" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24958494" />
       <window_info anchor="bottom" id="Build" order="7" sideWeight="0.4997233" weight="0.3452381" />
-      <window_info anchor="right" id="Gradle" order="3" />
+      <window_info anchor="right" id="Gradle" order="5" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info anchor="right" id="Device File Explorer" order="4" side_tool="true" />
+      <window_info anchor="right" id="Theme Preview" order="7" />
+      <window_info id="Favorites" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4997233" weight="0.25324675" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info active="true" anchor="right" id="Assistant" order="4" visible="true" weight="0.32982844" />
+      <window_info active="true" anchor="right" id="Assistant" order="8" visible="true" weight="0.32982844" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Preview" order="6" weight="0.32982844" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -2818,46 +2829,21 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24958494" />
       <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.33982685" />
     </layout>
-    <layout-to-restore>
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.4997233" weight="0.3452381" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Build Variants" order="3" side_tool="true" />
-      <window_info id="Image Layers" order="4" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Android Profiler" order="8" />
-      <window_info id="Favorites" order="5" side_tool="true" />
-      <window_info id="Captures" order="6" />
-      <window_info id="Capture Tool" order="7" />
-      <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5002767" side_tool="true" weight="0.39935064" />
-      <window_info anchor="right" id="Preview" order="4" weight="0.32982844" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24958494" />
-      <window_info anchor="right" id="Device File Explorer" order="5" side_tool="true" />
-      <window_info active="true" anchor="right" id="Assistant" order="9" visible="true" weight="0.32982844" />
-      <window_info anchor="bottom" id="Logcat" order="10" />
-      <window_info anchor="bottom" id="Version Control" order="11" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="12" />
-      <window_info anchor="right" id="Gradle" order="6" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24958494" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32900432" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4997233" visible="true" weight="0.25324675" />
-    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="54" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/adapter/AdapterListViewConcertTickets.java</url>
+          <line>69</line>
+          <properties />
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="56" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="app">
@@ -2931,13 +2917,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/Android/Sdk/sources/android-28/android/app/servertransaction/LaunchActivityItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="79" selection-start-line="79" selection-end-line="79" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Android/Sdk/sources/android-28/android/app/servertransaction/TransactionExecutor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="377">
@@ -3075,13 +3054,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/adapter/AdapterListViewConcert.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="116" column="24" selection-start-line="116" selection-start-column="24" selection-end-line="119" selection-end-column="87" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -3108,13 +3080,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="43" column="19" selection-start-line="43" selection-start-column="19" selection-end-line="43" selection-end-column="19" />
         </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listview_item_concert_ticket.xml">
@@ -3234,13 +3206,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/UserActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="34" column="107" selection-start-line="34" selection-start-column="107" selection-end-line="34" selection-end-column="107" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/listener/ListenerNumberPicked.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -3248,27 +3213,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/ConcertActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="178" column="47" lean-forward="true" selection-start-line="178" selection-start-column="47" selection-end-line="178" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Android/Sdk/sources/android-28/android/app/ActivityThread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="587">
           <caret line="2912" selection-start-line="2912" selection-end-line="2912" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/adapter/AdapterListViewConcertTickets.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="62" column="28" selection-start-line="62" selection-start-column="28" selection-end-line="62" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3282,20 +3230,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="162" column="13" selection-start-line="162" selection-start-column="13" selection-end-line="162" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/BuyActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="89" column="32" selection-start-line="89" selection-start-column="32" selection-end-line="89" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -3305,12 +3239,69 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_buy.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
+        <state relative-caret-position="1845">
           <caret line="123" column="60" selection-start-line="123" selection-start-column="60" selection-end-line="123" selection-end-column="60" />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/adapter/AdapterListViewConcert.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1290">
+          <caret line="116" column="24" selection-start-line="116" selection-start-column="24" selection-end-line="119" selection-end-column="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1950">
+          <caret line="162" column="13" selection-start-line="162" selection-start-column="13" selection-end-line="162" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/UserActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="34" column="107" selection-start-line="34" selection-start-column="107" selection-end-line="34" selection-end-column="107" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/WelcomeActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="48" column="53" selection-start-line="48" selection-start-column="49" selection-end-line="48" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/adapter/AdapterListViewConcertTickets.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1382">
+          <caret line="128" column="42" selection-start-line="128" selection-start-column="42" selection-end-line="128" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/ConcertActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="77" column="25" selection-start-line="77" selection-start-column="25" selection-end-line="77" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/BuyActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="678">
+          <caret line="166" column="22" selection-start-line="166" selection-start-column="22" selection-end-line="166" selection-end-column="22" />
+          <folding>
+            <element signature="e#5696#5742#0" expanded="true" />
+            <element signature="e#6247#6713#0" expanded="true" />
+            <element signature="e#6712#6713#0" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
   </component>

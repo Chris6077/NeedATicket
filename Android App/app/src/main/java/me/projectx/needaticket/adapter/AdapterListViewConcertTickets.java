@@ -30,11 +30,13 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
     private AppCompatActivity appCompatActivityResource;
     private ArrayList<Ticket> data;
     private String uID;
+    private String cID;
     private ListenerNumberPicked listener = this;
 
-    public AdapterListViewConcertTickets(AppCompatActivity res, String uID, @LayoutRes int resource, ArrayList<Ticket> data){
+    public AdapterListViewConcertTickets(AppCompatActivity res, String uID, String cID, @LayoutRes int resource, ArrayList<Ticket> data){
         super(res, resource, data);
         this.uID = uID;
+        this.cID = cID;
         this.appCompatActivityResource = res;
         this.data = data;
     }
@@ -124,6 +126,7 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
         buy_activity.putExtra("ticketType", t.getType().toString());
         buy_activity.putExtra("amount", "25");
         buy_activity.putExtra("amountSelected", "" + newVal);
+        buy_activity.putExtra("cID", cID);
         getAppCompatActivityResource().startActivity(buy_activity);
     }
 }

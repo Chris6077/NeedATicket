@@ -75,6 +75,7 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
             tickets.add(t2);
             tickets.add(t3);
             oe.setTickets(tickets);
+            concert = c1;
             setConcertContent(c1);
             fillList(tickets);
         } catch (Exception e) {
@@ -186,7 +187,7 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         if(tickets == null) {
             throw new Exception("no Content found");
         } else {
-            AdapterListViewConcertTickets adapter = new AdapterListViewConcertTickets(this, uID, R.layout.listview_item_concert_ticket, tickets);
+            AdapterListViewConcertTickets adapter = new AdapterListViewConcertTickets(this, uID, concert.getId(), R.layout.listview_item_concert_ticket, tickets);
             this.listView_concert_tickets.setAdapter(adapter);
         }
     }

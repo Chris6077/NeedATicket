@@ -23,7 +23,6 @@ This group of applications will act as a platform for concert ticket sales. Both
 * GSON
 * Checkview
 * FancyToast
-* Material-Animations
 
 # Java APP for vendors
 ## Links

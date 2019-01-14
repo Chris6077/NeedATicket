@@ -21,7 +21,7 @@ This group of applications will act as a platform for concert ticket sales. Both
 ## Tools and Frameworks
 * Android Studio
 * GSON
-* cdflynn/checkview
+* Checkview
 
 # Java APP for vendors
 ## Links

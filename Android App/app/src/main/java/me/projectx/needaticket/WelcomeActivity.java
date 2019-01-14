@@ -1,15 +1,20 @@
 package me.projectx.needaticket;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.TransitionInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import me.projectx.needaticket.handler.HandlerState;
 
 public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView image_logo;
@@ -23,6 +28,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         setViews();
         animate();
         registrateEventHandlers();
+        setupWindowAnimations();
     }
 
     private void registrateEventHandlers() {
@@ -47,8 +53,17 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         try{
             startActivity(login_activity);
         } catch (Exception e){
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            HandlerState.handle(e, getApplicationContext());
         }
+    }
+
+    private void setupWindowAnimations() {
+        Fade fade = new Fade();
+        fade.setDuration(1000);
+        Slide slide = new Slide();
+        slide.setDuration(1000);
+        getWindow().setEnterTransition(fade);
+        getWindow().setReturnTransition(fade);
     }
 
     @Override

@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -67,7 +69,7 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
     public void onPostExecute(Object result, Class resource) {
         try{
             swipeRefreshLayout.setRefreshing(false);
-            ArrayList<Ticket> tickets = (ArrayList<Ticket>) result;
+            ArrayList<Ticket> tickets = new Gson().fromJson((String)result, new ArrayList<Ticket>().getClass());
             fillList(tickets);
         }catch(Exception error){
             HandlerState.handle(error,getApplicationContext());

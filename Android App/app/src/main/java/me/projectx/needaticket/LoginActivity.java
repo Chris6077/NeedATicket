@@ -6,16 +6,19 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.TransitionInflater;
 import android.util.Pair;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 import me.projectx.needaticket.asynctask.TaskLogin;
+import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 
 public class LoginActivity extends AppCompatActivity implements InterfaceTaskDefault {
@@ -65,6 +68,7 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
         setViews();
         registrateEventHandlers();
     }
+
     private void setViews() {
         image_logo = findViewById(R.id.imageView);
         btRegister = findViewById(R.id.btRegister);
@@ -95,7 +99,7 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
             finish();
             startActivity(register_activity);
         } catch (Exception e){
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            HandlerState.handle(e, getApplicationContext());
         }
     }
     // IMPORTANT FOR VIDEO VIEW
@@ -129,7 +133,7 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
             finish();
             startActivity(concerts_activity);
         } catch (Exception e){
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            HandlerState.handle(e, getApplicationContext());
         }
         /*
         try {
@@ -161,7 +165,7 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
             finish();
             startActivity(concerts_activity);
         } catch (Exception e){
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            HandlerState.handle(e, getApplicationContext());
         }
     }
 }

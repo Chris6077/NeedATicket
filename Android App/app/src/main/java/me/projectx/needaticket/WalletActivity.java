@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.text.DecimalFormat;
 
 import me.projectx.needaticket.asynctask.TaskCashOut;
@@ -133,7 +135,7 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
                 startCountAnimation(f);
             }
             catch (Exception ex){
-                wallet = (Wallet) result;
+                wallet = new Gson().fromJson((String)result, Wallet.class);
                 setContent();
             }
         }

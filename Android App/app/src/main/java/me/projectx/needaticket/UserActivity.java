@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -236,7 +238,7 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
     public void onPostExecute(Object result, Class resource) {
         swipeRefreshLayout.setRefreshing(false);
         try {
-            user = (User) result;
+            user = new Gson().fromJson((String)result, User.class);
             setContent(user);
         }
         catch(Exception e){

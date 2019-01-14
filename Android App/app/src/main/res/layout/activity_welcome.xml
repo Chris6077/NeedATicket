@@ -22,7 +22,6 @@
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:id="@+id/image_welcome_logo"
-                android:transitionName="logo"
                 android:src="@drawable/logo"/>
             <TextView
                 android:layout_width="wrap_content"

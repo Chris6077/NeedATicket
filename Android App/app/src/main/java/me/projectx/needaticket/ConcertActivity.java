@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -64,9 +66,9 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
             Ticket t1 = new Ticket(1, TicketType.CONCERT, "Day 1 Ticket", (float)22.99, oe, null, c);
             Ticket t2 = new Ticket(2, TicketType.CONCERT, "Day 2 Ticket", (float)22.99, oe, null, c);
             Ticket t3 = new Ticket(3, TicketType.FESTIVAL, "Festival Pass", (float)33.99, oe, null, c);
+            tickets.add(t3);
             tickets.add(t1);
             tickets.add(t2);
-            tickets.add(t3);
             tickets.add(t1);
             tickets.add(t2);
             tickets.add(t3);
@@ -111,7 +113,7 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         try{
             swipeRefreshLayout.setRefreshing(false);
             try {
-                concert = (Concert) result;
+                concert = new Gson().fromJson((String) result, Concert.class);
                 setConcertContent(concert);
             }
             catch(Exception e){

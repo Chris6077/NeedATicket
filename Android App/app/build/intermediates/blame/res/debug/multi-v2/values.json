@@ -38,12 +38,12 @@
                 {
                     "source": "/media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/res/values/styles.xml",
                     "from": {
-                        "startLines": "3,-1,9",
-                        "startColumns": "4,-1,4",
-                        "startOffsets": "104,-1,416",
-                        "endLines": "8,-1,13",
-                        "endColumns": "12,-1,12",
-                        "endOffsets": "410,-1,696"
+                        "startLines": "3,-1,-1",
+                        "startColumns": "4,-1,-1",
+                        "startOffsets": "104,-1,-1",
+                        "endLines": "8,-1,-1",
+                        "endColumns": "12,-1,-1",
+                        "endOffsets": "410,-1,-1"
                     },
                     "to": {
                         "startLines": "2058,3485,4020",

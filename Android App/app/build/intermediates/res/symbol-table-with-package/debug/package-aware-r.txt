@@ -1001,6 +1001,7 @@ drawable abc_textfield_search_activated_mtrl_alpha
 drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
 drawable abc_vector_test
+drawable androidicon
 drawable avd_hide_password
 drawable avd_show_password
 drawable category_concert
@@ -1012,6 +1013,8 @@ drawable concert_artist
 drawable concert_date
 drawable concert_genre
 drawable concert_location
+drawable confusing_shape
+drawable default_shape
 drawable design_bottom_navigation_item_background
 drawable design_fab_background
 drawable design_ic_visibility
@@ -1019,13 +1022,20 @@ drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
 drawable edit
+drawable error_shape
 drawable firstframe
 drawable ic_account_circle_black_24dp
+drawable ic_check_black_24dp
+drawable ic_clear_black_24dp
+drawable ic_info_outline_black_24dp
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
+drawable ic_pan_tool_black_24dp
+drawable ic_refresh_black_24dp
+drawable info_shape
 drawable logo
 drawable logout
 drawable mtrl_snackbar_background
@@ -1046,6 +1056,7 @@ drawable notify_panel_notification_icon_bg
 drawable round_box
 drawable round_corners
 drawable shadow_box
+drawable success_shape
 drawable ticket_count
 drawable ticket_price
 drawable ticket_seats
@@ -1054,6 +1065,7 @@ drawable tooltip_frame_dark
 drawable tooltip_frame_light
 drawable transparent_bar
 drawable wallet
+drawable warning_shape
 drawable x
 id ALT
 id CTRL
@@ -1173,6 +1185,7 @@ id icon_group
 id ifRoom
 id image
 id imageView
+id imageView4
 id image_welcome_logo
 id info
 id invisible
@@ -1303,6 +1316,9 @@ id time
 id title
 id titleDividerNoCustom
 id title_template
+id toast_icon
+id toast_text
+id toast_type
 id top
 id topPanel
 id touch_outside
@@ -1396,6 +1412,7 @@ layout design_navigation_menu_item
 layout design_text_input_password_icon
 layout dialog_edit_user
 layout dialog_pick_ticket_amount
+layout fancytoast_layout
 layout layout_login
 layout layout_register
 layout listview_item_concert

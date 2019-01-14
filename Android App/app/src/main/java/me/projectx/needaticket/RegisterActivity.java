@@ -8,13 +8,14 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.util.Pair;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 import me.projectx.needaticket.asynctask.TaskRegister;
@@ -99,7 +100,7 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
             finish();
             startActivity(login_activity);
         } catch (Exception e){
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            HandlerState.handle(e, getApplicationContext());
         }
     }
     // IMPORTANT FOR VIDEO VIEW
@@ -203,18 +204,8 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
             finish();
             startActivity(concerts_activity);
         } catch (Exception e){
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            HandlerState.handle(e, getApplicationContext());
         }
-    }
-
-    private interface ProfileQuery {
-        String[] PROJECTION = {
-                ContactsContract.CommonDataKinds.Email.ADDRESS,
-                ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
-        };
-
-        int ADDRESS = 0;
-        int IS_PRIMARY = 1;
     }
 }
 

@@ -6,6 +6,7 @@ INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/m
 INJECTED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:2:1-55:12
 MERGED from [com.android.support:design:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/e663f062a9cadcf5898be1f01e42ce60/AndroidManifest.xml:17:1-24:12
 MERGED from [com.github.cdflynn:checkview:v1.1] /home/anonymous/.gradle/caches/transforms-1/files-1.1/checkview-v1.1.aar/3f04e5352e4be0829b5ef21e4253f262/AndroidManifest.xml:2:1-11:12
+MERGED from [com.github.Shashank02051997:FancyToast-Android:0.1.3] /home/anonymous/.gradle/caches/transforms-1/files-1.1/FancyToast-Android-0.1.3.aar/65d9398b1b4825068e636fa2b6a55dd1/AndroidManifest.xml:2:1-17:12
 MERGED from [com.android.support:appcompat-v7:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/cceb637f3dc30279f267f73139658972/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/anonymous/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/fceaabfbfd60fe44243da22784aebc06/AndroidManifest.xml:2:1-11:12
 MERGED from [com.android.support:support-fragment:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/2ee7bc5a09b2d3a20f3bf73312c5bcea/AndroidManifest.xml:17:1-22:12
@@ -73,6 +74,8 @@ application
 ADDED from /media/external/Documents/GitHub/NeedATicket/Android App/app/src/main/AndroidManifest.xml:11:5-53:19
 MERGED from [com.android.support:design:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/e663f062a9cadcf5898be1f01e42ce60/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:design:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/e663f062a9cadcf5898be1f01e42ce60/AndroidManifest.xml:22:5-20
+MERGED from [com.github.Shashank02051997:FancyToast-Android:0.1.3] /home/anonymous/.gradle/caches/transforms-1/files-1.1/FancyToast-Android-0.1.3.aar/65d9398b1b4825068e636fa2b6a55dd1/AndroidManifest.xml:11:5-15:19
+MERGED from [com.github.Shashank02051997:FancyToast-Android:0.1.3] /home/anonymous/.gradle/caches/transforms-1/files-1.1/FancyToast-Android-0.1.3.aar/65d9398b1b4825068e636fa2b6a55dd1/AndroidManifest.xml:11:5-15:19
 MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/anonymous/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/fceaabfbfd60fe44243da22784aebc06/AndroidManifest.xml:9:5-20
 MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/anonymous/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/fceaabfbfd60fe44243da22784aebc06/AndroidManifest.xml:9:5-20
 MERGED from [com.android.support:support-compat:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/230c009a72de99207ce0d0cfc7608b08/AndroidManifest.xml:22:5-94
@@ -153,6 +156,8 @@ MERGED from [com.android.support:design:28.0.0] /home/anonymous/.gradle/caches/t
 MERGED from [com.android.support:design:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/e663f062a9cadcf5898be1f01e42ce60/AndroidManifest.xml:20:5-44
 MERGED from [com.github.cdflynn:checkview:v1.1] /home/anonymous/.gradle/caches/transforms-1/files-1.1/checkview-v1.1.aar/3f04e5352e4be0829b5ef21e4253f262/AndroidManifest.xml:7:5-9:41
 MERGED from [com.github.cdflynn:checkview:v1.1] /home/anonymous/.gradle/caches/transforms-1/files-1.1/checkview-v1.1.aar/3f04e5352e4be0829b5ef21e4253f262/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.Shashank02051997:FancyToast-Android:0.1.3] /home/anonymous/.gradle/caches/transforms-1/files-1.1/FancyToast-Android-0.1.3.aar/65d9398b1b4825068e636fa2b6a55dd1/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.Shashank02051997:FancyToast-Android:0.1.3] /home/anonymous/.gradle/caches/transforms-1/files-1.1/FancyToast-Android-0.1.3.aar/65d9398b1b4825068e636fa2b6a55dd1/AndroidManifest.xml:7:5-9:41
 MERGED from [com.android.support:appcompat-v7:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/cceb637f3dc30279f267f73139658972/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:appcompat-v7:28.0.0] /home/anonymous/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/cceb637f3dc30279f267f73139658972/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /home/anonymous/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/fceaabfbfd60fe44243da22784aebc06/AndroidManifest.xml:5:5-7:41

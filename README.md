@@ -18,7 +18,9 @@ This group of applications will act as a platform for concert ticket sales. Both
 # Android APP for customers
 ## Links
 [Repository](https://github.com/Chris6077/NeedATicket/tree/master/Android%20App)
+
 [Checkview](https://github.com/cdflynn/checkview)
+
 [FancyToast](https://github.com/Shashank02051997/FancyToast-Android)
 ## Tools and Frameworks
 * Android Studio

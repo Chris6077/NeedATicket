@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="344.0" prefWidth="952.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="344.0" prefWidth="952.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.ItemController">
    <children>
       <Pane layoutX="14.0" layoutY="40.0" prefHeight="264.0" prefWidth="920.0" style="-fx-background-color: #fff;">
          <children>
@@ -20,7 +20,7 @@
                </image>
             </ImageView>
             <Separator layoutX="41.0" layoutY="94.0" prefHeight="0.0" prefWidth="763.0" />
-            <Label layoutX="123.0" layoutY="18.0" text="Vanilia " textFill="#3a1c9d">
+            <Label fx:id="lbl_title" layoutX="123.0" layoutY="18.0" text="Vanilia " textFill="#3a1c9d">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -50,17 +50,17 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label layoutX="287.0" layoutY="139.0" text="\$10" textFill="#4d4c4c">
+            <Label layoutX="287.0" layoutY="139.0" text="\$" textFill="#4d4c4c">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label layoutX="287.0" layoutY="211.0" text="1459" textFill="#4d4c4c">
+            <Label fx:id="lbl_price" layoutX="287.0" layoutY="211.0" text="1459" textFill="#4d4c4c">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label layoutX="58.0" layoutY="211.0" text="LA" textFill="#4d4c4c">
+            <Label fx:id="lbl_location" layoutX="58.0" layoutY="211.0" text="LA" textFill="#4d4c4c">
                <font>
                   <Font size="13.0" />
                </font>
@@ -75,20 +75,20 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="614.0" layoutY="34.0" text="16" textFill="#aeacac">
+            <Label fx:id="lbl_day" layoutX="614.0" layoutY="34.0" text="16" textFill="#aeacac">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
             </Label>
-            <Label layoutX="663.0" layoutY="42.0" text="APR" textFill="#3a1c9d" />
-            <Label layoutX="663.0" layoutY="60.0" text="2018" textFill="#aeacac" />
+            <Label fx:id="lbl_month" layoutX="663.0" layoutY="42.0" text="APR" textFill="#3a1c9d" />
+            <Label fx:id="lbl_year" layoutX="663.0" layoutY="60.0" text="2018" textFill="#aeacac" />
             <Separator layoutX="708.0" layoutY="19.0" orientation="VERTICAL" prefHeight="64.0" prefWidth="0.0" />
             <Label layoutX="722.0" layoutY="13.0" text="Genre" textFill="#3a1c9d">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="725.0" layoutY="42.0" prefHeight="20.0" prefWidth="51.0" text="Balkan " textFill="#3a1c9d" />
+            <Label fx:id="lbl_genre" layoutX="725.0" layoutY="42.0" prefHeight="20.0" prefWidth="51.0" text="Balkan " textFill="#3a1c9d" />
             <Label layoutX="123.0" layoutY="51.0" text="Ref: 20178" textFill="#b2b0b0">
                <font>
                   <Font size="14.0" />
@@ -96,23 +96,33 @@
             </Label>
             <VBox layoutX="630.0" layoutY="137.0" prefHeight="119.0" prefWidth="92.0" spacing="7.0">
                <children>
-                  <Label prefHeight="19.0" prefWidth="74.0" style="-fx-background-color: #aeacac;" text="Capital Bra" textFill="#fffefe">
+                  <Label prefHeight="19.0" prefWidth="81.0" style="-fx-background-color: #aeacac;" text="Alexis Texas" textFill="#fffefe">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="19.0" prefWidth="44.0" style="-fx-background-color: #aeacac;" text="Khalesi" textFill="#fffefe">
+                  <Label prefHeight="19.0" prefWidth="81.0" style="-fx-background-color: #aeacac;" text="Mia Malkova" textFill="#fffefe">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="19.0" prefWidth="69.0" style="-fx-background-color: #aeacac;" text="DjSchaban" textFill="#fffefe">
+                  <Label prefHeight="19.0" prefWidth="74.0" style="-fx-background-color: #aeacac;" text="Scarllet Red" textFill="#fffefe">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="19.0" prefWidth="62.0" style="-fx-background-color: #aeacac;" text="Tori Black" textFill="#fffefe">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
                </children>
             </VBox>
+            <Label fx:id="lbl_price" layoutX="294.0" layoutY="139.0" text="10" textFill="#4d4c4c">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
          </children>
          <effect>
             <DropShadow color="#d7d2d2" height="50.0" radius="24.5" width="50.0" />

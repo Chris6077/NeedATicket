@@ -1,5 +1,5 @@
 .parent{
-/*    -fx-background-color: #303138;*/
+    /*    -fx-background-color: #303138;*/
 }
 
 .close-btn{
@@ -9,8 +9,16 @@
     -fx-background-color: #E81123;
 }
 
+.logoCircle:hover{
+    -fx-background-color: #E81123;
+}
+
+.changePasswordBtn{
+    -fx-background-color: orange;
+}
+
 .createArtistName-tf{
--fx-text-fill: black;
+    -fx-text-fill: black;
 }
 
 .min-btn{
@@ -33,10 +41,12 @@
 }
 .login-btn{
     -fx-background-color: #EA4C88;
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: white;
 }
 
-
+.multiFormBttn{
+    -fx-text-fill: white;
+}
 /*
  * Empty Stylesheet file.
  */
@@ -48,7 +58,7 @@
 .jfx-button {
     -jfx-button-type: RAISED;
     -fx-background-color: white;
-    -fx-text-fill: red;
+    -fx-text-fill:  #000028;
     -fx-prompt-text-fill: WHITE;
 }
 
@@ -78,10 +88,12 @@
     -fx-backgroud : green;
     -fx-text-fill: white;   
 }
-
+.table-column {
+    -fx-alignment: CENTER;
+}
 
 .scroll-pane {
-    -fx-background-color: red;
+    -fx-background-color:  #0D0D52;
 }
 
 .scroll-bar:horizontal, .scroll-bar:vertical{
@@ -127,5 +139,15 @@
 
 .walletTft{
     -fx-text-inner-color: WHITE;
+}
+
+
+.multiForm-btn{
+    -fx-text-inner-color: WHITE;
+}
+
+
+.moneyPane{
+    -fx-background-color : #108C90;
 }
 

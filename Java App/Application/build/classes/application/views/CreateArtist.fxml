@@ -2,12 +2,41 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="70.0" prefWidth="250.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="application.controllers.CreateArtistController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="528.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <JFXTextField fx:id="tf_name" focusColor="#ab4641" labelFloat="true" layoutX="14.0" layoutY="14.0" promptText="name" styleClass="createArtistName-tf" />
-      <JFXButton fx:id="btn_CreateArtist" buttonType="RAISED" layoutX="170.0" layoutY="20.0" onAction="#handleBtn" ripplerFill="WHITE" text="Create" textFill="WHITE" />
+      <AnchorPane prefHeight="528.0" prefWidth="1024.0" style="-fx-background-color: #0D0D52;" stylesheets="@../css/createArtist.css">
+         <children>
+            <JFXTextField layoutX="133.0" layoutY="214.0" prefHeight="34.0" prefWidth="135.0" promptText="Path" styleClass="tf" />
+            <ImageView fitHeight="489.0" fitWidth="378.0" layoutX="592.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../resources/pictures/image-missing-icon.png" />
+               </image>
+            </ImageView>
+            <JFXButton buttonType="RAISED" layoutX="343.0" layoutY="214.0" prefHeight="34.0" prefWidth="114.0" ripplerFill="#3e1bbc" text="Find Picture" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="343.0" layoutY="280.0" prefHeight="34.0" prefWidth="114.0" ripplerFill="#3e1bbc" styleClass="createArtist" text="Create new Artist" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
+            <JFXButton id="btnSkip" buttonType="RAISED" layoutX="268.0" layoutY="392.0" prefHeight="34.0" prefWidth="61.0" ripplerFill="#7cc0c2" style="-fx-background-color: orange;" text="SKIP" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
+            <JFXTextField layoutX="133.0" layoutY="280.0" prefHeight="34.0" prefWidth="135.0" promptText="Path" text="Name Of Artist" />
+            <Separator maxHeight="528.0" maxWidth="5.0" minHeight="528.0" minWidth="8.0" orientation="VERTICAL" prefHeight="528.0" prefWidth="38.0" style="-fx-background-color: #fff;" />
+         </children>
+      </AnchorPane>
    </children>
-</AnchorPane>
+</StackPane>

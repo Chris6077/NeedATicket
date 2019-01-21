@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import me.projectx.needaticket.BuyActivity;
+import me.projectx.needaticket.activities.BuyActivity;
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.customGUI.NumberPickerDialog;
 import me.projectx.needaticket.listener.ListenerDoubleTap;

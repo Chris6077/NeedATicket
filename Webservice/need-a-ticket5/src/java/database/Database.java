@@ -195,10 +195,11 @@ public class Database {
         return tickets;
     }
     
-    public static ArrayList<Ticket> getTicketsByUserid(int userid) throws SQLException, ClassNotFoundException, FileNotFoundException{
+    public static ArrayList<Ticket> getTicketsByUserid(int userid, int concertid) throws SQLException, ClassNotFoundException, FileNotFoundException{
         Connect();
         PreparedStatement preparedStatement = connection.prepareStatement(statements.SELECT_TICKETS_BY_USERID.getStatement());
         preparedStatement.setInt(1, userid);
+        preparedStatement.setInt(2, concertid);
         ResultSet resultSet = preparedStatement.executeQuery();
         ArrayList<Ticket> tickets = new ArrayList<Ticket>();
         //extract data from result set

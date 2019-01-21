@@ -62,12 +62,14 @@ public class TicketsResource {
         } 
     }
     
+    @RequiresJWT
     @GET
+    @Path("/{userid}/{concertid}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTicketsByUserid() {
+    public Response getTicketsByUserid(@PathParam("userid") int userid, @PathParam("concertid") int concertid) {
         //TODO return proper representation object
         try{
-            return Response.status(Response.Status.OK).entity(new Gson().toJson(new ResponseObject(Logic.getTickets(),null))).build();
+            return Response.status(Response.Status.OK).entity(new Gson().toJson(new ResponseObject(Logic.getTicketsByUserid(userid, concertid),null))).build();
         }catch (ClassNotFoundException ex) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
         } catch (SQLException ex) {
@@ -98,6 +100,7 @@ public class TicketsResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response createTicket(@FormParam("type") String type, @FormParam("price") int price, @FormParam("idSeller") int idSeller) {
         try {
+                        System.out.println("hello from herer");
             Logic.createTicket(type, price, idSeller);
             return Response.status(Response.Status.CREATED).entity(new Gson().toJson(new ResponseObject(null,"ticket successfuly created."))).build();
         } catch (SQLException ex) {

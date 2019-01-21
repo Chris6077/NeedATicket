@@ -96,9 +96,9 @@ public class TicketsResource {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createTicket(@FormParam("type") String type, @FormParam("price") int price, @FormParam("idSeller") int idSeller) {
+    public Response createTicket(@FormParam("type") String type, @FormParam("price") int price, @FormParam("idSeller") int idSeller, @FormParam("seat") Double seat,@FormParam("concert_id") int concert_id) {
         try {
-            Logic.createTicket(type, price, idSeller);
+            Logic.createTicket(type, price, idSeller,seat,concert_id);
             return Response.status(Response.Status.CREATED).entity(new Gson().toJson(new ResponseObject(null,"ticket successfuly created."))).build();
         } catch (SQLException ex) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();

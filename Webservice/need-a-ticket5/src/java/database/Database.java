@@ -186,7 +186,7 @@ public class Database {
             User buyer = null;
             if(buyerId != 0)
                 buyer = Database.getUser(buyerId);
-            tickets.add(new Ticket(id, type, price, seller, buyer));
+            tickets.add(new Ticket(id, type, price, seller, buyer,null));
         }
         //clean up
         resultSet.close();
@@ -208,7 +208,7 @@ public class Database {
             int price = resultSet.getInt("ticket.PRICE");
             int sellerId = resultSet.getInt("ticket.ID_SELLER");
             User seller = Database.getUser(sellerId);            
-            tickets.add(new Ticket(id, type, price, seller, null));
+            tickets.add(new Ticket(id, type, price, seller, null,null));
         }
         //clean up
         resultSet.close();
@@ -232,7 +232,7 @@ public class Database {
             if(buyerid != 0)
                 buyer = Database.getUser(buyerid);
             Type type = Type.valueOf(resultSet.getString("type").toUpperCase());
-            ticket = new Ticket (id, type, price, seller, buyer);
+            ticket = new Ticket (id, type, price, seller, buyer,null);
         }
         //clean up
         resultSet.close();
@@ -244,11 +244,21 @@ public class Database {
     }
     
     public static void createTicket(Ticket ticket) throws ClassNotFoundException, SQLException{
+        //inserting ticket
         Connect();
         PreparedStatement statement = connection.prepareStatement(statements.INSERT_TICKET.getStatement());
         statement.setString(1, ticket.getType().toString());
         statement.setDouble(2, ticket.getPrice());
         statement.setInt(3, ticket.getSeller().getId());
+        statement.executeUpdate();
+        connection.close();
+        
+        //inserting ticket_concert
+        Connect();
+        statement = connection.prepareStatement(statements.INSERT_TICKET_CONCERT.getStatement());
+        statement.setInt(1, ticket.getId());
+        statement.setInt(2, ticket.getConcert().getId());
+        statement.setDouble(3, ticket.getSeat());
         statement.executeUpdate();
         connection.close();
     }

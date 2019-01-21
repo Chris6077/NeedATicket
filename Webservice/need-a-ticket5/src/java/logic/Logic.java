@@ -128,8 +128,8 @@ public class Logic {
         return Database.getTicket(ticketid);
     }
     
-    public static void createTicket(String type, int price, int buyerid) throws ClassNotFoundException, SQLException, FileNotFoundException{
-        Ticket ticket = new Ticket(null, Type.valueOf(type.toUpperCase()), price, Database.getUser(buyerid), null);
+    public static void createTicket(String type, int price, int buyerid, Double seat, int concert_id) throws ClassNotFoundException, SQLException, FileNotFoundException{
+        Ticket ticket = new Ticket(null, Type.valueOf(type.toUpperCase()), price, Database.getUser(buyerid), null, seat, Database.getConcert(concert_id));
         Database.createTicket(ticket);
     }
     
@@ -149,8 +149,8 @@ public class Logic {
         Database.updateTicket(ticket);
     }
     
-    public static void updateTicket(String type, int price, int buyerid) throws SQLException, ClassNotFoundException, FileNotFoundException{
-        Ticket ticket = new Ticket(null,Type.valueOf(type.toUpperCase()), price, Database.getUser(buyerid), null);
+    public static void updateTicket(String type, int price, int buyerid, Double seat) throws SQLException, ClassNotFoundException, FileNotFoundException{
+        Ticket ticket = new Ticket(null,Type.valueOf(type.toUpperCase()), price, Database.getUser(buyerid), null,seat);
         Database.updateTicket(ticket);
     }
     

@@ -43,6 +43,7 @@ public enum statements {
         "where account.id = 1 and ticket.ID_BUYER is null"),
     SElECT_TICKET_BY_ID ("select * from ticket where id = ?"),
     INSERT_TICKET ("insert into ticket values (null, ? , ?, ?, null)"),
+    INSERT_TICKET_CONCERT ("insert into ticket_concert values (? , ?, ?)"),
     DELETE_TICKET ("delete from ticket where id = ?"),
     UPDATE_TICKET ("update ticket set type = ?, price = ?, id_seller = ?, id_buyer = ? where id = ?"),
     

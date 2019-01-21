@@ -18,14 +18,27 @@ public class Ticket {
     private double price;
     private User seller;
     private User buyer;
-    private ArrayList<Concert> concerts; 
+    private Concert concert; 
+    private Double seat;
 
-    public Ticket(Integer id, Type ticketType, double price, User seller, User buyer) {
+    public Ticket(Integer id, Type ticketType, double price, User seller, User buyer, Double seat) {
         this.id = id;
         this.type = ticketType;
         this.price = price;
         this.seller = seller;
         this.buyer = buyer;
+        this.seat = seat;
+        
+    }
+    
+        public Ticket(Integer id, Type ticketType, double price, User seller, User buyer, Double seat, Concert concert) {
+        this.id = id;
+        this.type = ticketType;
+        this.price = price;
+        this.seller = seller;
+        this.buyer = buyer;
+        this.seat = seat;
+        this.concert = concert;
     }
 
     public Integer getId() {
@@ -48,6 +61,15 @@ public class Ticket {
         this.price = price;
     }
 
+    public Double getSeat() {
+        return seat;
+    }
+
+    public void setSeat(Double seat) {
+        this.seat = seat;
+    }
+    
+    
     public User getSeller() {
         return seller;
     }
@@ -64,12 +86,12 @@ public class Ticket {
         this.buyer = buyer;
     }
 
-    public ArrayList<Concert> getConcerts() {
-        return concerts;
+    public Concert getConcert() {
+        return concert;
     }
 
-    public void setConcerts(Concert concert) {
-        this.concerts.add(concert);
+    public void setConcert(Concert concert) {
+        this.concert = concert;
     }
     
         

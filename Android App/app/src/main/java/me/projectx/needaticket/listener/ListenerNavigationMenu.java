@@ -6,11 +6,11 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.view.MenuItem;
 
-import me.projectx.needaticket.ConcertsActivity;
+import me.projectx.needaticket.activities.ConcertsActivity;
 import me.projectx.needaticket.R;
-import me.projectx.needaticket.TicketsActivity;
-import me.projectx.needaticket.WalletActivity;
-import me.projectx.needaticket.WelcomeActivity;
+import me.projectx.needaticket.activities.TicketsActivity;
+import me.projectx.needaticket.activities.WalletActivity;
+import me.projectx.needaticket.activities.WelcomeActivity;
 
 public class ListenerNavigationMenu implements NavigationView.OnNavigationItemSelectedListener {
     private Context resource;

@@ -4,6 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/firstframe"
-    tools:context=".LoginActivity">
+    tools:context=".activities.LoginActivity">
     <include layout="@layout/video_sign_in"></include>
 </FrameLayout>

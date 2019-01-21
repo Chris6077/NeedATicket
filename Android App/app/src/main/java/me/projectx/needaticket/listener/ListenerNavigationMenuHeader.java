@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import me.projectx.needaticket.UserActivity;
+import me.projectx.needaticket.activities.UserActivity;
 
 public class ListenerNavigationMenuHeader implements View.OnClickListener {
     //fields

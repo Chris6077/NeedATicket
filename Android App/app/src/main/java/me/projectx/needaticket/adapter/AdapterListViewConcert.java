@@ -14,12 +14,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import me.projectx.needaticket.ConcertActivity;
+import me.projectx.needaticket.activities.ConcertActivity;
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.listener.ListenerDoubleTap;
 import me.projectx.needaticket.pojo.Artist;

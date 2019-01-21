@@ -62,6 +62,20 @@ public class TicketsResource {
         } 
     }
     
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTicketsByUserid() {
+        //TODO return proper representation object
+        try{
+            return Response.status(Response.Status.OK).entity(new Gson().toJson(new ResponseObject(Logic.getTickets(),null))).build();
+        }catch (ClassNotFoundException ex) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
+        } catch (SQLException ex) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
+        } catch (FileNotFoundException ex) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new Gson().toJson(new ResponseObject(ex,ex.toString()))).build();
+        } 
+    }
     
     @GET
     @Path("/{ticketid}")

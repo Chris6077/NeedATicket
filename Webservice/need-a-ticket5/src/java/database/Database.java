@@ -195,6 +195,28 @@ public class Database {
         return tickets;
     }
     
+    public static ArrayList<Ticket> getTicketsByUserid(int userid) throws SQLException, ClassNotFoundException, FileNotFoundException{
+        Connect();
+        PreparedStatement preparedStatement = connection.prepareStatement(statements.SELECT_TICKETS_BY_USERID.getStatement());
+        preparedStatement.setInt(1, userid);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        ArrayList<Ticket> tickets = new ArrayList<Ticket>();
+        //extract data from result set
+        while(resultSet.next()){
+            Integer id = resultSet.getInt("ticket.id");
+            Type type = Type.valueOf(resultSet.getString("ticket.TYPE").toUpperCase());
+            int price = resultSet.getInt("ticket.PRICE");
+            int sellerId = resultSet.getInt("ticket.ID_SELLER");
+            User seller = Database.getUser(sellerId);            
+            tickets.add(new Ticket(id, type, price, seller, null));
+        }
+        //clean up
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+        return tickets;
+    }
+    
     public static Ticket getTicket(int id) throws ClassNotFoundException, SQLException, FileNotFoundException{
         Connect();
         PreparedStatement preparedStatement = connection.prepareStatement(statements.SElECT_TICKET_BY_ID.getStatement());

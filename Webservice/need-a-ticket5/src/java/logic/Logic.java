@@ -120,6 +120,10 @@ public class Logic {
         return Database.getTickets();
     }
     
+    public static List<Ticket> getTicketsByUserid(int userid) throws SQLException, ClassNotFoundException, FileNotFoundException{
+        return Database.getTicketsByUserid(userid);
+    }
+    
     public static Ticket getTicket(int ticketid) throws ClassNotFoundException, SQLException, SQLException, FileNotFoundException{
         return Database.getTicket(ticketid);
     }

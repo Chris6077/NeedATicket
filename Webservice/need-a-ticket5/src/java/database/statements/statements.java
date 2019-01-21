@@ -37,6 +37,10 @@ public enum statements {
     
     //statements related to tickets
     SElECT_TICKETS ("select * from ticket"),
+    SELECT_TICKETS_BY_USERID ("select * from ticket_concert\n" +
+        "inner join ticket on ticket.ID = ticket_concert.ID_TICKET\n" +
+        "inner join account on ticket.ID_SELLER = account.ID\n" +
+        "where account.id = 1 and ticket.ID_BUYER is null"),
     SElECT_TICKET_BY_ID ("select * from ticket where id = ?"),
     INSERT_TICKET ("insert into ticket values (null, ? , ?, ?, null)"),
     DELETE_TICKET ("delete from ticket where id = ?"),

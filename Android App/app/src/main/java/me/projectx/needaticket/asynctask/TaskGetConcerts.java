@@ -14,6 +14,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
@@ -51,21 +53,21 @@ public class TaskGetConcerts extends AsyncTask<Object, Object, ArrayList<Concert
         try {
             Gson gson = new Gson();
             HttpURLConnection conn = (HttpURLConnection) new URL(this.getUrl()).openConnection();
-            Type collectionType = new TypeToken<Collection<Concert>>(){}.getType();
-            String result = GetData(conn);
-            System.out.println("--------------------------------------------\n" + result);
+            Type collectionType = new TypeToken<Collection<Concert>>() {
+            }.getType();
+            String result = getData(conn);
             ArrayList<Concert> concerts = gson.fromJson(result, collectionType);
             return concerts;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
-    protected void onPostExecute(ArrayList<Concert> concerts){
-        this.getListener().onPostExecute(concerts,this.getClass());
+    protected void onPostExecute(ArrayList<Concert> concerts) {
+        this.getListener().onPostExecute(concerts, this.getClass());
         super.onPostExecute(concerts);
     }
 
@@ -75,11 +77,11 @@ public class TaskGetConcerts extends AsyncTask<Object, Object, ArrayList<Concert
         super.onPreExecute();
     }
 
-    private String GetData(HttpURLConnection conn){
+    private String getData(HttpURLConnection conn) {
         BufferedReader reader;
         String content = null;
 
-        try{
+        try {
             conn.setRequestMethod("GET");
             conn.setRequestProperty("API_KEY", Resources.getSystem().getString(R.string.API_KEY));
             conn.setRequestProperty("uID", uID);
@@ -97,10 +99,9 @@ public class TaskGetConcerts extends AsyncTask<Object, Object, ArrayList<Concert
             reader.close();
             conn.disconnect();
 
-        }catch(Exception error){
-            error.printStackTrace();
+        } catch (Exception e) {
+            Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
-        System.out.println("CONTENT" + content);
         return content;
     }
 }

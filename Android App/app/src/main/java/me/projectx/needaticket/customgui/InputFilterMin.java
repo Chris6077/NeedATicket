@@ -1,4 +1,4 @@
-package me.projectx.needaticket.customGUI;
+package me.projectx.needaticket.customgui;
 
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -21,7 +21,9 @@ public class InputFilterMin implements InputFilter {
             int input = Integer.parseInt(dest.toString() + source.toString());
             if (isInRange(min, Float.MAX_VALUE, input))
                 return null;
-        } catch (NumberFormatException nfe) { }
+        } catch (NumberFormatException nfe) {
+            // We don't care about this
+        }
         return "Invalid amount!";
     }
 

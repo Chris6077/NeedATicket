@@ -2,11 +2,8 @@ package me.projectx.needaticket.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
@@ -14,6 +11,8 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.adapter.AdapterListViewTicket;
@@ -30,12 +29,9 @@ import me.projectx.needaticket.pojo.Ticket;
 import me.projectx.needaticket.pojo.TicketType;
 
 public class TicketsActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
-    private DrawerLayout mdl;
-    private ActionBarDrawerToggle toggle;
-    private ListView listView_tickets;
+    private ListView listViewTickets;
     private NavigationView navigation;
     private String uID;
-    private View progressView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
@@ -49,16 +45,8 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
             fillList(new ArrayList<Ticket>());
             this.uID = getIntent().getStringExtra("uID");
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(this.toggle.onOptionsItemSelected(item)){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -68,12 +56,12 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
 
     @Override
     public void onPostExecute(Object result, Class resource) {
-        try{
+        try {
             swipeRefreshLayout.setRefreshing(false);
-            ArrayList<Ticket> tickets = new Gson().fromJson((String)result, new ArrayList<Ticket>().getClass());
+            ArrayList tickets = new Gson().fromJson((String) result, ArrayList.class);
             fillList(tickets);
-        }catch(Exception error){
-            HandlerState.handle(error,getApplicationContext());
+        } catch (Exception error) {
+            HandlerState.handle(error, getApplicationContext());
         }
     }
 
@@ -83,20 +71,19 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
     }
 
     private void setViews() {
-        this.mdl = findViewById(R.id.content_ticket_list);
-        this.listView_tickets = findViewById(R.id.listview_tickets);
+        this.listViewTickets = findViewById(R.id.listview_tickets);
         this.navigation = findViewById(R.id.navigation_drawer);
         this.swipeRefreshLayout = findViewById(R.id.list_view_tickets_swipe_to_refresh_layout);
     }
 
-    private void setListener(){
+    private void setListener() {
         this.navigation.setNavigationItemSelectedListener(new ListenerNavigationMenu(this, uID));
         this.setListenerNavigationHeader();
         this.navigation.setItemIconTintList(null); //THIS LITTLE PIECE OF ... FIXES THE ICONS NOT SHOWING IN THE NAVMENU >:(
         this.swipeRefreshLayout.setOnRefreshListener(this);
     }
 
-    private void setListenerNavigationHeader(){
+    private void setListenerNavigationHeader() {
         View navHeader;
         navHeader = navigation.getHeaderView(0);
         navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this, uID));
@@ -104,15 +91,15 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
 
     private void fillList(ArrayList<Ticket> tickets) throws Exception {
         fillWithDummy(tickets);
-        if(tickets == null) {
+        if (tickets == null) {
             throw new Exception("no Content found");
         } else {
-            AdapterListViewTicket adapter = new AdapterListViewTicket(this, uID, R.layout.listview_item_ticket, tickets);
-            this.listView_tickets.setAdapter(adapter);
+            AdapterListViewTicket adapter = new AdapterListViewTicket(this, R.layout.listview_item_ticket, tickets);
+            this.listViewTickets.setAdapter(adapter);
         }
     }
 
-    private void fillWithDummy(ArrayList<Ticket> tickets){
+    private void fillWithDummy(ArrayList<Ticket> tickets) {
         Artist a = new Artist("lol", "Martin Garrix");
         ArrayList<Ticket> tickets2 = new ArrayList<>();
         ArrayList<Artist> artists = new ArrayList<>();
@@ -121,16 +108,16 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
         ArrayList<Concert> c = new ArrayList<>();
         c.add(c1);
         Seller oe = new Seller("iiooo", "OETicket@oe.com", new ArrayList<Ticket>());
-        Ticket t1 = new Ticket(1, TicketType.CONCERT, "Day 1 Ticket", (float)22.99, oe, null, c);
+        Ticket t1 = new Ticket(1, TicketType.CONCERT, "Day 1 Ticket", (float) 22.99, oe, null, c);
         tickets.add(t1);
     }
 
-    private void getTickets(){
+    private void getTickets() {
         try {
-            TaskGetMyTickets get_tickets = new TaskGetMyTickets(getString(R.string.webservice_get_my_tickets_url), uID,this);
-            get_tickets.execute();
-        } catch(Exception error){
-            HandlerState.handle(error,this);
+            TaskGetMyTickets getTickets = new TaskGetMyTickets(getString(R.string.webservice_get_my_tickets_url), uID, this);
+            getTickets.execute();
+        } catch (Exception error) {
+            HandlerState.handle(error, this);
         }
     }
 }

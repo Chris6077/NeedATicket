@@ -3,9 +3,7 @@ package me.projectx.needaticket.activities;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
 import android.view.View;
@@ -21,7 +19,7 @@ import me.projectx.needaticket.R;
 import me.projectx.needaticket.asynctask.TaskCashOut;
 import me.projectx.needaticket.asynctask.TaskGetWallet;
 import me.projectx.needaticket.asynctask.TaskUpload;
-import me.projectx.needaticket.customGUI.InputFilterMin;
+import me.projectx.needaticket.customgui.InputFilterMin;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
@@ -50,14 +48,13 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
         this.setContent();
     }
 
-    private void getWallet(){
-        Wallet w = new Wallet(1, Float.parseFloat("1325.12"));
-        wallet = w;
-        TaskGetWallet getWallet = new TaskGetWallet(getString(R.string.webservice_get_wallet) + uID, uID,this);
+    private void getWallet() {
+        wallet = new Wallet(1, Float.parseFloat("1325.12"));
+        TaskGetWallet getWallet = new TaskGetWallet(getString(R.string.webservice_get_wallet) + uID, uID, this);
         getWallet.execute();
     }
 
-    private void setContent(){
+    private void setContent() {
         amount.setFilters(new InputFilter[]{new InputFilterMin(0)});
         startCountAnimation(wallet.getBalance());
     }
@@ -75,11 +72,12 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
         animator.start();
     }
 
-    private void setListenerNavigationHeader(){
+    private void setListenerNavigationHeader() {
         View navHeader;
         navHeader = navigation.getHeaderView(0);
         navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this, uID));
     }
+
     private void setViews() {
         this.navigation = findViewById(R.id.navigation_drawer);
         this.swipeRefreshLayout = findViewById(R.id.user_swipe_to_refresh_layout);
@@ -89,36 +87,22 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
         this.upload = findViewById(R.id.btUpload);
     }
 
-    private void setListener(){
+    private void setListener() {
         this.navigation.setNavigationItemSelectedListener(new ListenerNavigationMenu(this, uID));
         this.navigation.setItemIconTintList(null); //THIS LITTLE PIECE OF ... FIXES THE ICONS NOT SHOWING IN THE NAVMENU >:(
         this.setListenerNavigationHeader();
         this.swipeRefreshLayout.setOnRefreshListener(this);
-        this.upload.setOnClickListener(new uploadListener());
-        this.cashOut.setOnClickListener(new cashOutListener());
+        this.upload.setOnClickListener(new UploadListener());
+        this.cashOut.setOnClickListener(new CashOutListener());
     }
 
-    private class uploadListener implements View.OnClickListener{
-        @Override
-        public void onClick(View v){
-            upload();
-        }
-    }
-
-    private void upload(){
+    private void upload() {
         TaskUpload tUpload = new TaskUpload(getString(R.string.webservice_upload), uID, Float.parseFloat(amount.getText().toString()), this);
         tUpload.execute();
     }
 
-    private class cashOutListener implements View.OnClickListener{
-        @Override
-        public void onClick(View v){
-            cashOut();
-        }
-    }
-
-    private void cashOut(){
-        TaskCashOut tCashOut = new TaskCashOut(getString(R.string.webservice_cashout), uID, Float.parseFloat(amount.getText().toString()),this);
+    private void cashOut() {
+        TaskCashOut tCashOut = new TaskCashOut(getString(R.string.webservice_cashout), uID, Float.parseFloat(amount.getText().toString()), this);
         tCashOut.execute();
     }
 
@@ -131,17 +115,15 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
     public void onPostExecute(Object result, Class resource) {
         swipeRefreshLayout.setRefreshing(false);
         try {
-            try{
-                Float f = Float.parseFloat((String)result);
-                startCountAnimation(f);
-            }
-            catch (Exception ex){
-                wallet = new Gson().fromJson((String)result, Wallet.class);
+            float f = Float.parseFloat((String) result);
+            startCountAnimation(f);
+        } catch (Exception error) {
+            try {
+                wallet = new Gson().fromJson((String) result, Wallet.class);
                 setContent();
+            } catch (Exception e) {
+                HandlerState.handle(e, getApplicationContext());
             }
-        }
-        catch(Exception e){
-            HandlerState.handle(e,getApplicationContext());
         }
     }
 
@@ -149,5 +131,19 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
     public void onRefresh() {
         getWallet();
         setContent();
+    }
+
+    private class UploadListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            upload();
+        }
+    }
+
+    private class CashOutListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            cashOut();
+        }
     }
 }

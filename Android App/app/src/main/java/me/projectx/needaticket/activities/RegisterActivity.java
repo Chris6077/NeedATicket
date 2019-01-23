@@ -1,18 +1,15 @@
 package me.projectx.needaticket.activities;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Pair;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.VideoView;
 
 import me.projectx.needaticket.R;
@@ -21,6 +18,8 @@ import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 
 public class RegisterActivity extends AppCompatActivity implements InterfaceTaskDefault {
+    MediaPlayer mMediaPlayer;
+    int mCurrentVideoPosition;
     private TaskRegister mAuthTask;
     private EditText mEmailView;
     private EditText mPasswordView;
@@ -29,10 +28,7 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
     private View mProgressView;
     private Button btRegister;
     private Button btSignIn;
-    private ImageView image_logo;
     private VideoView videoBG;
-    MediaPlayer mMediaPlayer;
-    int mCurrentVideoPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +54,7 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
             public void onPrepared(MediaPlayer mp) {
                 mMediaPlayer = mp;
                 mMediaPlayer.setLooping(true);
-                if(mCurrentVideoPosition != 0){
+                if (mCurrentVideoPosition != 0) {
                     mMediaPlayer.seekTo(mCurrentVideoPosition);
                     mMediaPlayer.start();
                 }
@@ -67,8 +63,8 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
         setViews();
         registrateEventHandlers();
     }
+
     private void setViews() {
-        image_logo = findViewById(R.id.imageView);
         btRegister = findViewById(R.id.btRegister);
         btSignIn = findViewById(R.id.btSignIn);
         mEmailView = findViewById(R.id.etEmailAddress);
@@ -77,7 +73,8 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
         mProgressView = findViewById(R.id.loadingPanel);
         mLoginFormView = findViewById(R.id.register_form);
     }
-    private void registrateEventHandlers(){
+
+    private void registrateEventHandlers() {
         btRegister.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,16 +88,17 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
             }
         });
     }
-    private void showLoginIntent(){
-        final Intent login_activity = new Intent(this, LoginActivity.class);
-        try{
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, new Pair<View, String>(image_logo, "logo"));
+
+    private void showLoginIntent() {
+        final Intent loginActivity = new Intent(this, LoginActivity.class);
+        try {
             finish();
-            startActivity(login_activity);
-        } catch (Exception e){
+            startActivity(loginActivity);
+        } catch (Exception e) {
             HandlerState.handle(e, getApplicationContext());
         }
     }
+
     // IMPORTANT FOR VIDEO VIEW
     @Override
     protected void onPause() {
@@ -146,7 +144,7 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
             cancel = true;
         }
 
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password) && password != confirmPassword) {
+        if (!TextUtils.isEmpty(password) && !isPasswordValid(password) && !password.equals(confirmPassword)) {
             mPasswordConfirmView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordConfirmView;
             cancel = true;
@@ -168,10 +166,9 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
             try {
                 mAuthTask = new TaskRegister(getString(R.string.webservice_register), email, password, confirmPassword, this);
                 mAuthTask.execute();
-            }
-            catch(Exception ex){
+            } catch (Exception ex) {
                 showProgress(false);
-                HandlerState.handle(ex,this);
+                HandlerState.handle(ex, this);
             }
         }
     }
@@ -196,12 +193,12 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
 
     @Override
     public void onPostExecute(Object result, Class resource) {
-        Intent concerts_activity = new Intent(this, ConcertsActivity.class);
-        concerts_activity.putExtra("uID", (String)result);
-        try{
+        Intent concertsActivity = new Intent(this, ConcertsActivity.class);
+        concertsActivity.putExtra("uID", (String) result);
+        try {
             finish();
-            startActivity(concerts_activity);
-        } catch (Exception e){
+            startActivity(concertsActivity);
+        } catch (Exception e) {
             HandlerState.handle(e, getApplicationContext());
         }
     }

@@ -1,4 +1,4 @@
-package me.projectx.needaticket.customGUI;
+package me.projectx.needaticket.customgui;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -17,12 +17,13 @@ public class NumberPickerDialog extends DialogFragment {
     private int maxVal;
 
     @SuppressLint("ValidFragment")
-    public NumberPickerDialog (Ticket ticket, int maxVal){
+    public NumberPickerDialog(Ticket ticket, int maxVal) {
         this.t = ticket;
         this.maxVal = maxVal;
     }
 
-    public NumberPickerDialog(){}
+    public NumberPickerDialog() {
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

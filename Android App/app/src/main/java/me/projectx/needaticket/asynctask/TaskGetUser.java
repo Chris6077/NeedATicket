@@ -12,6 +12,8 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
@@ -50,20 +52,20 @@ public class TaskGetUser extends AsyncTask<Object, Object, User> {
         try {
             Gson gson = new Gson();
             HttpURLConnection conn = (HttpURLConnection) new URL(this.getUrl()).openConnection();
-            Type collectionType = new TypeToken<Concert>(){}.getType();
-            String result = GetData(conn);
-            System.out.println("--------------------------------------------\n" + result);
+            Type collectionType = new TypeToken<Concert>() {
+            }.getType();
+            String result = getData(conn);
             User user = gson.fromJson(result, collectionType);
             return user;
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
         return null;
     }
 
     @Override
-    protected void onPostExecute(User user){
-        this.getListener().onPostExecute(user,this.getClass());
+    protected void onPostExecute(User user) {
+        this.getListener().onPostExecute(user, this.getClass());
         super.onPostExecute(user);
     }
 
@@ -73,11 +75,11 @@ public class TaskGetUser extends AsyncTask<Object, Object, User> {
         super.onPreExecute();
     }
 
-    private String GetData(HttpURLConnection conn){
+    private String getData(HttpURLConnection conn) {
         BufferedReader reader;
         String content = null;
 
-        try{
+        try {
             conn.setRequestMethod("GET");
             conn.setRequestProperty("API_KEY", Resources.getSystem().getString(R.string.API_KEY));
             conn.setRequestProperty("uID", uID);
@@ -95,10 +97,9 @@ public class TaskGetUser extends AsyncTask<Object, Object, User> {
             reader.close();
             conn.disconnect();
 
-        }catch(Exception error){
-            error.printStackTrace();
+        } catch (Exception e) {
+            Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
-        System.out.println("CONTENT" + content);
         return content;
     }
 }

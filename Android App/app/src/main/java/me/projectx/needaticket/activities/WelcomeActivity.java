@@ -16,8 +16,8 @@ import me.projectx.needaticket.R;
 import me.projectx.needaticket.handler.HandlerState;
 
 public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {
-    private ImageView image_logo;
-    private TextView textview_app_name;
+    private ImageView logo;
+    private TextView appName;
     private LinearLayout content;
 
     @Override
@@ -31,27 +31,27 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void registrateEventHandlers() {
-        image_logo.setOnClickListener(this);
+        logo.setOnClickListener(this);
         content.setOnClickListener(this);
     }
 
     private void animate() {
-        Animation anim_splash = AnimationUtils.loadAnimation(this, R.anim.anim_splash);
-        image_logo.startAnimation(anim_splash);
-        textview_app_name.startAnimation(anim_splash);
+        Animation splash = AnimationUtils.loadAnimation(this, R.anim.anim_splash);
+        logo.startAnimation(splash);
+        appName.startAnimation(splash);
     }
 
     private void setViews() {
-        image_logo = findViewById(R.id.image_welcome_logo);
-        textview_app_name = this.findViewById(R.id.textview_welcome_app_name_lowercase);
+        logo = findViewById(R.id.image_welcome_logo);
+        appName = this.findViewById(R.id.textview_welcome_app_name_lowercase);
         content = findViewById(R.id.content_welcome);
     }
 
-    private void showNewIntent(){
-        final Intent login_activity = new Intent(this, LoginActivity.class);
-        try{
-            startActivity(login_activity);
-        } catch (Exception e){
+    private void showNewIntent() {
+        final Intent loginActivity = new Intent(this, LoginActivity.class);
+        try {
+            startActivity(loginActivity);
+        } catch (Exception e) {
             HandlerState.handle(e, getApplicationContext());
         }
     }

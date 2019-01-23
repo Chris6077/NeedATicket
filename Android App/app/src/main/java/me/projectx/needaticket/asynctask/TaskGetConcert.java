@@ -12,6 +12,8 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
@@ -49,21 +51,20 @@ public class TaskGetConcert extends AsyncTask<Object, Object, Concert> {
         try {
             Gson gson = new Gson();
             HttpURLConnection conn = (HttpURLConnection) new URL(this.getUrl()).openConnection();
-            Type collectionType = new TypeToken<Concert>(){}.getType();
-            String result = GetData(conn);
-            System.out.println("--------------------------------------------\n" + result);
-            Concert concert = gson.fromJson(result, collectionType);
-            return concert;
+            Type collectionType = new TypeToken<Concert>() {
+            }.getType();
+            String result = getData(conn);
+            return gson.fromJson(result, collectionType);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
         return null;
     }
 
     @Override
-    protected void onPostExecute(Concert concert){
-        this.getListener().onPostExecute(concert,this.getClass());
+    protected void onPostExecute(Concert concert) {
+        this.getListener().onPostExecute(concert, this.getClass());
         super.onPostExecute(concert);
     }
 
@@ -73,11 +74,11 @@ public class TaskGetConcert extends AsyncTask<Object, Object, Concert> {
         super.onPreExecute();
     }
 
-    private String GetData(HttpURLConnection conn){
+    private String getData(HttpURLConnection conn) {
         BufferedReader reader;
         String content = null;
 
-        try{
+        try {
             conn.setRequestMethod("GET");
             conn.setRequestProperty("API_KEY", Resources.getSystem().getString(R.string.API_KEY));
             conn.setRequestProperty("uID", uID);
@@ -95,10 +96,9 @@ public class TaskGetConcert extends AsyncTask<Object, Object, Concert> {
             reader.close();
             conn.disconnect();
 
-        }catch(Exception error){
-            error.printStackTrace();
+        } catch (Exception e) {
+            Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
-        System.out.println("CONTENT" + content);
         return content;
     }
 }

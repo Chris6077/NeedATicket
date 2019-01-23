@@ -38,18 +38,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.TicketsActivity">
-        </activity>
-        <activity android:name=".activities.ConcertsActivity">
-        </activity>
-        <activity android:name=".activities.BuyActivity">
-        </activity>
-        <activity android:name=".activities.ConcertActivity">
-        </activity>
-        <activity android:name=".activities.UserActivity">
-        </activity>
-        <activity android:name=".activities.WalletActivity">
-        </activity>
+        <activity android:name=".activities.TicketsActivity"></activity>
+        <activity android:name=".activities.ConcertsActivity"></activity>
+        <activity android:name=".activities.BuyActivity"></activity>
+        <activity android:name=".activities.ConcertActivity"></activity>
+        <activity android:name=".activities.UserActivity"></activity>
+        <activity android:name=".activities.WalletActivity"></activity>
     </application>
 
 </manifest>

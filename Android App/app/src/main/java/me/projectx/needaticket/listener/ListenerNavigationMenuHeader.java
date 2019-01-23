@@ -20,7 +20,7 @@ public class ListenerNavigationMenuHeader implements View.OnClickListener {
     //super
     @Override
     public void onClick(View v) {
-        Intent intent= new Intent(resource,UserActivity.class);
+        Intent intent = new Intent(resource, UserActivity.class);
         intent.putExtra("uID", uID);
         resource.startActivity(intent);
     }

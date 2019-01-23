@@ -26,7 +26,7 @@ This group of applications will act as a platform for concert ticket sales. Both
 [FancyToast](https://github.com/Shashank02051997/FancyToast-Android)
 ## Tools and Frameworks
 * Android Studio
-* SonarQube (For continous inspection and refactoring)
+* SonarQube (For continuous inspection and refactoring)
 * GSON
 * Checkview
 * FancyToast

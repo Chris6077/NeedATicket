@@ -1,5 +1,4 @@
 package me.projectx.needaticket.activities;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,14 +13,11 @@ import android.widget.TextView;
 
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.handler.HandlerState;
-
 public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {
-    private ImageView image_logo;
-    private TextView textview_app_name;
+    private ImageView logo;
+    private TextView appName;
     private LinearLayout content;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         setViews();
@@ -29,34 +25,21 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         registrateEventHandlers();
         setupWindowAnimations();
     }
-
-    private void registrateEventHandlers() {
-        image_logo.setOnClickListener(this);
-        content.setOnClickListener(this);
-    }
-
-    private void animate() {
-        Animation anim_splash = AnimationUtils.loadAnimation(this, R.anim.anim_splash);
-        image_logo.startAnimation(anim_splash);
-        textview_app_name.startAnimation(anim_splash);
-    }
-
-    private void setViews() {
-        image_logo = findViewById(R.id.image_welcome_logo);
-        textview_app_name = this.findViewById(R.id.textview_welcome_app_name_lowercase);
+    private void setViews () {
+        logo = findViewById(R.id.image_welcome_logo);
+        appName = this.findViewById(R.id.textview_welcome_app_name_lowercase);
         content = findViewById(R.id.content_welcome);
     }
-
-    private void showNewIntent(){
-        final Intent login_activity = new Intent(this, LoginActivity.class);
-        try{
-            startActivity(login_activity);
-        } catch (Exception e){
-            HandlerState.handle(e, getApplicationContext());
-        }
+    private void animate () {
+        Animation splash = AnimationUtils.loadAnimation(this, R.anim.anim_splash);
+        logo.startAnimation(splash);
+        appName.startAnimation(splash);
     }
-
-    private void setupWindowAnimations() {
+    private void registrateEventHandlers () {
+        logo.setOnClickListener(this);
+        content.setOnClickListener(this);
+    }
+    private void setupWindowAnimations () {
         Fade fade = new Fade();
         fade.setDuration(1000);
         Slide slide = new Slide();
@@ -64,9 +47,15 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         getWindow().setEnterTransition(fade);
         getWindow().setReturnTransition(fade);
     }
-
-    @Override
-    public void onClick(View v) {
+    @Override public void onClick (View v) {
         showNewIntent();
+    }
+    private void showNewIntent () {
+        final Intent loginActivity = new Intent(this, LoginActivity.class);
+        try {
+            startActivity(loginActivity);
+        } catch (Exception e) {
+            HandlerState.handle(e, getApplicationContext());
+        }
     }
 }

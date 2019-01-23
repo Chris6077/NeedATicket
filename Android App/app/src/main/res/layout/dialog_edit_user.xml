@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
     android:id="@+id/dialog"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EE0024">
-<ImageView
-android:id="@+id/closeDialog"
-    android:layout_width="30dp"
-    android:layout_height="30dp"
-    android:layout_margin="10dp"
-    android:src="@drawable/x"
-    android:tint="#fff"/>
+    android:background="#EE0024"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/closeDialog"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/x"
+        android:tint="#fff" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -150,4 +150,4 @@ android:id="@+id/closeDialog"
                 app:layout_constraintTop_toBottomOf="@+id/etPassword" />
         </android.support.constraint.ConstraintLayout>
     </RelativeLayout>
-    </RelativeLayout>
+</RelativeLayout>

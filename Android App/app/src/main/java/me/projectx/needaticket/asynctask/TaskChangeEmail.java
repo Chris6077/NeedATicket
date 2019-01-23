@@ -1,4 +1,5 @@
 package me.projectx.needaticket.asynctask;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
@@ -10,66 +11,61 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import me.projectx.needaticket.R;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.pojo.EmailWrapper;
-
 public class TaskChangeEmail extends AsyncTask<String, Void, String> {
     private String url;
     private String uID;
     private String email;
     private String password;
     private InterfaceTaskDefault listener;
-
-    public TaskChangeEmail(String url, String uID, String email, String password, InterfaceTaskDefault listener) {
+    public TaskChangeEmail (String url, String uID, String email, String password, InterfaceTaskDefault listener) {
         this.url = url;
         this.uID = uID;
         this.email = email;
         this.password = password;
         this.listener = listener;
     }
-
-    @Override
-    protected String doInBackground(String... params) {
+    @Override protected String doInBackground (String... params) {
         try {
             HttpURLConnection conn = (HttpURLConnection) new URL(this.url).openConnection();
-            this.PostData(conn, params);
-            return this.GetData(conn);
+            this.postData(conn, params);
+            return this.getData(conn);
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
         return null;
     }
-
-    @Override
-    protected void onPostExecute(final String result) {
-        this.listener.onPostExecute(result,this.getClass());
-        super.onPostExecute(result);
-    }
-
-    @Override
-    protected void onPreExecute() {
+    @Override protected void onPreExecute () {
         this.listener.onPreExecute(this.getClass());
         super.onPreExecute();
     }
-
-    private void PostData(HttpURLConnection conn, String... params) {
+    @Override protected void onPostExecute (final String result) {
+        this.listener.onPostExecute(result, this.getClass());
+        super.onPostExecute(result);
+    }
+    private void postData (HttpURLConnection conn, String... params) {
         BufferedWriter writer;
         try {
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("API_KEY", Resources.getSystem().getString(R.string.API_KEY));
+            conn.setRequestProperty("uID", uID);
             writer = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             EmailWrapper ew = new EmailWrapper(uID, email, password);
             writer.write(new Gson().toJson(ew));
             writer.flush();
             writer.close();
             conn.getResponseCode();
-        } catch (Exception error) {
-            System.out.println("ERROR --- " + error);
+        } catch (Exception e) {
+            Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
     }
-
-    private String GetData(HttpURLConnection conn) {
+    private String getData (HttpURLConnection conn) {
         BufferedReader reader;
         String content = null;
         try {
@@ -82,8 +78,8 @@ public class TaskChangeEmail extends AsyncTask<String, Void, String> {
             content = sb.toString();
             reader.close();
             conn.disconnect();
-        } catch (Exception error) {
-            System.out.println("ERROR --- " + error);
+        } catch (Exception e) {
+            Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
         return content;
     }

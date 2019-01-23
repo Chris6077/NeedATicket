@@ -1,5 +1,4 @@
 package me.projectx.needaticket.activities;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Dialog;
@@ -28,6 +27,7 @@ import me.projectx.needaticket.R;
 import me.projectx.needaticket.asynctask.TaskChangeEmail;
 import me.projectx.needaticket.asynctask.TaskChangePassword;
 import me.projectx.needaticket.asynctask.TaskGetUser;
+import me.projectx.needaticket.exceptions.PasswordException;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
@@ -40,24 +40,21 @@ import me.projectx.needaticket.pojo.Ticket;
 import me.projectx.needaticket.pojo.TicketType;
 import me.projectx.needaticket.pojo.User;
 import me.projectx.needaticket.pojo.Wallet;
-
 public class UserActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
     private SwipeRefreshLayout swipeRefreshLayout;
     private User user;
     private String uID;
     private TextView email;
     private TextView password;
-    private EditText dialog_oldPassword;
-    private EditText dialog_newPassword;
-    private EditText dialog_confirmNewPassword;
-    private EditText dialog_Password;
-    private EditText dialog_newEmail;
+    private EditText dialogOldPassword;
+    private EditText dialogNewPassword;
+    private EditText dialogConfirmNewPassword;
+    private EditText dialogPassword;
+    private EditText dialogNewEmail;
     private TextView boughtTickets;
     private NavigationView navigation;
-    private FloatingActionButton fab_user;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    private FloatingActionButton fabUser;
+    @Override protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         this.setViews();
@@ -73,182 +70,153 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
         ArrayList<Concert> c = new ArrayList<>();
         c.add(c1);
         Seller oe = new Seller("iiooo", "OETicket@oe.com", new ArrayList<Ticket>());
-        Ticket t1 = new Ticket(1, TicketType.CONCERT, "Day 1 Ticket", (float)22.99, oe, null, c);
+        Ticket t1 = new Ticket(1, TicketType.CONCERT, "Day 1 Ticket", (float) 22.99, oe, null, c);
         tickets.add(t1);
         User u = new User("lol", "user@bashit.me", tickets, new Wallet(1, Float.parseFloat("1337.17")));
         setContent(u);
     }
-
-    private void setContent(User user){
-        email.setText(user.getEmail());
-        boughtTickets.setText("" + user.getTickets().size());
-        password.setText("Strong");
-    }
-    private void setListenerNavigationHeader(){
-        View navHeader;
-        navHeader = navigation.getHeaderView(0);
-        navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this, uID));
-    }
-    private void setViews() {
+    private void setViews () {
         this.navigation = findViewById(R.id.navigation_drawer);
         this.swipeRefreshLayout = findViewById(R.id.user_swipe_to_refresh_layout);
         this.email = findViewById(R.id.textview_email);
         this.password = findViewById(R.id.textview_password);
         this.boughtTickets = findViewById(R.id.textview_bought);
-        this.fab_user = findViewById(R.id.fab_user);
-        this.dialog_oldPassword = findViewById(R.id.etOldPassword);
-        this.dialog_newPassword = findViewById(R.id.etNewPassword);
-        this.dialog_confirmNewPassword = findViewById(R.id.etPasswordConfirm);
-        this.dialog_newEmail = findViewById(R.id.etEmailAddress);
-        this.dialog_Password = findViewById(R.id.etPassword);
+        this.fabUser = findViewById(R.id.fab_user);
+        this.dialogOldPassword = findViewById(R.id.etOldPassword);
+        this.dialogNewPassword = findViewById(R.id.etNewPassword);
+        this.dialogConfirmNewPassword = findViewById(R.id.etPasswordConfirm);
+        this.dialogNewEmail = findViewById(R.id.etEmailAddress);
+        this.dialogPassword = findViewById(R.id.etPassword);
     }
-
-    private void setListener(){
+    private void setListener () {
         this.navigation.setNavigationItemSelectedListener(new ListenerNavigationMenu(this, uID));
         this.navigation.setItemIconTintList(null); //THIS LITTLE PIECE OF ... FIXES THE ICONS NOT SHOWING IN THE NAVMENU >:(
         this.setListenerNavigationHeader();
         this.swipeRefreshLayout.setOnRefreshListener(this);
-        this.fab_user.setOnClickListener(new editUserListener());
+        this.fabUser.setOnClickListener(new EditUserListener());
     }
-
-    private class changeEmailListener implements View.OnClickListener{
-        @Override
-        public void onClick(View v){
-            changeMail();
-        }
+    private void setContent (User user) {
+        email.setText(user.getEmail());
+        boughtTickets.setText("" + user.getTickets().size());
+        password.setText("Strong");
     }
-
-    private void changeMail(){
+    private void setListenerNavigationHeader () {
+        View navHeader;
+        navHeader = navigation.getHeaderView(0);
+        navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this, uID));
+    }
+    private void changeMail () {
         try {
-            TaskChangeEmail change_mail = new TaskChangeEmail(getString(R.string.webservice_change_email) + "/" + user.getId(), user.getId(), dialog_newEmail.getText().toString(), dialog_Password.getText().toString(), this);
-            change_mail.execute();
-        } catch(Exception error){
-            HandlerState.handle(error,this);
+            TaskChangeEmail changeEmail = new TaskChangeEmail(getString(R.string.webservice_change_email) + "/" + user.getId(), user.getId(), dialogNewEmail.getText().toString(), dialogPassword.getText().toString(), this);
+            changeEmail.execute();
+        } catch (Exception error) {
+            HandlerState.handle(error, this);
         }
     }
-
-    private class changePasswordListener implements View.OnClickListener{
-        @Override
-        public void onClick(View v){
-            changePassword();
-        }
-    }
-
-    private void changePassword(){
+    private void changePassword () {
         try {
-            if(dialog_newPassword != dialog_confirmNewPassword) throw new Exception("Passwords don't match!");
-            TaskChangePassword change_password = new TaskChangePassword(getString(R.string.webservice_change_password) + "/" + user.getId(), user.getId(), dialog_oldPassword.getText().toString(), dialog_newPassword.getText().toString(), this);
-            change_password.execute();
-        } catch(Exception error){
-            HandlerState.handle(error,this);
+            if (dialogNewPassword != dialogConfirmNewPassword)
+                throw new PasswordException("Passwords don't match!");
+            TaskChangePassword changePassword = new TaskChangePassword(getString(R.string.webservice_change_password) + "/" + user.getId(), user.getId(), dialogOldPassword.getText().toString(), dialogNewPassword.getText().toString(), this);
+            changePassword.execute();
+        } catch (Exception error) {
+            HandlerState.handle(error, this);
         }
     }
-
-    private class editUserListener implements View.OnClickListener{
-        @Override
-        public void onClick(View v) {
-           showDiag();
-        }
-    }
-
-    private void showDiag() {
-        final View dialogView = View.inflate(this,R.layout.dialog_edit_user,null);
-        final Dialog dialog = new Dialog(this,R.style.UserAlertStyle);
+    private void showDiag () {
+        final View dialogView = View.inflate(this, R.layout.dialog_edit_user, null);
+        final Dialog dialog = new Dialog(this, R.style.UserAlertStyle);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(dialogView);
         ImageView imageView = dialog.findViewById(R.id.closeDialog);
         imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
+            @Override public void onClick (View v) {
                 revealShow(dialogView, false, dialog);
             }
         });
         Button changeEmail = dialog.findViewById(R.id.btChangeEmail);
-        changeEmail.setOnClickListener(new changeEmailListener());
+        changeEmail.setOnClickListener(new ChangeEmailListener());
         Button changePassword = dialog.findViewById(R.id.btChangePassword);
-        changePassword.setOnClickListener(new changePasswordListener());
+        changePassword.setOnClickListener(new ChangePasswordListener());
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialogInterface) {
+            @Override public void onShow (DialogInterface dialogInterface) {
                 revealShow(dialogView, true, null);
             }
         });
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
-            public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
-                if (i == KeyEvent.KEYCODE_BACK){
-
+            public boolean onKey (DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
+                if (i == KeyEvent.KEYCODE_BACK) {
                     revealShow(dialogView, false, dialog);
                     return true;
                 }
-
                 return false;
             }
         });
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
     }
-
-    private void revealShow(View dialogView, boolean b, final Dialog dialog) {
+    private void revealShow (View dialogView, boolean b, final Dialog dialog) {
         final View view = dialogView.findViewById(R.id.dialog);
         int w = view.getWidth();
         int h = view.getHeight();
         int endRadius = (int) Math.hypot(w, h);
-        int cx = (int) (fab_user.getX() + (fab_user.getWidth()/2));
-        int cy = (int) (fab_user.getY())+ fab_user.getHeight() + 56;
-        if(b){
-            Animator revealAnimator = ViewAnimationUtils.createCircularReveal(view, cx,cy, 0, endRadius);
-
+        int cx = (int) (fabUser.getX() + ((double) fabUser.getWidth() / 2));
+        int cy = (int) (fabUser.getY()) + fabUser.getHeight() + 56;
+        if (b) {
+            Animator revealAnimator = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0, endRadius);
             view.setVisibility(View.VISIBLE);
             revealAnimator.setDuration(700);
             revealAnimator.start();
         } else {
-            Animator anim =
-                    ViewAnimationUtils.createCircularReveal(view, cx, cy, endRadius, 0);
-
+            Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, endRadius, 0);
             anim.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
+                @Override public void onAnimationEnd (Animator animation) {
                     super.onAnimationEnd(animation);
                     dialog.dismiss();
                     view.setVisibility(View.INVISIBLE);
-
                 }
             });
             anim.setDuration(700);
             anim.start();
         }
     }
-
-    private void getUser(){
-        try{
-            TaskGetUser getUser = new TaskGetUser(getString(R.string.webservice_get_user) + uID, uID,this);
-            getUser.execute();
-        }catch(Exception error){
-            HandlerState.handle(error,this);
-        }
-    }
-
-    @Override
-    public void onPreExecute(Class resource) {
+    @Override public void onPreExecute (Class resource) {
         swipeRefreshLayout.setRefreshing(true);
     }
-
-    @Override
-    public void onPostExecute(Object result, Class resource) {
+    @Override public void onPostExecute (Object result, Class resource) {
         swipeRefreshLayout.setRefreshing(false);
         try {
-            user = new Gson().fromJson((String)result, User.class);
+            user = new Gson().fromJson((String) result, User.class);
             setContent(user);
-        }
-        catch(Exception e){
-            HandlerState.handle(e,getApplicationContext());
+        } catch (Exception e) {
+            HandlerState.handle(e, getApplicationContext());
         }
     }
-
-    @Override
-    public void onRefresh() {
+    @Override public void onRefresh () {
         getUser();
+    }
+    private void getUser () {
+        try {
+            TaskGetUser getUser = new TaskGetUser(getString(R.string.webservice_get_user) + uID, uID, this);
+            getUser.execute();
+        } catch (Exception error) {
+            HandlerState.handle(error, this);
+        }
+    }
+    private class ChangeEmailListener implements View.OnClickListener {
+        @Override public void onClick (View v) {
+            changeMail();
+        }
+    }
+    private class ChangePasswordListener implements View.OnClickListener {
+        @Override public void onClick (View v) {
+            changePassword();
+        }
+    }
+    private class EditUserListener implements View.OnClickListener {
+        @Override public void onClick (View v) {
+            showDiag();
+        }
     }
 }

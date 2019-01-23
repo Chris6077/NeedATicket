@@ -1,8 +1,7 @@
 package me.projectx.needaticket.pojo;
-
 import java.util.ArrayList;
 import java.util.Date;
-
+import java.util.List;
 public class Concert {
     private String id;
     private String title;
@@ -11,83 +10,58 @@ public class Concert {
     private ArrayList<Artist> artists;
     private Genre genre;
     private ArrayList<Ticket> tickets;
-
-    public Concert(String id, String title, Date date, String address, ArrayList<Artist> artists, Genre genre, ArrayList<Ticket> tickets) {
+    public Concert (String id, String title, Date date, String address, List<Artist> artists, Genre genre, List<Ticket> tickets) {
         this.id = id;
         this.title = title;
         this.date = date;
         this.address = address;
-        this.artists = artists;
+        this.artists = (ArrayList<Artist>) artists;
         this.genre = genre;
-        this.tickets = tickets;
+        this.tickets = (ArrayList<Ticket>) tickets;
     }
-
-    public String getId() {
+    public String getId () {
         return id;
     }
-
-    public void setId(String id) {
+    public void setId (String id) {
         this.id = id;
     }
-
-    public String getTitle() {
+    public String getTitle () {
         return title;
     }
-
-    public void setTitle(String title) {
+    public void setTitle (String title) {
         this.title = title;
     }
-
-    public Date getDate() {
+    public Date getDate () {
         return date;
     }
-
-    public void setDate(Date date) {
+    public void setDate (Date date) {
         this.date = date;
     }
-
-    public String getAddress() {
+    public String getAddress () {
         return address;
     }
-
-    public void setAddress(String address) {
+    public void setAddress (String address) {
         this.address = address;
     }
-
-    public ArrayList<Artist> getArtists() {
+    public List<Artist> getArtists () {
         return artists;
     }
-
-    public void setArtists(ArrayList<Artist> artists) {
-        this.artists = artists;
+    public void setArtists (List<Artist> artists) {
+        this.artists = (ArrayList<Artist>) artists;
     }
-
-    public Genre getGenre() {
+    public Genre getGenre () {
         return genre;
     }
-
-    public void setGenre(Genre genre) {
+    public void setGenre (Genre genre) {
         this.genre = genre;
     }
-
-    public ArrayList<Ticket> getTickets() {
+    public List<Ticket> getTickets () {
         return tickets;
     }
-
-    public void setTickets(ArrayList<Ticket> tickets) {
-        this.tickets = tickets;
+    public void setTickets (List<Ticket> tickets) {
+        this.tickets = (ArrayList<Ticket>) tickets;
     }
-
-    @Override
-    public String toString() {
-        return "Concert{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", date=" + date +
-                ", address='" + address + '\'' +
-                ", artists=" + artists +
-                ", genre=" + genre +
-                ", tickets=" + tickets +
-                '}';
+    @Override public String toString () {
+        return "Concert{" + "id=" + id + ", title='" + title + '\'' + ", date=" + date + ", address='" + address + '\'' + ", artists=" + artists + ", genre=" + genre + ", tickets=" + tickets + '}';
     }
 }

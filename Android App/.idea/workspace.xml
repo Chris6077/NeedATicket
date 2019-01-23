@@ -18,15 +18,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c913058-d771-4ef0-9ced-bbec636bee84" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/exceptions/ContentException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/exceptions/PasswordException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/me/projectx/needaticket/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/androidTest/java/me/projectx/needaticket/ExampleInstrumentedTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/BuyActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/BuyActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/ConcertActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/ConcertActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/ConcertsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/ConcertsActivity.java" afterDir="false" />
@@ -52,16 +49,18 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskPurchaseTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskPurchaseTicket.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskRegister.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskUpload.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskUpload.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/customGUI/InputFilterMin.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/customgui/InputFilterMin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/customGUI/NumberPickerDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/customgui/NumberPickerDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/customgui/InputFilterMin.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/customgui/InputFilterMin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/customgui/NumberPickerDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/customgui/NumberPickerDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/handler/HandlerState.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/handler/HandlerState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/interfaces/InterfaceGetTickets.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/interfaces/InterfaceGetTickets.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/interfaces/InterfaceTaskDefault.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/interfaces/InterfaceTaskDefault.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/listener/ListenerDoubleTap.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/listener/ListenerDoubleTap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/listener/ListenerNavigationMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/listener/ListenerNavigationMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/listener/ListenerNavigationMenuHeader.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/listener/ListenerNavigationMenuHeader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/listener/ListenerNumberPicked.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/listener/ListenerNumberPicked.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/AmountWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/AmountWrapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Artist.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Artist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/BuyTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/BuyTicket.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Concert.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Concert.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/EmailWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/EmailWrapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Genre.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Genre.java" afterDir="false" />
@@ -69,38 +68,10 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/PasswordWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/PasswordWrapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/PurchaseTicketWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/PurchaseTicketWrapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Seller.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Seller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Ticket.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/TicketType.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/TicketType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Wallet.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Wallet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/anim/anim_splash.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/anim/anim_splash.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_account_circle_black_24dp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_account_circle_black_24dp.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/round_box.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/round_box.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/round_corners.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/round_corners.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/shadow_box.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/shadow_box.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/transparent_bar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/transparent_bar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_buy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_buy.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_concert.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_concert.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_concerts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_concerts.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_tickets.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_tickets.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_user.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_wallet.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_wallet.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_welcome.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_welcome.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_edit_user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_edit_user.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_register.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_register.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/listview_item_concert.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/listview_item_concert.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/listview_item_concert_ticket.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/listview_item_concert_ticket.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/listview_item_ticket.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/listview_item_ticket.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/navigation_drawer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/navigation_drawer.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/navigation_navheader.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/navigation_navheader.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/navigation_navmenu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/navigation_navmenu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/video_sign_in.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/video_sign_in.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/video_sign_up.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/video_sign_up.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/me/projectx/needaticket/ExampleUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/me/projectx/needaticket/ExampleUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -124,24 +95,25 @@
     <session id="-664679260">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="9" />
+          <entry key="project.closed" value="10" />
           <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.3" value="3" />
           <entry key="project.open.time.4" value="5" />
-          <entry key="project.opened" value="9" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.opened" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="gradle" value="2" />
-          <entry key="java" value="139" />
+          <entry key="java" value="159" />
           <entry key="xml" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Groovy" value="2" />
-          <entry key="JAVA" value="139" />
+          <entry key="JAVA" value="159" />
           <entry key="XML" value="11" />
         </counts>
       </usages-collector>
@@ -149,14 +121,14 @@
         <counts>
           <entry key="dummy" value="3" />
           <entry key="gradle" value="215" />
-          <entry key="java" value="1081" />
+          <entry key="java" value="1425" />
           <entry key="xml" value="72" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Groovy" value="215" />
-          <entry key="JAVA" value="1081" />
+          <entry key="JAVA" value="1425" />
           <entry key="PLAIN_TEXT" value="3" />
           <entry key="XML" value="72" />
         </counts>
@@ -194,6 +166,8 @@
       <find>showProgress</find>
       <find>drawerLayout</find>
       <find>printS</find>
+      <find>Throw</find>
+      <find>throw</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;</replace>
@@ -2462,9 +2436,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_welcome.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_register.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_login.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/ConcertActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
@@ -2472,8 +2443,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskGetUser.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskGetWallet.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/listener/ListenerNavigationMenu.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/WelcomeActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/BuyActivity.java" />
@@ -2484,42 +2453,47 @@
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/AmountWrapper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/PurchaseTicketWrapper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Wallet.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/User.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/TicketType.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Ticket.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Seller.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Genre.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Concert.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Artist.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskCashOut.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskGetConcerts.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskGetMyTickets.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskUpload.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskPurchaseTicket.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskChangeEmail.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskChangePassword.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskLogin.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskRegister.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/handler/HandlerState.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/RegisterActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/ConcertActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/ConcertsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/LoginActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/TicketsActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/UserActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/WalletActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/adapter/AdapterListViewConcert.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/adapter/AdapterListViewConcertTickets.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/adapter/AdapterListViewTicket.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskGetConcert.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskGetConcertTickets.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskGetConcerts.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskGetMyTickets.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskGetUser.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskGetWallet.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/BuyTicket.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Concert.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Seller.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Ticket.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/User.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskRegister.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/exceptions/ContentException.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/exceptions/PasswordException.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/UserActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/TicketsActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/ConcertsActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/ConcertActivity.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="67" />
-    <option name="y" value="114" />
-    <option name="width" value="1833" />
+    <option name="x" value="2071" />
+    <option name="y" value="27" />
+    <option name="width" value="1823" />
     <option name="height" value="789" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -2528,6 +2502,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane" />
       <pane id="AndroidView">
@@ -2553,13 +2528,12 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="needaticket" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="asynctask" type="462c0819:PsiDirectoryNode" />
+              <item name="activities" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2569,7 +2543,7 @@
     <property name="device.picker.selection" value="Nexus_5X_API_28_x86" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../Downloads/4.universal-full-multipurpose-android-app/Template" />
     <property name="run.code.analysis.last.selected.profile" value="aDefault" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -2823,9 +2797,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
+    <frame x="1987" y="25" width="1853" height="1055" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24958494" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24958494" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Build Variants" order="3" side_tool="true" />
@@ -2844,8 +2818,8 @@
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5002767" side_tool="true" weight="0.39935064" />
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Logcat" order="10" weight="0.32972974" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.32756758" />
-      <window_info anchor="bottom" id="Android Profiler" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.3264865" />
+      <window_info anchor="bottom" id="Android Profiler" order="12" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24958494" />
@@ -2967,20 +2941,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/round_box.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="8" lean-forward="true" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/transparent_bar.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -2989,12 +2949,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_wallet.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23">
           <caret line="71" column="44" lean-forward="true" selection-start-line="71" selection-start-column="44" selection-end-line="71" selection-end-column="44" />
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/shadow_box.xml">
       <provider selected="true" editor-type-id="text-editor">
@@ -3083,31 +3043,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="479">
-          <caret line="58" column="1" selection-start-line="58" selection-start-column="1" selection-end-line="58" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/TicketType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Ticket.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="95" column="1" lean-forward="true" selection-start-line="95" selection-start-column="1" selection-end-line="95" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Seller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="47" column="1" selection-start-line="47" selection-start-column="1" selection-end-line="47" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -3118,31 +3057,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Concert.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="479">
-          <caret line="92" column="1" selection-start-line="92" selection-start-column="1" selection-end-line="92" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/BuyTicket.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="80" column="1" lean-forward="true" selection-start-line="80" selection-start-column="1" selection-end-line="80" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Artist.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
           <caret line="34" column="1" selection-start-line="34" selection-start-column="1" selection-end-line="34" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/BuyActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="61" column="43" selection-start-line="61" selection-start-column="43" selection-end-line="61" selection-end-column="43" />
         </state>
       </provider>
     </entry>
@@ -3167,13 +3085,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskGetMyTickets.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="39">
-          <caret line="64" column="31" selection-start-line="64" selection-start-column="31" selection-end-line="64" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskLogin.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="159">
@@ -3185,34 +3096,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="219">
           <caret line="67" column="46" selection-start-line="67" selection-start-column="46" selection-end-line="67" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskRegister.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="65" column="95" selection-start-line="65" selection-start-column="95" selection-end-line="65" selection-end-column="95" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskGetWallet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="693">
-          <caret line="99" column="26" selection-start-line="99" selection-start-column="26" selection-end-line="99" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskGetUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="723">
-          <caret line="101" selection-start-line="101" selection-end-line="101" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskGetConcerts.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="64" column="31" selection-start-line="64" selection-start-column="31" selection-end-line="64" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -3237,38 +3120,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/ConcertActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="182" column="44" selection-start-line="182" selection-start-column="44" selection-end-line="182" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="344">
           <caret line="155" column="31" selection-start-line="155" selection-start-column="31" selection-end-line="155" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/ConcertsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="31" column="37" selection-start-line="31" selection-start-column="37" selection-end-line="31" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/TicketsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="116" column="39" selection-start-line="116" selection-start-column="39" selection-end-line="116" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/UserActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="249" column="19" selection-start-line="249" selection-start-column="19" selection-end-line="249" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -3318,6 +3173,154 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-31">
           <caret line="61" column="42" lean-forward="true" selection-start-line="61" selection-start-column="42" selection-end-line="61" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskGetConcerts.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="58" selection-start-line="58" selection-end-line="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskGetMyTickets.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="58" column="56" selection-start-line="58" selection-start-column="56" selection-end-line="58" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskGetUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="57" selection-start-line="57" selection-end-line="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/BuyTicket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="17" column="43" selection-start-line="17" selection-start-column="43" selection-end-line="17" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskGetWallet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="57" column="56" selection-start-line="57" selection-start-column="56" selection-end-line="57" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Concert.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="62" column="41" selection-start-line="62" selection-start-column="41" selection-end-line="62" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Seller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="37" column="41" selection-start-line="37" selection-start-column="41" selection-end-line="37" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="39" column="24" selection-start-line="39" selection-start-column="24" selection-end-line="39" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/asynctask/TaskRegister.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+          <folding>
+            <element signature="e#2122#2171#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/exceptions/ContentException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+          <folding>
+            <element signature="e#138#139#0" expanded="true" />
+            <element signature="e#158#159#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/exceptions/PasswordException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+          <folding>
+            <element signature="e#140#141#0" expanded="true" />
+            <element signature="e#170#171#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/TicketsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="95" column="39" selection-start-line="95" selection-start-column="39" selection-end-line="95" selection-end-column="39" />
+          <folding>
+            <element signature="e#4449#4498#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/UserActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="128" column="44" selection-start-line="128" selection-start-column="44" selection-end-line="128" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/pojo/Ticket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="43" selection-start-line="22" selection-start-column="43" selection-end-line="22" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/ConcertsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="95" column="39" selection-start-line="95" selection-start-column="39" selection-end-line="95" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/ConcertActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="174" column="39" selection-start-line="174" selection-start-column="39" selection-end-line="174" selection-end-column="39" />
+          <folding>
+            <element signature="e#7494#7540#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/me/projectx/needaticket/activities/BuyActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-419">
+          <caret line="62" column="29" selection-start-line="62" selection-start-column="24" selection-end-line="62" selection-end-column="29" />
         </state>
       </provider>
     </entry>

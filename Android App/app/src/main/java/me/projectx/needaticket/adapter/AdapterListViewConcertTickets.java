@@ -1,5 +1,4 @@
 package me.projectx.needaticket.adapter;
-
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.LayoutRes;
@@ -25,34 +24,22 @@ import me.projectx.needaticket.listener.ListenerDoubleTap;
 import me.projectx.needaticket.listener.ListenerNumberPicked;
 import me.projectx.needaticket.pojo.Ticket;
 import me.projectx.needaticket.pojo.TicketType;
-
 public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implements ListenerNumberPicked {
-
     private AppCompatActivity appCompatActivityResource;
     private ArrayList<Ticket> data;
     private String uID;
     private String cID;
     private ListenerNumberPicked listener = this;
-
-    public AdapterListViewConcertTickets(AppCompatActivity res, String uID, String cID, @LayoutRes int resource, List<Ticket> data) {
+    public AdapterListViewConcertTickets (AppCompatActivity res, String uID, String cID,
+                                          @LayoutRes int resource, List<Ticket> data) {
         super(res, resource, data);
         this.uID = uID;
         this.cID = cID;
         this.appCompatActivityResource = res;
         this.data = (ArrayList<Ticket>) data;
     }
-
-    public AppCompatActivity getAppCompatActivityResource() {
-        return appCompatActivityResource;
-    }
-
-    public void setAppCompatActivityResource(AppCompatActivity appCompatActivityResource) {
-        this.appCompatActivityResource = appCompatActivityResource;
-    }
-
-    @NonNull
-    @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    @NonNull @Override
+    public View getView (int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         Ticket ticket = this.data.get(position);
         LayoutInflater inflater = (LayoutInflater) this.getAppCompatActivityResource().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.listview_item_concert_ticket, parent, false);
@@ -69,8 +56,13 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
         this.setUpTitleListener(rowView, ticket);
         return rowView;
     }
-
-    private void setUpIconCategory(View rowView, TicketType ticketType) {
+    public AppCompatActivity getAppCompatActivityResource () {
+        return appCompatActivityResource;
+    }
+    public void setAppCompatActivityResource (AppCompatActivity appCompatActivityResource) {
+        this.appCompatActivityResource = appCompatActivityResource;
+    }
+    private void setUpIconCategory (View rowView, TicketType ticketType) {
         ImageView imageviewHeaderImageCategory = rowView.findViewById(R.id.category_image_ticket_list_item);
         switch (ticketType) {
             case CONCERT:
@@ -81,43 +73,30 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
                 break;
         }
     }
-
-    private void setUpRowViewListener(final View rowView, final Ticket ticket) {
-
+    private void setUpRowViewListener (final View rowView, final Ticket ticket) {
         rowView.setOnClickListener(new ListenerDoubleTap() {
-
-            @Override
-            public void onSingleClick(View v) {
+            @Override public void onSingleClick (View v) {
                 changeActivity(v, ticket);
             }
-
-            @Override
-            public void onDoubleClick(View v) {
+            @Override public void onDoubleClick (View v) {
                 changeActivity(v, ticket);
             }
         });
     }
-
-    private void setUpTitleListener(View rowView, final Ticket ticket) {
+    private void setUpTitleListener (View rowView, final Ticket ticket) {
         changeActivity(rowView, ticket);
     }
-
-    private void changeActivity(View rowView, final Ticket ticket) {
+    private void changeActivity (View rowView, final Ticket ticket) {
         final LinearLayout contentTitle = rowView.findViewById(R.id.list_item_header_title);
-        contentTitle.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        NumberPickerDialog npd = new NumberPickerDialog(ticket, 25);
-                        npd.setValueChangeListener(listener);
-                        npd.show(appCompatActivityResource.getSupportFragmentManager(), "time picker");
-                    }
-                }
-        );
+        contentTitle.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick (View v) {
+                NumberPickerDialog npd = new NumberPickerDialog(ticket, 25);
+                npd.setValueChangeListener(listener);
+                npd.show(appCompatActivityResource.getSupportFragmentManager(), "time picker");
+            }
+        });
     }
-
-    @Override
-    public void onValueChange(NumberPicker picker, int oldVal, int newVal, Ticket t) {
+    @Override public void onValueChange (NumberPicker picker, int oldVal, int newVal, Ticket t) {
         Intent buyActivity = new Intent(getAppCompatActivityResource(), BuyActivity.class);
         buyActivity.putExtra("uID", uID);
         buyActivity.putExtra("sellerName", t.getSeller().getName());

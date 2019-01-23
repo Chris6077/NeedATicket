@@ -1,5 +1,4 @@
 package me.projectx.needaticket.asynctask;
-
 import android.content.res.Resources;
 import android.os.AsyncTask;
 
@@ -20,88 +19,66 @@ import java.util.logging.Logger;
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.pojo.Ticket;
-
 public class TaskGetMyTickets extends AsyncTask<Object, Object, ArrayList<Ticket>> {
     private String url;
     private String uID;
     private InterfaceTaskDefault listener;
-
-    public TaskGetMyTickets(String url, String uID, InterfaceTaskDefault listener) {
+    public TaskGetMyTickets (String url, String uID, InterfaceTaskDefault listener) {
         this.setUrl(url);
         this.uID = uID;
         this.setListener(listener);
     }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public InterfaceTaskDefault getListener() {
-        return listener;
-    }
-
-    public void setListener(InterfaceTaskDefault listener) {
-        this.listener = listener;
-    }
-
-    @Override
-    protected ArrayList<Ticket> doInBackground(Object... params) {
+    @Override protected ArrayList<Ticket> doInBackground (Object... params) {
         try {
             Gson gson = new Gson();
             HttpURLConnection conn = (HttpURLConnection) new URL(this.getUrl()).openConnection();
-            Type collectionType = new TypeToken<Collection<Ticket>>() {
-            }.getType();
+            Type collectionType = new TypeToken<Collection<Ticket>>() {}.getType();
             String result = getData(conn);
-            ArrayList<Ticket> tickets = gson.fromJson(result, collectionType);
-            return tickets;
-
+            return gson.fromJson(result, collectionType);
         } catch (IOException e) {
             Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
         return new ArrayList<>();
     }
-
-    @Override
-    protected void onPostExecute(ArrayList<Ticket> tickets) {
-        this.getListener().onPostExecute(tickets, this.getClass());
-        super.onPostExecute(tickets);
+    public String getUrl () {
+        return url;
     }
-
-    @Override
-    protected void onPreExecute() {
-        this.getListener().onPreExecute(this.getClass());
-        super.onPreExecute();
+    public void setUrl (String url) {
+        this.url = url;
     }
-
-    private String getData(HttpURLConnection conn) {
+    private String getData (HttpURLConnection conn) {
         BufferedReader reader;
         String content = null;
-
         try {
             conn.setRequestMethod("GET");
             conn.setRequestProperty("API_KEY", Resources.getSystem().getString(R.string.API_KEY));
             conn.setRequestProperty("uID", uID);
-
-            reader = new BufferedReader(new InputStreamReader(
-                    conn.getInputStream()));
+            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             StringBuilder sb = new StringBuilder();
             String line;
-
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }
-
             content = sb.toString();
             reader.close();
             conn.disconnect();
-
         } catch (Exception e) {
             Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
         return content;
+    }
+    @Override protected void onPreExecute () {
+        this.getListener().onPreExecute(this.getClass());
+        super.onPreExecute();
+    }
+    @Override protected void onPostExecute (ArrayList<Ticket> tickets) {
+        this.getListener().onPostExecute(tickets, this.getClass());
+        super.onPostExecute(tickets);
+    }
+    public InterfaceTaskDefault getListener () {
+        return listener;
+    }
+    public void setListener (InterfaceTaskDefault listener) {
+        this.listener = listener;
     }
 }

@@ -1,5 +1,4 @@
 package me.projectx.needaticket.adapter;
-
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -18,29 +17,17 @@ import java.util.List;
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.pojo.Ticket;
 import me.projectx.needaticket.pojo.TicketType;
-
 public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
-
     private AppCompatActivity appCompatActivityResource;
     private ArrayList<Ticket> data;
-
-    public AdapterListViewTicket(AppCompatActivity res, @LayoutRes int resource, List<Ticket> data) {
+    public AdapterListViewTicket (AppCompatActivity res,
+                                  @LayoutRes int resource, List<Ticket> data) {
         super(res, resource, data);
         this.appCompatActivityResource = res;
         this.data = (ArrayList<Ticket>) data;
     }
-
-    public AppCompatActivity getAppCompatActivityResource() {
-        return appCompatActivityResource;
-    }
-
-    public void setAppCompatActivityResource(AppCompatActivity appCompatActivityResource) {
-        this.appCompatActivityResource = appCompatActivityResource;
-    }
-
-    @NonNull
-    @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    @NonNull @Override
+    public View getView (int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         Ticket ticket = this.data.get(position);
         LayoutInflater inflater = (LayoutInflater) this.getAppCompatActivityResource().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.listview_item_ticket, parent, false);
@@ -53,8 +40,13 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
         header.setText(ticket.getTitle());
         return rowView;
     }
-
-    private void setUpIconCategory(View rowView, TicketType ticketType) {
+    public AppCompatActivity getAppCompatActivityResource () {
+        return appCompatActivityResource;
+    }
+    public void setAppCompatActivityResource (AppCompatActivity appCompatActivityResource) {
+        this.appCompatActivityResource = appCompatActivityResource;
+    }
+    private void setUpIconCategory (View rowView, TicketType ticketType) {
         ImageView imageviewHeaderImageCategory = rowView.findViewById(R.id.category_image_ticket_list_item);
         switch (ticketType) {
             case CONCERT:

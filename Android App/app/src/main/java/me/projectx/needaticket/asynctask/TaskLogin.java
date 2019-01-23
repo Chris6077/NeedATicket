@@ -1,5 +1,4 @@
 package me.projectx.needaticket.asynctask;
-
 import android.content.res.Resources;
 import android.os.AsyncTask;
 
@@ -18,22 +17,18 @@ import java.util.logging.Logger;
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.pojo.LoginWrapper;
-
 public class TaskLogin extends AsyncTask<String, Void, String> {
     private String url;
     private String email;
     private String password;
     private InterfaceTaskDefault listener;
-
-    public TaskLogin(String url, String email, String password, InterfaceTaskDefault listener) {
+    public TaskLogin (String url, String email, String password, InterfaceTaskDefault listener) {
         this.url = url;
         this.email = email;
         this.password = password;
         this.listener = listener;
     }
-
-    @Override
-    protected String doInBackground(String... params) {
+    @Override protected String doInBackground (String... params) {
         try {
             HttpURLConnection conn = (HttpURLConnection) new URL(this.url).openConnection();
             this.postData(conn, params);
@@ -43,20 +38,15 @@ public class TaskLogin extends AsyncTask<String, Void, String> {
         }
         return null;
     }
-
-    @Override
-    protected void onPostExecute(final String result) {
-        this.listener.onPostExecute(result, this.getClass());
-        super.onPostExecute(result);
-    }
-
-    @Override
-    protected void onPreExecute() {
+    @Override protected void onPreExecute () {
         this.listener.onPreExecute(this.getClass());
         super.onPreExecute();
     }
-
-    private void postData(HttpURLConnection conn, String... params) {
+    @Override protected void onPostExecute (final String result) {
+        this.listener.onPostExecute(result, this.getClass());
+        super.onPostExecute(result);
+    }
+    private void postData (HttpURLConnection conn, String... params) {
         BufferedWriter writer;
         try {
             conn.setRequestMethod("POST");
@@ -72,8 +62,7 @@ public class TaskLogin extends AsyncTask<String, Void, String> {
             Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
     }
-
-    private String getData(HttpURLConnection conn) {
+    private String getData (HttpURLConnection conn) {
         BufferedReader reader;
         String content = null;
         try {

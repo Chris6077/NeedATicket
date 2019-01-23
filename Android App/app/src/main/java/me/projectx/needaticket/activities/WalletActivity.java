@@ -1,5 +1,4 @@
 package me.projectx.needaticket.activities;
-
 import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -25,7 +24,6 @@ import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
 import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
 import me.projectx.needaticket.pojo.Wallet;
-
 public class WalletActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
     private SwipeRefreshLayout swipeRefreshLayout;
     private Wallet wallet;
@@ -35,50 +33,16 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
     private Button upload;
     private Button cashOut;
     private NavigationView navigation;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet);
-
         this.setViews();
         this.setListener();
         this.uID = getIntent().getStringExtra("uID");
         this.getWallet();
         this.setContent();
     }
-
-    private void getWallet() {
-        wallet = new Wallet(1, Float.parseFloat("1325.12"));
-        TaskGetWallet getWallet = new TaskGetWallet(getString(R.string.webservice_get_wallet) + uID, uID, this);
-        getWallet.execute();
-    }
-
-    private void setContent() {
-        amount.setFilters(new InputFilter[]{new InputFilterMin(0)});
-        startCountAnimation(wallet.getBalance());
-    }
-
-    private void startCountAnimation(float newBalance) {
-        ValueAnimator animator = ValueAnimator.ofFloat(0, newBalance);
-        animator.setDuration(2000);
-        final DecimalFormat df = new DecimalFormat();
-        df.setMaximumFractionDigits(2);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            public void onAnimationUpdate(ValueAnimator animation) {
-                balance.setText(df.format(animation.getAnimatedValue()));
-            }
-        });
-        animator.start();
-    }
-
-    private void setListenerNavigationHeader() {
-        View navHeader;
-        navHeader = navigation.getHeaderView(0);
-        navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this, uID));
-    }
-
-    private void setViews() {
+    private void setViews () {
         this.navigation = findViewById(R.id.navigation_drawer);
         this.swipeRefreshLayout = findViewById(R.id.user_swipe_to_refresh_layout);
         this.balance = findViewById(R.id.textview_balance);
@@ -86,8 +50,7 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
         this.cashOut = findViewById(R.id.btCashOut);
         this.upload = findViewById(R.id.btUpload);
     }
-
-    private void setListener() {
+    private void setListener () {
         this.navigation.setNavigationItemSelectedListener(new ListenerNavigationMenu(this, uID));
         this.navigation.setItemIconTintList(null); //THIS LITTLE PIECE OF ... FIXES THE ICONS NOT SHOWING IN THE NAVMENU >:(
         this.setListenerNavigationHeader();
@@ -95,24 +58,44 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
         this.upload.setOnClickListener(new UploadListener());
         this.cashOut.setOnClickListener(new CashOutListener());
     }
-
-    private void upload() {
+    private void getWallet () {
+        wallet = new Wallet(1, Float.parseFloat("1325.12"));
+        TaskGetWallet getWallet = new TaskGetWallet(getString(R.string.webservice_get_wallet) + uID, uID, this);
+        getWallet.execute();
+    }
+    private void setContent () {
+        amount.setFilters(new InputFilter[]{new InputFilterMin(0)});
+        startCountAnimation(wallet.getBalance());
+    }
+    private void setListenerNavigationHeader () {
+        View navHeader;
+        navHeader = navigation.getHeaderView(0);
+        navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this, uID));
+    }
+    private void startCountAnimation (float newBalance) {
+        ValueAnimator animator = ValueAnimator.ofFloat(0, newBalance);
+        animator.setDuration(2000);
+        final DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            public void onAnimationUpdate (ValueAnimator animation) {
+                balance.setText(df.format(animation.getAnimatedValue()));
+            }
+        });
+        animator.start();
+    }
+    private void upload () {
         TaskUpload tUpload = new TaskUpload(getString(R.string.webservice_upload), uID, Float.parseFloat(amount.getText().toString()), this);
         tUpload.execute();
     }
-
-    private void cashOut() {
+    private void cashOut () {
         TaskCashOut tCashOut = new TaskCashOut(getString(R.string.webservice_cashout), uID, Float.parseFloat(amount.getText().toString()), this);
         tCashOut.execute();
     }
-
-    @Override
-    public void onPreExecute(Class resource) {
+    @Override public void onPreExecute (Class resource) {
         swipeRefreshLayout.setRefreshing(true);
     }
-
-    @Override
-    public void onPostExecute(Object result, Class resource) {
+    @Override public void onPostExecute (Object result, Class resource) {
         swipeRefreshLayout.setRefreshing(false);
         try {
             float f = Float.parseFloat((String) result);
@@ -126,23 +109,17 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
             }
         }
     }
-
-    @Override
-    public void onRefresh() {
+    @Override public void onRefresh () {
         getWallet();
         setContent();
     }
-
     private class UploadListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
+        @Override public void onClick (View v) {
             upload();
         }
     }
-
     private class CashOutListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
+        @Override public void onClick (View v) {
             cashOut();
         }
     }

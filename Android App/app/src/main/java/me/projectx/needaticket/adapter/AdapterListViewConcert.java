@@ -1,5 +1,4 @@
 package me.projectx.needaticket.adapter;
-
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.LayoutRes;
@@ -24,31 +23,25 @@ import me.projectx.needaticket.listener.ListenerDoubleTap;
 import me.projectx.needaticket.pojo.Artist;
 import me.projectx.needaticket.pojo.Concert;
 import me.projectx.needaticket.pojo.TicketType;
-
 public class AdapterListViewConcert extends ArrayAdapter<Concert> {
-
     private AppCompatActivity appCompatActivityResource;
     private ArrayList<Concert> data;
     private String uID;
-
-    public AdapterListViewConcert(AppCompatActivity res, String uID, @LayoutRes int resource, List<Concert> data) {
+    public AdapterListViewConcert (AppCompatActivity res, String uID,
+                                   @LayoutRes int resource, List<Concert> data) {
         super(res, resource, data);
         this.uID = uID;
         this.appCompatActivityResource = res;
         this.data = (ArrayList<Concert>) data;
     }
-
-    public AppCompatActivity getAppCompatActivityResource() {
+    public AppCompatActivity getAppCompatActivityResource () {
         return appCompatActivityResource;
     }
-
-    public void setAppCompatActivityResource(AppCompatActivity appCompatActivityResource) {
+    public void setAppCompatActivityResource (AppCompatActivity appCompatActivityResource) {
         this.appCompatActivityResource = appCompatActivityResource;
     }
-
-    @NonNull
-    @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    @NonNull @Override
+    public View getView (int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         Concert concert = this.data.get(position);
         LayoutInflater inflater = (LayoutInflater) this.getAppCompatActivityResource().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.listview_item_concert, parent, false);
@@ -73,8 +66,7 @@ public class AdapterListViewConcert extends ArrayAdapter<Concert> {
         this.setUpTitleListener(rowView, concert);
         return rowView;
     }
-
-    private void setUpIconCategory(View rowView, TicketType ticketType) {
+    private void setUpIconCategory (View rowView, TicketType ticketType) {
         ImageView imageviewHeaderImageCategory = rowView.findViewById(R.id.category_image_concert_list_item);
         switch (ticketType) {
             case CONCERT:
@@ -85,39 +77,28 @@ public class AdapterListViewConcert extends ArrayAdapter<Concert> {
                 break;
         }
     }
-
-    private void setUpRowViewListener(final View rowView, final Concert concert) {
-
+    private void setUpRowViewListener (final View rowView, final Concert concert) {
         rowView.setOnClickListener(new ListenerDoubleTap() {
-
-            @Override
-            public void onSingleClick(View v) {
+            @Override public void onSingleClick (View v) {
                 changeActivity(rowView, concert);
             }
-
-            @Override
-            public void onDoubleClick(View v) {
+            @Override public void onDoubleClick (View v) {
                 changeActivity(rowView, concert);
             }
         });
     }
-
-    private void setUpTitleListener(View rowView, final Concert concert) {
+    private void setUpTitleListener (View rowView, final Concert concert) {
         changeActivity(rowView, concert);
     }
-
-    private void changeActivity(View rowView, final Concert concert) {
+    private void changeActivity (View rowView, final Concert concert) {
         final LinearLayout contentTitle = rowView.findViewById(R.id.list_item_header_title);
-        contentTitle.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent concertActivity = new Intent(getAppCompatActivityResource(), ConcertActivity.class);
-                        concertActivity.putExtra("uID", uID);
-                        concertActivity.putExtra("cID", concert.getId());
-                        getAppCompatActivityResource().startActivity(concertActivity);
-                    }
-                }
-        );
+        contentTitle.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick (View v) {
+                Intent concertActivity = new Intent(getAppCompatActivityResource(), ConcertActivity.class);
+                concertActivity.putExtra("uID", uID);
+                concertActivity.putExtra("cID", concert.getId());
+                getAppCompatActivityResource().startActivity(concertActivity);
+            }
+        });
     }
 }

@@ -1,5 +1,4 @@
 package me.projectx.needaticket.activities;
-
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,6 +16,7 @@ import java.util.logging.Logger;
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.adapter.AdapterListViewConcert;
 import me.projectx.needaticket.asynctask.TaskGetConcerts;
+import me.projectx.needaticket.exceptions.ContentException;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
@@ -27,15 +27,12 @@ import me.projectx.needaticket.pojo.Genre;
 import me.projectx.needaticket.pojo.Seller;
 import me.projectx.needaticket.pojo.Ticket;
 import me.projectx.needaticket.pojo.TicketType;
-
 public class ConcertsActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
     private ListView listViewConcerts;
     private NavigationView navigation;
     private String uID;
     private SwipeRefreshLayout swipeRefreshLayout;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_concerts);
         try {
@@ -48,58 +45,32 @@ public class ConcertsActivity extends AppCompatActivity implements InterfaceTask
             Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
     }
-
-    @Override
-    public void onPreExecute(Class resource) {
-        swipeRefreshLayout.setRefreshing(true);
-    }
-
-    @Override
-    public void onPostExecute(Object result, Class resource) {
-        try {
-            swipeRefreshLayout.setRefreshing(false);
-            ArrayList concerts = new Gson().fromJson((String) result, ArrayList.class);
-            fillList(concerts);
-        } catch (Exception error) {
-            HandlerState.handle(error, getApplicationContext());
-        }
-    }
-
-    @Override
-    public void onRefresh() {
-        this.getConcerts();
-    }
-
-    private void setViews() {
+    private void setViews () {
         this.listViewConcerts = findViewById(R.id.listview_concerts);
         this.navigation = findViewById(R.id.navigation_drawer);
         this.swipeRefreshLayout = findViewById(R.id.list_view_concerts_swipe_to_refresh_layout);
     }
-
-    private void setListener() {
+    private void setListener () {
         this.navigation.setNavigationItemSelectedListener(new ListenerNavigationMenu(this, uID));
         this.setListenerNavigationHeader();
         this.navigation.setItemIconTintList(null); //THIS LITTLE PIECE OF ... FIXES THE ICONS NOT SHOWING IN THE NAVMENU >:(
         this.swipeRefreshLayout.setOnRefreshListener(this);
     }
-
-    private void setListenerNavigationHeader() {
-        View navHeader;
-        navHeader = navigation.getHeaderView(0);
-        navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this, uID));
-    }
-
-    private void fillList(ArrayList<Concert> concerts) throws Exception {
+    private void fillList (ArrayList<Concert> concerts) throws ContentException {
         fillWithDummy(concerts);
         if (concerts == null) {
-            throw new Exception("no Content found");
+            throw new ContentException("no Content found");
         } else {
             AdapterListViewConcert adapter = new AdapterListViewConcert(this, uID, R.layout.listview_item_concert, concerts);
             this.listViewConcerts.setAdapter(adapter);
         }
     }
-
-    private void fillWithDummy(ArrayList<Concert> concerts) {
+    private void setListenerNavigationHeader () {
+        View navHeader;
+        navHeader = navigation.getHeaderView(0);
+        navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this, uID));
+    }
+    private void fillWithDummy (ArrayList<Concert> concerts) {
         Artist a = new Artist("lol", "Martin Garrix");
         Artist b = new Artist("lol2", "Kollegah");
         Artist e = new Artist("lol3", "Beethoven");
@@ -134,8 +105,22 @@ public class ConcertsActivity extends AppCompatActivity implements InterfaceTask
         concerts.add(c3);
         concerts.add(c4);
     }
-
-    private void getConcerts() {
+    @Override public void onPreExecute (Class resource) {
+        swipeRefreshLayout.setRefreshing(true);
+    }
+    @Override public void onPostExecute (Object result, Class resource) {
+        try {
+            swipeRefreshLayout.setRefreshing(false);
+            ArrayList concerts = new Gson().fromJson((String) result, ArrayList.class);
+            fillList(concerts);
+        } catch (Exception error) {
+            HandlerState.handle(error, getApplicationContext());
+        }
+    }
+    @Override public void onRefresh () {
+        this.getConcerts();
+    }
+    private void getConcerts () {
         try {
             TaskGetConcerts getConcerts = new TaskGetConcerts(getString(R.string.webservice_get_concerts_url), uID, this);
             getConcerts.execute();

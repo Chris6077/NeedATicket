@@ -1,5 +1,4 @@
 package me.projectx.needaticket.listener;
-
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -11,18 +10,14 @@ import me.projectx.needaticket.activities.ConcertsActivity;
 import me.projectx.needaticket.activities.TicketsActivity;
 import me.projectx.needaticket.activities.WalletActivity;
 import me.projectx.needaticket.activities.WelcomeActivity;
-
 public class ListenerNavigationMenu implements NavigationView.OnNavigationItemSelectedListener {
     private Context resource;
     private String uID;
-
-    public ListenerNavigationMenu(Context obj, String uID) {
+    public ListenerNavigationMenu (Context obj, String uID) {
         this.resource = obj;
         this.uID = uID;
     }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    @Override public boolean onNavigationItemSelected (@NonNull MenuItem item) {
         if (item.getItemId() == R.id.mntm_concerts) {
             startActivity(ConcertsActivity.class);
         } else if (item.getItemId() == R.id.mntm_my_tickets) {
@@ -34,8 +29,7 @@ public class ListenerNavigationMenu implements NavigationView.OnNavigationItemSe
         }
         return true;
     }
-
-    private void startActivity(Class classname) {
+    private void startActivity (Class classname) {
         Intent activity = new Intent(this.resource, classname);
         activity.putExtra("uID", uID);
         activity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

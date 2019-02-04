@@ -18,7 +18,7 @@ This group of applications will act as a platform for concert management and con
 
 # Android App for customers
 ## Links
-[Repository](https://github.com/Chris6077/NeedATicket/tree/master/Android%20App)
+[Repository](https://github.com/Chris6077/NeedATicket/tree/master/Android%20App%20Customer)
 
 [SonarQube](https://www.sonarqube.org/)
 
@@ -50,7 +50,7 @@ This group of applications will act as a platform for concert management and con
 
 # Java App for vendors
 ## Links
-[Repository](https://github.com/Chris6077/NeedATicket/tree/master/Java%20App)
+[Repository](https://github.com/Chris6077/NeedATicket/tree/master/Java%20App%20Vendor)
 ## Tools and Frameworks
 * IntelliJ
 * Imgur API

@@ -1,16 +1,16 @@
-git fetch android-customer
+git checkout android-customer
 git pull
-git fetch android-qr
+git checkout android-qr
 git pull
-git fetch firebase
+git checkout firebase
 git pull
-git fetch java-vendor
+git checkout java-vendor
 git pull
-git fetch java-creator
+git checkout java-creator
 git pull
-git fetch planning
+git checkout planning
 git pull
-git fetch webservice-graphql
+git checkout webservice-graphql
 git pull
-git fetch master
+git checkout master
 git pull

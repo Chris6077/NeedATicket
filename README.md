@@ -11,12 +11,12 @@ This group of applications will act as a platform for concert management and con
 
 # Developers
 
-* ### Berisa ([Val9000](https://github.com/Val9000) | [LOG](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EaywpY8L53dIrqwx0smyrDYB3zoYszAfeuJwvZiYw6LNEQ?e=l5l0AD)) - Java Vendor App | Java Event Creator App | Webservices
+* ### Berisa ([Val9000](https://github.com/Val9000) | [LOG](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EaywpY8L53dIrqwx0smyrDYB3zoYszAfeuJwvZiYw6LNEQ?e=l5l0AD)) - Java Apps | Webservices
 * ### Blaschke ([julian-blaschke](https://github.com/julian-blaschke) | [LOG](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EZTklbVavlZKhFUt2pcI7xsBdwZBpKeHpDt3jqBk9Q65ag?e=O96nRp)) - Database | Webservices
-* ### Judth ([marcel-judth](https://github.com/marcel-judth) | [LOG](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EUJYmbx1pyJNvZ7GuIUih7EBnrxzB0VZzM7-KPiJwvcMIg?e=N1NcAM)) - Java Vendor App | Java Event Creator App
-* ### Winkler ([Chris6077](https://github.com/Chris6077) | [LOG](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/ERyPsAQ3_odIjNxfVFiSWokBSq8NU3joNkktwLWi76b_ZA?e=it808g)) - Android Customer App | Android Staff App | Github and Project Management | Modelling/Planning
+* ### Judth ([marcel-judth](https://github.com/marcel-judth) | [LOG](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EUJYmbx1pyJNvZ7GuIUih7EBnrxzB0VZzM7-KPiJwvcMIg?e=N1NcAM)) - Java Apps
+* ### Winkler ([Chris6077](https://github.com/Chris6077) | [LOG](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/ERyPsAQ3_odIjNxfVFiSWokBSq8NU3joNkktwLWi76b_ZA?e=it808g)) - Android Apps | Github and Project Management | Modelling/Planning
 
-# Android APP for customers
+# Android App for customers
 ## Links
 [Repository](https://github.com/Chris6077/NeedATicket/tree/master/Android%20App)
 
@@ -32,7 +32,7 @@ This group of applications will act as a platform for concert management and con
 * Checkview
 * FancyToast
 
-# Android APP for staff (QR Code Reader)
+# Android App for staff (QR Code Reader)
 ## Links
 [Repository](https://github.com/Chris6077/NeedATicket/tree/master/Android%20App%20QR)
 
@@ -48,29 +48,36 @@ This group of applications will act as a platform for concert management and con
 * Checkview
 * FancyToast
 
-# Java APP for vendors
+# Java App for vendors
 ## Links
 [Repository](https://github.com/Chris6077/NeedATicket/tree/master/Java%20App)
 ## Tools and Frameworks
 * IntelliJ
 * Imgur API
 
-# Java APP for event creators
+# Java App for event creators
 ## Links
 [Repository](https://github.com/Chris6077/NeedATicket/tree/master/Java%20App%20Creator)
 ## Tools and Frameworks
 * IntelliJ
 
-# Web Service
+# Web service
 ## Links
 [Repository](https://github.com/Chris6077/NeedATicket/tree/master/Webservice)
+
 [API Documentation](https://documenter.getpostman.com/view/5557635/RWgp1Kcn#071bf632-ccf4-43c2-8bab-eda7d66ec974)
+
+[GraphQL](https://graphql.org)
+
+[GraphQL Apollo](https://www.apollographql.com/)
 ## Tools and Frameworks
-* [GraphQL](https://graphql.org)
-* [GraphQL Apollo](https://www.apollographql.com/)
+* GraphQL
+* GraphQL Apollo
 
 # Database
 ## Links
 [Repository](https://github.com/Chris6077/NeedATicket/tree/master/Firebase)
+
+[Firebase](https://firebase.google.com)
 ## Tools and Frameworks
-* [Firebase](https://firebase.google.com)
+* Firebase

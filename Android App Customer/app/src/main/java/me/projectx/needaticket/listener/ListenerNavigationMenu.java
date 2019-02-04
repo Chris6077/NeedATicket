@@ -33,6 +33,7 @@ public class ListenerNavigationMenu implements NavigationView.OnNavigationItemSe
         Intent activity = new Intent(this.resource, classname);
         activity.putExtra("uID", uID);
         activity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        finish();
         this.resource.startActivity(activity);
     }
 }

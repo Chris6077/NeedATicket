@@ -10,7 +10,7 @@ git checkout java-creator
 git pull
 git checkout planning
 git pull
-git checkout webservice-graphql
+git checkout webservice
 git pull
 git checkout master
 git pull

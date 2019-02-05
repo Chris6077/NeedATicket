@@ -5,6 +5,8 @@ This group of applications will act as a platform for concert management and con
 
 # [Weekly Log](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EVWIyvfUJz9GngEGW6lmbqABx9kWJooJ1uZkRGe397p05w?e=AGXQYS)
 
+# [Webservice Log](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/Ee4JvXspbeZFlmqBtgPcP40BYxx8Fy4sI2d-O1tjuGHYkQ?e=dzIMSq)
+
 # [Requirements](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EUjFprJmCJdIgAN7whjcOFkBiH8XCveoNxQ3UB9oFQDYPg?e=rfrKiP)
 
 # [Requirements 2](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/Eft8CKWXLzxHgDrZ2rx6S4IBXqRvD7p3gb1R9cbqQI1aFw?e=5oOoJz)
@@ -70,6 +72,8 @@ This group of applications will act as a platform for concert management and con
 [GraphQL](https://graphql.org)
 
 [GraphQL Apollo](https://www.apollographql.com/)
+
+[Webservice Log](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/Ee4JvXspbeZFlmqBtgPcP40BYxx8Fy4sI2d-O1tjuGHYkQ?e=dzIMSq)
 ## Tools and Frameworks
 * GraphQL
 * GraphQL Apollo

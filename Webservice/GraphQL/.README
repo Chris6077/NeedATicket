@@ -4,3 +4,7 @@
 *	graphql api
 *	mongodb 
 
+##################################### instructions ###############################################
+
+to start server type "npm start"
+

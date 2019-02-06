@@ -1,29 +1,25 @@
 {
-  "name": "need-a-ticket-api",
+  "name": "graphql-server",
   "version": "1.0.0",
-  "description": "api endpoint for the need-a-ticket-service",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "start" : "node index.js"
+    "start": "node index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Chris6077/NeedATicket/tree/webservice/Webservice/GraphQL"
-  },
-  "keywords": [
-    "node",
-    "nodejs",
-    "npm",
-    "mongo",
-    "mongodb",
-    "graphql",
-    "apollo",
-    "apollo-server"
-  ],
-  "author": "berisa-valon,blaschke-julian",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^2.3.3",
-    "graphql": "^14.1.1"
+    "apollo-server-express": "^2.3.3",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "express-jwt": "^5.3.1",
+    "graphql": "^14.1.1",
+    "heroku": "^7.20.0",
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.4.10"
   }
 }

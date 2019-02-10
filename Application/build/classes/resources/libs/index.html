@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Swiper demo</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
+        <!-- Link Swiper's CSS -->
+        <link rel="stylesheet" href="swiper.min.css">
+        <link rel="stylesheet" type="text/css" href="list_style.css">
+        <!-- Demo styles -->
+        <style>
+            body {
+                background:  #0D0D52;
+                font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+                font-size: 14px;
+                color: #000;
+                margin: 0;
+                padding: 0;
+            }
+            .swiper-pagination-bullet-active {
+                background-color: #fff;
+            }
+
+
+            .swiper-container {
+                width: 100%;
+                padding-top: 35px;
+                padding-bottom: 36px;
+            }
+
+            .swiper-slide {
+                background-position: center;
+                background-size: cover;
+                width: 195px;
+                height: 225px;
+                background-color: #fff;
+            }
+
+            .swiper-slide .imgBx {
+                width: 100%;
+                height: 195px;
+                overflow: hidden;
+            }
+
+            .swiper-slide .imgBx img {
+                width: 100%;
+
+            }
+
+            .swiper-slide .details {
+                box-sizing: border-box;
+                padding: 8px;
+            }
+
+            .swiper-slide .details h3 {
+                margin: 0;
+                padding: 0;
+                font-size: 14px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="imgBx">
+                        <img src="https://picsum.photos/600/600/?image=10">
+                    </div>
+                    <div class="details">
+                        <h3 class="name">John Doe</h3>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="imgBx">
+                        <img src="https://picsum.photos/600">
+                    </div>
+                    <div class="details">
+                        <h3 class="name">Is a good lie</h3>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="imgBx">
+                        <img src="https://picsum.photos/600/600/?image=989">
+                    </div>
+                    <div class="details">
+                        <h3 class="name">Okey? They zaay</h3>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="imgBx">
+                        <img src="https://picsum.photos/600/600/?image=756">
+                    </div>
+                    <div class="details">
+                        <h3 class="name">Baths</h3>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="imgBx">
+                        <img src="https://thumbnailer.mixcloud.com/unsafe/600x600/extaudio/c/6/7/a/a344-7efe-4280-84f3-e29f0f520c8b.jpg">
+                    </div>
+                    <div class="details">
+                        <h3 class="name">Gesaffelstein</h3>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="imgBx">
+                        <img src="https://picsum.photos/600/600/?image=99">
+                    </div>
+                    <div class="details">
+                        <h3 class="name">Kaybe</h3>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="imgBx">
+                        <img src="https://direct.rhapsody.com/imageserver/images/Alb.124071775/600x600.jpg">
+                    </div>
+                    <div class="details">
+                        <h3 class="name">Drake</h3>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="imgBx">
+                        <img src="https://picsum.photos/600/600/?image=868">
+                    </div>
+                    <div class="details">
+                        <h3 class="name">JoonWooo</h3>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="imgBx">
+                        <img src="https://picsum.photos/600/600/?image=15">
+                    </div>
+                    <div class="details">
+                        <h3 class="name">Unknown</h3>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <div class='container'>
+            <h4 class="s_artists">Selected Artist(s)</h4>
+            <ul class='list' style="overflow-y: scroll; height: 150px; max-height: 300px;">
+                <li class='list__item'>
+                    Gesaffelstein
+                    <i class='icon-close'></i>
+                </li>
+                <li class='list__item'>
+                    Baths
+                    <i class='icon-close'></i>
+                </li>
+                <li class='list__item'>
+                    Drake
+                    <i class='icon-close'></i>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Swiper JS -->
+        <script src="swiper.min.js"></script>
+        <script src="jquery.js"></script>
+        <!-- Initialize Swiper -->
+        <script src="list.js"></script>
+        <script>
+            var swiper = new Swiper('.swiper-container', {
+                effect: 'coverflow',
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: 'auto',
+                slideToClickedSlide: true,
+                coverflowEffect: {
+                    rotate: 50,
+                    stretch: 0,
+                    depth: 500,
+                    modifier: 1,
+                    slideShadows: true
+                },
+                pagination: {
+                    el: '.swiper-pagination'
+                }
+            });
+
+
+            $('#slide3').click(swiper, function () {
+
+                var fette = {"1": "eee.png", "harveyy": "peter.png"};
+                var sm = new Map(Object.entries(fette));
+                console.log(sm.get('1'));
+
+                var cars = new Array("Saab", "Volvo", "BMW");
+                var out = JSON.stringify(cars);
+                console.log(out);
+                javaConnector.receiveData(out);
+
+                console.log(swiper.activeIndex);
+
+                swiper.slideTo(3);
+            });
+
+            function jsonToMap(jsonStr) {
+                return new Map(JSON.parse(jsonStr));
+            }
+
+            swiper.on('slideChange', function () {
+                console.log('slide changed' + swiper.activeIndex);
+            });
+
+            $('.swiper-slide').dblclick(function () {
+                console.log("db click : " + swiper.activeIndex);
+                var arr = document.getElementsByClassName("name");
+                console.log(arr[swiper.activeIndex].textContent);
+                addListItem(arr[swiper.activeIndex].textContent.trim());
+
+                var x = getCurrentData();
+                console.log("fff" + x);
+                javaConnector.receiveData(x);
+            });
+            function sendToJava(idx) {
+                javaConnector.toLowerCase(" " + idx);
+            }
+            ;
+
+
+
+            var jsConnector = {
+                showResult: function (result) {
+                    console.log(result);
+                    console.log("----------GONNA SEND DATA-------------");
+                    javaConnector.receiveData(JSON.stringify(getCurrentData()));
+                    //swiper.slideTo(result);
+                }
+            };
+
+            function getJsConnector() {
+                return jsConnector;
+            }
+            ;
+        </script>
+    </body>
+
+</html>

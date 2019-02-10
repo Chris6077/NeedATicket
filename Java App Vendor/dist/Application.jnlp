@@ -8,10 +8,9 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Application.jar" size="17880090" download="eager" />
-    <jar href="lib\controlsfx-8.40.11.jar" size="985420" download="eager" />
+    <jar href="Application.jar" size="27277" download="eager" />
     <jar href="lib\fontawesomefx-8.1.jar" size="179086" download="eager" />
-    <jar href="lib\gson-2.6.2.jar" size="229650" download="eager" />
+    <jar href="lib\gson-2.7.jar" size="231952" download="eager" />
     <jar href="lib\jfoenix-8.0.7.jar" size="2631271" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Application" >

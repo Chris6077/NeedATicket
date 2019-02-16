@@ -32,9 +32,7 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
         LayoutInflater inflater = (LayoutInflater) this.getAppCompatActivityResource().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.listview_item_ticket, parent, false);
         TextView header = rowView.findViewById(R.id.list_item_ticket_title);
-        TextView seats = rowView.findViewById(R.id.list_item_ticket_seats);
         TextView price = rowView.findViewById(R.id.list_item_ticket_price);
-        seats.setText(ticket.getSeats());
         price.setText(ticket.getPrice() + "€");
         setUpIconCategory(rowView, ticket.getType());
         header.setText(ticket.getTitle());

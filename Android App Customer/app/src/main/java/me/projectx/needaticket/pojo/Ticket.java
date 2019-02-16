@@ -63,8 +63,4 @@ public class Ticket {
     @Override public String toString () {
         return "Ticket{" + "id=" + id + ", type=" + type + ", title=" + title + ", price=" + price + '}';
     }
-    public String getSeats () {
-        //ToDo implement
-        return "";
-    }
 }

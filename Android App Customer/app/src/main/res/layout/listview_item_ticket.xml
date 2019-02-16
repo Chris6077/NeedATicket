@@ -61,30 +61,4 @@
                 android:transitionName="text_view_profile" />
         </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"></LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="47dp"
-            android:src="@drawable/ticket_seats" />
-
-        <TextView
-            android:id="@+id/list_item_ticket_seats"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:gravity="center"
-            android:text="Seats" />
-    </LinearLayout>
 </LinearLayout>

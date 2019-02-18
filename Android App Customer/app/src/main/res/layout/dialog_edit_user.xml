@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EE0024"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/closeDialog"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/x"
+        android:tint="#fff" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="464dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="42dp"
+        android:background="@drawable/round_corners"
+        android:orientation="vertical">
+
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/etOldPassword"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/transparent_bar"
+                android:ems="10"
+                android:hint="Old Password"
+                android:inputType="textPassword"
+                android:paddingLeft="15dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <EditText
+                android:id="@+id/etNewPassword"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/transparent_bar"
+                android:ems="10"
+                android:hint="New Password"
+                android:inputType="textPassword"
+                android:paddingLeft="15dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etOldPassword" />
+
+            <EditText
+                android:id="@+id/etPasswordConfirm"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/transparent_bar"
+                android:ems="10"
+                android:hint="Confirm New Password"
+                android:inputType="textPassword"
+                android:paddingLeft="15dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etNewPassword" />
+
+            <Button
+                android:id="@+id/btChangePassword"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/transparent_bar"
+                android:gravity="center"
+                android:text="Change Password"
+                android:textColor="#ffffff"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etPasswordConfirm" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="250dp"
+                android:layout_height="4px"
+                android:layout_gravity="center"
+                android:layout_marginTop="32dp"
+                android:background="#dddddd"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btChangePassword" />
+
+            <EditText
+                android:id="@+id/etEmailAddress"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/transparent_bar"
+                android:ems="10"
+                android:hint="New Email"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="15dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/transparent_bar"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingLeft="15dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etEmailAddress" />
+
+            <Button
+                android:id="@+id/btChangeEmail"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/transparent_bar"
+                android:gravity="center"
+                android:text="Change Email"
+                android:textColor="#ffffff"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+        </android.support.constraint.ConstraintLayout>
+    </RelativeLayout>
+</RelativeLayout>

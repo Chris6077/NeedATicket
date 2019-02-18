@@ -1,4 +1,3 @@
-Android App/\.idea/caches/build_file_checksums\.ser
 /Webservice/need-a-ticket4/nbproject/private/
 /Webservice/need-a-ticket4/build/
 /Webservice/need-a-ticket4/dist/
@@ -11,4 +10,9 @@ Android App/\.idea/caches/build_file_checksums\.ser
 *.bak_002d
 *.bak_003d
 *.bak*
-Android App/app/build/
+Android App Customer/app/build/
+Android App Customer/\.idea/
+Android App Customer/\.gradle/
+Android App QR/\.idea/
+Android App QR/\.gradle/
+Android App QR/app/build/

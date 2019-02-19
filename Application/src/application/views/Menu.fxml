@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="application.controllers.MenuController" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane id="AnchorPane" fx:id="parent" prefHeight="720.0" prefWidth="1280.0" styleClass="parent" stylesheets="@../css/Stylesheet.css">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="720.0" prefWidth="256.0" spacing="5.0" style="-fx-background-color: #0D0D52;">
+               <children>
+                  <StackPane prefHeight="110.0" prefWidth="256.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="50.0" />
+                     </VBox.margin>
+                     <children>
+                        <JFXButton fx:id="mf_createArtist" onAction="#handle_logo" prefHeight="68.0" prefWidth="68.0" ripplerFill="#8483d6" style="-fx-background-radius: 100;" styleClass="multiFormBttn" text="V">
+                           <font>
+                              <Font size="26.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </StackPane>
+                  <Label fx:id="lbl_emailMenu" text="valia.fruit10@gmail.com" textFill="#e7e5e5">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="35.0">
+                     <children>
+                        <JFXButton fx:id="btn_dashboard" buttonType="RAISED" onAction="#handle_logout" prefHeight="30.0" prefWidth="120.0" ripplerFill="WHITE" styleClass="login-btn" text="Dashboard">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btn_transactions" buttonType="RAISED" onAction="#handle_logout" prefHeight="30.0" prefWidth="120.0" ripplerFill="WHITE" styleClass="login-btn" text="Transcations">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btn_sellTicket" buttonType="RAISED" onAction="#handle_logout" prefHeight="30.0" prefWidth="120.0" ripplerFill="WHITE" styleClass="login-btn" text="Sell Ticket">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btn_tickets" buttonType="RAISED" onAction="#handle_logout" prefHeight="30.0" prefWidth="120.0" ripplerFill="WHITE" styleClass="login-btn" text="Tickets">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btn_wallet" buttonType="RAISED" onAction="#handle_logout" prefHeight="30.0" prefWidth="120.0" ripplerFill="WHITE" styleClass="login-btn" text="Wallet">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btn_signOut" buttonType="RAISED" onAction="#handle_logout" prefHeight="45.0" prefWidth="120.0" ripplerFill="WHITE" styleClass="login-btn" text="Sign Out">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <Pane fx:id="content" layoutX="256.0" prefHeight="720.0" prefWidth="1024.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" layoutX="54.0" layoutY="49.0" prefHeight="92.0" prefWidth="661.0" spacing="50.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="22000" textFill="#2a73ff">
+                                 <font>
+                                    <Font name="System Bold" size="26.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Total Transactions" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="24000" textFill="#fa5f7e">
+                                 <font>
+                                    <Font name="System Bold" size="26.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Total Tickets" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="1500" textFill="#26bfbc">
+                                 <font>
+                                    <Font name="System Bold" size="26.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Total Concerts" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="150" textFill="#de0000">
+                                 <font>
+                                    <Font name="System Bold" size="26.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Orders on Hold" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <ScrollPane layoutX="5.0" layoutY="149.0" prefHeight="564.0" prefWidth="1014.0">
+                     <content>
+                        <VBox fx:id="sp_tickets" prefHeight="427.0" prefWidth="993.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </Pane>
+            <HBox fx:id="top" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="1280.0">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <children>
+                  <HBox HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Dashboard" textFill="#c2c2c2">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#minimize_stage" prefHeight="30.0" prefWidth="30.0" styleClass="min-btn">
+                     <graphic>
+                        <FontAwesomeIcon glyphStyle="-fx-fill:white" iconName="MINUS" size="1.3em" />
+                     </graphic>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="999.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#close_app" prefHeight="30.0" prefWidth="30.0" styleClass="close-btn">
+                     <graphic>
+                        <FontAwesomeIcon glyphStyle="-fx-fill:white" iconName="CLOSE" size="1.3em" />
+                     </graphic>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

@@ -3,19 +3,21 @@ const jwt = require("express-jwt")
 const jsonwebtoken = require("jsonwebtoken")
 const bcrypt = require("bcryptjs")
 const mongoose = require('mongoose')
+const {Types} = require('mongoose')
 const { User } = require('./models/User.js')
 const { ApolloServer, gql } = require('apollo-server-express')
 
 // Construct a schema, using GraphQL schema language
 const typeDefs = gql`
   type User {
-    id: Int
+    id: ID!
     username: String!
     email: String!
     password: String!
   }
   type Query {
-    me: User
+    user(id: ID!): User,
+    users:[User]
   }
   type Mutation {
     signup (username: String!, email: String!, password: String!): String
@@ -29,7 +31,12 @@ const typeDefs = gql`
 // Provide resolver functions for your schema fields
 const resolvers = {
   Query: {
-    me: () => 'Hello world!',
+    async user(_,{id}) {
+      return User.findOne(Types.ObjectId(id))
+    },
+    async users() {
+      return User.find()
+    }
   },
   Mutation: {
     async signup(_, { username, email, password }) {
@@ -73,13 +80,11 @@ const resolvers = {
         { expiresIn: '1y' }
       )
     }
-
-
   }
 };
 
 
-mongoose.connect('mongodb://valon:valon123@ds125331.mlab.com:25331/caradmindb');
+mongoose.connect('mongodb://julian-blaschke:Julian1999@ds247001.mlab.com:47001/need-a-ticket');
 
 const server = new ApolloServer({ typeDefs, resolvers });
 

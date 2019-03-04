@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const { Types } = require('mongoose')
 const { User } = require('./models/User')
 const { Artist } = require('./models/Artist')
+const { Ticket } = require('./models/Ticket')
 const { Concert } = require('./models/Concert')
 const { ApolloServer, gql } = require('apollo-server-express')
 
@@ -13,23 +14,26 @@ const { ApolloServer, gql } = require('apollo-server-express')
 const typeDefs = gql`
   scalar Date
   type User {
-    id: ID!
+    _id: ID!
     username: String!
     email: String!
     password: String!
   },
   type Artist {
-    id: ID!,
+    _id: ID,
     name: String!
   },
   type Concert {
-    id: ID!,
+    _id: ID!,
     title: String!,
     date: Date!,
     address: String!,
     capacity: Float!,
     Tickets: [String],
-    artist: Artist!,
+    artist: [Artist],
+  },
+  type Ticket {
+    _id: ID!
   }
   type Query {
     users:[User],
@@ -68,15 +72,7 @@ const resolvers = {
       return Concert.findOne(Types.ObjectId(id))
     },
     async concerts(){
-      let result = await Concert.aggregate([{$lookup: {
-          from: 'artists',
-          localField: 'artistId',
-          foreignField: '_id.str',
-          as: 'artist'
-        }
-      }])
-      console.log(result)
-      return result
+      return Concert.aggregate([{$lookup: { from: 'artists',localField:'artistId',foreignField: '_id',as: 'artist'}}])
     },
   },
   Mutation: {

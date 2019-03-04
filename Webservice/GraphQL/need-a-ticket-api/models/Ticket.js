@@ -5,9 +5,10 @@ const {User} = require('./User')
 const TicketSchema = new mongoose.Schema({
     type: String,
     price: Number,
-    sellerId: Types.ObjectId,
-    buyerId: Types.ObjectId,
-    concertId: Types.ObjectId,
+    redeemedAt: Date,
+    sellerId: mongoose.Types.ObjectId,
+    buyerId: mongoose.Types.ObjectId,
+    concertId: mongoose.Types.ObjectId,
 }, {timestamps: true});
 
-exports.User = mongoose.model('Ticket', TicketSchema);
+exports.Ticket = mongoose.model('Ticket', TicketSchema);

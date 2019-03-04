@@ -5,7 +5,7 @@ const ConcertSchema = new mongoose.Schema({
     date: Date,
     address: String,
     genre: String,
-    artistId: String,
+    artistId: mongoose.Types.ObjectId,
 }, {timestamps: true});
 
 exports.Concert = mongoose.model('Concert', ConcertSchema);

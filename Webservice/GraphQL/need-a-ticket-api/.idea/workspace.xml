@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e6135616-855f-437d-9c9f-ad036caf13de" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Concert.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Concert.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Ticket.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Ticket.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -20,12 +18,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="35" column="12" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="12" />
+            <state relative-caret-position="330">
+              <caret line="88" column="97" selection-start-line="88" selection-start-column="97" selection-end-line="88" selection-end-column="97" />
               <folding>
                 <element signature="e#916#1352#0" />
                 <element signature="e#1377#1839#0" />
                 <element signature="e#2162#2296#0" />
+                <element signature="e#2828#2842#0" />
+                <element signature="e#3653#3667#0" />
               </folding>
             </state>
           </provider>
@@ -147,12 +147,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1551684389740</updated>
-      <workItem from="1551684395541" duration="21737000" />
+      <workItem from="1551684395541" duration="24812000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21737000" />
+    <option name="totallyTimeSpent" value="24812000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="20" y="47" width="1400" height="776" extended-state="0" />
@@ -182,13 +182,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/models/User.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/Artist.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -196,10 +189,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/Concert.js">
+    <entry file="file://$PROJECT_DIR$/models/User.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="37" selection-start-line="7" selection-start-column="37" selection-end-line="7" selection-end-column="37" />
+        <state relative-caret-position="120">
+          <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -210,14 +203,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/models/Concert.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="37" selection-start-line="7" selection-start-column="37" selection-end-line="7" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="35" column="12" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="12" />
+        <state relative-caret-position="330">
+          <caret line="88" column="97" selection-start-line="88" selection-start-column="97" selection-end-line="88" selection-end-column="97" />
           <folding>
             <element signature="e#916#1352#0" />
             <element signature="e#1377#1839#0" />
             <element signature="e#2162#2296#0" />
+            <element signature="e#2828#2842#0" />
+            <element signature="e#3653#3667#0" />
           </folding>
         </state>
       </provider>

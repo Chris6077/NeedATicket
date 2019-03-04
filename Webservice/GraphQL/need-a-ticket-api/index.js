@@ -33,7 +33,13 @@ const typeDefs = gql`
     artist: [Artist],
   },
   type Ticket {
-    _id: ID!
+    _id: ID!,
+    type: String!,
+    price: Float!,
+    redeemedAt: Date,
+    seller: User!,
+    buyer: User,
+    concert: [Concert]!,
   }
   type Query {
     users:[User],
@@ -41,13 +47,15 @@ const typeDefs = gql`
     artists: [Artist],
     artist(id: ID!): Artist,
     concerts: [Concert],
-    concert: Concert
+    concert(id: ID!): Concert,
+    tickets: [Ticket],
   },
   type Mutation {
     signup (username: String!, email: String!, password: String!): String
     login (email: String!, password: String!): String
-    createArtist (name: String!): Artist,
+    createArtist (name: String!): Artist
     createConcert (title: String!, date: Date!, address: String!, capacity: Float!, artistId: ID!): Concert
+    createTicket (type: String!, price: Float!, sellerId: String!,concertId: String!,redeemedAt: Date, buyerId: String): Ticket
   }
 `
 
@@ -74,6 +82,15 @@ const resolvers = {
     async concerts(){
       return Concert.aggregate([{$lookup: { from: 'artists',localField:'artistId',foreignField: '_id',as: 'artist'}}])
     },
+    async tickets(){
+      return Ticket.aggregate(
+      [
+          {
+            $lookup: { from: 'concerts',localField:'concertId',foreignField: '_id',as: 'concert'}
+          }
+        ]
+      )
+    }
   },
   Mutation: {
     async signup(_, { username, email, password }) {
@@ -138,6 +155,22 @@ const resolvers = {
       })
       return concert
     },
+
+    async createTicket(_,{type,price,sellerId,concertId,redeemedAt,buyerId}){
+      sellerId = Types.ObjectId(sellerId)
+      concertId = Types.ObjectId(concertId)
+      if(buyerId)
+        buyerId = Types.ObjectId(buyerId)
+      let ticket = new Ticket({
+        type,price,redeemedAt,sellerId,buyerId,concertId
+      })
+      await ticket.save((err)=>{
+        if(err)
+          throw err
+      })
+      return ticket
+    }
+
   }
 }
 

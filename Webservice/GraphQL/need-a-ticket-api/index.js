@@ -30,7 +30,7 @@ const typeDefs = gql`
     address: String!,
     capacity: Float!,
     Tickets: [String],
-    artist: [Artist],
+    artist: Artist,
   },
   type Ticket {
     _id: ID!,
@@ -80,7 +80,13 @@ const resolvers = {
       return Concert.findOne(Types.ObjectId(id))
     },
     async concerts(){
-      return Concert.aggregate([{$lookup: { from: 'artists',localField:'artistId',foreignField: '_id',as: 'artist'}}])
+      return Concert.aggregate([
+        {
+          $lookup: { from: 'artists',localField:'artistId',foreignField: '_id',as: 'artist'}
+        },
+        {
+          $unwind: "$artist"
+        }])
     },
     async tickets(){
       return Ticket.aggregate(

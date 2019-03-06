@@ -39,7 +39,7 @@ const typeDefs = gql`
     redeemedAt: Date,
     seller: User!,
     buyer: User,
-    concert: [Concert]!,
+    concert: Concert!,
   }
   type Query {
     users:[User],
@@ -81,21 +81,19 @@ const resolvers = {
     },
     async concerts(){
       return Concert.aggregate([
-        {
-          $lookup: { from: 'artists',localField:'artistId',foreignField: '_id',as: 'artist'}
-        },
-        {
-          $unwind: "$artist"
-        }])
+        {$lookup: { from: 'artists',localField:'artistId',foreignField: '_id',as: 'artist'}},
+        {$unwind: "$artist"}
+        ])
     },
     async tickets(){
-      return Ticket.aggregate(
-      [
-          {
-            $lookup: { from: 'concerts',localField:'concertId',foreignField: '_id',as: 'concert'}
-          }
-        ]
-      )
+      return Ticket.aggregate([
+        {$lookup: { from: 'users',localField:'sellerId',foreignField: '_id',as: 'seller'}},
+        {$unwind: "$seller"},
+        {$lookup: { from: 'users',localField:'buyerId',foreignField: '_id',as: 'buyer'}},
+        {$unwind: "$buyer"},
+        {$lookup: { from: 'concerts',localField:'concertId',foreignField: '_id',as: 'concert'}},
+        {$unwind: "$concert"},
+      ])
     }
   },
   Mutation: {

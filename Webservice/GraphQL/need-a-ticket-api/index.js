@@ -49,6 +49,7 @@ const typeDefs = gql`
     concerts: [Concert],
     concert(id: ID!): Concert,
     tickets: [Ticket],
+    ticket(id: ID!): Ticket,
   },
   type Mutation {
     signup (username: String!, email: String!, password: String!): String
@@ -67,26 +68,44 @@ const resolvers = {
     async user(_,{id}) {
       return User.findOne(Types.ObjectId(id))
     },
+
     async users() {
       return User.find()
     },
+
     async artist(_,{id}) {
       return Artist.findOne(Types.ObjectId(id))
     },
+
     async artists() {
       return Artist.find()
     },
+
     async concert(_,{id}) {
       return Concert.findOne(Types.ObjectId(id))
     },
+
     async concerts(){
       return Concert.aggregate([
         {$lookup: { from: 'artists',localField:'artistId',foreignField: '_id',as: 'artist'}},
         {$unwind: "$artist"}
         ])
     },
+
+    async ticket(_,{id}){
+      return await Ticket.aggregate([
+          {$lookup: { from: 'users',localField:'sellerId',foreignField: '_id',as: 'seller'}},
+          {$unwind: "$seller"},
+          {$lookup: { from: 'users',localField:'buyerId',foreignField: '_id',as: 'buyer'}},
+          {$unwind: "$buyer"},
+          {$lookup: { from: 'concerts',localField:'concertId',foreignField: '_id',as: 'concert'}},
+          {$unwind: "$concert"},
+          {$match : {_id : Types.ObjectId(id)}}
+      ])[0]
+    },
+
     async tickets(){
-      return Ticket.aggregate([
+      return await Ticket.aggregate([
         {$lookup: { from: 'users',localField:'sellerId',foreignField: '_id',as: 'seller'}},
         {$unwind: "$seller"},
         {$lookup: { from: 'users',localField:'buyerId',foreignField: '_id',as: 'buyer'}},
@@ -94,7 +113,10 @@ const resolvers = {
         {$lookup: { from: 'concerts',localField:'concertId',foreignField: '_id',as: 'concert'}},
         {$unwind: "$concert"},
       ])
-    }
+    },
+
+
+
   },
   Mutation: {
     async signup(_, { username, email, password }) {

@@ -57,6 +57,7 @@ const typeDefs = gql`
     createArtist (name: String!): Artist
     createConcert (title: String!, date: Date!, address: String!, capacity: Float!, artistId: ID!): Concert
     createTicket (type: String!, price: Float!, sellerId: String!,concertId: String!,redeemedAt: Date, buyerId: String): Ticket
+    buy (ticketId: ID!, buyerId: ID!): Boolean
   }
 `
 
@@ -65,6 +66,7 @@ const typeDefs = gql`
 // Provide resolver functions for your schema fields
 const resolvers = {
   Query: {
+
     async user(_,{id}) {
       return User.findOne(Types.ObjectId(id))
     },
@@ -82,7 +84,13 @@ const resolvers = {
     },
 
     async concert(_,{id}) {
-      return Concert.findOne(Types.ObjectId(id))
+      let concert = await Concert.aggregate([
+        {$lookup: { from: 'artists',localField:'artistId',foreignField: '_id',as: 'artist'}},
+        {$unwind: "$artist"},
+        {$match : {_id : Types.ObjectId(id)}},
+        {$limit : 1}
+      ])
+      return concert.shift()
     },
 
     async concerts(){
@@ -117,9 +125,8 @@ const resolvers = {
       ])
     },
 
-
-
   },
+
   Mutation: {
     async signup(_, { username, email, password }) {
       let user = new User({
@@ -197,6 +204,18 @@ const resolvers = {
           throw err
       })
       return ticket
+    },
+
+    async buy(_,{ticketId, buyerId}){
+      ticketId = Types.ObjectId(ticketId)
+      buyerId = Types.ObjectId(buyerId)
+
+      await Ticket.updateOne(
+          { "_id" : ticketId },
+          { $set : { buyerId } }
+      )
+      return true
+
     }
 
   }

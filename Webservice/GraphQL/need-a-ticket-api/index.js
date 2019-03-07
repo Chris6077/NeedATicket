@@ -8,6 +8,7 @@ const { User } = require('./models/User')
 const { Artist } = require('./models/Artist')
 const { Ticket } = require('./models/Ticket')
 const { Concert } = require('./models/Concert')
+const { Transaction } = require('./models/Transaction')
 const { ApolloServer, gql } = require('apollo-server-express')
 
 // Construct a schema, using GraphQL schema language
@@ -215,7 +216,14 @@ const resolvers = {
           { $set : { buyerId } }
       )
       return true
+    },
 
+    async buy(_,{amount,ticketId,payerWalletId,receiverWalletId}){
+      payerWalletId = Types.ObjectId(payerWalletId)
+      receiverWalletId = Types.ObjectId(receiverWalletId)
+      let transaction = new Transaction({
+        amount,payerWalletId,receiverWalletId
+      })
     }
 
   }

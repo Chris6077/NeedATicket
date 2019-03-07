@@ -93,15 +93,17 @@ const resolvers = {
     },
 
     async ticket(_,{id}){
-      return await Ticket.aggregate([
+      let ticket =  await Ticket.aggregate([
           {$lookup: { from: 'users',localField:'sellerId',foreignField: '_id',as: 'seller'}},
           {$unwind: "$seller"},
           {$lookup: { from: 'users',localField:'buyerId',foreignField: '_id',as: 'buyer'}},
           {$unwind: "$buyer"},
           {$lookup: { from: 'concerts',localField:'concertId',foreignField: '_id',as: 'concert'}},
           {$unwind: "$concert"},
-          {$match : {_id : Types.ObjectId(id)}}
-      ])[0]
+          {$match : {_id : Types.ObjectId(id)}},
+          {$limit : 1}
+      ])
+      return ticket.shift()
     },
 
     async tickets(){

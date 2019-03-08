@@ -27,12 +27,15 @@ This group of applications will act as a platform for concert management and con
 [Checkview](https://github.com/cdflynn/checkview)
 
 [FancyToast](https://github.com/Shashank02051997/FancyToast-Android)
+
+[ButterKnife](https://jakewharton.github.io/butterknife/)
 ## Tools and Frameworks
 * Android Studio
 * SonarQube (For continuous inspection and refactoring)
 * GSON
 * Checkview
 * FancyToast
+* ButterKnife
 
 # Android App for staff (QR Code Reader)
 ## Links
@@ -43,6 +46,8 @@ This group of applications will act as a platform for concert management and con
 [Checkview](https://github.com/cdflynn/checkview)
 
 [FancyToast](https://github.com/Shashank02051997/FancyToast-Android)
+
+[ButterKnife](https://jakewharton.github.io/butterknife/)
 ## Tools and Frameworks
 * Android Studio
 * SonarQube (For continuous inspection and refactoring)

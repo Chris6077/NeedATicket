@@ -45,11 +45,17 @@ This group of applications will act as a platform for concert management and con
 
 [FancyToast](https://github.com/Shashank02051997/FancyToast-Android)
 
+[WaveLoadingView](https://github.com/tangqi92/WaveLoadingView)
+
+[Zxing Bar Code Scanner](https://github.com/zxing/zxing)
+
 [ButterKnife](https://jakewharton.github.io/butterknife/)
 ## Tools and Frameworks
 * Android Studio
 * SonarQube (For continuous inspection and refactoring)
 * GSON
+* WaveLoadingView
+* Zxing Bar Code Scanner
 * FancyToast
 
 # Java App for vendors

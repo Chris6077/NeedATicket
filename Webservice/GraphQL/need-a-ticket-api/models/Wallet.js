@@ -4,4 +4,4 @@ const WalletSchema = new mongoose.Schema({
     balance : Number
 }, {timestamps: true});
 
-exports.Wallet = mongoose.model('Concert', WalletSchema);
+exports.Wallet = mongoose.model('Wallet', WalletSchema);

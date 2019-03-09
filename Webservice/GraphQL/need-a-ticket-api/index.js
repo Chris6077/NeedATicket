@@ -9,6 +9,7 @@ const { Artist } = require('./models/Artist')
 const { Ticket } = require('./models/Ticket')
 const { Concert } = require('./models/Concert')
 const { Transaction } = require('./models/Transaction')
+const { Wallet } = require('./models/Wallet')
 const { ApolloServer, gql } = require('apollo-server-express')
 
 // Construct a schema, using GraphQL schema language
@@ -19,11 +20,11 @@ const typeDefs = gql`
     username: String!
     email: String!
     password: String!
-  },
+  }
   type Artist {
     _id: ID,
     name: String!
-  },
+  }
   type Concert {
     _id: ID!,
     title: String!,
@@ -32,7 +33,7 @@ const typeDefs = gql`
     capacity: Float!,
     Tickets: [String],
     artist: Artist,
-  },
+  }
   type Ticket {
     _id: ID!,
     type: String!,
@@ -41,6 +42,17 @@ const typeDefs = gql`
     seller: User!,
     buyer: User,
     concert: Concert!,
+  }
+  type Wallet {
+    _id: ID!,
+    balance: Float!,
+  }
+  type Transaction {
+    _id: ID!,
+    date: Date!,
+    payer: User!,
+    receiver: User!,
+    ticket: Ticket!,
   }
   type Query {
     users:[User],
@@ -51,14 +63,14 @@ const typeDefs = gql`
     concert(id: ID!): Concert,
     tickets: [Ticket],
     ticket(id: ID!): Ticket,
-  },
+  }
   type Mutation {
     signup (username: String!, email: String!, password: String!): String
     login (email: String!, password: String!): String
     createArtist (name: String!): Artist
     createConcert (title: String!, date: Date!, address: String!, capacity: Float!, artistId: ID!): Concert
     createTicket (type: String!, price: Float!, sellerId: String!,concertId: String!,redeemedAt: Date, buyerId: String): Ticket
-    buy (ticketId: ID!, buyerId: ID!): Boolean
+    buy (amount: Float! , ticketId: ID!, payerId: ID!): Transaction
   }
 `
 
@@ -207,23 +219,26 @@ const resolvers = {
       return ticket
     },
 
-    async buy(_,{ticketId, buyerId}){
+    async buy(_,{amount,ticketId,payerId}){
+      //need to create transaction / update both receiver and payer Wallet / and update ticket
+      payerId = Types.ObjectId(payerId)
       ticketId = Types.ObjectId(ticketId)
-      buyerId = Types.ObjectId(buyerId)
+      date = new Date()
+
+      let ticket = await Ticket.findOne(ticketId)
+
+      let transaction = new Transaction({
+        amount,date,payerId, receiverId : Types.ObjectId(ticket.sellerId),ticketId
+      })
+
+      await transaction.save()
 
       await Ticket.updateOne(
           { "_id" : ticketId },
-          { $set : { buyerId } }
+          { $set : { buyerId: payerId } }
       )
-      return true
-    },
 
-    async buy(_,{amount,ticketId,payerWalletId,receiverWalletId}){
-      payerWalletId = Types.ObjectId(payerWalletId)
-      receiverWalletId = Types.ObjectId(receiverWalletId)
-      let transaction = new Transaction({
-        amount,payerWalletId,receiverWalletId
-      })
+      return transaction
     }
 
   }

@@ -43,8 +43,6 @@ This group of applications will act as a platform for concert management and con
 
 [SonarQube](https://www.sonarqube.org/)
 
-[Checkview](https://github.com/cdflynn/checkview)
-
 [FancyToast](https://github.com/Shashank02051997/FancyToast-Android)
 
 [ButterKnife](https://jakewharton.github.io/butterknife/)
@@ -52,7 +50,6 @@ This group of applications will act as a platform for concert management and con
 * Android Studio
 * SonarQube (For continuous inspection and refactoring)
 * GSON
-* Checkview
 * FancyToast
 
 # Java App for vendors

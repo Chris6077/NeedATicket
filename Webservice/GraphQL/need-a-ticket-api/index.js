@@ -19,7 +19,8 @@ const typeDefs = gql`
     _id: ID!
     username: String!
     email: String!
-    password: String!
+    password: String!,
+    wallet: Wallet!,
   }
   type Artist {
     _id: ID,
@@ -50,6 +51,7 @@ const typeDefs = gql`
   type Transaction {
     _id: ID!,
     date: Date!,
+    amount: Float!,
     payer: User!,
     receiver: User!,
     ticket: Ticket!,
@@ -63,6 +65,7 @@ const typeDefs = gql`
     concert(id: ID!): Concert,
     tickets: [Ticket],
     ticket(id: ID!): Ticket,
+    transactions: [Transaction]
   }
   type Mutation {
     signup (username: String!, email: String!, password: String!): String
@@ -85,7 +88,10 @@ const resolvers = {
     },
 
     async users() {
-      return User.find()
+      return User.aggregate([
+        {$lookup: { from: 'wallets',localField:'walletId',foreignField: '_id',as: 'wallet'}},
+        {$unwind: "$wallet"}
+      ])
     },
 
     async artist(_,{id}) {
@@ -138,21 +144,35 @@ const resolvers = {
       ])
     },
 
+    async transactions(){
+      return await Transaction.aggregate([
+        {$lookup: { from: 'users',localField:'payerId',foreignField: '_id',as: 'payer'}},
+        {$unwind: "$payer"},
+        {$lookup: { from: 'users',localField:'receiverId',foreignField: '_id',as: 'receiver'}},
+        {$unwind: "$receiver"},
+        {$lookup: { from: 'tickets',localField:'ticketId',foreignField: '_id',as: 'ticket'}},
+        {$unwind: "$ticket"},
+      ])
+    },
+
   },
 
   Mutation: {
     async signup(_, { username, email, password }) {
+      let wallet = new Wallet({
+        balance: 0
+      })
+      
+      await wallet.save()
+
       let user = new User({
         username,
         email,
-        password: await bcrypt.hash(password, 10)
+        password: await bcrypt.hash(password, 10),
+        walletId: wallet._id
       });
-      await user.save((err) => {
-        if (err) {
-          console.error(err);
-          // apollo error.
-        }
-      });
+
+      await user.save();
 
       // Return json web token
       return jsonwebtoken.sign(

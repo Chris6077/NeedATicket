@@ -10,3 +10,8 @@
 *.bak_002d
 *.bak_003d
 *.bak*
+/createConcerts/nbproject/private/
+/createConcerts/build/
+/createConcerts/dist/
+/createTickets/build/
+/createTickets/dist/

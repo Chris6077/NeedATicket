@@ -1,4 +1,4 @@
-![Logo](https://raw.githubusercontent.com/Chris6077/NeedATicket/master/Logos/Header.png)
+https://mvnrepository.com/artifact/at.favre.lib/bcrypt![Logo](https://raw.githubusercontent.com/Chris6077/NeedATicket/master/Logos/Header.png)
 
 # Description
 This group of applications will act as a platform for concert management and concert ticket sales. Event managers, vendors and customers need an account to use our platform. Our web service saves passwords encrypted in an Oracle SQL database. An event creator can create artist profiles, concerts and manage security, emergency forces and other staff needed for the secure flow of the duration of the concert. A vendor can sell tickets for existing concerts an event creator defined. A customer pays via platform integrated money in the Android app, and the vendor receives the money on his platform integrated wallet. Checks if the customer has enough money to pay for the ticket(s) are made using database triggers. All transactions are saved in a table so vendors and customers can see which transactions they made in the past. The platform integrated wallet can be filled by uploading real money (simulated), and the balance can be cashed out to real money (simulated).
@@ -24,17 +24,26 @@ This group of applications will act as a platform for concert management and con
 
 [SonarQube](https://www.sonarqube.org/)
 
+[BCrypt](https://mvnrepository.com/artifact/at.favre.lib/bcrypt)
+
 [Checkview](https://github.com/cdflynn/checkview)
 
 [FancyToast](https://github.com/Shashank02051997/FancyToast-Android)
+
+[WaveLoadingView](https://github.com/tangqi92/WaveLoadingView)
+
+[Zxing](https://github.com/zxing/zxing)
 
 [ButterKnife](https://jakewharton.github.io/butterknife/)
 ## Tools and Frameworks
 * Android Studio
 * SonarQube (For continuous inspection and refactoring)
 * GSON
+* BCrypt
 * Checkview
 * FancyToast
+* WaveLoadingView
+* Zxing
 * ButterKnife
 
 # Android App for staff (QR Code Reader)
@@ -47,7 +56,7 @@ This group of applications will act as a platform for concert management and con
 
 [WaveLoadingView](https://github.com/tangqi92/WaveLoadingView)
 
-[Zxing Bar Code Scanner](https://github.com/zxing/zxing)
+[Zxing](https://github.com/zxing/zxing)
 
 [ButterKnife](https://jakewharton.github.io/butterknife/)
 ## Tools and Frameworks
@@ -55,7 +64,7 @@ This group of applications will act as a platform for concert management and con
 * SonarQube (For continuous inspection and refactoring)
 * GSON
 * WaveLoadingView
-* Zxing Bar Code Scanner
+* Zxing
 * FancyToast
 
 # Java App for vendors

@@ -65,7 +65,8 @@ const typeDefs = gql`
     concert(id: ID!): Concert,
     tickets: [Ticket],
     ticket(id: ID!): Ticket,
-    transactions: [Transaction]
+    transactions: [Transaction],
+    transaction(id: ID!): Transaction,
   }
   type Mutation {
     signup (username: String!, email: String!, password: String!): String
@@ -74,6 +75,7 @@ const typeDefs = gql`
     createConcert (title: String!, date: Date!, address: String!, capacity: Float!, artistId: ID!): Concert
     createTicket (type: String!, price: Float!, sellerId: String!,concertId: String!,redeemedAt: Date, buyerId: String): Ticket
     buy (ticketId: ID!, payerId: ID!): Transaction
+    deposit (amount: Float!, userId: ID!): Wallet
   }
 `
 
@@ -84,7 +86,13 @@ const resolvers = {
   Query: {
 
     async user(_,{id}) {
-      return User.findOne(Types.ObjectId(id))
+      let user = await User.aggregate([
+        {$lookup: { from: 'wallets',localField:'walletId',foreignField: '_id',as: 'wallet'}},
+        {$unwind: "$wallet"},
+        {$match : {_id : Types.ObjectId(id)}},
+        {$limit : 1}
+      ])
+      return user.shift()
     },
 
     async users() {
@@ -154,6 +162,20 @@ const resolvers = {
         {$unwind: "$ticket"},
       ])
     },
+
+    async transaction(_,{id}){
+      let transaction = await Transaction.aggregate([
+        {$lookup: { from: 'users',localField:'payerId',foreignField: '_id',as: 'payer'}},
+        {$unwind: "$payer"},
+        {$lookup: { from: 'users',localField:'receiverId',foreignField: '_id',as: 'receiver'}},
+        {$unwind: "$receiver"},
+        {$lookup: { from: 'tickets',localField:'ticketId',foreignField: '_id',as: 'ticket'}},
+        {$unwind: "$ticket"},
+        {$match : {_id : Types.ObjectId(id)}},
+        {$limit : 1}
+      ])
+      return transaction.shift()
+    }
 
   },
 
@@ -278,6 +300,19 @@ const resolvers = {
       )
 
       return transaction
+    },
+
+    async deposit(_,{amount,userId}){
+      userId = Types.ObjectId(userId)
+
+      let user = await User.findOne(userId)
+
+      await Wallet.updateOne(
+        { "_id" : user.walletId },
+        { $inc : { balance: amount } }
+      )
+
+      return Wallet.findOne(user.walletId)
     }
 
   }

@@ -49,11 +49,11 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         showNewIntent();
     }
     private void showNewIntent () {
-        /*final Intent loginActivity = new Intent(this, LoginActivity.class);
+        final Intent loginActivity = new Intent(this, LoginActivity.class);
         try {
             startActivity(loginActivity);
         } catch (Exception e) {
             HandlerState.handle(e, getApplicationContext());
-        }*/
+        }
     }
 }

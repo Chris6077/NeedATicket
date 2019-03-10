@@ -19,6 +19,7 @@
     <string name="webservice_get_wallet">https://www.bashit.me</string>
     <string name="webservice_upload">https://www.bashit.me</string>
     <string name="webservice_cashout">https://www.bashit.me</string>
+    <string name="webservice_check_ticket">https://www.bashit.me</string>
 
     <!-- Strings related to navbar -->
     <string name="navmenu_concerts">Concerts</string>

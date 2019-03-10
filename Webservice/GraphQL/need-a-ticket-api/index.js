@@ -73,7 +73,7 @@ const typeDefs = gql`
     createArtist (name: String!): Artist
     createConcert (title: String!, date: Date!, address: String!, capacity: Float!, artistId: ID!): Concert
     createTicket (type: String!, price: Float!, sellerId: String!,concertId: String!,redeemedAt: Date, buyerId: String): Ticket
-    buy (amount: Float! , ticketId: ID!, payerId: ID!): Transaction
+    buy (ticketId: ID!, payerId: ID!): Transaction
   }
 `
 
@@ -239,20 +239,39 @@ const resolvers = {
       return ticket
     },
 
-    async buy(_,{amount,ticketId,payerId}){
+    async buy(_,{ticketId,payerId}){
       //need to create transaction / update both receiver and payer Wallet / and update ticket
       payerId = Types.ObjectId(payerId)
       ticketId = Types.ObjectId(ticketId)
       date = new Date()
 
       let ticket = await Ticket.findOne(ticketId)
+      let receiverId = Types.ObjectId(ticket.sellerId)
+      let amount = ticket.price 
+      let payer = await User.findOne(payerId)
+      let receiver = await User.findOne(receiverId)
 
+      
+      //decrease payer wallet
+      await Wallet.updateOne(
+        { "_id" : payer.walletId },
+        { $inc : { balance: amount } }
+      )
+
+      //increase receiver wallet
+      await Wallet.updateOne(
+        { "_id" : receiver.walletId },
+        { $inc : { balance: -amount } }
+      )
+      
+      //create the transaction
       let transaction = new Transaction({
-        amount,date,payerId, receiverId : Types.ObjectId(ticket.sellerId),ticketId
+        amount,date,payerId,receiverId,ticketId
       })
 
       await transaction.save()
 
+      //update buyer in ticket
       await Ticket.updateOne(
           { "_id" : ticketId },
           { $set : { buyerId: payerId } }

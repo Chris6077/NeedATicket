@@ -12,6 +12,8 @@ import android.widget.TextView;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cdflynn.android.library.checkview.CheckView;
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.asynctask.TaskPurchaseTicket;
@@ -23,38 +25,26 @@ import me.projectx.needaticket.pojo.TicketType;
 public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefault {
     private String uID;
     private String tID;
-    private ImageView imageCategory;
-    private TextView header;
-    private TextView seller;
-    private TextView price;
-    private TextView totalPrice;
-    private TextView amountSelected;
-    private FrameLayout anchor;
-    private CheckView checker;
-    private Button btPurchase;
-    private NavigationView navigation;
+    @BindView(R.id.category_image_ticket_list_item) ImageView imageCategory;
+    @BindView(R.id.list_item_ticket_title) TextView header;
+    @BindView(R.id.list_item_ticket_seller) TextView seller;
+    @BindView(R.id.list_item_ticket_price) TextView price;
+    @BindView(R.id.tvPrice) TextView totalPrice;
+    @BindView(R.id.tvAmount) TextView amountSelected;
+    @BindView(R.id.anchorFade) FrameLayout anchor;
+    @BindView(R.id.check) CheckView checker;
+    @BindView(R.id.btPurchase) Button btPurchase;
+    @BindView(R.id.navigation_drawer) NavigationView navigation;
     private AppCompatActivity cx;
     @Override protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy);
-        this.setViews();
+        ButterKnife.bind(this);
         this.setListener();
         this.uID = getIntent().getStringExtra("uID");
         this.tID = getIntent().getStringExtra("tID");
         this.setContent();
         cx = this;
-    }
-    private void setViews () {
-        this.navigation = findViewById(R.id.navigation_drawer);
-        this.imageCategory = findViewById(R.id.category_image_ticket_list_item);
-        this.header = findViewById(R.id.list_item_ticket_title);
-        this.seller = findViewById(R.id.list_item_ticket_seller);
-        this.price = findViewById(R.id.list_item_ticket_price);
-        this.totalPrice = findViewById(R.id.tvPrice);
-        this.amountSelected = findViewById(R.id.tvAmount);
-        this.btPurchase = findViewById(R.id.btPurchase);
-        this.anchor = findViewById(R.id.anchorFade);
-        this.checker = findViewById(R.id.check);
     }
     private void setListener () {
         this.navigation.setNavigationItemSelectedListener(new ListenerNavigationMenu(this, uID));

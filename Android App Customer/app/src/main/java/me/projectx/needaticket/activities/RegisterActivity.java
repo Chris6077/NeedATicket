@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.VideoView;
 
+import butterknife.BindInt;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.asynctask.TaskRegister;
 import me.projectx.needaticket.handler.HandlerState;
@@ -19,17 +22,18 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
     MediaPlayer mMediaPlayer;
     int mCurrentVideoPosition;
     private TaskRegister mAuthTask;
-    private EditText mEmailView;
-    private EditText mPasswordView;
-    private EditText mPasswordConfirmView;
-    private View mLoginFormView;
-    private View mProgressView;
-    private Button btRegister;
-    private Button btSignIn;
+    @BindView(R.id.etEmailAddress) EditText mEmailView;
+    @BindView(R.id.etPassword) EditText mPasswordView;
+    @BindView(R.id.etPasswordConfirm) EditText mPasswordConfirmView;
+    @BindView(R.id.register_form) View mLoginFormView;
+    @BindView(R.id.loadingPanel) View mProgressView;
+    @BindView(R.id.btRegister) Button btRegister;
+    @BindView(R.id.btSignIn) Button btSignIn;
     private VideoView videoBG;
     @Override protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        ButterKnife.bind(this);
         // VideoView
         videoBG = findViewById(R.id.videoView);
         //Video URI
@@ -49,17 +53,7 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
                 }
             }
         });
-        setViews();
         registrateEventHandlers();
-    }
-    private void setViews () {
-        btRegister = findViewById(R.id.btRegister);
-        btSignIn = findViewById(R.id.btSignIn);
-        mEmailView = findViewById(R.id.etEmailAddress);
-        mPasswordView = findViewById(R.id.etPassword);
-        mPasswordConfirmView = findViewById(R.id.etPasswordConfirm);
-        mProgressView = findViewById(R.id.loadingPanel);
-        mLoginFormView = findViewById(R.id.register_form);
     }
     private void registrateEventHandlers () {
         btRegister.setOnClickListener(new OnClickListener() {

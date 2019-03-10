@@ -7,6 +7,6 @@ public abstract class HandlerState {
         throw new IllegalStateException("Utility class");
     }
     public static void handle (Exception error, Context context) {
-        FancyToast.makeText(context, error.toString(), FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
+        FancyToast.makeText(context, error.toString(), FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
     }
 }

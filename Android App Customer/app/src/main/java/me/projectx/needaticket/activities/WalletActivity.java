@@ -14,6 +14,8 @@ import com.google.gson.Gson;
 
 import java.text.DecimalFormat;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.asynctask.TaskCashOut;
 import me.projectx.needaticket.asynctask.TaskGetWallet;
@@ -25,30 +27,22 @@ import me.projectx.needaticket.listener.ListenerNavigationMenu;
 import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
 import me.projectx.needaticket.pojo.Wallet;
 public class WalletActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
-    private SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.user_swipe_to_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     private Wallet wallet;
     private String uID;
-    private TextView balance;
-    private EditText amount;
-    private Button upload;
-    private Button cashOut;
-    private NavigationView navigation;
+    @BindView(R.id.textview_balance) TextView balance;
+    @BindView(R.id.edittext_amount) EditText amount;
+    @BindView(R.id.btUpload) Button upload;
+    @BindView(R.id.btCashOut) Button cashOut;
+    @BindView(R.id.navigation_drawer) NavigationView navigation;
     @Override protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet);
-        this.setViews();
+        ButterKnife.bind(this);
         this.setListener();
         this.uID = getIntent().getStringExtra("uID");
         this.getWallet();
         this.setContent();
-    }
-    private void setViews () {
-        this.navigation = findViewById(R.id.navigation_drawer);
-        this.swipeRefreshLayout = findViewById(R.id.user_swipe_to_refresh_layout);
-        this.balance = findViewById(R.id.textview_balance);
-        this.amount = findViewById(R.id.edittext_amount);
-        this.cashOut = findViewById(R.id.btCashOut);
-        this.upload = findViewById(R.id.btUpload);
     }
     private void setListener () {
         this.navigation.setNavigationItemSelectedListener(new ListenerNavigationMenu(this, uID));

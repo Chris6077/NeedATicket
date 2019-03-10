@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -23,6 +24,9 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Date;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Optional;
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.asynctask.TaskChangeEmail;
 import me.projectx.needaticket.asynctask.TaskChangePassword;
@@ -41,23 +45,23 @@ import me.projectx.needaticket.pojo.TicketType;
 import me.projectx.needaticket.pojo.User;
 import me.projectx.needaticket.pojo.Wallet;
 public class UserActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
-    private SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.user_swipe_to_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     private User user;
     private String uID;
-    private TextView email;
-    private TextView password;
-    private EditText dialogOldPassword;
-    private EditText dialogNewPassword;
-    private EditText dialogConfirmNewPassword;
-    private EditText dialogPassword;
-    private EditText dialogNewEmail;
-    private TextView boughtTickets;
-    private NavigationView navigation;
-    private FloatingActionButton fabUser;
+    @BindView(R.id.textview_email) TextView email;
+    @BindView(R.id.textview_password) TextView password;
+    @BindView(R.id.etOldPassword) @Nullable EditText dialogOldPassword;
+    @BindView(R.id.etNewPassword) @Nullable EditText dialogNewPassword;
+    @BindView(R.id.etPasswordConfirm) @Nullable EditText dialogConfirmNewPassword;
+    @BindView(R.id.etPassword) @Nullable EditText dialogPassword;
+    @BindView(R.id.etEmailAddress) @Nullable EditText dialogNewEmail;
+    @BindView(R.id.textview_bought) TextView boughtTickets;
+    @BindView(R.id.navigation_drawer) NavigationView navigation;
+    @BindView(R.id.fab_user) FloatingActionButton fabUser;
     @Override protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        this.setViews();
+        ButterKnife.bind(this);
         this.setListener();
         this.uID = getIntent().getStringExtra("uID");
         //this.getUser();
@@ -74,19 +78,6 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
         tickets.add(t1);
         User u = new User("lol", "user@bashit.me", tickets, new Wallet(1, Float.parseFloat("1337.17")));
         setContent(u);
-    }
-    private void setViews () {
-        this.navigation = findViewById(R.id.navigation_drawer);
-        this.swipeRefreshLayout = findViewById(R.id.user_swipe_to_refresh_layout);
-        this.email = findViewById(R.id.textview_email);
-        this.password = findViewById(R.id.textview_password);
-        this.boughtTickets = findViewById(R.id.textview_bought);
-        this.fabUser = findViewById(R.id.fab_user);
-        this.dialogOldPassword = findViewById(R.id.etOldPassword);
-        this.dialogNewPassword = findViewById(R.id.etNewPassword);
-        this.dialogConfirmNewPassword = findViewById(R.id.etPasswordConfirm);
-        this.dialogNewEmail = findViewById(R.id.etEmailAddress);
-        this.dialogPassword = findViewById(R.id.etPassword);
     }
     private void setListener () {
         this.navigation.setNavigationItemSelectedListener(new ListenerNavigationMenu(this, uID));

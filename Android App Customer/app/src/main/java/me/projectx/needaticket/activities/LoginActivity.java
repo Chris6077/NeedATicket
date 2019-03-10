@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.VideoView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.asynctask.TaskLogin;
 import me.projectx.needaticket.handler.HandlerState;
@@ -18,16 +20,17 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
     MediaPlayer mMediaPlayer;
     int mCurrentVideoPosition;
     private TaskLogin mAuthTask;
-    private EditText mEmailView;
-    private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
-    private Button btLogin;
-    private Button btRegister;
+    @BindView(R.id.etEmailAddress) EditText mEmailView;
+    @BindView(R.id.etPassword) EditText mPasswordView;
+    @BindView(R.id.loadingPanel) View mProgressView;
+    @BindView(R.id.login_form) View mLoginFormView;
+    @BindView(R.id.btLogin) Button btLogin;
+    @BindView(R.id.btRegister) Button btRegister;
     private VideoView videoBG;
     @Override protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
         // VideoView
         videoBG = findViewById(R.id.videoView);
         //Video URI
@@ -47,16 +50,7 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
                 }
             }
         });
-        setViews();
         registrateEventHandlers();
-    }
-    private void setViews () {
-        btRegister = findViewById(R.id.btRegister);
-        btLogin = findViewById(R.id.btLogin);
-        mEmailView = findViewById(R.id.etEmailAddress);
-        mPasswordView = findViewById(R.id.etPassword);
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.loadingPanel);
     }
     private void registrateEventHandlers () {
         btRegister.setOnClickListener(new OnClickListener() {

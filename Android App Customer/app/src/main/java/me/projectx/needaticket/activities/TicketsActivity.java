@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.adapter.AdapterListViewTicket;
 import me.projectx.needaticket.asynctask.TaskGetMyTickets;
@@ -28,15 +30,15 @@ import me.projectx.needaticket.pojo.Seller;
 import me.projectx.needaticket.pojo.Ticket;
 import me.projectx.needaticket.pojo.TicketType;
 public class TicketsActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
-    private ListView listViewTickets;
-    private NavigationView navigation;
+    @BindView(R.id.listview_tickets) ListView listViewTickets;
+    @BindView(R.id.navigation_drawer) NavigationView navigation;
     private String uID;
-    private SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.list_view_tickets_swipe_to_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     @Override protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tickets);
+        ButterKnife.bind(this);
         try {
-            this.setViews();
             this.setListener();
             //this.getTickets();
             fillList(new ArrayList<Ticket>());
@@ -44,11 +46,6 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
         } catch (Exception e) {
             Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
-    }
-    private void setViews () {
-        this.listViewTickets = findViewById(R.id.listview_tickets);
-        this.navigation = findViewById(R.id.navigation_drawer);
-        this.swipeRefreshLayout = findViewById(R.id.list_view_tickets_swipe_to_refresh_layout);
     }
     private void setListener () {
         this.navigation.setNavigationItemSelectedListener(new ListenerNavigationMenu(this, uID));

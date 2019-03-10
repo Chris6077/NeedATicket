@@ -11,24 +11,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.handler.HandlerState;
 public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {
-    private ImageView logo;
-    private TextView appName;
-    private LinearLayout content;
+    @BindView(R.id.image_welcome_logo) ImageView logo;
+    @BindView(R.id.textview_welcome_app_name_lowercase) TextView appName;
+    @BindView(R.id.content_welcome) LinearLayout content;
     @Override protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        setViews();
+        ButterKnife.bind(this);
         animate();
         registrateEventHandlers();
         setupWindowAnimations();
-    }
-    private void setViews () {
-        logo = findViewById(R.id.image_welcome_logo);
-        appName = this.findViewById(R.id.textview_welcome_app_name_lowercase);
-        content = findViewById(R.id.content_welcome);
     }
     private void animate () {
         Animation splash = AnimationUtils.loadAnimation(this, R.anim.anim_splash);

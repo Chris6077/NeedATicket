@@ -35,16 +35,17 @@ This group of applications will act as a platform for concert management and con
 [Zxing](https://github.com/zxing/zxing)
 
 [ButterKnife](https://jakewharton.github.io/butterknife/)
+
+[CommonsIO](https://commons.apache.org/proper/commons-io/)
 ## Tools and Frameworks
 * Android Studio
 * SonarQube (For continuous inspection and refactoring)
 * GSON
-* BCrypt
 * Checkview
 * FancyToast
-* WaveLoadingView
 * Zxing
 * ButterKnife
+* Commons IO
 
 # Android App for staff (QR Code Reader)
 ## Links

@@ -8,7 +8,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="anchorpane" prefHeight="528.0" prefWidth="1024.0" stylesheets="@../css/Stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.SelectConcertController">
    <children>
-        <Label alignment="CENTER" layoutY="481.0" prefHeight="55.0" prefWidth="1025.0" style="-fx-background-color: #0D0D52;" text="..." textFill="#e5e5e5">
+        <Label fx:id="lblMessage" alignment="CENTER" layoutY="481.0" prefHeight="55.0" prefWidth="1025.0" style="-fx-background-color: #0D0D52;" text="..." textFill="#e5e5e5">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>

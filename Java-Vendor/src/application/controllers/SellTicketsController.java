@@ -6,6 +6,7 @@
 package application.controllers;
 
 import application.data.Concert;
+import application.helpers.SellTicketsViewsController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -78,13 +79,16 @@ public class SellTicketsController implements Initializable {
     private Concert concert;
 
     @FXML
-    void handle_btn(ActionEvent event) throws IOException {
-        if (event.getSource().equals(mf_selectArtists)) {
-            this.showSelectConcertView();
-        } else if (event.getSource().equals(mf_createTickets)) {
-            this.showCreateTicketsView();
+    void handle_btn(ActionEvent event) {
+        try{
+            if (event.getSource().equals(mf_selectArtists)) {
+                this.showSelectConcertView();
+            } else if (event.getSource().equals(mf_createTickets)) {
+                this.showCreateTicketsView();
+            }
+        }catch(Exception ex){
+            SellTicketsViewsController.getChildrenController().handleError(ex.getMessage());
         }
-
     }
 
     /**
@@ -99,6 +103,7 @@ public class SellTicketsController implements Initializable {
             try {
                 // play load spinner then change content
                 Parent newView = getANDchangeConent(SELECT_CONCERT_VIEW);
+                SellTicketsViewsController.setParentController(this);
                 view_map.put(SELECT_CONCERT_VIEW, newView);
             } catch (IOException ex) {
                 Logger.getLogger(SellTicketsController.class.getName()).log(Level.SEVERE, null, ex);
@@ -158,13 +163,19 @@ public class SellTicketsController implements Initializable {
         this.concert = concert;
     }
     
+    public Concert getConcert(){
+        return this.concert;
+    }
+    
     public void nextView() throws Exception{
         if(this.concert == null)
             throw new Exception("Please select a concert!");
         this.showCreateTicketsView();
     }
 
-    private void showCreateTicketsView() throws IOException {
+    private void showCreateTicketsView() throws Exception {
+        if(this.concert == null)
+            throw new Exception("Please select a concert!");
         if (!view_map.containsKey(CREATE_CONCERT_VIEW)) {
                 // play load spinner then change content
                 Parent newView = getANDchangeConent(CREATE_CONCERT_VIEW);

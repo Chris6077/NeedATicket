@@ -9,6 +9,7 @@ import application.data.Artist;
 import application.data.Concert;
 import application.data.Genre;
 import application.data.Ticket;
+import application.helpers.SellTicketsViewsController;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
@@ -25,6 +26,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 /**
@@ -40,11 +42,16 @@ public class SelectConcertController implements Initializable {
     @FXML
     private JFXButton btn_NEXT;
     
+    @FXML
+    private Label lblMessage;
+    
+    
     Node[] nodes;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.setListener();
+        SellTicketsViewsController.setChildController(this);
         HashMap<String, String> concerts = new HashMap<>();
         sp_tickets.getItems().clear();
         nodes = new Node[15];
@@ -66,17 +73,10 @@ public class SelectConcertController implements Initializable {
     void handleBtn(ActionEvent event) {
         try {
             if(event.getSource() == btn_NEXT){
-                    String concertid = this.sp_tickets.getSelectionModel().getSelectedItem().getId();
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("SellTickets.fxml"));
-                    
-                    
-                    SellTicketsController controller = loader.getController();
-                    
-                    Concert selectedConcert = new Concert("Concert 1", LocalDate.now(), "", new ArrayList<Artist> (), new Genre("POP"), new ArrayList<Ticket> ());
-                    controller.setConcert(selectedConcert);
-                    controller.nextView();
+                this.changeView();
             }
         } catch (Exception ex) {
+            this.lblMessage.setText(ex.getMessage());
             Logger.getLogger(SelectConcertController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }   
@@ -90,6 +90,22 @@ public class SelectConcertController implements Initializable {
                 System.out.println(newValue.getId());
             }
         });
+    }
+
+    private void changeView() throws Exception {
+        if(this.sp_tickets.getSelectionModel().getSelectedItem() == null)
+            throw new Exception("Please select a concert!");
+        String concertid = this.sp_tickets.getSelectionModel().getSelectedItem().getId();
+        SellTicketsController parentController = SellTicketsViewsController.getParentController();
+        if(parentController == null)
+            throw new Exception("parent controller has not been set");
+        parentController.setConcert(new Concert("Test", LocalDate.now(), "", new ArrayList<Artist>(),
+                new Genre("a"), new ArrayList<Ticket>()));
+        parentController.nextView();
+    }
+
+    public void handleError(String message) {
+        this.lblMessage.setText(message);
     }
     
 }

@@ -32,7 +32,7 @@ const typeDefs = gql`
     date: Date!,
     address: String!,
     capacity: Float!,
-    Tickets: [String],
+    tickets: [Ticket],
     artist: Artist,
   }
   type Ticket {
@@ -56,6 +56,13 @@ const typeDefs = gql`
     receiver: User!,
     ticket: Ticket!,
   }
+    type groupedTicket{
+    concert: Concert!, 
+    price: Float!,
+    seller: User!,
+    available: Float,
+    count: Float!,
+  }
   type Query {
     users:[User],
     user(id: ID!): User,
@@ -64,6 +71,7 @@ const typeDefs = gql`
     concerts: [Concert],
     concert(id: ID!): Concert,
     tickets: [Ticket],
+    ticketsGrouped: [groupedTicket],
     ticket(id: ID!): Ticket,
     transactions: [Transaction],
     transaction(id: ID!): Transaction,
@@ -114,6 +122,7 @@ const resolvers = {
       let concert = await Concert.aggregate([
         {$lookup: { from: 'artists',localField:'artistId',foreignField: '_id',as: 'artist'}},
         {$unwind: "$artist"},
+        {$lookup: { from: 'tickets', localField: '_id', foreignField: 'concertId' , as : 'tickets' }},
         {$match : {_id : Types.ObjectId(id)}},
         {$limit : 1}
       ])
@@ -123,7 +132,8 @@ const resolvers = {
     async concerts(){
       return Concert.aggregate([
         {$lookup: { from: 'artists',localField:'artistId',foreignField: '_id',as: 'artist'}},
-        {$unwind: "$artist"}
+        {$unwind: "$artist"},
+        {$lookup: { from: 'tickets', localField: '_id', foreignField: 'concertId' , as : 'tickets' }}
         ])
     },
 
@@ -150,6 +160,19 @@ const resolvers = {
         {$lookup: { from: 'concerts',localField:'concertId',foreignField: '_id',as: 'concert'}},
         {$unwind: "$concert"},
       ])
+    },
+
+    async ticketsGrouped(){
+      let tickets =  await Ticket.aggregate([
+        {$group: {_id: {concertId: '$concertId', sellerId: "$sellerId", price: '$price' }, count: {$sum: 1}}},
+        {$lookup: { from: 'users',localField:'_id.sellerId',foreignField: '_id',as: 'seller'}},
+        {$unwind: "$seller"},
+        {$lookup: { from: 'concerts',localField:'_id.concertId',foreignField: '_id',as: 'concert'}},
+        {$unwind: "$concert"},
+        {$project: {concert: "$concert", seller: "$seller", price: '$_id.price', count: "$count", _id : 0 }}
+      ])
+      console.log(tickets)
+      return tickets
     },
 
     async transactions(){
@@ -321,7 +344,7 @@ const resolvers = {
 
 mongoose.connect('mongodb://julian-blaschke:Julian1999@ds247001.mlab.com:47001/need-a-ticket')
 
-const server = new ApolloServer({ typeDefs, resolvers })
+const server = new ApolloServer({ typeDefs, resolvers, introspection: true, playground: true })
 
 // auth middleware
 const auth = jwt({
@@ -334,6 +357,6 @@ app.use(auth)
 
 server.applyMiddleware({ app })
 
-app.listen({ port: 4000 }, () =>
+app.listen({ port: process.env.PORT || 4000 }, () =>
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
 )

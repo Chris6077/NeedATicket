@@ -83,7 +83,9 @@ const typeDefs = gql`
     createArtist (name: String!): Artist
     createConcert (title: String!, date: Date!, address: String!, capacity: Float!, artistId: ID!): Concert
     createTicket (type: String!, price: Float!, sellerId: String!,concertId: String!,redeemedAt: Date, buyerId: String): Ticket
+    createTickets (amount: Float!, type: String!, price: Float!, sellerId: String!,concertId: String!,redeemedAt: Date, buyerId: String): [Ticket]
     buy (ticketId: ID!, payerId: ID!): Transaction
+    buyBulk (amount: Float!, concertId: ID!, sellerId: ID!, price: Float!, payerId: ID!): [Transaction] 
     deposit (amount: Float!, userId: ID!): Wallet
   }
 `
@@ -173,7 +175,6 @@ const resolvers = {
         {$unwind: "$concert"},
         {$project: {concert: "$concert", seller: "$seller", price: '$_id.price', count: "$count", _id : 0 }}
       ])
-      console.log(tickets)
       return tickets
     },
 
@@ -287,6 +288,25 @@ const resolvers = {
       return ticket
     },
 
+    async createTickets(_,{amount,type,price,sellerId,concertId,redeemedAt,buyerId}){
+      sellerId = Types.ObjectId(sellerId)
+      concertId = Types.ObjectId(concertId)
+      if(buyerId)
+        buyerId = Types.ObjectId(buyerId)
+      let redeemed = false
+      let tickets = []
+
+      for(let count = 0; count < amount;count++){
+        tickets.push(
+          new Ticket({
+            type,price,redeemed,redeemedAt,sellerId,buyerId,concertId
+          })
+        )
+      }
+      await Ticket.collection.insertMany(tickets)
+      return tickets
+    },
+
     async buy(_,{ticketId,payerId}){
       //need to create transaction / update both receiver and payer Wallet / and update ticket
       payerId = Types.ObjectId(payerId)
@@ -312,6 +332,47 @@ const resolvers = {
         { $inc : { balance: -amount } }
       )
       
+      //create the transaction
+      let transaction = new Transaction({
+        amount,date,payerId,receiverId,ticketId
+      })
+
+      await transaction.save()
+
+      //update buyer in ticket
+      await Ticket.updateOne(
+          { "_id" : ticketId },
+          { $set : { buyerId: payerId, redeemed: true } }
+      )
+
+      return transaction
+    },
+
+    async buyBulk(_,{ticketId,payerId}){
+      //need to create transaction / update both receiver and payer Wallet / and update ticket
+      payerId = Types.ObjectId(payerId)
+      //buy tickets
+      date = new Date()
+
+      let ticket = await Ticket.findOne(ticketId)
+      let receiverId = Types.ObjectId(ticket.sellerId)
+      let amount = ticket.price
+      let payer = await User.findOne(payerId)
+      let receiver = await User.findOne(receiverId)
+
+
+      //decrease payer wallet
+      await Wallet.updateOne(
+          { "_id" : payer.walletId },
+          { $inc : { balance: amount } }
+      )
+
+      //increase receiver wallet
+      await Wallet.updateOne(
+          { "_id" : receiver.walletId },
+          { $inc : { balance: -amount } }
+      )
+
       //create the transaction
       let transaction = new Transaction({
         amount,date,payerId,receiverId,ticketId

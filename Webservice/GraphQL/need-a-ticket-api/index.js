@@ -39,6 +39,7 @@ const typeDefs = gql`
     _id: ID!,
     type: String!,
     price: Float!,
+    redeemed: Boolean!,
     redeemedAt: Date,
     seller: User!,
     buyer: User,
@@ -164,6 +165,7 @@ const resolvers = {
 
     async ticketsGrouped(){
       let tickets =  await Ticket.aggregate([
+        {$match: {redeemed: false} },
         {$group: {_id: {concertId: '$concertId', sellerId: "$sellerId", price: '$price' }, count: {$sum: 1}}},
         {$lookup: { from: 'users',localField:'_id.sellerId',foreignField: '_id',as: 'seller'}},
         {$unwind: "$seller"},
@@ -272,10 +274,11 @@ const resolvers = {
     async createTicket(_,{type,price,sellerId,concertId,redeemedAt,buyerId}){
       sellerId = Types.ObjectId(sellerId)
       concertId = Types.ObjectId(concertId)
+      let redeemed = false
       if(buyerId)
         buyerId = Types.ObjectId(buyerId)
       let ticket = new Ticket({
-        type,price,redeemedAt,sellerId,buyerId,concertId
+        type,price,redeemed,redeemedAt,sellerId,buyerId,concertId
       })
       await ticket.save((err)=>{
         if(err)
@@ -319,7 +322,7 @@ const resolvers = {
       //update buyer in ticket
       await Ticket.updateOne(
           { "_id" : ticketId },
-          { $set : { buyerId: payerId } }
+          { $set : { buyerId: payerId, redeemed: true } }
       )
 
       return transaction

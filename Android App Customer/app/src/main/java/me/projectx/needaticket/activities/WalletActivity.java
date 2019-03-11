@@ -1,5 +1,6 @@
 package me.projectx.needaticket.activities;
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -115,6 +116,17 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
     private class CashOutListener implements View.OnClickListener {
         @Override public void onClick (View v) {
             cashOut();
+        }
+    }
+    @Override
+    public void onBackPressed() {
+        final Intent concertsActivity = new Intent(this, ConcertsActivity.class);
+        try {
+            finish();
+            concertsActivity.putExtra("uID", uID);
+            startActivity(concertsActivity);
+        } catch (Exception e) {
+            HandlerState.handle(e, getApplicationContext());
         }
     }
 }

@@ -28,26 +28,37 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
+import java.nio.file.Files;
+import java.security.KeyFactory;
+import java.security.PublicKey;
 import java.security.SecureRandom;
+import java.security.interfaces.RSAKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.RSAKeyGenParameterSpec;
+import java.security.spec.RSAPublicKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.List;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
-import me.itangqi.waveloadingview.WaveLoadingView;
+import javax.crypto.Cipher;
+
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.activities.TicketsActivity;
+import me.projectx.needaticket.listener.ListenerDoubleTap;
 import me.projectx.needaticket.pojo.Ticket;
 import me.projectx.needaticket.pojo.TicketType;
 public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
     private AppCompatActivity appCompatActivityResource;
     private ArrayList<Ticket> data;
-    private String currHash;
     private Context cx;
+    private byte[] primaryKeyBin;
     public AdapterListViewTicket (AppCompatActivity res,
-                                  @LayoutRes int resource, List<Ticket> data) {
+                                  @LayoutRes int resource, List<Ticket> data, byte[] primaryKeyBin) {
         super(res, resource, data);
         this.appCompatActivityResource = res;
         this.data = (ArrayList<Ticket>) data;
+        this.primaryKeyBin = primaryKeyBin;
     }
     @NonNull @Override
     public View getView (int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -59,8 +70,7 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
         price.setText(ticket.getPrice() + "€");
         setUpIconCategory(rowView, ticket.getType());
         header.setText(ticket.getTitle());
-        currHash = "" + ticket.getId() + ":=:" + ticket.getSeller().getId() + ":=:" + ticket.getBuyer().getId() + ":=:" + ticket.getPrice();
-        rowView.setOnClickListener(new ShowQRListener());
+        this.setUpRowViewListener(rowView, ticket);
         return rowView;
     }
     public AppCompatActivity getAppCompatActivityResource () {
@@ -80,9 +90,17 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
                 break;
         }
     }
-    private void showDiag (final View tv) {
-        final View ctt = getAppCompatActivityResource().findViewById(R.id.content_tickets);
-        ctt.setVisibility(View.INVISIBLE);
+    private void setUpRowViewListener (final View rowView, final Ticket ticket) {
+        rowView.setOnClickListener(new ListenerDoubleTap() {
+            @Override public void onSingleClick (View v) {
+                showDiag(v, ticket);
+            }
+            @Override public void onDoubleClick (View v) {
+                showDiag(v, ticket);
+            }
+        });
+    }
+    private void showDiag (final View tv, Ticket t) {
         final View dialogView = View.inflate(cx, R.layout.dialog_qr_code, null);
         final Dialog dialog = new Dialog(cx, R.style.UserAlertStyle);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -94,22 +112,15 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
             }
         });
         ImageView qrView = dialog.findViewById(R.id.image_qr_ticket);
-        WaveLoadingView mWaveLoadingView = (WaveLoadingView) getAppCompatActivityResource().findViewById(R.id.qrWaveLoadingView);
-        mWaveLoadingView.startAnimation();
-        mWaveLoadingView.setVisibility(View.VISIBLE);
         try {
-            String hash = BCrypt.with(new SecureRandom()).hashToString(12, (currHash).toCharArray());
-            Bitmap bitmap = hashToQR(hash);
+            Bitmap bitmap = hashToQR(encryptString("" + t.getId() + ":=:" + t.getSeller().getId() + ":=:" + t.getBuyer().getId() + ":=:" + t.getPrice()));
             qrView.setImageBitmap(bitmap);
         } catch (Exception ex) {
             qrView.setImageDrawable(getAppCompatActivityResource().getDrawable(R.drawable.error));
         }
-        mWaveLoadingView.setVisibility(View.INVISIBLE);
-        mWaveLoadingView.cancelAnimation();
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override public void onShow (DialogInterface dialogInterface) {
                 revealShow(dialogView, true, null, tv);
-                ctt.setVisibility(View.VISIBLE);
             }
         });
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
@@ -117,7 +128,6 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
             public boolean onKey (DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
                 if (i == KeyEvent.KEYCODE_BACK) {
                     revealShow(dialogView, false, dialog, tv);
-                    ctt.setVisibility(View.VISIBLE);
                     return true;
                 }
                 return false;
@@ -125,6 +135,15 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
         });
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
+    }
+    private String encryptString(String pt) throws Exception {
+        X509EncodedKeySpec spec = new X509EncodedKeySpec(primaryKeyBin);
+        KeyFactory kF = KeyFactory.getInstance("RSA");
+        PublicKey pk = kF.generatePublic(spec);
+        Cipher cipher = Cipher.getInstance("RSA");
+        cipher.init(Cipher.ENCRYPT_MODE, pk);
+        byte[] res = cipher.doFinal(pt.getBytes());
+        return new String(res);
     }
     private void revealShow (View dialogView, boolean b, final Dialog dialog, View rowView) {
         final View view = dialogView.findViewById(R.id.dialog_qr);
@@ -153,11 +172,6 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
     }
     public void addContext (TicketsActivity ticketsActivity) {
         cx = ticketsActivity;
-    }
-    private class ShowQRListener implements View.OnClickListener {
-        @Override public void onClick (View v) {
-            showDiag(v);
-        }
     }
     private Bitmap hashToQR(String hash) throws WriterException, NullPointerException {
         BitMatrix bitMatrix;

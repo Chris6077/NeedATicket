@@ -1,13 +1,19 @@
 package me.projectx.needaticket.activities;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
+import org.apache.commons.io.IOUtils;
+
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -60,9 +66,15 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
         if (tickets == null) {
             throw new ContentException("no Content found");
         } else {
-            AdapterListViewTicket adapter = new AdapterListViewTicket(this, R.layout.listview_item_ticket, tickets);
-            adapter.addContext(TicketsActivity.this);
-            this.listViewTickets.setAdapter(adapter);
+            InputStream ins = getResources().openRawResource(getResources().getIdentifier("public_key", "raw", getPackageName()));
+            try {
+                byte[] pK = IOUtils.toByteArray(ins);
+                AdapterListViewTicket adapter = new AdapterListViewTicket(this, R.layout.listview_item_ticket, tickets, pK);
+                adapter.addContext(TicketsActivity.this);
+                this.listViewTickets.setAdapter(adapter);
+            } catch(Exception ex){
+                HandlerState.handle(ex, getApplicationContext());
+            }
         }
     }
     private void setListenerNavigationHeader () {
@@ -103,6 +115,17 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
             getTickets.execute();
         } catch (Exception error) {
             HandlerState.handle(error, this);
+        }
+    }
+    @Override
+    public void onBackPressed() {
+        final Intent concertsActivity = new Intent(this, ConcertsActivity.class);
+        try {
+            finish();
+            concertsActivity.putExtra("uID", uID);
+            startActivity(concertsActivity);
+        } catch (Exception e) {
+            HandlerState.handle(e, getApplicationContext());
         }
     }
 }

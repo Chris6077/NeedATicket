@@ -160,5 +160,15 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
             HandlerState.handle(e, getApplicationContext());
         }
     }
+    @Override
+    public void onBackPressed() {
+        final Intent welcomeActivity = new Intent(this, WelcomeActivity.class);
+        try {
+            finish();
+            startActivity(welcomeActivity);
+        } catch (Exception e) {
+            HandlerState.handle(e, getApplicationContext());
+        }
+    }
 }
 

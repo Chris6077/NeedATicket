@@ -127,4 +127,14 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
             HandlerState.handle(e, getApplicationContext());
         }
     }
+    @Override
+    public void onBackPressed() {
+        final Intent welcomeActivity = new Intent(this, WelcomeActivity.class);
+        try {
+            finish();
+            startActivity(welcomeActivity);
+        } catch (Exception e) {
+            HandlerState.handle(e, getApplicationContext());
+        }
+    }
 }

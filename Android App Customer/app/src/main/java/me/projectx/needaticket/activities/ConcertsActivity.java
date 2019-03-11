@@ -1,12 +1,15 @@
 package me.projectx.needaticket.activities;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,6 +36,8 @@ public class ConcertsActivity extends AppCompatActivity implements InterfaceTask
     @BindView(R.id.listview_concerts) ListView listViewConcerts;
     @BindView(R.id.navigation_drawer) NavigationView navigation;
     private String uID;
+    private Toast backToast;
+    private long backPressedTime = 0;
     @BindView(R.id.list_view_concerts_swipe_to_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     @Override protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,5 +129,22 @@ public class ConcertsActivity extends AppCompatActivity implements InterfaceTask
         } catch (Exception error) {
             HandlerState.handle(error, this);
         }
+    }
+    @Override
+    public void onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            backToast.cancel();
+            final Intent loginActivity = new Intent(this, LoginActivity.class);
+            try {
+                finish();
+                startActivity(loginActivity);
+            } catch (Exception e) {
+                HandlerState.handle(e, getApplicationContext());
+            }
+        } else {
+            backToast = FancyToast.makeText(getApplicationContext(), "Press back again to log out", Toast.LENGTH_SHORT, FancyToast.INFO, false);
+            backToast.show();
+        }
+        backPressedTime = System.currentTimeMillis();
     }
 }

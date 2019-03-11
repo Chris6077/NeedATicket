@@ -10,6 +10,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,6 +22,8 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     @BindView(R.id.image_welcome_logo) ImageView logo;
     @BindView(R.id.textview_welcome_app_name_lowercase) TextView appName;
     @BindView(R.id.content_welcome) LinearLayout content;
+    private Toast backToast;
+    private long backPressedTime = 0;
     @Override protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
@@ -54,5 +59,22 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         } catch (Exception e) {
             HandlerState.handle(e, getApplicationContext());
         }
+    }
+    @Override
+    public void onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            backToast.cancel();
+            final Intent loginActivity = new Intent(this, LoginActivity.class);
+            try {
+                finish();
+                startActivity(loginActivity);
+            } catch (Exception e) {
+                HandlerState.handle(e, getApplicationContext());
+            }
+        } else {
+            backToast = FancyToast.makeText(getApplicationContext(), "Press back again to exit", Toast.LENGTH_SHORT, FancyToast.INFO, false);
+            backToast.show();
+        }
+        backPressedTime = System.currentTimeMillis();
     }
 }

@@ -61,8 +61,7 @@ const typeDefs = gql`
     concert: Concert!, 
     price: Float!,
     seller: User!,
-    available: Float,
-    count: Float!,
+    available: Float!
   }
   type Query {
     users:[User],
@@ -85,7 +84,7 @@ const typeDefs = gql`
     createTicket (type: String!, price: Float!, sellerId: String!,concertId: String!,redeemedAt: Date, buyerId: String): Ticket
     createTickets (amount: Float!, type: String!, price: Float!, sellerId: String!,concertId: String!,redeemedAt: Date, buyerId: String): [Ticket]
     buy (ticketId: ID!, payerId: ID!): Transaction
-    buyBulk (amount: Float!, concertId: ID!, sellerId: ID!, price: Float!, payerId: ID!): [Transaction] 
+    buyBulk (number: Float!, concertId: ID!, sellerId: ID!, price: Float!, payerId: ID!): Transaction 
     deposit (amount: Float!, userId: ID!): Wallet
   }
 `
@@ -173,7 +172,7 @@ const resolvers = {
         {$unwind: "$seller"},
         {$lookup: { from: 'concerts',localField:'_id.concertId',foreignField: '_id',as: 'concert'}},
         {$unwind: "$concert"},
-        {$project: {concert: "$concert", seller: "$seller", price: '$_id.price', count: "$count", _id : 0 }}
+        {$project: {concert: "$concert", seller: "$seller", price: '$_id.price', available: "$count", _id : 0 }}
       ])
       return tickets
     },
@@ -348,18 +347,18 @@ const resolvers = {
       return transaction
     },
 
-    async buyBulk(_,{ticketId,payerId}){
+    async buyBulk(_,{number,concertId,sellerId,price,payerId}){
       //need to create transaction / update both receiver and payer Wallet / and update ticket
       payerId = Types.ObjectId(payerId)
+      concertId = Types.ObjectId(concertId)
+      sellerId = Types.ObjectId(sellerId)
       //buy tickets
       date = new Date()
-
-      let ticket = await Ticket.findOne(ticketId)
-      let receiverId = Types.ObjectId(ticket.sellerId)
-      let amount = ticket.price
+      
+      let receiverId = Types.ObjectId(sellerId)
       let payer = await User.findOne(payerId)
       let receiver = await User.findOne(receiverId)
-
+      let amount = price * number
 
       //decrease payer wallet
       await Wallet.updateOne(
@@ -375,16 +374,22 @@ const resolvers = {
 
       //create the transaction
       let transaction = new Transaction({
-        amount,date,payerId,receiverId,ticketId
+        amount,date,payerId,receiverId,concertId
       })
 
       await transaction.save()
 
       //update buyer in ticket
-      await Ticket.updateOne(
-          { "_id" : ticketId },
-          { $set : { buyerId: payerId, redeemed: true } }
-      )
+      let tickets = await Ticket.find({
+        concertId,sellerId,price
+      }).limit(number)
+
+      await tickets.forEach( async (el) => { 
+        el.redeemed = true
+        el.redeemedAt = Date()
+        el.buyerId = payerId
+        await Ticket.collection.save(el)
+      })
 
       return transaction
     },
@@ -406,7 +411,7 @@ const resolvers = {
 }
 
 
-mongoose.connect('mongodb://julian-blaschke:Julian1999@ds247001.mlab.com:47001/need-a-ticket')
+mongoose.connect('mongodb://julian-blaschke:Julian1999@ds247001.mlab.com:47001/need-a-ticket', {useNewUrlParser: true})
 
 const server = new ApolloServer({ typeDefs, resolvers, introspection: true, playground: true })
 

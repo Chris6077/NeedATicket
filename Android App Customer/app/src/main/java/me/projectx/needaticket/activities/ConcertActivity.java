@@ -52,13 +52,11 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
             ArrayList<Artist> artists = new ArrayList<>();
             artists.add(a);
             ArrayList<Ticket> tickets = new ArrayList<>(0);
-            Concert c1 = new Concert("lol", "We are here", new Date(), "Loliweg 3", artists, Genre.DANCE, tickets);
-            ArrayList<Concert> c = new ArrayList<>();
-            c.add(c1);
-            Seller oe = new Seller("iiooo", "OETicket@oe.com", new ArrayList<Ticket>());
-            Ticket t1 = new Ticket(1, TicketType.CONCERT, "Day 1 Ticket", (float) 22.99, oe, null, c);
-            Ticket t2 = new Ticket(2, TicketType.CONCERT, "Day 2 Ticket", (float) 22.99, oe, null, c);
-            Ticket t3 = new Ticket(3, TicketType.FESTIVAL, "Festival Pass", (float) 33.99, oe, null, c);
+            Concert c1 = new Concert("lol", "We are here", new Date(), new Date(), "Loliweg 3", artists, Genre.DANCE, tickets);
+            Seller oe = new Seller("iiooo", "OETicket@oe.com");
+            Ticket t1 = new Ticket(1, TicketType.CONCERT, "Day 1 Ticket", (float) 22.99, oe, null, c1);
+            Ticket t2 = new Ticket(2, TicketType.CONCERT, "Day 2 Ticket", (float) 22.99, oe, null, c1);
+            Ticket t3 = new Ticket(3, TicketType.FESTIVAL, "Festival Pass", (float) 33.99, oe, null, c1);
             tickets.add(t3);
             tickets.add(t1);
             tickets.add(t2);
@@ -68,7 +66,6 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
             tickets.add(t1);
             tickets.add(t2);
             tickets.add(t3);
-            oe.setTickets(tickets);
             concert = c1;
             setConcertContent(c1);
             fillList(tickets);

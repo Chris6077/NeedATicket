@@ -6,14 +6,16 @@ public class Concert {
     private String id;
     private String title;
     private Date date;
+    private Date redeemed;
     private String address;
     private ArrayList<Artist> artists;
     private Genre genre;
     private ArrayList<Ticket> tickets;
-    public Concert (String id, String title, Date date, String address, List<Artist> artists, Genre genre, List<Ticket> tickets) {
+    public Concert (String id, String title, Date date, Date redeemed, String address, List<Artist> artists, Genre genre, List<Ticket> tickets) {
         this.id = id;
         this.title = title;
         this.date = date;
+        this.redeemed = redeemed;
         this.address = address;
         this.artists = (ArrayList<Artist>) artists;
         this.genre = genre;
@@ -36,6 +38,12 @@ public class Concert {
     }
     public void setDate (Date date) {
         this.date = date;
+    }
+    public Date getRedeemed () {
+        return redeemed;
+    }
+    public void setRedeemed (Date redeemed) {
+        this.redeemed = redeemed;
     }
     public String getAddress () {
         return address;
@@ -62,6 +70,6 @@ public class Concert {
         this.tickets = (ArrayList<Ticket>) tickets;
     }
     @Override public String toString () {
-        return "Concert{" + "id=" + id + ", title='" + title + '\'' + ", date=" + date + ", address='" + address + '\'' + ", artists=" + artists + ", genre=" + genre + ", tickets=" + tickets + '}';
+        return "Concert{" + "id=" + id + ", title='" + title + '\'' + ", date=" + date + ", redeemed='" + redeemed + '\'' + ", address='" + address + '\'' + ", artists=" + artists + ", genre=" + genre + ", tickets=" + tickets + '}';
     }
 }

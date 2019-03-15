@@ -70,11 +70,9 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
         ArrayList<Ticket> tickets2 = new ArrayList<>();
         ArrayList<Artist> artists = new ArrayList<>();
         artists.add(a);
-        Concert c1 = new Concert("lol", "We are here", new Date(), "Loliweg 3", artists, Genre.DANCE, tickets2);
-        ArrayList<Concert> c = new ArrayList<>();
-        c.add(c1);
-        Seller oe = new Seller("iiooo", "OETicket@oe.com", new ArrayList<Ticket>());
-        Ticket t1 = new Ticket(1, TicketType.CONCERT, "Day 1 Ticket", (float) 22.99, oe, null, c);
+        Concert c1 = new Concert("lol", "We are here", new Date(), new Date(), "Loliweg 3", artists, Genre.DANCE, tickets2);
+        Seller oe = new Seller("iiooo", "OETicket@oe.com");
+        Ticket t1 = new Ticket(1, TicketType.CONCERT, "Day 1 Ticket", (float) 22.99, oe, null, c1);
         tickets.add(t1);
         User u = new User("lol", "user@bashit.me", tickets, new Wallet(1, Float.parseFloat("1337.17")));
         setContent(u);

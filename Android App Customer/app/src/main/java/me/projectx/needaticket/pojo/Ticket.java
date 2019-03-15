@@ -8,15 +8,15 @@ public class Ticket {
     private float price;
     private Seller seller;
     private User buyer;
-    private ArrayList<Concert> concerts;
-    public Ticket (int id, TicketType type, String title, float price, Seller seller, User buyer, List<Concert> concerts) {
+    private Concert concert;
+    public Ticket (int id, TicketType type, String title, float price, Seller seller, User buyer, Concert concert) {
         this.id = id;
         this.type = type;
         this.title = title;
         this.price = price;
         this.seller = seller;
         this.buyer = buyer;
-        this.concerts = (ArrayList<Concert>) concerts;
+        this.concert = concert;
     }
     public int getId () {
         return id;
@@ -54,13 +54,13 @@ public class Ticket {
     public void setBuyer (User buyer) {
         this.buyer = buyer;
     }
-    public List<Concert> getConcerts () {
-        return concerts;
+    public Concert getConcert () {
+        return concert;
     }
-    public void setConcerts (List<Concert> concerts) {
-        this.concerts = (ArrayList<Concert>) concerts;
+    public void setConcerts (Concert concert) {
+        this.concert = concert;
     }
     @Override public String toString () {
-        return "Ticket{" + "id=" + id + ", type=" + type + ", title=" + title + ", price=" + price + '}';
+        return "Ticket{" + "id=" + id + ", type=" + type + ", title='" + title + '\'' + ", price=" + price + ", seller=" + seller + ", buyer=" + buyer + ", concert=" + concert.getTitle() + '}';
     }
 }

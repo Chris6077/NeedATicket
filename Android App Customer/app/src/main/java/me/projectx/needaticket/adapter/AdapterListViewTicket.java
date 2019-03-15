@@ -12,6 +12,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -142,7 +144,7 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
         PublicKey pk = kF.generatePublic(spec);
         Cipher cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.ENCRYPT_MODE, pk);
-        byte[] res = cipher.doFinal(pt.getBytes());
+        byte[] res = Base64.encode(cipher.doFinal(Base64.encode(pt.getBytes(), Base64.DEFAULT)), Base64.URL_SAFE);
         return new String(res);
     }
     private void revealShow (View dialogView, boolean b, final Dialog dialog, View rowView) {

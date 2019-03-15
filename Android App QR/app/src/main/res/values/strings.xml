@@ -8,18 +8,8 @@
     <string name="error_field_required">This field is required</string>
 
     <!-- Strings related to asynctasks -->
-    <string name="webservice_get_my_tickets_url">https://www.bashit.me/</string>
-    <string name="webservice_get_concerts_url">https://www.bashit.me</string>
-    <string name="webservice_get_concert_url">https://www.bashit.me</string>
-    <string name="webservice_get_user">https://www.bashit.me</string>
-    <string name="webservice_change_email">https://www.bashit.me</string>
-    <string name="webservice_change_password">https://www.bashit.me</string>
-    <string name="webservice_register">https://www.bashit.me</string>
-    <string name="webservice_purchase_ticket">https://www.bashit.me</string>
-    <string name="webservice_get_wallet">https://www.bashit.me</string>
-    <string name="webservice_upload">https://www.bashit.me</string>
-    <string name="webservice_cashout">https://www.bashit.me</string>
-    <string name="webservice_check_ticket">https://www.bashit.me</string>
+    <string name="webservice_login">https://need-a-ticket-api.herokuapp.com/graphql?mutation={login(hash:%22$hash%22)}</string><!-- NOPE -->
+    <string name="webservice_check_ticket">https://need-a-ticket-api.herokuapp.com/graphql?mutation={redeemTicket(tHash:%22$tHash%22)}</string><!-- NOPE -->
 
     <!-- Strings related to navbar -->
     <string name="navmenu_concerts">Concerts</string>

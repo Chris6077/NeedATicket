@@ -87,11 +87,11 @@ const typeDefs = gql`
     login (email: String!, password: String!): String
     createArtist (name: String!): Artist
     createConcert (title: String!, date: Date!, address: String!, capacity: Float!, artistId: ID!): Concert
-    createTicket (type: String!, price: Float!, sellerId: String!,concertId: String!,redeemedAt: Date, buyerId: String): Ticket
+    createTicket (type: String!, price: Float!,concertId: String!,redeemedAt: Date, buyerId: String): Ticket
     createTickets (amount: Float!, type: String!, price: Float!, sellerId: String!,concertId: String!,redeemedAt: Date, buyerId: String): [Ticket]
     buy (ticketId: ID!, payerId: ID!): Transaction
-    buyBulk (number: Float!, concertId: ID!, sellerId: ID!, price: Float!, payerId: ID!): Transaction 
-    deposit (amount: Float!, userId: ID!): Wallet
+    buyBulk (number: Float!, concertId: ID!, sellerId: ID!, price: Float!): Transaction 
+    deposit (amount: Float!): Wallet
   }
 `
 
@@ -145,8 +145,7 @@ const resolvers = {
         ])
     },
 
-    async ticket(_,{id},context){
-      console.log(context.user)
+    async ticket(_,{id}){
       let ticket =  await Ticket.aggregate([
           {$lookup: { from: 'users',localField:'sellerId',foreignField: '_id',as: 'seller'}},
           {$unwind: "$seller"},
@@ -278,8 +277,8 @@ const resolvers = {
       return concert
     },
 
-    async createTicket(_,{type,price,sellerId,concertId,redeemedAt,buyerId}){
-      sellerId = Types.ObjectId(sellerId)
+    async createTicket(_,{type,price,concertId,redeemedAt,buyerId},context){
+      sellerId = Types.ObjectId(context.user.id)
       concertId = Types.ObjectId(concertId)
       let redeemed = false
       if(buyerId)
@@ -294,8 +293,8 @@ const resolvers = {
       return ticket
     },
 
-    async createTickets(_,{amount,type,price,sellerId,concertId,redeemedAt,buyerId}){
-      sellerId = Types.ObjectId(sellerId)
+    async createTickets(_,{amount,type,price,concertId,redeemedAt,buyerId},context){
+      sellerId = Types.ObjectId(context.user.id)
       concertId = Types.ObjectId(concertId)
       if(buyerId)
         buyerId = Types.ObjectId(buyerId)
@@ -354,9 +353,9 @@ const resolvers = {
       return transaction
     },
 
-    async buyBulk(_,{number,concertId,sellerId,price,payerId}){
+    async buyBulk(_,{number,concertId,sellerId,price},context){
       //need to create transaction / update both receiver and payer Wallet / and update ticket
-      payerId = Types.ObjectId(payerId)
+      payerId = Types.ObjectId(context.user.id)
       concertId = Types.ObjectId(concertId)
       sellerId = Types.ObjectId(sellerId)
       //buy tickets
@@ -401,8 +400,8 @@ const resolvers = {
       return transaction
     },
 
-    async deposit(_,{amount,userId}){
-      userId = Types.ObjectId(userId)
+    async deposit(_,{amount},context){
+      userId = Types.ObjectId(context.user.id)
 
       let user = await User.findOne(userId)
 
@@ -433,6 +432,7 @@ const server = new ApolloServer({ schema, introspection: true, playground: true,
     user: req.user
   })
 })
+
 const app = express()
 
 //auth middleware

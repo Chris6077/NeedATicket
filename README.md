@@ -13,9 +13,9 @@ This group of applications will act as a platform for concert management and con
 
 # Developers
 
-* ### Berisa ([Val9000](https://github.com/Val9000) | [LOG](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EaywpY8L53dIrqwx0smyrDYB3zoYszAfeuJwvZiYw6LNEQ?e=l5l0AD)) - Java Apps | Webservices
+* ### Berisa ([Val9000](https://github.com/Val9000) | [LOG](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EaywpY8L53dIrqwx0smyrDYB3zoYszAfeuJwvZiYw6LNEQ?e=l5l0AD)) - Java Creator App
 * ### Blaschke ([julian-blaschke](https://github.com/julian-blaschke) | [LOG](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EZTklbVavlZKhFUt2pcI7xsBdwZBpKeHpDt3jqBk9Q65ag?e=O96nRp)) - Database | Webservices
-* ### Judth ([marcel-judth](https://github.com/marcel-judth) | [LOG](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EUJYmbx1pyJNvZ7GuIUih7EBnrxzB0VZzM7-KPiJwvcMIg?e=N1NcAM)) - Java Apps
+* ### Judth ([marcel-judth](https://github.com/marcel-judth) | [LOG](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/EUJYmbx1pyJNvZ7GuIUih7EBnrxzB0VZzM7-KPiJwvcMIg?e=N1NcAM)) - Java Vendor App
 * ### Winkler ([Chris6077](https://github.com/Chris6077) | [LOG](https://htlvillachat-my.sharepoint.com/:w:/g/personal/winklerc_edu_htl-villach_at/ERyPsAQ3_odIjNxfVFiSWokBSq8NU3joNkktwLWi76b_ZA?e=it808g)) - Android Apps | Github and Project Management | Modelling/Planning
 
 # Android App for customers
@@ -24,15 +24,28 @@ This group of applications will act as a platform for concert management and con
 
 [SonarQube](https://www.sonarqube.org/)
 
+[BCrypt](https://mvnrepository.com/artifact/at.favre.lib/bcrypt)
+
 [Checkview](https://github.com/cdflynn/checkview)
 
 [FancyToast](https://github.com/Shashank02051997/FancyToast-Android)
+
+[WaveLoadingView](https://github.com/tangqi92/WaveLoadingView)
+
+[Zxing](https://github.com/zxing/zxing)
+
+[ButterKnife](https://jakewharton.github.io/butterknife/)
+
+[CommonsIO](https://commons.apache.org/proper/commons-io/)
 ## Tools and Frameworks
 * Android Studio
 * SonarQube (For continuous inspection and refactoring)
 * GSON
 * Checkview
 * FancyToast
+* Zxing
+* ButterKnife
+* Commons IO
 
 # Android App for staff (QR Code Reader)
 ## Links
@@ -40,14 +53,19 @@ This group of applications will act as a platform for concert management and con
 
 [SonarQube](https://www.sonarqube.org/)
 
-[Checkview](https://github.com/cdflynn/checkview)
-
 [FancyToast](https://github.com/Shashank02051997/FancyToast-Android)
+
+[WaveLoadingView](https://github.com/tangqi92/WaveLoadingView)
+
+[Zxing](https://github.com/zxing/zxing)
+
+[ButterKnife](https://jakewharton.github.io/butterknife/)
 ## Tools and Frameworks
 * Android Studio
 * SonarQube (For continuous inspection and refactoring)
 * GSON
-* Checkview
+* WaveLoadingView
+* Zxing
 * FancyToast
 
 # Java App for vendors

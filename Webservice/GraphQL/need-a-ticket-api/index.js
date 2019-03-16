@@ -25,10 +25,9 @@ const typeDefs = gql`
     _id: ID!
     username: String!
     email: String!
-    password: String!,
-    wallet: Wallet!,
-    selling: [Ticket],
-    bought: [Ticket],
+    wallet: Wallet!
+    selling: [Ticket]
+    bought: [Ticket]
   }
   type Artist {
     _id: ID,

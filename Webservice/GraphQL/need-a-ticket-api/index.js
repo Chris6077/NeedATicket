@@ -27,6 +27,8 @@ const typeDefs = gql`
     email: String!
     password: String!,
     wallet: Wallet!,
+    selling: [Ticket],
+    bought: [Ticket],
   }
   type Artist {
     _id: ID,
@@ -114,7 +116,9 @@ const resolvers = {
     async users() {
       return User.aggregate([
         {$lookup: { from: 'wallets',localField:'walletId',foreignField: '_id',as: 'wallet'}},
-        {$unwind: "$wallet"}
+        {$unwind: "$wallet"},
+        {$lookup: { from: 'tickets',localField:'_id',foreignField: 'sellerId',as: 'selling'}},
+        {$lookup: { from: 'tickets',localField:'_id',foreignField: 'buyerId',as: 'bought'}},
       ])
     },
 
@@ -440,8 +444,6 @@ const auth = jwt({
   secret: global.config.secret,
   credentialsRequired: false,
 })
-
-
 
 
 //apply middleware

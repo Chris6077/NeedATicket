@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">NeedATicketQR</string>
+    <string name="app_name_lower_case">needaticket</string>
+
+    <!-- Strings related to login -->
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_field_required">This field is required</string>
+
+    <!-- Strings related to asynctasks -->
+    <string name="webservice_login">https://need-a-ticket-api.herokuapp.com/graphql?mutation={login(hash:%22$hash%22)}</string><!-- NOPE -->
+    <string name="webservice_check_ticket">https://need-a-ticket-api.herokuapp.com/graphql?mutation={redeemTicket(tHash:%22$tHash%22)}</string><!-- NOPE -->
+
+    <!-- Strings related to navbar -->
+    <string name="navmenu_concerts">Concerts</string>
+    <string name="navmenu_my_tickets">My Tickets</string>
+    <string name="navmenu_wallet">Wallet</string>
+    <string name="navmenu_logout">Logout</string>
+
+    <!-- API Key -->
+    <string name="API_KEY">API_111</string>
+</resources>

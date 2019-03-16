@@ -1,0 +1,32 @@
+title Payout balance Android
+
+Buyer -> App: payout(amount)
+activate Buyer
+activate App
+App -> WebService: payout(amount, uID)
+activate WebService
+WebService -> Database: select(uID)
+activate Database
+Database --> WebService: wID
+deactivate Database 
+alt uID != error
+WebService -> Database: select (wID)
+activate Database 
+Database --> WebService: balance
+deactivate Database 
+WebService -> Database: update(wID, balance - amount)
+activate Database 
+Database --> WebService: message
+deactivate Database 
+alt message == error
+WebService --> App: error
+App --> Buyer: error
+else
+WebService --> App: balance - amount
+App --> Buyer: new balance
+end alt
+WebService --> App: error
+deactivate WebService
+App --> Buyer: error
+deactivate App
+deactivate Buyer

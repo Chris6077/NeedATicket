@@ -1,0 +1,25 @@
+title Register Java
+
+Seller -> Program: register(email, password)
+activate Seller
+activate Program
+note right of Program: type {buyer, seller}
+Program -> WebService: register(email, password, type)
+activate WebService
+WebService -> Database: insert(email, password, type)
+activate Database
+Database --> WebService: message
+deactivate Database 
+alt message == true
+WebService -> Database: select (email, password)
+activate Database 
+Database --> WebService: uID
+deactivate Database 
+WebService --> Program: uID
+Program --> Seller: logged in
+else
+WebService --> Program: error
+deactivate WebService
+Program --> Seller: error
+deactivate Program
+deactivate Seller

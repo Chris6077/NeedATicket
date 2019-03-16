@@ -3,6 +3,8 @@ const jwt = require("express-jwt")
 const jsonwebtoken = require("jsonwebtoken")
 const bcrypt = require("bcryptjs")
 const mongoose = require('mongoose')
+const apikey = require('apikey')
+const config = require('./config')
 const { Types } = require('mongoose')
 const { User } = require('./models/User')
 const { Artist } = require('./models/Artist')
@@ -10,7 +12,11 @@ const { Ticket } = require('./models/Ticket')
 const { Concert } = require('./models/Concert')
 const { Transaction } = require('./models/Transaction')
 const { Wallet } = require('./models/Wallet')
-const { ApolloServer, gql } = require('apollo-server-express')
+const { ApolloServer, gql, AuthenticationError } = require('apollo-server-express')
+const {makeExecutableSchema, addSchemaLevelResolveFunction} = require('graphql-tools')
+
+
+global.config = config
 
 // Construct a schema, using GraphQL schema language
 const typeDefs = gql`
@@ -57,7 +63,7 @@ const typeDefs = gql`
     receiver: User!,
     ticket: Ticket!,
   }
-    type groupedTicket{
+  type groupedTicket{
     concert: Concert!, 
     price: Float!,
     seller: User!,
@@ -139,7 +145,8 @@ const resolvers = {
         ])
     },
 
-    async ticket(_,{id}){
+    async ticket(_,{id},context){
+      console.log(context.user)
       let ticket =  await Ticket.aggregate([
           {$lookup: { from: 'users',localField:'sellerId',foreignField: '_id',as: 'seller'}},
           {$unwind: "$seller"},
@@ -217,16 +224,16 @@ const resolvers = {
         email,
         password: await bcrypt.hash(password, 10),
         walletId: wallet._id
-      });
+      })
 
-      await user.save();
+      await user.save()
 
       // Return json web token
       return jsonwebtoken.sign(
         { id: user.id, email: user.email },
-        "process.env.JWT_SECRET",
+        global.config.secret,
         { expiresIn: '1y' }
-      );
+      )
     },
 
     async login(_, { email, password }) {
@@ -243,9 +250,9 @@ const resolvers = {
       }
 
       // Return json web token
-      return jsonwebtoken.sign(
+      return await jsonwebtoken.sign(
         { id: user.id, email: user.email },
-        "process.env.JWT_SECRET",
+        global.config.secret,
         { expiresIn: '1y' }
       )
     },
@@ -410,18 +417,34 @@ const resolvers = {
   }
 }
 
-
+//database
 mongoose.connect('mongodb://julian-blaschke:Julian1999@ds247001.mlab.com:47001/need-a-ticket', {useNewUrlParser: true})
 
-const server = new ApolloServer({ typeDefs, resolvers, introspection: true, playground: true })
-
-// auth middleware
-const auth = jwt({
-  secret: "process.env.JWT_SECRET",
-  credentialsRequired: false
+//auth exception middleware
+const schema = makeExecutableSchema({typeDefs, resolvers})
+addSchemaLevelResolveFunction(schema, (root, args, context, info) => {
+  if(!context.user)
+    if(info.fieldName !== 'login' && info.fieldName !== 'signup')
+      throw new AuthenticationError("not authenticated.")  
 })
 
+//create apollo server
+const server = new ApolloServer({ schema, introspection: true, playground: true, context: ({ req }) => ({
+    user: req.user
+  })
+})
 const app = express()
+
+//auth middleware
+const auth = jwt({
+  secret: global.config.secret,
+  credentialsRequired: false,
+})
+
+
+
+
+//apply middleware
 app.use(auth)
 
 server.applyMiddleware({ app })

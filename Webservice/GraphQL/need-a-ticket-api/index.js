@@ -3,7 +3,6 @@ const jwt = require("express-jwt")
 const jsonwebtoken = require("jsonwebtoken")
 const bcrypt = require("bcryptjs")
 const mongoose = require('mongoose')
-const apikey = require('apikey')
 const config = require('./config')
 const { Types } = require('mongoose')
 const { User } = require('./models/User')
@@ -90,6 +89,7 @@ const typeDefs = gql`
     createConcert (title: String!, date: Date!, address: String!, capacity: Float!, artistId: ID!): Concert
     createTicket (type: String!, price: Float!,concertId: String!,redeemedAt: Date, buyerId: String): Ticket
     createTickets (amount: Float!, type: String!, price: Float!, sellerId: String!,concertId: String!,redeemedAt: Date, buyerId: String): [Ticket]
+    updateUser (email: String, password: String) : User
     buy (ticketId: ID!, payerId: ID!): Transaction
     buyBulk (number: Float!, concertId: ID!, sellerId: ID!, price: Float!): Transaction 
     deposit (amount: Float!): Wallet
@@ -141,11 +141,13 @@ const resolvers = {
     },
 
     async concerts(){
-      return Concert.aggregate([
+      let concerts = await Concert.aggregate([
         {$lookup: { from: 'artists',localField:'artistId',foreignField: '_id',as: 'artist'}},
         {$unwind: "$artist"},
         {$lookup: { from: 'tickets', localField: '_id', foreignField: 'concertId' , as : 'tickets' }}
         ])
+      console.log(concerts)
+      return concerts;
     },
 
     async ticket(_,{id}){
@@ -153,7 +155,7 @@ const resolvers = {
           {$lookup: { from: 'users',localField:'sellerId',foreignField: '_id',as: 'seller'}},
           {$unwind: "$seller"},
           {$lookup: { from: 'users',localField:'buyerId',foreignField: '_id',as: 'buyer'}},
-          {$unwind: "$buyer"},
+          {$unwind: { path:"$buyer", preserveNullAndEmptyArrays: true}},
           {$lookup: { from: 'concerts',localField:'concertId',foreignField: '_id',as: 'concert'}},
           {$unwind: "$concert"},
           {$match : {_id : Types.ObjectId(id)}},
@@ -163,14 +165,15 @@ const resolvers = {
     },
 
     async tickets(){
-      return await Ticket.aggregate([
-        {$lookup: { from: 'users',localField:'sellerId',foreignField: '_id',as: 'seller'}},
-        {$unwind: "$seller"},
-        {$lookup: { from: 'users',localField:'buyerId',foreignField: '_id',as: 'buyer'}},
-        {$unwind: "$buyer"},
-        {$lookup: { from: 'concerts',localField:'concertId',foreignField: '_id',as: 'concert'}},
-        {$unwind: "$concert"},
-      ])
+      let tickets =  await Ticket.aggregate([
+          {$lookup: { from: 'users',localField:'sellerId',foreignField: '_id',as: 'seller'}},
+          {$unwind: "$seller"},
+          {$lookup: { from: 'users',localField:'buyerId',foreignField: '_id',as: 'buyer'}},
+          {$unwind: { path:"$buyer", preserveNullAndEmptyArrays: true}},
+          {$lookup: { from: 'concerts',localField:'concertId',foreignField: '_id',as: 'concert'}},
+          {$unwind: "$concert"}
+        ])
+      return tickets
     },
 
     async ticketsGrouped(){
@@ -313,6 +316,20 @@ const resolvers = {
       }
       await Ticket.collection.insertMany(tickets)
       return tickets
+    },
+
+    async updateUser(_,{email,password},context){
+      let user = User.findOne(Types.ObjectId(context.user.id))
+      if(email)
+        user.email = email
+      if(password)
+        user.password = await bcrypt.hash(password, 10)
+      return  await User.aggregate([
+        {$lookup: { from: 'wallets',localField:'walletId',foreignField: '_id',as: 'wallet'}},
+        {$unwind: "$wallet"},
+        {$match : {_id : Types.ObjectId(context.user.id)}},
+        {$limit : 1}
+      ])
     },
 
     async buy(_,{ticketId,payerId}){

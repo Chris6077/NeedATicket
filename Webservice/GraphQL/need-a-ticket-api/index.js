@@ -319,17 +319,26 @@ const resolvers = {
     },
 
     async updateUser(_,{email,password},context){
-      let user = User.findOne(Types.ObjectId(context.user.id))
-      if(email)
-        user.email = email
-      if(password)
-        user.password = await bcrypt.hash(password, 10)
-      return  await User.aggregate([
+      let _id = Types.ObjectId(context.user.id)
+      if(email){
+        await User.updateOne(
+          { _id },
+          { $set : { email } }
+        )
+      }
+      if(password){
+        await User.updateOne(
+          { _id },
+          { $set : { password: await bcrypt.hash(password, 10) } }
+        )
+      }
+      let user = await User.aggregate([
         {$lookup: { from: 'wallets',localField:'walletId',foreignField: '_id',as: 'wallet'}},
         {$unwind: "$wallet"},
-        {$match : {_id : Types.ObjectId(context.user.id)}},
+        {$match : { _id }},
         {$limit : 1}
       ])
+      return user.shift()
     },
 
     async buy(_,{ticketId,payerId}){

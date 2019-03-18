@@ -90,9 +90,10 @@ const typeDefs = gql`
     createTicket (type: String!, price: Float!,concertId: String!,redeemedAt: Date, buyerId: String): Ticket
     createTickets (amount: Float!, type: String!, price: Float!, sellerId: String!,concertId: String!,redeemedAt: Date, buyerId: String): [Ticket]
     updateUser (email: String, password: String) : User
-    buy (ticketId: ID!, payerId: ID!): Transaction
+    buy (ticketId: ID!): Transaction
     buyBulk (number: Float!, concertId: ID!, sellerId: ID!, price: Float!): Transaction 
     deposit (amount: Float!): Wallet
+    redeem (ticketId: ID!): Ticket
   }
 `
 
@@ -178,7 +179,7 @@ const resolvers = {
 
     async ticketsGrouped(){
       let tickets =  await Ticket.aggregate([
-        {$match: {redeemed: false} },
+        {$match: {buyerId: {$exists: true}} },
         {$group: {_id: {concertId: '$concertId', sellerId: "$sellerId", price: '$price' }, count: {$sum: 1}}},
         {$lookup: { from: 'users',localField:'_id.sellerId',foreignField: '_id',as: 'seller'}},
         {$unwind: "$seller"},
@@ -341,9 +342,9 @@ const resolvers = {
       return user.shift()
     },
 
-    async buy(_,{ticketId,payerId}){
+    async buy(_,{ticketId},context){
       //need to create transaction / update both receiver and payer Wallet / and update ticket
-      payerId = Types.ObjectId(payerId)
+      payerId = Types.ObjectId(context.user.id)
       ticketId = Types.ObjectId(ticketId)
       date = new Date()
 
@@ -376,7 +377,7 @@ const resolvers = {
       //update buyer in ticket
       await Ticket.updateOne(
           { "_id" : ticketId },
-          { $set : { buyerId: payerId, redeemed: true } }
+          { $set : { buyerId: payerId } }
       )
 
       return transaction
@@ -420,8 +421,6 @@ const resolvers = {
       }).limit(number)
 
       await tickets.forEach( async (el) => { 
-        el.redeemed = true
-        el.redeemedAt = Date()
         el.buyerId = payerId
         await Ticket.collection.save(el)
       })
@@ -440,6 +439,10 @@ const resolvers = {
       )
 
       return Wallet.findOne(user.walletId)
+    },
+
+    async redeem(_,{ticketId},context){
+
     }
 
   }

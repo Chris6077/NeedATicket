@@ -11,7 +11,7 @@ const { Ticket } = require('./models/Ticket')
 const { Concert } = require('./models/Concert')
 const { Transaction } = require('./models/Transaction')
 const { Wallet } = require('./models/Wallet')
-const { ApolloServer, gql, AuthenticationError } = require('apollo-server-express')
+const { ApolloServer, gql, AuthenticationError,ApolloError } = require('apollo-server-express')
 const {makeExecutableSchema, addSchemaLevelResolveFunction} = require('graphql-tools')
 
 
@@ -442,7 +442,28 @@ const resolvers = {
     },
 
     async redeem(_,{ticketId},context){
+      ticketId = Types.ObjectId(ticketId)
+      let redeemedAt = new Date()
+      let ticket = Ticket.findOne(ticketId)
+      if(!ticket)
+        throw new ApolloError("ticket not found", 404)
+      
+      await Ticket.updateOne(
+        { "_id" : ticketId },
+        { $set : { redeemed: true, redeemedAt } }
+      )
 
+      ticket = await Ticket.aggregate([
+          {$lookup: { from: 'users',localField:'sellerId',foreignField: '_id',as: 'seller'}},
+          {$unwind: "$seller"},
+          {$lookup: { from: 'users',localField:'buyerId',foreignField: '_id',as: 'buyer'}},
+          {$unwind: { path:"$buyer", preserveNullAndEmptyArrays: true}},
+          {$lookup: { from: 'concerts',localField:'concertId',foreignField: '_id',as: 'concert'}},
+          {$unwind: "$concert"},
+          {$match : {_id : ticketId}},
+          {$limit : 1}
+      ])
+      return ticket.shift()
     }
 
   }

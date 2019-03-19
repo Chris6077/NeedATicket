@@ -22,7 +22,7 @@ const typeDefs = gql`
   scalar Date
   type User {
     _id: ID!
-    username: String!
+    username: String
     email: String!
     wallet: Wallet!
     selling: [Ticket]
@@ -35,58 +35,58 @@ const typeDefs = gql`
     name: String!
   }
   type Concert {
-    _id: ID!,
-    title: String!,
-    date: Date!,
-    address: String!,
-    capacity: Float!,
-    tickets: [Ticket],
-    artist: Artist,
+    _id: ID!
+    title: String!
+    date: Date!
+    address: String!
+    capacity: Float!
+    tickets: [Ticket]
+    artist: Artist
   }
   type Ticket {
-    _id: ID!,
-    type: String!,
-    price: Float!,
-    redeemed: Boolean!,
-    redeemedAt: Date,
-    seller: User!,
-    buyer: User,
-    concert: Concert!,
+    _id: ID!
+    type: String!
+    price: Float!
+    redeemed: Boolean!
+    redeemedAt: Date
+    seller: User!
+    buyer: User
+    concert: Concert!
   }
   type Wallet {
-    _id: ID!,
-    balance: Float!,
+    _id: ID!
+    balance: Float!
   }
   type Transaction {
-    _id: ID!,
-    date: Date!,
-    amount: Float!,
-    payer: User!,
-    receiver: User!,
-    ticket: Ticket!,
+    _id: ID!
+    date: Date!
+    amount: Float!
+    payer: User!
+    receiver: User!
+    ticket: Ticket!
   }
   type groupedTicket{
-    concert: Concert!, 
-    price: Float!,
-    seller: User!,
+    concert: Concert! 
+    price: Float!
+    seller: User!
     available: Float!
   }
   type Query {
-    me: User,
-    users:[User],
-    user(id: ID!): User,
-    artists: [Artist],
-    artist(id: ID!): Artist,
-    concerts: [Concert],
-    concert(id: ID!): Concert,
-    tickets: [Ticket],
-    ticketsGrouped: [groupedTicket],
-    ticket(id: ID!): Ticket,
-    transactions: [Transaction],
-    transaction(id: ID!): Transaction,
+    me: User
+    users:[User]
+    user(id: ID!): User
+    artists: [Artist]
+    artist(id: ID!): Artist
+    concerts: [Concert]
+    concert(id: ID!): Concert
+    tickets: [Ticket]
+    ticketsGrouped: [groupedTicket]
+    ticket(id: ID!): Ticket
+    transactions: [Transaction]
+    transaction(id: ID!): Transaction
   }
   type Mutation {
-    signup (username: String!, email: String!, password: String!): String
+    signup (username: String, email: String!, password: String!): String
     login (email: String!, password: String!): String
     createArtist (name: String!): Artist
     createConcert (title: String!, date: Date!, address: String!, capacity: Float!, artistId: ID!): Concert

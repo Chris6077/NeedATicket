@@ -27,6 +27,8 @@ const typeDefs = gql`
     wallet: Wallet!
     selling: [Ticket]
     bought: [Ticket]
+    totalSelling: Int
+    totalBought: Int
   }
   type Artist {
     _id: ID,
@@ -70,6 +72,7 @@ const typeDefs = gql`
     available: Float!
   }
   type Query {
+    me: User,
     users:[User],
     user(id: ID!): User,
     artists: [Artist],
@@ -102,6 +105,26 @@ const typeDefs = gql`
 // Provide resolver functions for your schema fields
 const resolvers = {
   Query: {
+    async me(_,{},context){
+      let _id = Types.ObjectId(context.user.id)
+      let selling = await Ticket.find({
+        sellerId: _id
+      }).countDocuments()
+      let bought = await Ticket.find({
+        buyerId: _id
+      }).countDocuments()
+
+      let user = await User.aggregate([
+        {$lookup: { from: 'wallets',localField:'walletId',foreignField: '_id',as: 'wallet'}},
+        {$unwind: "$wallet"},
+        {$match : {_id }},
+        {$limit : 1}
+      ])
+      user = user.shift()
+      user.totalSelling = selling
+      user.totalBought = bought
+      return user
+    },
 
     async user(_,{id}) {
       let user = await User.aggregate([

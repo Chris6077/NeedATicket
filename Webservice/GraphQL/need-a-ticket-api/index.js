@@ -127,13 +127,24 @@ const resolvers = {
     },
 
     async user(_,{id}) {
+      let _id = Types.ObjectId(id)
+      let selling = await Ticket.find({
+        sellerId: _id
+      }).countDocuments()
+      let bought = await Ticket.find({
+        buyerId: _id
+      }).countDocuments()
+
       let user = await User.aggregate([
         {$lookup: { from: 'wallets',localField:'walletId',foreignField: '_id',as: 'wallet'}},
         {$unwind: "$wallet"},
-        {$match : {_id : Types.ObjectId(id)}},
+        {$match : {_id }},
         {$limit : 1}
       ])
-      return user.shift()
+      user = user.shift()
+      user.totalSelling = selling
+      user.totalBought = bought
+      return user
     },
 
     async users() {

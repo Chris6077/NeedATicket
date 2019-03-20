@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.events.JFXDialogEvent;
+import database.Database;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -123,16 +124,20 @@ public class LoginController implements Initializable {
                 login_mode = true;
             }
         } else if (event.getSource().equals(btn_login)) {
-            if (validate()) {
-                if (login_mode) {
-                    login();
-                    animateWhenLoginSuccess();
-                } else {
-                    //register();
-                }
+            try{
+                if (validate()) {
+                    if (login_mode) {
+                        login();
+                        animateWhenLoginSuccess();
+                    } else {
+                        //register();
+                    }
 
-            } else {
-                //show msg
+                } else {
+                    //show msg
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -171,8 +176,10 @@ public class LoginController implements Initializable {
         return true;
     }
 
-    private void login() {
-        
+    private void login() throws Exception {
+        if(tft_email.getText().equals("") || tft_password.getText().equals(""))
+            throw new Exception("Please enter username and password!");
+        Database.login(tft_email.getText(), tft_password.getText());
     }
 
     private void register() {

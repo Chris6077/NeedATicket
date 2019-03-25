@@ -6,19 +6,22 @@
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_field_required">This field is required</string>
+    <string name="error_passwords_dont_match">These passwords don\'t match</string>
 
     <!-- Strings related to asynctasks -->
-    <string name="webservice_get_my_tickets_url">https://www.bashit.me/</string><!-- NOPE -->
+    <string name="webservice_get_my_tickets_url">https://need-a-ticket-api.herokuapp.com/graphql?query={me{bought{type, price, seller{username}, concert{title, date, address, artist}}}}</string>
+    <string name="webservice_get_tickets">https://need-a-ticket-api.herokuapp.com/graphql?query={ticketsGrouped(id:%22$cID%22){concert{title, date, address, artist}, price, seller{username}, available}</string>
     <string name="webservice_get_concerts_url">https://need-a-ticket-api.herokuapp.com/graphql?query={concerts{_id,title,date,address,capacity,artist{_id,name}}}</string>
-    <string name="webservice_get_concert_url">https://need-a-ticket-api.herokuapp.com/graphql?query={concert(id:%22$cID%22){tickets{price,type,seller{username}}}}</string><!-- NOPE -->
-    <string name="webservice_get_user">https://need-a-ticket-api.herokuapp.com/graphql?query={user(id:%22$uID%22{email}}</string><!-- NOPE -->
-    <string name="webservice_change_email">https://www.bashit.me</string><!-- NOPE -->
-    <string name="webservice_change_password">https://www.bashit.me</string><!-- NOPE -->
-    <string name="webservice_register">https://www.bashit.me</string><!-- NOPE -->
-    <string name="webservice_purchase_ticket">https://need-a-ticket-api.herokuapp.com/graphql?mutation={buy(ticketId:%22$tID%22,payerId:%22$uID%22){_id}}</string>
+    <string name="webservice_get_concert_url">https://need-a-ticket-api.herokuapp.com/graphql?query={concert(id:%22$cID%22){tickets{price,type,seller{username}}}}</string>
+    <string name="webservice_get_user">https://need-a-ticket-api.herokuapp.com/graphql?query={me{email,totalBought}}</string>
+    <string name="webservice_change_email">mutation={updateUser(email:\"$email\")}</string>
+    <string name="webservice_change_password">mutation={updateUser(password:\"$password\")}</string>
+    <string name="webservice_register">mutation={signup(email:\"$email\",password:\"$password\")}</string>
+    <string name="webservice_purchase_ticket">mutation={buyBulk(concertId:\"$cID\",sellerId:\"$sID\",price:$price,number:$amount){_id}}</string>
     <string name="webservice_get_wallet">https://need-a-ticket-api.herokuapp.com/graphql?query={user(id:%22$uID%22){wallet{_id,balance}}}</string>
-    <string name="webservice_upload">https://need-a-ticket-api.herokuapp.com/graphql?mutation={deposit(userId:%22$uID%22,amount:$amount){balance}}</string>
-    <string name="webservice_cashout">https://need-a-ticket-api.herokuapp.com/graphql?mutation={deposit(userId:%22$uID%22,amount:-$amount){balance}}</string>
+    <string name="webservice_upload">mutation={deposit(userId:\"$uID\",amount:$amount){balance}}</string>
+    <string name="webservice_cashout">mutation={deposit(userId:\"$uID\",amount:-$amount){balance}}</string>
+    <string name="webservice_default">https://need-a-ticket-api.herokuapp.com/graphql/</string>
 
     <!-- Strings related to navbar -->
     <string name="navmenu_concerts">Concerts</string>
@@ -27,5 +30,4 @@
     <string name="navmenu_logout">Logout</string>
 
     <!-- API Key -->
-    <string name="API_KEY">API_111</string>
 </resources>

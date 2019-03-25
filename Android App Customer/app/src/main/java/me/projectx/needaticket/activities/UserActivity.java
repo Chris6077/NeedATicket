@@ -26,11 +26,9 @@ import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Optional;
 import me.projectx.needaticket.R;
-import me.projectx.needaticket.asynctask.TaskChangeEmail;
-import me.projectx.needaticket.asynctask.TaskChangePassword;
-import me.projectx.needaticket.asynctask.TaskGetUser;
+import me.projectx.needaticket.asynctask.TaskExecuteGraphQLMutation;
+import me.projectx.needaticket.asynctask.TaskExecuteGraphQLQuery;
 import me.projectx.needaticket.exceptions.PasswordException;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
@@ -96,7 +94,7 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
     }
     private void changeMail () {
         try {
-            TaskChangeEmail changeEmail = new TaskChangeEmail(getString(R.string.webservice_change_email) + "/" + user.getId(), user.getId(), dialogNewEmail.getText().toString(), dialogPassword.getText().toString(), this);
+            TaskExecuteGraphQLMutation changeEmail = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_change_email).replace("$email", dialogNewEmail.getText()), uID, this);
             changeEmail.execute();
         } catch (Exception error) {
             HandlerState.handle(error, this);
@@ -106,7 +104,7 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
         try {
             if (dialogNewPassword != dialogConfirmNewPassword)
                 throw new PasswordException("Passwords don't match!");
-            TaskChangePassword changePassword = new TaskChangePassword(getString(R.string.webservice_change_password) + "/" + user.getId(), user.getId(), dialogOldPassword.getText().toString(), dialogNewPassword.getText().toString(), this);
+            TaskExecuteGraphQLMutation changePassword = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_change_password).replace("$password", dialogNewPassword.getText()), uID, this);
             changePassword.execute();
         } catch (Exception error) {
             HandlerState.handle(error, this);
@@ -187,7 +185,7 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
     }
     private void getUser () {
         try {
-            TaskGetUser getUser = new TaskGetUser(getString(R.string.webservice_get_user) + uID, uID, this);
+            TaskExecuteGraphQLQuery<User> getUser = new TaskExecuteGraphQLQuery<>(getString(R.string.webservice_get_user), uID, this);
             getUser.execute();
         } catch (Exception error) {
             HandlerState.handle(error, this);

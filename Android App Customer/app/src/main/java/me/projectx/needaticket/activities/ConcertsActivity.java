@@ -13,6 +13,7 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.adapter.AdapterListViewConcert;
-import me.projectx.needaticket.asynctask.TaskGetConcerts;
+import me.projectx.needaticket.asynctask.TaskExecuteGraphQLQuery;
 import me.projectx.needaticket.exceptions.ContentException;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
@@ -121,7 +122,7 @@ public class ConcertsActivity extends AppCompatActivity implements InterfaceTask
     }
     private void getConcerts () {
         try {
-            TaskGetConcerts getConcerts = new TaskGetConcerts(getString(R.string.webservice_get_concerts_url), uID, this);
+            TaskExecuteGraphQLQuery<List<Concert>> getConcerts = new TaskExecuteGraphQLQuery<>(getString(R.string.webservice_get_concerts_url), uID, this);
             getConcerts.execute();
         } catch (Exception error) {
             HandlerState.handle(error, this);

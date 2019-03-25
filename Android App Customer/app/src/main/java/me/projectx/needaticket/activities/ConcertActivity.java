@@ -15,13 +15,13 @@ import com.google.gson.Gson;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.adapter.AdapterListViewConcertTickets;
-import me.projectx.needaticket.asynctask.TaskGetConcert;
-import me.projectx.needaticket.asynctask.TaskGetConcertTickets;
+import me.projectx.needaticket.asynctask.TaskExecuteGraphQLQuery;
 import me.projectx.needaticket.exceptions.ContentException;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
@@ -133,7 +133,7 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         try {
             Intent intent = getIntent();
             String cID = intent.getStringExtra("cID");
-            TaskGetConcert getConcert = new TaskGetConcert(getString(R.string.webservice_get_concert_url) + cID, uID, this);
+            TaskExecuteGraphQLQuery<Concert> getConcert = new TaskExecuteGraphQLQuery<>(getString(R.string.webservice_get_concert_url), uID, this);
             getConcert.execute();
         } catch (Exception error) {
             HandlerState.handle(error, this);
@@ -161,7 +161,7 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
     }
     private void getTickets () {
         try {
-            TaskGetConcertTickets getTickets = new TaskGetConcertTickets(getString(R.string.webservice_get_concert_url) + "/" + concert.getId() + "/tickets", uID, concert.getId(), this);
+            TaskExecuteGraphQLQuery<List<Ticket>> getTickets = new TaskExecuteGraphQLQuery<>(getString(R.string.webservice_get_tickets).replace("$cID", concert.getId()), uID,this);
             getTickets.execute();
         } catch (Exception error) {
             swipeRefreshLayout.setRefreshing(false);

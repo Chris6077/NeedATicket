@@ -182,7 +182,7 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
         dpl.getSize(size);
         int qrSize = size.x-30;
         try {
-            bitMatrix = new MultiFormatWriter().encode(hash, BarcodeFormat.DATA_MATRIX.QR_CODE,
+            bitMatrix = new MultiFormatWriter().encode(hash, BarcodeFormat.QR_CODE,
                                                        qrSize, qrSize, null);
         } catch (IllegalArgumentException Illegalargumentexception) {
             return null;

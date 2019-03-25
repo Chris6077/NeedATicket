@@ -9,19 +9,21 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.VideoView;
 
-import butterknife.BindInt;
+import com.shashank.sony.fancytoastlib.FancyToast;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.projectx.needaticket.R;
-import me.projectx.needaticket.asynctask.TaskRegister;
+import me.projectx.needaticket.asynctask.TaskExecuteGraphQLMutation;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 public class RegisterActivity extends AppCompatActivity implements InterfaceTaskDefault {
     MediaPlayer mMediaPlayer;
     int mCurrentVideoPosition;
-    private TaskRegister mAuthTask;
+    private TaskExecuteGraphQLMutation mAuthTask;
     @BindView(R.id.etEmailAddress) EditText mEmailView;
     @BindView(R.id.etPassword) EditText mPasswordView;
     @BindView(R.id.etPasswordConfirm) EditText mPasswordConfirmView;
@@ -98,11 +100,17 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
             focusView = mEmailView;
             cancel = true;
         }
+        if(!password.equals(confirmPassword)){
+            mPasswordView.setError(getString(R.string.error_passwords_dont_match));
+            mPasswordConfirmView.setError(getString(R.string.error_passwords_dont_match));
+            focusView = mPasswordConfirmView;
+            cancel = true;
+        }
         if (cancel) {
             focusView.requestFocus();
         } else {
             try {
-                mAuthTask = new TaskRegister(getString(R.string.webservice_register), email, password, confirmPassword, this);
+                mAuthTask = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_register).replace("$email", email).replace("$password", password), "", this);
                 mAuthTask.execute();
             } catch (Exception ex) {
                 showProgress(false);
@@ -151,13 +159,18 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
         showProgress(true);
     }
     @Override public void onPostExecute (Object result, Class resource) {
-        Intent concertsActivity = new Intent(this, ConcertsActivity.class);
-        concertsActivity.putExtra("uID", (String) result);
-        try {
-            finish();
-            startActivity(concertsActivity);
-        } catch (Exception e) {
-            HandlerState.handle(e, getApplicationContext());
+        if(result == null || result == "") {
+            Intent concertsActivity = new Intent(this, ConcertsActivity.class);
+            concertsActivity.putExtra("uID", (String) result);
+            try {
+                finish();
+                startActivity(concertsActivity);
+            } catch (Exception e) {
+                HandlerState.handle(e, getApplicationContext());
+            }
+        } else{
+            showProgress(false);
+            FancyToast.makeText(getApplicationContext(), "Error when registering! Please check your credentials.", FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
         }
     }
     @Override

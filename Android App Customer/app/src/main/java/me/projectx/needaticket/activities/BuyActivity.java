@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cdflynn.android.library.checkview.CheckView;
 import me.projectx.needaticket.R;
-import me.projectx.needaticket.asynctask.TaskPurchaseTicket;
+import me.projectx.needaticket.asynctask.TaskExecuteGraphQLMutation;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
@@ -83,7 +83,7 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
     }
     private void purchase () {
         try {
-            TaskPurchaseTicket purchaseTicket = new TaskPurchaseTicket(getString(R.string.webservice_purchase_ticket), tID, uID, Integer.parseInt(amountSelected.getText().toString()), this);
+            TaskExecuteGraphQLMutation purchaseTicket = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_purchase_ticket).replace("$cID", tID).replace("$sID",/*ToDo: getSellerID*/"sID").replace("$price", /*ToDo: getPrice*/ "price").replace("$amount", amountSelected.getText()), uID,this);
             purchaseTicket.execute();
         } catch (Exception error) {
             HandlerState.handle(error, this);

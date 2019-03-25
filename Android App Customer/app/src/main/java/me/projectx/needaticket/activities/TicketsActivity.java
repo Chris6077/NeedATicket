@@ -6,16 +6,15 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.shashank.sony.fancytoastlib.FancyToast;
 
 import org.apache.commons.io.IOUtils;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.adapter.AdapterListViewTicket;
-import me.projectx.needaticket.asynctask.TaskGetMyTickets;
+import me.projectx.needaticket.asynctask.TaskExecuteGraphQLQuery;
 import me.projectx.needaticket.exceptions.ContentException;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
@@ -109,7 +108,7 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
     }
     private void getTickets () {
         try {
-            TaskGetMyTickets getTickets = new TaskGetMyTickets(getString(R.string.webservice_get_my_tickets_url), uID, this);
+            TaskExecuteGraphQLQuery<List<Ticket>> getTickets = new TaskExecuteGraphQLQuery<>(getString(R.string.webservice_get_my_tickets_url), uID, this);
             getTickets.execute();
         } catch (Exception error) {
             HandlerState.handle(error, this);

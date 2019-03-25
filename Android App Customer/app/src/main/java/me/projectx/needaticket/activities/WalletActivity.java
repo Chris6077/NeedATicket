@@ -18,9 +18,8 @@ import java.text.DecimalFormat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.projectx.needaticket.R;
-import me.projectx.needaticket.asynctask.TaskCashOut;
-import me.projectx.needaticket.asynctask.TaskGetWallet;
-import me.projectx.needaticket.asynctask.TaskUpload;
+import me.projectx.needaticket.asynctask.TaskExecuteGraphQLMutation;
+import me.projectx.needaticket.asynctask.TaskExecuteGraphQLQuery;
 import me.projectx.needaticket.customgui.InputFilterMin;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
@@ -55,7 +54,7 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
     }
     private void getWallet () {
         wallet = new Wallet(1, Float.parseFloat("1325.12"));
-        TaskGetWallet getWallet = new TaskGetWallet(getString(R.string.webservice_get_wallet) + uID, uID, this);
+        TaskExecuteGraphQLQuery<Wallet> getWallet = new TaskExecuteGraphQLQuery<>(getString(R.string.webservice_get_wallet).replace("$uID",uID), uID, this);
         getWallet.execute();
     }
     private void setContent () {
@@ -80,11 +79,11 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
         animator.start();
     }
     private void upload () {
-        TaskUpload tUpload = new TaskUpload(getString(R.string.webservice_upload), uID, Float.parseFloat(amount.getText().toString()), this);
+        TaskExecuteGraphQLMutation tUpload = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_upload).replace("$uID", uID).replace("$amount", amount.getText()), uID, this);
         tUpload.execute();
     }
     private void cashOut () {
-        TaskCashOut tCashOut = new TaskCashOut(getString(R.string.webservice_cashout), uID, Float.parseFloat(amount.getText().toString()), this);
+        TaskExecuteGraphQLMutation tCashOut = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_cashout).replace("$uID", uID).replace("$amount", amount.getText()), uID, this);
         tCashOut.execute();
     }
     @Override public void onPreExecute (Class resource) {

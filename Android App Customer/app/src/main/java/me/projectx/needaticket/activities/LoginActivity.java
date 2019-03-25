@@ -13,13 +13,13 @@ import android.widget.VideoView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.projectx.needaticket.R;
-import me.projectx.needaticket.asynctask.TaskLogin;
+import me.projectx.needaticket.asynctask.TaskExecuteGraphQLMutation;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 public class LoginActivity extends AppCompatActivity implements InterfaceTaskDefault {
     MediaPlayer mMediaPlayer;
     int mCurrentVideoPosition;
-    private TaskLogin mAuthTask;
+    private TaskExecuteGraphQLMutation mAuthTask;
     @BindView(R.id.etEmailAddress) EditText mEmailView;
     @BindView(R.id.etPassword) EditText mPasswordView;
     @BindView(R.id.loadingPanel) View mProgressView;
@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
         }
         /*
         try {
-            mAuthTask = new TaskLogin(getString(R.string.webservice_login), mEmailView.getText().toString(), mPasswordView.getText().toString(), this);
+            mAuthTask = new TaskExecuteGraphQLMutation(getString(R.string.webservice_login).replace("$email", mEmailView.getText()).replace("$password", mPasswordView.getText()), this);
             mAuthTask.execute();
         }
         catch(Exception ex){

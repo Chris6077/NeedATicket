@@ -135,7 +135,9 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
     }
     private void showProgress (final boolean show) {
         mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        mProgressView.setBackgroundColor(show ? getColor(R.color.colorPrimary) : getColor(R.color.white));
         mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        videoBG.setVisibility(show ? View.GONE : View.INVISIBLE);
     }
     @Override protected void onDestroy () {
         super.onDestroy();
@@ -147,7 +149,6 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
     @Override protected void onPause () {
         super.onPause();
         // Capture the current video position and pause the video.
-        mCurrentVideoPosition = mMediaPlayer.getCurrentPosition();
         videoBG.pause();
     }
     @Override protected void onResume () {
@@ -159,9 +160,9 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
         showProgress(true);
     }
     @Override public void onPostExecute (Object result, Class resource) {
-        if(result == null || result == "") {
+        if(result != null && !result.equals("") && !((String)result).split("\"")[1].equals("errors")) {
             Intent concertsActivity = new Intent(this, ConcertsActivity.class);
-            concertsActivity.putExtra("uID", (String) result);
+            concertsActivity.putExtra("uID", ((String) result).split(":")[2].split("\"")[1]);
             try {
                 finish();
                 startActivity(concertsActivity);

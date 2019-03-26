@@ -48,10 +48,10 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
         TextView price = rowView.findViewById(R.id.list_item_ticket_price);
         TextView amount = rowView.findViewById(R.id.list_item_ticket_count);
         seller.setText(ticket.getSeller().getName());
-        price.setText(ticket.getPrice() + "€");
-        amount.setText("25");
-        setUpIconCategory(rowView, ticket.getType());
-        header.setText(ticket.getTitle());
+        price.setText(ticket.getPrice() + " €");
+        amount.setText(ticket.getAvailable());
+        //setUpIconCategory(rowView, ticket.getType());
+        header.setText(ticket.getConcert().getTitle());
         this.setUpRowViewListener(rowView, ticket);
         this.setUpTitleListener(rowView, ticket);
         return rowView;
@@ -90,7 +90,7 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
         final LinearLayout contentTitle = rowView.findViewById(R.id.list_item_header_title);
         contentTitle.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick (View v) {
-                NumberPickerDialog npd = new NumberPickerDialog(ticket, 25);
+                NumberPickerDialog npd = new NumberPickerDialog(ticket, ticket.getAvailable());
                 npd.setValueChangeListener(listener);
                 npd.show(appCompatActivityResource.getSupportFragmentManager(), "time picker");
             }
@@ -100,10 +100,11 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
         Intent buyActivity = new Intent(getAppCompatActivityResource(), BuyActivity.class);
         buyActivity.putExtra("uID", uID);
         buyActivity.putExtra("sellerName", t.getSeller().getName());
-        buyActivity.putExtra("ticketTitle", t.getTitle());
+        buyActivity.putExtra("sellerID", t.getSeller().getId());
+        buyActivity.putExtra("ticketTitle", t.getConcert().getTitle());
         buyActivity.putExtra("price", "" + t.getPrice());
-        buyActivity.putExtra("ticketType", t.getType().toString());
-        buyActivity.putExtra("amount", "25");
+        //buyActivity.putExtra("ticketType", t.getType().toString());
+        buyActivity.putExtra("amount", t.getAvailable());
         buyActivity.putExtra("amountSelected", "" + newVal);
         buyActivity.putExtra("cID", cID);
         getAppCompatActivityResource().startActivity(buyActivity);

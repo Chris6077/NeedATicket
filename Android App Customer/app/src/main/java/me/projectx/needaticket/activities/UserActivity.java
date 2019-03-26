@@ -62,18 +62,7 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
         ButterKnife.bind(this);
         this.setListener();
         this.uID = getIntent().getStringExtra("uID");
-        //this.getUser();
-        ArrayList<Ticket> tickets = new ArrayList<>();
-        Artist a = new Artist("lol", "Martin Garrix");
-        ArrayList<Ticket> tickets2 = new ArrayList<>();
-        ArrayList<Artist> artists = new ArrayList<>();
-        artists.add(a);
-        Concert c1 = new Concert("lol", "We are here", new Date(), new Date(), "Loliweg 3", artists, Genre.DANCE, tickets2);
-        Seller oe = new Seller("iiooo", "OETicket@oe.com");
-        Ticket t1 = new Ticket(1, TicketType.CONCERT, "Day 1 Ticket", (float) 22.99, oe, null, c1);
-        tickets.add(t1);
-        User u = new User("lol", "user@bashit.me", tickets, new Wallet(1, Float.parseFloat("1337.17")));
-        setContent(u);
+        this.getUser();
     }
     private void setListener () {
         this.navigation.setNavigationItemSelectedListener(new ListenerNavigationMenu(this, uID));
@@ -82,10 +71,10 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
         this.swipeRefreshLayout.setOnRefreshListener(this);
         this.fabUser.setOnClickListener(new EditUserListener());
     }
-    private void setContent (User user) {
+    private void setContent () {
         email.setText(user.getEmail());
-        boughtTickets.setText("" + user.getTickets().size());
-        password.setText("Strong");
+        boughtTickets.setText("" + user.getTotalBought());
+        password.setText(user.getPasswordStrength());
     }
     private void setListenerNavigationHeader () {
         View navHeader;
@@ -174,10 +163,10 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
     @Override public void onPostExecute (Object result, Class resource) {
         swipeRefreshLayout.setRefreshing(false);
         try {
-            user = new Gson().fromJson((String) result, User.class);
-            setContent(user);
+            user = new Gson().fromJson("{" + ((String) result).split("\\{")[4].split("\\{")[0] + "}", User.class);
+            setContent();
         } catch (Exception e) {
-            HandlerState.handle(e, getApplicationContext());
+            HandlerState.handle(new Exception("Error: Check your connection!"), getApplicationContext());
         }
     }
     @Override public void onRefresh () {
@@ -185,7 +174,7 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
     }
     private void getUser () {
         try {
-            TaskExecuteGraphQLQuery<User> getUser = new TaskExecuteGraphQLQuery<>(getString(R.string.webservice_get_user), uID, this);
+            TaskExecuteGraphQLQuery getUser = new TaskExecuteGraphQLQuery(getString(R.string.webservice_get_user), uID, this);
             getUser.execute();
         } catch (Exception error) {
             HandlerState.handle(error, this);

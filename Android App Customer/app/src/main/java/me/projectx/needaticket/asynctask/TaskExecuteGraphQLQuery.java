@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
-public class TaskExecuteGraphQLQuery <T> extends AsyncTask<Object, Object, T> {
+public class TaskExecuteGraphQLQuery extends AsyncTask<Object, Object, String> {
     private String url;
     private String auth;
     private InterfaceTaskDefault listener;
@@ -23,17 +23,14 @@ public class TaskExecuteGraphQLQuery <T> extends AsyncTask<Object, Object, T> {
         this.auth = auth;
         this.setListener(listener);
     }
-    @Override protected T doInBackground (Object... params) {
+    @Override protected String doInBackground (Object... params) {
         try {
-            Gson gson = new Gson();
             HttpURLConnection conn = (HttpURLConnection) new URL(this.getUrl()).openConnection();
-            Type collectionType = new TypeToken<T>() {}.getType();
-            String result = getData(conn);
-            return gson.fromJson(result, collectionType);
+            return getData(conn);
         } catch (IOException e) {
             Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
-        return null;
+        return "";
     }
     public String getUrl () {
         return url;
@@ -46,7 +43,7 @@ public class TaskExecuteGraphQLQuery <T> extends AsyncTask<Object, Object, T> {
         String content = null;
         try {
             conn.setRequestMethod("GET");
-            conn.setRequestProperty("authentication", "bearer " + auth);
+            conn.setRequestProperty("authorization", "bearer " + auth);
             reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             StringBuilder sb = new StringBuilder();
             String line;
@@ -65,7 +62,7 @@ public class TaskExecuteGraphQLQuery <T> extends AsyncTask<Object, Object, T> {
         this.getListener().onPreExecute(this.getClass());
         super.onPreExecute();
     }
-    @Override protected void onPostExecute (T object) {
+    @Override protected void onPostExecute (String object) {
         this.getListener().onPostExecute(object, this.getClass());
         super.onPostExecute(object);
     }

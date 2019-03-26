@@ -24,7 +24,7 @@ import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
 import me.projectx.needaticket.pojo.TicketType;
 public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefault {
     private String uID;
-    private String tID;
+    private String sID;
     @BindView(R.id.category_image_ticket_list_item) ImageView imageCategory;
     @BindView(R.id.list_item_ticket_title) TextView header;
     @BindView(R.id.list_item_ticket_seller) TextView seller;
@@ -42,7 +42,7 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
         ButterKnife.bind(this);
         this.setListener();
         this.uID = getIntent().getStringExtra("uID");
-        this.tID = getIntent().getStringExtra("tID");
+        this.sID = getIntent().getStringExtra("sID");
         this.setContent();
         cx = this;
     }
@@ -83,7 +83,7 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
     }
     private void purchase () {
         try {
-            TaskExecuteGraphQLMutation purchaseTicket = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_purchase_ticket).replace("$cID", tID).replace("$sID",/*ToDo: getSellerID*/"sID").replace("$price", /*ToDo: getPrice*/ "price").replace("$amount", amountSelected.getText()), uID,this);
+            TaskExecuteGraphQLMutation purchaseTicket = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_purchase_ticket).replace("$cID", getIntent().getStringExtra("cID")).replace("$sID", sID).replace("$price", "" + price).replace("$amount", amountSelected.getText()), uID,this);
             purchaseTicket.execute();
         } catch (Exception error) {
             HandlerState.handle(error, this);

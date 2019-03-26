@@ -51,7 +51,7 @@ public class AdapterListViewConcert extends ArrayAdapter<Concert> {
         TextView location = rowView.findViewById(R.id.list_item_concert_location);
         TextView date = rowView.findViewById(R.id.list_item_concert_date);
         StringBuilder artists = new StringBuilder();
-        for (Artist a : concert.getArtists()) {
+        /*for (Artist a : concert.getArtists()) {
             artists.append(a.getName()).append(", ");
         }
         artists = new StringBuilder(artists.substring(0, artists.length() - 2));
@@ -60,7 +60,7 @@ public class AdapterListViewConcert extends ArrayAdapter<Concert> {
         location.setText(concert.getAddress());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
         date.setText(dateFormat.format(concert.getDate()));
-        setUpIconCategory(rowView, concert.getTickets().get(0).getType());
+        setUpIconCategory(rowView, concert.getTickets().get(0).getType());*/
         header.setText(concert.getTitle());
         this.setUpRowViewListener(rowView, concert);
         this.setUpTitleListener(rowView, concert);
@@ -96,7 +96,7 @@ public class AdapterListViewConcert extends ArrayAdapter<Concert> {
             @Override public void onClick (View v) {
                 Intent concertActivity = new Intent(getAppCompatActivityResource(), ConcertActivity.class);
                 concertActivity.putExtra("uID", uID);
-                concertActivity.putExtra("cID", concert.getId());
+                concertActivity.putExtra("cID", concert.get_id());
                 getAppCompatActivityResource().startActivity(concertActivity);
             }
         });

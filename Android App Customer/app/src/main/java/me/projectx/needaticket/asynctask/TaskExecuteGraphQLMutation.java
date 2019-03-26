@@ -1,7 +1,12 @@
 package me.projectx.needaticket.asynctask;
 import android.os.AsyncTask;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.logging.Level;
@@ -22,7 +27,8 @@ public class TaskExecuteGraphQLMutation extends AsyncTask<String, Void, String> 
     @Override protected String doInBackground (String... params) {
         try {
             HttpURLConnection conn = (HttpURLConnection) new URL(this.url).openConnection();
-            return this.postData(conn, params);
+            this.postData(conn, params);
+            return this.getData(conn);
         } catch (IOException e) {
             Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
@@ -36,16 +42,37 @@ public class TaskExecuteGraphQLMutation extends AsyncTask<String, Void, String> 
         this.listener.onPostExecute(result, this.getClass());
         super.onPostExecute(result);
     }
-    private String postData (HttpURLConnection conn, String... params) {
+    private void postData (HttpURLConnection conn, String... params) {
         try {
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
-            conn.setRequestProperty("query", query);
-            if(auth != null && auth != "") conn.setRequestProperty("authentication", "bearer " + auth);
-            if(conn.getResponseCode() == 200) return conn.getResponseMessage();
+            conn.setRequestProperty("Accept", "application/json");
+            if(auth != null && auth != "") conn.setRequestProperty("authorization", "bearer " + auth);
+            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+            wr.write(query);
+            wr.flush();
+            wr.close();
+            if(conn.getResponseCode() != 200) throw new Exception("Error when connecting!");
         } catch (Exception e) {
             Logger.getGlobal().log(Level.SEVERE, "Error connecting to the server. Check your connection.");
         }
-        return "";
+    }
+    private String getData (HttpURLConnection conn) {
+        BufferedReader reader;
+        String content = null;
+        try {
+            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+            content = sb.toString();
+            reader.close();
+            conn.disconnect();
+        } catch (Exception e) {
+            Logger.getGlobal().log(Level.SEVERE, e.getMessage());
+        }
+        return content;
     }
 }

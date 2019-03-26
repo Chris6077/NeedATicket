@@ -88,7 +88,7 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
         artists.add(a);
         Concert c1 = new Concert("lol", "We are here", new Date(), new Date(), "Loliweg 3", artists, Genre.DANCE, tickets2);
         Seller oe = new Seller("iiooo", "OETicket@oe.com");
-        Ticket t1 = new Ticket(1, TicketType.CONCERT, "Day 1 Ticket", (float) 22.99, oe, new User("xdfse534ge4tg43gz", "chris@bashit.me", tickets2, new Wallet(83572, Float.parseFloat("8.99"))), c1);
+        Ticket t1 = new Ticket(1, TicketType.CONCERT, "Day 1 Ticket", (float) 22.99, oe, new User("xdfse534ge4tg43gz", "chris@bashit.me", tickets2, new Wallet("83572", Float.parseFloat("8.99"))), c1);
         tickets.add(t1);
     }
     @Override public void onPreExecute (Class resource) {
@@ -108,7 +108,7 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
     }
     private void getTickets () {
         try {
-            TaskExecuteGraphQLQuery<List<Ticket>> getTickets = new TaskExecuteGraphQLQuery<>(getString(R.string.webservice_get_my_tickets_url), uID, this);
+            TaskExecuteGraphQLQuery getTickets = new TaskExecuteGraphQLQuery(getString(R.string.webservice_get_my_tickets_url), uID, this);
             getTickets.execute();
         } catch (Exception error) {
             HandlerState.handle(error, this);

@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.VideoView;
 
+import com.shashank.sony.fancytoastlib.FancyToast;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.projectx.needaticket.R;
@@ -74,23 +76,14 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
         }
     }
     private void attemptLogin () {
-        final Intent concertsActivity = new Intent(this, ConcertsActivity.class);
-        concertsActivity.putExtra("uID", "lol");
         try {
-            finish();
-            startActivity(concertsActivity);
-        } catch (Exception e) {
-            HandlerState.handle(e, getApplicationContext());
-        }
-        /*
-        try {
-            mAuthTask = new TaskExecuteGraphQLMutation(getString(R.string.webservice_login).replace("$email", mEmailView.getText()).replace("$password", mPasswordView.getText()), this);
+            mAuthTask = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_login).replace("$email", mEmailView.getText()).replace("$password", mPasswordView.getText()), "", this);
             mAuthTask.execute();
         }
         catch(Exception ex){
             showProgress(false);
             HandlerState.handle(ex,this);
-        }*/
+        }
     }
     @Override protected void onDestroy () {
         super.onDestroy();
@@ -102,7 +95,6 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
     @Override protected void onPause () {
         super.onPause();
         // Capture the current video position and pause the video.
-        mCurrentVideoPosition = mMediaPlayer.getCurrentPosition();
         videoBG.pause();
     }
     @Override protected void onResume () {
@@ -115,16 +107,23 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
     }
     private void showProgress (final boolean show) {
         mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        mProgressView.setBackgroundColor(show ? getColor(R.color.colorPrimary) : getColor(R.color.white));
         mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        videoBG.setVisibility(show ? View.GONE : View.INVISIBLE);
     }
     @Override public void onPostExecute (Object result, Class resource) {
-        Intent concertsActivity = new Intent(this, ConcertsActivity.class);
-        concertsActivity.putExtra("uID", (String) result);
-        try {
-            finish();
-            startActivity(concertsActivity);
-        } catch (Exception e) {
-            HandlerState.handle(e, getApplicationContext());
+        showProgress(false);
+        if(result != null && !result.equals("") && !((String)result).split("\"")[1].equals("errors")) {
+            Intent concertsActivity = new Intent(this, ConcertsActivity.class);
+            concertsActivity.putExtra("uID", ((String) result).split(":")[2].split("\"")[1]);
+            try {
+                finish();
+                startActivity(concertsActivity);
+            } catch (Exception e) {
+                HandlerState.handle(e, getApplicationContext());
+            }
+        } else {
+            FancyToast.makeText(getApplicationContext(), "Error when logging in! Please check your credentials.", FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
         }
     }
     @Override

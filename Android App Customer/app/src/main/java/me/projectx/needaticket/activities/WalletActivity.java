@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.text.DecimalFormat;
 
@@ -42,7 +43,6 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
         this.setListener();
         this.uID = getIntent().getStringExtra("uID");
         this.getWallet();
-        this.setContent();
     }
     private void setListener () {
         this.navigation.setNavigationItemSelectedListener(new ListenerNavigationMenu(this, uID));
@@ -53,8 +53,7 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
         this.cashOut.setOnClickListener(new CashOutListener());
     }
     private void getWallet () {
-        wallet = new Wallet(1, Float.parseFloat("1325.12"));
-        TaskExecuteGraphQLQuery<Wallet> getWallet = new TaskExecuteGraphQLQuery<>(getString(R.string.webservice_get_wallet).replace("$uID",uID), uID, this);
+        TaskExecuteGraphQLQuery getWallet = new TaskExecuteGraphQLQuery(getString(R.string.webservice_get_wallet), uID, this);
         getWallet.execute();
     }
     private void setContent () {
@@ -70,20 +69,21 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
         ValueAnimator animator = ValueAnimator.ofFloat(0, newBalance);
         animator.setDuration(2000);
         final DecimalFormat df = new DecimalFormat();
+        df.setMinimumFractionDigits(2);
         df.setMaximumFractionDigits(2);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             public void onAnimationUpdate (ValueAnimator animation) {
-                balance.setText(df.format(animation.getAnimatedValue()));
+                balance.setText(df.format(animation.getAnimatedValue()) + " €");
             }
         });
         animator.start();
     }
     private void upload () {
-        TaskExecuteGraphQLMutation tUpload = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_upload).replace("$uID", uID).replace("$amount", amount.getText()), uID, this);
+        TaskExecuteGraphQLMutation tUpload = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_upload).replace("$amount", amount.getText()), uID, this);
         tUpload.execute();
     }
     private void cashOut () {
-        TaskExecuteGraphQLMutation tCashOut = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_cashout).replace("$uID", uID).replace("$amount", amount.getText()), uID, this);
+        TaskExecuteGraphQLMutation tCashOut = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_cashout).replace("$amount", amount.getText()), uID, this);
         tCashOut.execute();
     }
     @Override public void onPreExecute (Class resource) {
@@ -91,21 +91,24 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
     }
     @Override public void onPostExecute (Object result, Class resource) {
         swipeRefreshLayout.setRefreshing(false);
-        try {
-            float f = Float.parseFloat((String) result);
-            startCountAnimation(f);
-        } catch (Exception error) {
+        if(result != null && !result.equals("") && !((String)result).split("\"")[1].equals("errors")) {
             try {
-                wallet = new Gson().fromJson((String) result, Wallet.class);
+                wallet = new Gson().fromJson("{" + ((String) result).split("\\{")[4].split("\\}")[0] + "}", Wallet.class);
                 setContent();
             } catch (Exception e) {
-                HandlerState.handle(e, getApplicationContext());
+                try {
+                    wallet = new Gson().fromJson("{" + ((String) result).split("\\{")[3].split("\\}")[0] + "}", Wallet.class);
+                    setContent();
+                } catch(Exception ex){
+                    HandlerState.handle(ex, getApplicationContext());
+                }
             }
+        } else {
+            FancyToast.makeText(getApplicationContext(), "Error!", FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
         }
     }
     @Override public void onRefresh () {
         getWallet();
-        setContent();
     }
     private class UploadListener implements View.OnClickListener {
         @Override public void onClick (View v) {

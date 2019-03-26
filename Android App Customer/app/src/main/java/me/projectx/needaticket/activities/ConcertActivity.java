@@ -39,6 +39,7 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
     private NavigationView navigation;
     private SwipeRefreshLayout swipeRefreshLayout;
     private Concert concert;
+    private ArrayList<Ticket> tickets;
     @Override protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tickets);
@@ -48,27 +49,8 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
             this.uID = getIntent().getStringExtra("uID");
             //this.getConcert();
             //this.getTickets();
-            Artist a = new Artist("lol", "Martin Garrix");
-            ArrayList<Artist> artists = new ArrayList<>();
-            artists.add(a);
-            ArrayList<Ticket> tickets = new ArrayList<>(0);
-            Concert c1 = new Concert("lol", "We are here", new Date(), new Date(), "Loliweg 3", artists, Genre.DANCE, tickets);
-            Seller oe = new Seller("iiooo", "OETicket@oe.com");
-            Ticket t1 = new Ticket(1, TicketType.CONCERT, "Day 1 Ticket", (float) 22.99, oe, null, c1);
-            Ticket t2 = new Ticket(2, TicketType.CONCERT, "Day 2 Ticket", (float) 22.99, oe, null, c1);
-            Ticket t3 = new Ticket(3, TicketType.FESTIVAL, "Festival Pass", (float) 33.99, oe, null, c1);
-            tickets.add(t3);
-            tickets.add(t1);
-            tickets.add(t2);
-            tickets.add(t1);
-            tickets.add(t2);
-            tickets.add(t3);
-            tickets.add(t1);
-            tickets.add(t2);
-            tickets.add(t3);
-            concert = c1;
-            setConcertContent(c1);
-            fillList(tickets);
+            setConcertContent();
+            fillList();
         } catch (Exception e) {
             Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
@@ -85,31 +67,31 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         this.navigation.setItemIconTintList(null); //THIS LITTLE PIECE OF ... FIXES THE ICONS NOT SHOWING IN THE NAVMENU >:(
         this.swipeRefreshLayout.setOnRefreshListener(this);
     }
-    private void setConcertContent (Concert concert) {
+    private void setConcertContent () {
         TextView header = findViewById(R.id.list_item_concert_name);
         TextView genre = findViewById(R.id.list_item_concert_genre);
         TextView artist = findViewById(R.id.list_item_concert_artist);
         TextView location = findViewById(R.id.list_item_concert_location);
         TextView date = findViewById(R.id.list_item_concert_date);
         StringBuilder artists = new StringBuilder();
-        for (Artist a : concert.getArtists()) {
+        /*for (Artist a : concert.getArtists()) {
             artists.append(a.getName()).append(", ");
         }
-        artists = new StringBuilder(artists.substring(0, artists.length() - 2));
+        artists = new StringBuilder(artists.substring(0, artists.length() - 2));*/
         location.setText(concert.getAddress());
         @SuppressLint ("SimpleDateFormat")
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
         date.setText(dateFormat.format(concert.getDate()));
         artist.setText(artists.toString());
-        genre.setText(concert.getGenre().toString());
-        setUpIconCategory(concert.getTickets().get(0).getType());
+        //genre.setText(concert.getGenre().toString());
+        //setUpIconCategory(concert.getTickets().get(0).getType());
         header.setText(concert.getTitle());
     }
-    private void fillList (ArrayList<Ticket> tickets) throws ContentException {
+    private void fillList () throws ContentException {
         if (tickets == null) {
             throw new ContentException("no Content found");
         } else {
-            AdapterListViewConcertTickets adapter = new AdapterListViewConcertTickets(this, uID, concert.getId(), R.layout.listview_item_concert_ticket, tickets);
+            AdapterListViewConcertTickets adapter = new AdapterListViewConcertTickets(this, uID, concert.get_id(), R.layout.listview_item_concert_ticket, tickets);
             this.listViewConcertTickets.setAdapter(adapter);
         }
     }
@@ -133,7 +115,7 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         try {
             Intent intent = getIntent();
             String cID = intent.getStringExtra("cID");
-            TaskExecuteGraphQLQuery<Concert> getConcert = new TaskExecuteGraphQLQuery<>(getString(R.string.webservice_get_concert_url), uID, this);
+            TaskExecuteGraphQLQuery getConcert = new TaskExecuteGraphQLQuery(getString(R.string.webservice_get_concert_url), uID, this);
             getConcert.execute();
         } catch (Exception error) {
             HandlerState.handle(error, this);
@@ -146,11 +128,11 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         try {
             swipeRefreshLayout.setRefreshing(false);
             concert = new Gson().fromJson((String) result, Concert.class);
-            setConcertContent(concert);
+            setConcertContent();
         } catch (Exception error) {
             try {
-                ArrayList<Ticket> tickets = (ArrayList<Ticket>) result;
-                fillList(tickets);
+                tickets = (ArrayList<Ticket>) result;
+                fillList();
             } catch (Exception e) {
                 HandlerState.handle(e, getApplicationContext());
             }
@@ -161,7 +143,7 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
     }
     private void getTickets () {
         try {
-            TaskExecuteGraphQLQuery<List<Ticket>> getTickets = new TaskExecuteGraphQLQuery<>(getString(R.string.webservice_get_tickets).replace("$cID", concert.getId()), uID,this);
+            TaskExecuteGraphQLQuery getTickets = new TaskExecuteGraphQLQuery(getString(R.string.webservice_get_tickets).replace("$cID", concert.get_id()), uID,this);
             getTickets.execute();
         } catch (Exception error) {
             swipeRefreshLayout.setRefreshing(false);

@@ -2,45 +2,21 @@ package me.projectx.needaticket.pojo;
 import java.util.ArrayList;
 import java.util.List;
 public class Ticket {
-    private int id;
-    private TicketType type;
-    private String title;
-    private float price;
-    private Seller seller;
-    private User buyer;
     private Concert concert;
-    public Ticket (int id, TicketType type, String title, float price, Seller seller, User buyer, Concert concert) {
-        this.id = id;
-        this.type = type;
-        this.title = title;
-        this.price = price;
-        this.seller = seller;
-        this.buyer = buyer;
+    private Seller seller;
+    private int available;
+    private float price;
+    public Ticket (Concert concert, Seller seller, int available, float price) {
         this.concert = concert;
-    }
-    public int getId () {
-        return id;
-    }
-    public void setId (int id) {
-        this.id = id;
-    }
-    public TicketType getType () {
-        return type;
-    }
-    public void setType (TicketType type) {
-        this.type = type;
-    }
-    public String getTitle () {
-        return title;
-    }
-    public void setTitle (String title) {
-        this.title = title;
-    }
-    public float getPrice () {
-        return price;
-    }
-    public void setPrice (float price) {
+        this.seller = seller;
+        this.available = available;
         this.price = price;
+    }
+    public Concert getConcert () {
+        return concert;
+    }
+    public void setConcert (Concert concert) {
+        this.concert = concert;
     }
     public Seller getSeller () {
         return seller;
@@ -48,19 +24,19 @@ public class Ticket {
     public void setSeller (Seller seller) {
         this.seller = seller;
     }
-    public User getBuyer () {
-        return buyer;
+    public int getAvailable () {
+        return available;
     }
-    public void setBuyer (User buyer) {
-        this.buyer = buyer;
+    public void setAvailable (int available) {
+        this.available = available;
     }
-    public Concert getConcert () {
-        return concert;
+    public float getPrice () {
+        return price;
     }
-    public void setConcerts (Concert concert) {
-        this.concert = concert;
+    public void setPrice (float price) {
+        this.price = price;
     }
     @Override public String toString () {
-        return "Ticket{" + "id=" + id + ", type=" + type + ", title='" + title + '\'' + ", price=" + price + ", seller=" + seller + ", buyer=" + buyer + ", concert=" + concert.getTitle() + '}';
+        return "Ticket{" + "concert=" + concert + ", seller=" + seller + ", available=" + available + ", price=" + price + '}';
     }
 }

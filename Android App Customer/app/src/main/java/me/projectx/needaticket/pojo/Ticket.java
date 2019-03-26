@@ -2,15 +2,23 @@ package me.projectx.needaticket.pojo;
 import java.util.ArrayList;
 import java.util.List;
 public class Ticket {
+    private String _id;
     private Concert concert;
     private Seller seller;
     private int available;
     private float price;
-    public Ticket (Concert concert, Seller seller, int available, float price) {
+    public Ticket (String _id, Concert concert, Seller seller, int available, float price) {
+        this._id = _id;
         this.concert = concert;
         this.seller = seller;
         this.available = available;
         this.price = price;
+    }
+    public String get_id () {
+        return _id;
+    }
+    public void set_id (String _id) {
+        this._id = _id;
     }
     public Concert getConcert () {
         return concert;
@@ -37,6 +45,6 @@ public class Ticket {
         this.price = price;
     }
     @Override public String toString () {
-        return "Ticket{" + "concert=" + concert + ", seller=" + seller + ", available=" + available + ", price=" + price + '}';
+        return "Ticket{" + "_id=" + _id + ", concert=" + concert + ", seller=" + seller + ", available=" + available + ", price=" + price + '}';
     }
 }

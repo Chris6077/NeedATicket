@@ -69,9 +69,9 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
         View rowView = inflater.inflate(R.layout.listview_item_ticket, parent, false);
         TextView header = rowView.findViewById(R.id.list_item_ticket_title);
         TextView price = rowView.findViewById(R.id.list_item_ticket_price);
-        price.setText(ticket.getPrice() + "€");
-        setUpIconCategory(rowView, ticket.getType());
-        header.setText(ticket.getTitle());
+        price.setText(ticket.getPrice() + " €");
+        //setUpIconCategory(rowView, ticket.getType());
+        header.setText(ticket.getConcert().getTitle());
         this.setUpRowViewListener(rowView, ticket);
         return rowView;
     }
@@ -115,7 +115,7 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
         });
         ImageView qrView = dialog.findViewById(R.id.image_qr_ticket);
         try {
-            Bitmap bitmap = hashToQR(encryptString("" + t.getId() + ":=:" + t.getSeller().getId() + ":=:" + t.getBuyer().getId() + ":=:" + t.getPrice()));
+            Bitmap bitmap = hashToQR(encryptString(t.get_id()));
             qrView.setImageBitmap(bitmap);
         } catch (Exception ex) {
             qrView.setImageDrawable(getAppCompatActivityResource().getDrawable(R.drawable.error));

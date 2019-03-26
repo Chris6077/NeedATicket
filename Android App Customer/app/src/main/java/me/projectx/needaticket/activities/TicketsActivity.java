@@ -46,10 +46,9 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
         setContentView(R.layout.activity_tickets);
         ButterKnife.bind(this);
         try {
-            this.setListener();
-            //this.getTickets();
-            fillList(new ArrayList<Ticket>());
             this.uID = getIntent().getStringExtra("uID");
+            this.setListener();
+            this.getTickets();
         } catch (Exception e) {
             Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
@@ -61,7 +60,6 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
         this.swipeRefreshLayout.setOnRefreshListener(this);
     }
     private void fillList (ArrayList<Ticket> tickets) throws ContentException {
-        fillWithDummy(tickets);
         if (tickets == null) {
             throw new ContentException("no Content found");
         } else {
@@ -80,16 +78,6 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
         View navHeader;
         navHeader = navigation.getHeaderView(0);
         navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this, uID));
-    }
-    private void fillWithDummy (ArrayList<Ticket> tickets) {
-        Artist a = new Artist("lol", "Martin Garrix");
-        ArrayList<Ticket> tickets2 = new ArrayList<>();
-        ArrayList<Artist> artists = new ArrayList<>();
-        artists.add(a);
-        Concert c1 = new Concert("lol", "We are here", new Date(), new Date(), "Loliweg 3", artists, Genre.DANCE, tickets2);
-        Seller oe = new Seller("iiooo", "OETicket@oe.com");
-        Ticket t1 = new Ticket(1, TicketType.CONCERT, "Day 1 Ticket", (float) 22.99, oe, new User("xdfse534ge4tg43gz", "chris@bashit.me", tickets2, new Wallet("83572", Float.parseFloat("8.99"))), c1);
-        tickets.add(t1);
     }
     @Override public void onPreExecute (Class resource) {
         swipeRefreshLayout.setRefreshing(true);

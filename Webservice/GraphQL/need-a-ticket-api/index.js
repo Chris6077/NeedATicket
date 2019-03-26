@@ -371,7 +371,7 @@ const resolvers = {
         {$lookup: { from: 'wallets',localField:'walletId',foreignField: '_id',as: 'wallet'}},
         {$unwind: "$wallet"},
         {$match : { _id }},
-        {$limit : 1}
+         {$limit : 1}
       ])
       return user.shift()
     },

@@ -88,6 +88,7 @@ const typeDefs = gql`
   type Mutation {
     signup (username: String, email: String!, password: String!): String
     login (email: String!, password: String!): String
+    staffLogin (concertId: ID!): String
     createArtist (name: String!): Artist
     createConcert (title: String!, date: Date!, address: String!, capacity: Float!, artistId: ID!): Concert
     createTicket (type: String!, price: Float!,concertId: String!,redeemedAt: Date, buyerId: String): Ticket
@@ -297,6 +298,21 @@ const resolvers = {
       )
     },
 
+    async staffLogin(_, { concertId }) {
+      const concert = await Concert.findOne(Types.ObjectId(concertId))
+
+      if (!concert) {
+        throw new Error('No concert with that id')
+      }
+
+      // Return json web token
+      return await jsonwebtoken.sign(
+        { id: concert.id, role: "staff" },
+        global.config.secret,
+        { expiresIn: '1y' }
+      )
+    },
+
     async createArtist(_, {name}) {
       let artist = new Artist({name})
       await artist.save((err) => {
@@ -478,10 +494,15 @@ const resolvers = {
     async redeem(_,{ticketId},context){
       ticketId = Types.ObjectId(ticketId)
       let redeemedAt = new Date()
-      let ticket = Ticket.findOne(ticketId)
+      let ticket = await Ticket.findOne(ticketId)
+      if(context.user.role != "staff")
+        throw new AuthenticationError("your not logged in as staff")
+      if(ticket.concertId +"" !=  Types.ObjectId(context.user.id)+"")
+        throw new AuthenticationError("you cannot redeem tickets from different concerts")
       if(!ticket)
         throw new ApolloError("ticket not found", 404)
-      
+      if(ticket.redeemed)
+        throw new ApolloError("ticket already redeemed.",401)
       await Ticket.updateOne(
         { "_id" : ticketId },
         { $set : { redeemed: true, redeemedAt } }
@@ -510,7 +531,7 @@ mongoose.connect('mongodb://julian-blaschke:Julian1999@ds247001.mlab.com:47001/n
 const schema = makeExecutableSchema({typeDefs, resolvers})
 addSchemaLevelResolveFunction(schema, (root, args, context, info) => {
   if(!context.user)
-    if(info.fieldName !== 'login' && info.fieldName !== 'signup')
+    if(info.fieldName !== 'login' && info.fieldName !== 'signup' && info.fieldName !== "staffLogin")
       throw new AuthenticationError("not authenticated.")  
 })
 

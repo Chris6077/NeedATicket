@@ -4,6 +4,7 @@ const jsonwebtoken = require("jsonwebtoken")
 const bcrypt = require("bcryptjs")
 const mongoose = require('mongoose')
 const config = require('./config')
+const {PasswordMeter} = require('password-meter')
 const { Types } = require('mongoose')
 const { User } = require('./models/User')
 const { Artist } = require('./models/Artist')
@@ -29,6 +30,12 @@ const typeDefs = gql`
     bought: [Ticket]
     totalSelling: Int
     totalBought: Int
+    passwordStrength: PasswordMeter
+  }
+  type PasswordMeter {
+    score: Float!,
+    status: String!,
+    percent: Float!
   }
   type Artist {
     _id: ID,
@@ -257,16 +264,23 @@ const resolvers = {
       let wallet = new Wallet({
         balance: 0
       })
-      
+      let passwordStrength = await new PasswordMeter({},{
+        "50": "very weak",  // 001 <= x <  040
+        "100": "weak",  // 040 <= x <  080
+        "150": "average", // 080 <= x <  120
+        "200": "strong", // 120 <= x <  180
+        "_": "very strong"   //        x >= 200
+      }).getResult(password)
+
       await wallet.save()
 
       let user = new User({
         username,
         email,
         password: await bcrypt.hash(password, 10),
-        walletId: wallet._id
+        walletId: wallet._id,
+        passwordStrength
       })
-
       await user.save()
 
       // Return json web token
@@ -378,9 +392,16 @@ const resolvers = {
         )
       }
       if(password){
+        let passwordStrength = await new PasswordMeter({},{
+          "50": "very weak",  // 001 <= x <  040
+          "100": "weak",  // 040 <= x <  080
+          "150": "average", // 080 <= x <  120
+          "200": "strong", // 120 <= x <  180
+          "_": "very strong"   //        x >= 200
+        }).getResult(password)
         await User.updateOne(
           { _id },
-          { $set : { password: await bcrypt.hash(password, 10) } }
+          { $set : { password: await bcrypt.hash(password, 10) , passwordStrength} }
         )
       }
       let user = await User.aggregate([

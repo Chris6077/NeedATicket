@@ -60,6 +60,9 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
         this.swipeRefreshLayout.setOnRefreshListener(this);
     }
     private void fillList (ArrayList<Ticket> tickets) throws ContentException {
+        //tickets = new ArrayList<>();
+        //Ticket t = new Ticket("5c8614daf6bb801464d2c072", new Concert("id","Lol","","",new Artist("","")),new Seller("_",""),2,2);
+        //tickets.add(t);
         if (tickets == null) {
             throw new ContentException("no Content found");
         } else {

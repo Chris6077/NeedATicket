@@ -408,7 +408,7 @@ const resolvers = {
         {$lookup: { from: 'wallets',localField:'walletId',foreignField: '_id',as: 'wallet'}},
         {$unwind: "$wallet"},
         {$match : { _id }},
-         {$limit : 1}
+        {$limit : 1}
       ])
       return user.shift()
     },
@@ -519,11 +519,11 @@ const resolvers = {
       if(context.user.role != "staff")
         throw new AuthenticationError("your not logged in as staff")
       if(ticket.concertId +"" !=  Types.ObjectId(context.user.id)+"")
-        throw new AuthenticationError("you cannot redeem tickets from different concerts")
+        throw new AuthenticationError("you cannot redeem tickets for other concerts")
       if(!ticket)
         throw new ApolloError("ticket not found", 404)
       if(ticket.redeemed)
-        throw new ApolloError("ticket already redeemed.",401)
+        throw new ApolloError("ticket already redeemed.",400)
       await Ticket.updateOne(
         { "_id" : ticketId },
         { $set : { redeemed: true, redeemedAt } }

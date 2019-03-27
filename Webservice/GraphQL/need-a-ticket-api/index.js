@@ -87,7 +87,7 @@ const typeDefs = gql`
     concerts: [Concert]
     concert(id: ID!): Concert
     tickets: [Ticket]
-    ticketsGrouped: [groupedTicket]
+    ticketsGrouped(concertId: ID): [groupedTicket]
     ticket(id: ID!): Ticket
     transactions: [Transaction]
     transaction(id: ID!): Transaction
@@ -219,8 +219,20 @@ const resolvers = {
       return tickets
     },
 
-    async ticketsGrouped(){
-      let tickets =  await Ticket.aggregate([
+    async ticketsGrouped(_,{concertId}){
+      if(concertId){
+        return await Ticket.aggregate([
+          {$match: {buyerId: {$exists: true}} },
+          {$group: {_id: {concertId: '$concertId', sellerId: "$sellerId", price: '$price' }, count: {$sum: 1}}},
+          {$lookup: { from: 'users',localField:'_id.sellerId',foreignField: '_id',as: 'seller'}},
+          {$unwind: "$seller"},
+          {$lookup: { from: 'concerts',localField:'_id.concertId',foreignField: '_id',as: 'concert'}},
+          {$unwind: "$concert"},
+          {$project: {concert: "$concert", seller: "$seller", price: '$_id.price', available: "$count", _id : 0 }},
+          {$match : {"concert._id" : Types.ObjectId(concertId)}},
+        ])
+      }
+      return await Ticket.aggregate([
         {$match: {buyerId: {$exists: true}} },
         {$group: {_id: {concertId: '$concertId', sellerId: "$sellerId", price: '$price' }, count: {$sum: 1}}},
         {$lookup: { from: 'users',localField:'_id.sellerId',foreignField: '_id',as: 'seller'}},
@@ -229,7 +241,6 @@ const resolvers = {
         {$unwind: "$concert"},
         {$project: {concert: "$concert", seller: "$seller", price: '$_id.price', available: "$count", _id : 0 }}
       ])
-      return tickets
     },
 
     async transactions(){
@@ -261,6 +272,9 @@ const resolvers = {
 
   Mutation: {
     async signup(_, { username, email, password }) {
+      if(email)
+        if(await User.findOne({email}))
+          throw new ApolloError("an user with this email already exists")
       let wallet = new Wallet({
         balance: 0
       })

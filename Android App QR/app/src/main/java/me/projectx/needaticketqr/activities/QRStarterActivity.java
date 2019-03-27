@@ -27,6 +27,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import me.itangqi.waveloadingview.WaveLoadingView;
 import me.projectx.needaticketqr.R;
 import me.projectx.needaticketqr.asynctask.TaskCheckTicket;
+import me.projectx.needaticketqr.asynctask.TaskExecuteGraphQLMutation;
 import me.projectx.needaticketqr.handler.HandlerState;
 
 import butterknife.BindView;
@@ -36,7 +37,7 @@ import me.projectx.needaticketqr.interfaces.InterfaceTaskDefault;
 import static android.os.Build.MANUFACTURER;
 import static butterknife.internal.Utils.arrayOf;
 public class QRStarterActivity extends AppCompatActivity implements View.OnClickListener, InterfaceTaskDefault, ZXingScannerView.ResultHandler {
-    private TaskCheckTicket mCheckTask;
+    private TaskExecuteGraphQLMutation mCheckTask;
     private String hash;
     private long backPressedTime;
     private Toast backToast;
@@ -106,26 +107,29 @@ public class QRStarterActivity extends AppCompatActivity implements View.OnClick
         mWaveLoadingView.setVisibility(View.INVISIBLE);
         content.setVisibility(View.VISIBLE);
         try{
-            if((String)result == "redeemed") {
-                FancyToast.makeText(getApplicationContext(), "Ticket redeemed", Toast.LENGTH_SHORT, FancyToast.SUCCESS, false).show();
-                readQRCode();
-            } else if((String)result == "claimed") {
+            if(((String)result).contains("ticket already redeemed")) {
                 FancyToast.makeText(getApplicationContext(), "Ticket already redeemed", Toast.LENGTH_SHORT, FancyToast.ERROR, false).show();
                 readQRCode();
+            } else if(((String)result).contains("Argument passed in must be a single String")){
+                FancyToast.makeText(getApplicationContext(), "Invalid ticket!", Toast.LENGTH_SHORT, FancyToast.ERROR, false).show();
+                readQRCode();
+            } else if(((String)result).contains("errors")) {
+                FancyToast.makeText(getApplicationContext(), "Error redeeming ticket!", Toast.LENGTH_SHORT, FancyToast.ERROR, false).show();
+                readQRCode();
             } else {
-                FancyToast.makeText(getApplicationContext(), "Invalid ticket", Toast.LENGTH_SHORT, FancyToast.ERROR, false).show();
+                FancyToast.makeText(getApplicationContext(), "Ticket valid - redeemed", Toast.LENGTH_SHORT, FancyToast.SUCCESS, false).show();
                 readQRCode();
             }
         }
         catch (Exception ex){
-            HandlerState.handle(ex, getApplicationContext());
+            FancyToast.makeText(getApplicationContext(), "Invalid ticket", Toast.LENGTH_SHORT, FancyToast.ERROR, false).show();
         }
     }
     @Override public void handleResult (Result result) {
         try {
             qrCodeScanner.stopCamera();
             qrCodeScanner.setVisibility(View.INVISIBLE);
-            mCheckTask = new TaskCheckTicket(getString(R.string.webservice_check_ticket), hash, result.getText(), this);
+            mCheckTask = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_check_ticket).replace("$hash", result.getText()), hash, this);
             mCheckTask.execute();
         }
         catch(Exception ex){

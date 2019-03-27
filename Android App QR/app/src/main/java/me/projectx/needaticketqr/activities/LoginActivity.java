@@ -10,7 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.VideoView;
 
+import com.shashank.sony.fancytoastlib.FancyToast;
+
 import me.projectx.needaticketqr.R;
+import me.projectx.needaticketqr.asynctask.TaskExecuteGraphQLMutation;
 import me.projectx.needaticketqr.asynctask.TaskLogin;
 import me.projectx.needaticketqr.handler.HandlerState;
 import me.projectx.needaticketqr.interfaces.InterfaceTaskDefault;
@@ -21,7 +24,7 @@ import butterknife.ButterKnife;
 public class LoginActivity extends AppCompatActivity implements InterfaceTaskDefault {
     MediaPlayer mMediaPlayer;
     int mCurrentVideoPosition;
-    private TaskLogin mAuthTask;
+    private TaskExecuteGraphQLMutation mAuthTask;
     @BindView(R.id.etHash) EditText mHashView;
     @BindView(R.id.loadingPanel) View mProgressView;
     @BindView(R.id.login_form) View mLoginFormView;
@@ -59,23 +62,22 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
         });
     }
     private void attemptLogin () {
-        final Intent concertsActivity = new Intent(this, QRStarterActivity.class);
+        /*final Intent concertsActivity = new Intent(this, QRStarterActivity.class);
         concertsActivity.putExtra("uID", "lol");
         try {
             finish();
             startActivity(concertsActivity);
         } catch (Exception e) {
             HandlerState.handle(e, getApplicationContext());
-        }
-        /*
+        }*/
         try {
-            mAuthTask = new TaskLogin(getString(R.string.webservice_login), mEmailView.getText().toString(), mPasswordView.getText().toString(), this);
+            mAuthTask = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_login).replace("$concertId", mHashView.getText()), "", this);
             mAuthTask.execute();
         }
         catch(Exception ex){
             showProgress(false);
             HandlerState.handle(ex,this);
-        }*/
+        }
     }
     @Override protected void onDestroy () {
         super.onDestroy();
@@ -87,7 +89,6 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
     @Override protected void onPause () {
         super.onPause();
         // Capture the current video position and pause the video.
-        mCurrentVideoPosition = mMediaPlayer.getCurrentPosition();
         videoBG.pause();
     }
     @Override protected void onResume () {
@@ -100,16 +101,38 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
     }
     private void showProgress (final boolean show) {
         mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        mProgressView.setBackgroundColor(show ? getColor(R.color.colorPrimary) : getColor(R.color.transparency));
         mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        videoBG.setVisibility(show ? View.GONE : View.VISIBLE);
+        if(!show) {
+            videoBG.start();
+            videoBG.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override public void onPrepared (MediaPlayer mp) {
+                    mMediaPlayer = mp;
+                    mMediaPlayer.setLooping(true);
+                    if (mCurrentVideoPosition != 0) {
+                        mMediaPlayer.seekTo(mCurrentVideoPosition);
+                        mMediaPlayer.start();
+                    }
+                }
+            });
+        }
+        else videoBG.pause();
+
     }
     @Override public void onPostExecute (Object result, Class resource) {
-        Intent concertsActivity = new Intent(this, QRStarterActivity.class);
-        concertsActivity.putExtra("hash", (String) result);
-        try {
-            finish();
-            startActivity(concertsActivity);
-        } catch (Exception e) {
-            HandlerState.handle(e, getApplicationContext());
+        if(result != null && !result.equals("") && !((String)result).split("\"")[1].equals("errors")) {
+            Intent qrActivity = new Intent(this, QRStarterActivity.class);
+            qrActivity.putExtra("hash", ((String) result).split(":")[2].split("\"")[1]);
+            try {
+                finish();
+                startActivity(qrActivity);
+            } catch (Exception e) {
+                HandlerState.handle(e, getApplicationContext());
+            }
+        } else {
+            FancyToast.makeText(getApplicationContext(), "Error when logging in! Please check your credentials.", FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
         }
+        showProgress(false);
     }
 }

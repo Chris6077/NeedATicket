@@ -28,8 +28,10 @@ const typeDefs = gql`
     wallet: Wallet!
     selling: [Ticket]
     bought: [Ticket]
+    redeemed: [Ticket]
     totalSelling: Int
     totalBought: Int
+    totalRedeemed: Int
     passwordStrength: PasswordMeter
   }
   type PasswordMeter {
@@ -115,13 +117,27 @@ const resolvers = {
   Query: {
     async me(_,{},context){
       let _id = Types.ObjectId(context.user.id)
-      let selling = await Ticket.find({
+      let totalselling = await Ticket.find({
         sellerId: _id
       }).countDocuments()
-      let bought = await Ticket.find({
+      let totalredeemed = await Ticket.find({
+        buyerId: _id,
+        redeemed: true
+      }).countDocuments()
+      let totalbought = await Ticket.find({
         buyerId: _id
       }).countDocuments()
-
+      let selling = await Ticket.find({
+        sellerId: _id
+      })
+      let redeemed = await Ticket.find({
+        buyerId: _id,
+        redeemed: true
+      })
+      let bought = await Ticket.find({
+        buyerId: _id
+      })
+      console.log(redeemed)
       let user = await User.aggregate([
         {$lookup: { from: 'wallets',localField:'walletId',foreignField: '_id',as: 'wallet'}},
         {$unwind: "$wallet"},
@@ -129,8 +145,12 @@ const resolvers = {
         {$limit : 1}
       ])
       user = user.shift()
-      user.totalSelling = selling
-      user.totalBought = bought
+      user.totalSelling = totalselling
+      user.totalBought = totalbought
+      user.totalRedeemed = totalredeemed;
+      user.selling = selling
+      user.bought = bought
+      user.redeemed = redeemed
       return user
     },
 

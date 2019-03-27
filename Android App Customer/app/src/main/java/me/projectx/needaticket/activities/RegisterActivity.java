@@ -135,9 +135,23 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
     }
     private void showProgress (final boolean show) {
         mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-        mProgressView.setBackgroundColor(show ? getColor(R.color.colorPrimary) : getColor(R.color.white));
+        mProgressView.setBackgroundColor(show ? getColor(R.color.colorPrimary) : getColor(R.color.transparency));
         mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        videoBG.setVisibility(show ? View.GONE : View.INVISIBLE);
+        videoBG.setVisibility(show ? View.GONE : View.VISIBLE);
+        if(!show) {
+            videoBG.start();
+            videoBG.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override public void onPrepared (MediaPlayer mp) {
+                    mMediaPlayer = mp;
+                    mMediaPlayer.setLooping(true);
+                    if (mCurrentVideoPosition != 0) {
+                        mMediaPlayer.seekTo(mCurrentVideoPosition);
+                        mMediaPlayer.start();
+                    }
+                }
+            });
+        }
+        else videoBG.pause();
     }
     @Override protected void onDestroy () {
         super.onDestroy();
@@ -170,9 +184,9 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
                 HandlerState.handle(e, getApplicationContext());
             }
         } else{
-            showProgress(false);
             FancyToast.makeText(getApplicationContext(), "Error when registering! Please check your credentials.", FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
         }
+        showProgress(false);
     }
     @Override
     public void onBackPressed() {

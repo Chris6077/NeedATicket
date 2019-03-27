@@ -107,12 +107,25 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
     }
     private void showProgress (final boolean show) {
         mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-        mProgressView.setBackgroundColor(show ? getColor(R.color.colorPrimary) : getColor(R.color.white));
+        mProgressView.setBackgroundColor(show ? getColor(R.color.colorPrimary) : getColor(R.color.transparency));
         mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        videoBG.setVisibility(show ? View.GONE : View.INVISIBLE);
+        videoBG.setVisibility(show ? View.GONE : View.VISIBLE);
+        if(!show) {
+            videoBG.start();
+            videoBG.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override public void onPrepared (MediaPlayer mp) {
+                    mMediaPlayer = mp;
+                    mMediaPlayer.setLooping(true);
+                    if (mCurrentVideoPosition != 0) {
+                        mMediaPlayer.seekTo(mCurrentVideoPosition);
+                        mMediaPlayer.start();
+                    }
+                }
+            });
+        }
+        else videoBG.pause();
     }
     @Override public void onPostExecute (Object result, Class resource) {
-        showProgress(false);
         if(result != null && !result.equals("") && !((String)result).split("\"")[1].equals("errors")) {
             Intent concertsActivity = new Intent(this, ConcertsActivity.class);
             concertsActivity.putExtra("uID", ((String) result).split(":")[2].split("\"")[1]);
@@ -125,6 +138,7 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
         } else {
             FancyToast.makeText(getApplicationContext(), "Error when logging in! Please check your credentials.", FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
         }
+        showProgress(false);
     }
     @Override
     public void onBackPressed() {

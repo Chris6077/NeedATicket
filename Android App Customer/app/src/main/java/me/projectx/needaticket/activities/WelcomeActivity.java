@@ -55,6 +55,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     private void showNewIntent () {
         final Intent loginActivity = new Intent(this, LoginActivity.class);
         try {
+            finish();
             startActivity(loginActivity);
         } catch (Exception e) {
             HandlerState.handle(e, getApplicationContext());
@@ -64,13 +65,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     public void onBackPressed() {
         if (backPressedTime + 2000 > System.currentTimeMillis()) {
             backToast.cancel();
-            final Intent loginActivity = new Intent(this, LoginActivity.class);
-            try {
-                finish();
-                startActivity(loginActivity);
-            } catch (Exception e) {
-                HandlerState.handle(e, getApplicationContext());
-            }
+            finish();
         } else {
             backToast = FancyToast.makeText(getApplicationContext(), "Press back again to exit", Toast.LENGTH_SHORT, FancyToast.INFO, false);
             backToast.show();

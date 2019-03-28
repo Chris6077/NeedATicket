@@ -5,8 +5,8 @@ public class User {
     private String _id;
     private String email;
     private int totalBought;
-    private int passwordStrength;
-    public User (String _id, String email, int totalBought, int passwordStrength) {
+    private PasswordStrength passwordStrength;
+    public User (String _id, String email, int totalBought, PasswordStrength passwordStrength) {
         this._id = _id;
         this.email = email;
         this.totalBought = totalBought;
@@ -30,17 +30,10 @@ public class User {
     public void setTotalBought (int totalBought) {
         this.totalBought = totalBought;
     }
-    public String getPasswordStrength () {
-        String res = "Very Weak";
-        switch(passwordStrength){
-            case 1: res = "Weak"; break;
-            case 2: res = "Average"; break;
-            case 3: res = "Strong"; break;
-            case 4: res = "Very Strong"; break;
-        }
-        return res;
+    public PasswordStrength getPasswordStrength () {
+        return passwordStrength;
     }
-    public void setPasswordStrength (int passwordStrength) {
+    public void setPasswordStrength (PasswordStrength passwordStrength) {
         this.passwordStrength = passwordStrength;
     }
     @Override public String toString () {

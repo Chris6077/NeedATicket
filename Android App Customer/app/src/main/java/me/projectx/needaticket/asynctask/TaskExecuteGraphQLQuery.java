@@ -43,6 +43,8 @@ public class TaskExecuteGraphQLQuery extends AsyncTask<Object, Object, String> {
         String content = null;
         try {
             conn.setRequestMethod("GET");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Accept", "application/json");
             conn.setRequestProperty("authorization", "bearer " + auth);
             reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             StringBuilder sb = new StringBuilder();

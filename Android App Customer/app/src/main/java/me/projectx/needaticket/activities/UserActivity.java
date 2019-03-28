@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -20,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,6 +49,9 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
     @BindView(R.id.user_swipe_to_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     private User user;
     private String uID;
+    private View dialogView;
+    private Dialog dialog;
+    private String newPara;
     @BindView(R.id.textview_email) TextView email;
     @BindView(R.id.textview_password) TextView password;
     @BindView(R.id.etOldPassword) @Nullable EditText dialogOldPassword;
@@ -74,7 +80,7 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
     private void setContent () {
         email.setText(user.getEmail());
         boughtTickets.setText("" + user.getTotalBought());
-        password.setText(user.getPasswordStrength());
+        password.setText(user.getPasswordStrength().getStatus());
     }
     private void setListenerNavigationHeader () {
         View navHeader;
@@ -83,25 +89,58 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
     }
     private void changeMail () {
         try {
-            TaskExecuteGraphQLMutation changeEmail = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_change_email).replace("$email", dialogNewEmail.getText()), uID, this);
-            changeEmail.execute();
+            boolean cancel = false;
+            View focusView = null;
+            EditText mEmailView = (EditText)dialog.findViewById(R.id.etEmailAddress);
+            if (TextUtils.isEmpty(mEmailView.getText())) {
+                mEmailView.setError(getString(R.string.error_field_required));
+                focusView = mEmailView;
+                cancel = true;
+            } else if (!mEmailView.getText().toString().contains("@")) {
+                mEmailView.setError(getString(R.string.error_invalid_email));
+                focusView = mEmailView;
+                cancel = true;
+            }
+            if (cancel) {
+                focusView.requestFocus();
+            } else {
+                TaskExecuteGraphQLMutation changeEmail = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_change_email).replace("$email", mEmailView.getText()), uID, this);
+                changeEmail.execute();
+            }
         } catch (Exception error) {
             HandlerState.handle(error, this);
         }
     }
     private void changePassword () {
         try {
-            if (dialogNewPassword != dialogConfirmNewPassword)
-                throw new PasswordException("Passwords don't match!");
-            TaskExecuteGraphQLMutation changePassword = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_change_password).replace("$password", dialogNewPassword.getText()), uID, this);
-            changePassword.execute();
+            boolean cancel = false;
+            View focusView = null;
+            EditText mPasswordView = dialog.findViewById(R.id.etNewPassword);
+            EditText mPasswordConfirmView = dialog.findViewById(R.id.etPasswordConfirm);
+            if (TextUtils.isEmpty(mPasswordView.getText()) || mPasswordView.getText().toString().length() <= 4) {
+                mPasswordView.setError(getString(R.string.error_invalid_password));
+                focusView = mPasswordView;
+                cancel = true;
+            }
+            if(!mPasswordView.getText().toString().equals(mPasswordConfirmView.getText().toString())){
+                mPasswordView.setError(getString(R.string.error_passwords_dont_match));
+                mPasswordConfirmView.setError(getString(R.string.error_passwords_dont_match));
+                focusView = mPasswordConfirmView;
+                cancel = true;
+            }
+            if (cancel) {
+                focusView.requestFocus();
+            } else {
+                TaskExecuteGraphQLMutation changePassword = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_change_password).replace("$password", mPasswordView.getText()), uID, this);
+                changePassword.execute();
+            }
         } catch (Exception error) {
             HandlerState.handle(error, this);
         }
     }
     private void showDiag () {
-        final View dialogView = View.inflate(this, R.layout.dialog_edit_user, null);
-        final Dialog dialog = new Dialog(this, R.style.UserAlertStyle);
+        dialogView = View.inflate(this, R.layout.dialog_edit_user, null);
+        dialog = new Dialog(this, R.style.UserAlertStyle);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(dialogView);
         ImageView imageView = dialog.findViewById(R.id.closeDialog);
@@ -162,12 +201,15 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
     }
     @Override public void onPostExecute (Object result, Class resource) {
         swipeRefreshLayout.setRefreshing(false);
-        try {
-            user = new Gson().fromJson("{" + ((String) result).split("\\{")[4].split("\\{")[0] + "}", User.class);
-            setContent();
-        } catch (Exception e) {
-            HandlerState.handle(new Exception("Error: Check your connection!"), getApplicationContext());
-        }
+        if(dialogView != null && dialog != null && dialog.isShowing()) revealShow(dialogView, false, dialog);
+        if(result != null && !result.equals("") && !((String)result).split("\"")[1].equals("errors")) {
+            try {
+                user = new Gson().fromJson("{" + ((String) result).split("\\{")[3].split("\\}")[0] + "{" + ((String) result).split("\\{")[4].split("\\}")[0] + "}" + "}", User.class);
+                setContent();
+            } catch (Exception e) {
+                HandlerState.handle(new Exception("Error: Check your connection!"), getApplicationContext());
+            }
+        } else FancyToast.makeText(getApplicationContext(),"Error: Check your connection!", FancyToast.LENGTH_SHORT,FancyToast.ERROR,false);
     }
     @Override public void onRefresh () {
         getUser();

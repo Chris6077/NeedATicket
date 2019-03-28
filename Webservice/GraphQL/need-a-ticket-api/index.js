@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs")
 const mongoose = require('mongoose')
 const config = require('./config')
 const {PasswordMeter} = require('password-meter')
+const { logic } = require('./logic')
 const { Types } = require('mongoose')
 const { User } = require('./models/User')
 const { Artist } = require('./models/Artist')
@@ -78,6 +79,7 @@ const typeDefs = gql`
     concert: Concert! 
     price: Float!
     seller: User!
+    type: String!
     available: Float!
   }
   type Query {
@@ -116,178 +118,52 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     async me(_,{},context){
-      let _id = Types.ObjectId(context.user.id)
-      let totalselling = await Ticket.find({
-        sellerId: _id
-      }).countDocuments()
-      let totalredeemed = await Ticket.find({
-        buyerId: _id,
-        redeemed: true
-      }).countDocuments()
-      let totalbought = await Ticket.find({
-        buyerId: _id
-      }).countDocuments()
-      let selling = await Ticket.find({
-        sellerId: _id
-      })
-      let redeemed = await Ticket.find({
-        buyerId: _id,
-        redeemed: true
-      })
-      let bought = await Ticket.find({
-        buyerId: _id
-      })
-      console.log(redeemed)
-      let user = await User.aggregate([
-        {$lookup: { from: 'wallets',localField:'walletId',foreignField: '_id',as: 'wallet'}},
-        {$unwind: "$wallet"},
-        {$match : {_id }},
-        {$limit : 1}
-      ])
-      user = user.shift()
-      user.totalSelling = totalselling
-      user.totalBought = totalbought
-      user.totalRedeemed = totalredeemed;
-      user.selling = selling
-      user.bought = bought
-      user.redeemed = redeemed
-      return user
+      return await logic.User.findOne({id:context.user.id})
     },
 
     async user(_,{id}) {
-      let _id = Types.ObjectId(id)
-      let selling = await Ticket.find({
-        sellerId: _id
-      }).countDocuments()
-      let bought = await Ticket.find({
-        buyerId: _id
-      }).countDocuments()
-
-      let user = await User.aggregate([
-        {$lookup: { from: 'wallets',localField:'walletId',foreignField: '_id',as: 'wallet'}},
-        {$unwind: "$wallet"},
-        {$match : {_id }},
-        {$limit : 1}
-      ])
-      user = user.shift()
-      user.totalSelling = selling
-      user.totalBought = bought
-      return user
+      return await logic.User.findOne({id})
     },
 
     async users() {
-      return User.aggregate([
-        {$lookup: { from: 'wallets',localField:'walletId',foreignField: '_id',as: 'wallet'}},
-        {$unwind: "$wallet"},
-        {$lookup: { from: 'tickets',localField:'_id',foreignField: 'sellerId',as: 'selling'}},
-        {$lookup: { from: 'tickets',localField:'_id',foreignField: 'buyerId',as: 'bought'}},
-      ])
+      return await logic.User.find()
     },
 
     async artist(_,{id}) {
-      return Artist.findOne(Types.ObjectId(id))
+      return await logic.Artist.findOne({id})
     },
 
     async artists() {
-      return Artist.find()
+      return await logic.Artist.find()
     },
 
     async concert(_,{id}) {
-      let concert = await Concert.aggregate([
-        {$lookup: { from: 'artists',localField:'artistId',foreignField: '_id',as: 'artist'}},
-        {$unwind: "$artist"},
-        {$lookup: { from: 'tickets', localField: '_id', foreignField: 'concertId' , as : 'tickets' }},
-        {$match : {_id : Types.ObjectId(id)}},
-        {$limit : 1}
-      ])
-      return concert.shift()
+      return await logic.Concert.findOne({id})
     },
 
     async concerts(){
-      let concerts = await Concert.aggregate([
-        {$lookup: { from: 'artists',localField:'artistId',foreignField: '_id',as: 'artist'}},
-        {$unwind: "$artist"},
-        {$lookup: { from: 'tickets', localField: '_id', foreignField: 'concertId' , as : 'tickets' }}
-        ])
-      console.log(concerts)
-      return concerts;
+      return await logic.Concert.find()
     },
 
     async ticket(_,{id}){
-      let ticket =  await Ticket.aggregate([
-          {$lookup: { from: 'users',localField:'sellerId',foreignField: '_id',as: 'seller'}},
-          {$unwind: "$seller"},
-          {$lookup: { from: 'users',localField:'buyerId',foreignField: '_id',as: 'buyer'}},
-          {$unwind: { path:"$buyer", preserveNullAndEmptyArrays: true}},
-          {$lookup: { from: 'concerts',localField:'concertId',foreignField: '_id',as: 'concert'}},
-          {$unwind: "$concert"},
-          {$match : {_id : Types.ObjectId(id)}},
-          {$limit : 1}
-      ])
-      return ticket.shift()
+      return logic.Ticket.findOne({id})
     },
 
     async tickets(){
-      let tickets =  await Ticket.aggregate([
-          {$lookup: { from: 'users',localField:'sellerId',foreignField: '_id',as: 'seller'}},
-          {$unwind: "$seller"},
-          {$lookup: { from: 'users',localField:'buyerId',foreignField: '_id',as: 'buyer'}},
-          {$unwind: { path:"$buyer", preserveNullAndEmptyArrays: true}},
-          {$lookup: { from: 'concerts',localField:'concertId',foreignField: '_id',as: 'concert'}},
-          {$unwind: "$concert"}
-        ])
-      return tickets
+      return logic.Ticket.find()
     },
 
     async ticketsGrouped(_,{concertId}){
-      if(concertId){
-        return await Ticket.aggregate([
-          {$match: {buyerId: {$exists: true}} },
-          {$group: {_id: {concertId: '$concertId', sellerId: "$sellerId", price: '$price' }, count: {$sum: 1}}},
-          {$lookup: { from: 'users',localField:'_id.sellerId',foreignField: '_id',as: 'seller'}},
-          {$unwind: "$seller"},
-          {$lookup: { from: 'concerts',localField:'_id.concertId',foreignField: '_id',as: 'concert'}},
-          {$unwind: "$concert"},
-          {$project: {concert: "$concert", seller: "$seller", price: '$_id.price', available: "$count", _id : 0 }},
-          {$match : {"concert._id" : Types.ObjectId(concertId)}},
-        ])
-      }
-      return await Ticket.aggregate([
-        {$match: {buyerId: {$exists: true}} },
-        {$group: {_id: {concertId: '$concertId', sellerId: "$sellerId", price: '$price' }, count: {$sum: 1}}},
-        {$lookup: { from: 'users',localField:'_id.sellerId',foreignField: '_id',as: 'seller'}},
-        {$unwind: "$seller"},
-        {$lookup: { from: 'concerts',localField:'_id.concertId',foreignField: '_id',as: 'concert'}},
-        {$unwind: "$concert"},
-        {$project: {concert: "$concert", seller: "$seller", price: '$_id.price', available: "$count", _id : 0 }}
-      ])
-    },
-
-    async transactions(){
-      return await Transaction.aggregate([
-        {$lookup: { from: 'users',localField:'payerId',foreignField: '_id',as: 'payer'}},
-        {$unwind: "$payer"},
-        {$lookup: { from: 'users',localField:'receiverId',foreignField: '_id',as: 'receiver'}},
-        {$unwind: "$receiver"},
-        {$lookup: { from: 'tickets',localField:'ticketId',foreignField: '_id',as: 'ticket'}},
-        {$unwind: "$ticket"},
-      ])
+      return logic.Ticket.findAndGroup({concertId})
     },
 
     async transaction(_,{id}){
-      let transaction = await Transaction.aggregate([
-        {$lookup: { from: 'users',localField:'payerId',foreignField: '_id',as: 'payer'}},
-        {$unwind: "$payer"},
-        {$lookup: { from: 'users',localField:'receiverId',foreignField: '_id',as: 'receiver'}},
-        {$unwind: "$receiver"},
-        {$lookup: { from: 'tickets',localField:'ticketId',foreignField: '_id',as: 'ticket'}},
-        {$unwind: "$ticket"},
-        {$match : {_id : Types.ObjectId(id)}},
-        {$limit : 1}
-      ])
-      return transaction.shift()
-    }
+      return logic.Transaction.findOne({id})  
+    },
 
+    async transactions(){
+      return logic.Transaction.find()
+    },
   },
 
   Mutation: {

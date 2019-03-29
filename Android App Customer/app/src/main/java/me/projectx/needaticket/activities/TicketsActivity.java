@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.apache.commons.io.IOUtils;
 
@@ -86,20 +87,24 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
         swipeRefreshLayout.setRefreshing(true);
     }
     @Override public void onPostExecute (Object result, Class resource) {
-        try {
-            swipeRefreshLayout.setRefreshing(false);
-            ArrayList tickets = new Gson().fromJson((String) result, ArrayList.class);
-            fillList(tickets);
-        } catch (Exception error) {
-            HandlerState.handle(error, getApplicationContext());
+        if(result != null && !result.equals("") && !((String)result).split("\"")[1].equals("errors")) {
+            try {
+                ArrayList tickets = new Gson().fromJson(((String) result).substring(26,((String)result).length()-2),new TypeToken<List<Ticket>>(){}.getType());
+                fillList(tickets);
+            } catch (Exception error) {
+                HandlerState.handle(error, getApplicationContext());
+            }
+        } else {
+            HandlerState.handle(getApplicationContext());
         }
+        swipeRefreshLayout.setRefreshing(false);
     }
     @Override public void onRefresh () {
         this.getTickets();
     }
     private void getTickets () {
         try {
-            TaskExecuteGraphQLQuery getTickets = new TaskExecuteGraphQLQuery(getString(R.string.webservice_get_my_tickets_url), uID, this);
+            TaskExecuteGraphQLQuery getTickets = new TaskExecuteGraphQLQuery(getString(R.string.webservice_get_my_tickets), uID, this);
             getTickets.execute();
         } catch (Exception error) {
             HandlerState.handle(error, this);

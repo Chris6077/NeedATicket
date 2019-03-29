@@ -184,7 +184,7 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
                 HandlerState.handle(e, getApplicationContext());
             }
         } else{
-            FancyToast.makeText(getApplicationContext(), "Error when registering! Please check your credentials.", FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
+            HandlerState.handle(getApplicationContext());
         }
         showProgress(false);
     }

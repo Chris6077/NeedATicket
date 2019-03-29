@@ -77,6 +77,16 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
     }
     private void attemptLogin () {
         try {
+            /*
+            Intent concertsActivity = new Intent(this, ConcertsActivity.class);
+            concertsActivity.putExtra("uID", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOThhYTY3YzU1NWEyMDAxNzlmYWQ5YSIsImVtYWlsIjoiY2hyaXNAYmFzaGl0Lm1lIiwiaWF0IjoxNTUzNjA4MzUyLCJleHAiOjE1ODUxNjU5NTJ9.PoDTQ4XjEFp7QVRvUTR0OE-MntkKEvxAl24Dus1S6Qs");
+            try {
+                finish();
+                startActivity(concertsActivity);
+            } catch (Exception e) {
+                HandlerState.handle(e, getApplicationContext());
+            }*/
+
             mAuthTask = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_login).replace("$email", mEmailView.getText()).replace("$password", mPasswordView.getText()), "", this);
             mAuthTask.execute();
         }
@@ -136,7 +146,7 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
                 HandlerState.handle(e, getApplicationContext());
             }
         } else {
-            FancyToast.makeText(getApplicationContext(), "Error when logging in! Please check your credentials.", FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
+            HandlerState.handle(getApplicationContext());
         }
         showProgress(false);
     }

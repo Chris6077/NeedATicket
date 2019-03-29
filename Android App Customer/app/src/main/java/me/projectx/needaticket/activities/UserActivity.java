@@ -66,8 +66,8 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         ButterKnife.bind(this);
-        this.setListener();
         this.uID = getIntent().getStringExtra("uID");
+        this.setListener();
         this.getUser();
     }
     private void setListener () {
@@ -200,7 +200,6 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
         swipeRefreshLayout.setRefreshing(true);
     }
     @Override public void onPostExecute (Object result, Class resource) {
-        swipeRefreshLayout.setRefreshing(false);
         if(dialogView != null && dialog != null && dialog.isShowing()) revealShow(dialogView, false, dialog);
         if(result != null && !result.equals("") && !((String)result).split("\"")[1].equals("errors")) {
             try {
@@ -209,7 +208,8 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
             } catch (Exception e) {
                 HandlerState.handle(new Exception("Error: Check your connection!"), getApplicationContext());
             }
-        } else FancyToast.makeText(getApplicationContext(),"Error: Check your connection!", FancyToast.LENGTH_SHORT,FancyToast.ERROR,false);
+        } else HandlerState.handle(getApplicationContext());
+        swipeRefreshLayout.setRefreshing(false);
     }
     @Override public void onRefresh () {
         getUser();

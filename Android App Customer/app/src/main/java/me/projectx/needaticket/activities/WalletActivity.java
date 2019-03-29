@@ -40,8 +40,8 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet);
         ButterKnife.bind(this);
-        this.setListener();
         this.uID = getIntent().getStringExtra("uID");
+        this.setListener();
         this.getWallet();
     }
     private void setListener () {
@@ -90,7 +90,6 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
         swipeRefreshLayout.setRefreshing(true);
     }
     @Override public void onPostExecute (Object result, Class resource) {
-        swipeRefreshLayout.setRefreshing(false);
         if(result != null && !result.equals("") && !((String)result).split("\"")[1].equals("errors")) {
             try {
                 wallet = new Gson().fromJson("{" + ((String) result).split("\\{")[4].split("\\}")[0] + "}", Wallet.class);
@@ -104,8 +103,9 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
                 }
             }
         } else {
-            FancyToast.makeText(getApplicationContext(), "Error!", FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
+            HandlerState.handle(getApplicationContext());
         }
+        swipeRefreshLayout.setRefreshing(false);
     }
     @Override public void onRefresh () {
         getWallet();

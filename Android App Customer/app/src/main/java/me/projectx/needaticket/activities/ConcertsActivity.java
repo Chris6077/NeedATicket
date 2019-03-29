@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.ArrayList;
@@ -45,10 +46,9 @@ public class ConcertsActivity extends AppCompatActivity implements InterfaceTask
         setContentView(R.layout.activity_concerts);
         ButterKnife.bind(this);
         try {
-            //this.getConcerts();
-            this.fillList(new ArrayList<Concert>());
             this.uID = getIntent().getStringExtra("uID");
             this.setListener();
+            this.getConcerts();
         } catch (Exception e) {
             Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
@@ -76,20 +76,25 @@ public class ConcertsActivity extends AppCompatActivity implements InterfaceTask
         swipeRefreshLayout.setRefreshing(true);
     }
     @Override public void onPostExecute (Object result, Class resource) {
-        try {
-            swipeRefreshLayout.setRefreshing(false);
-            ArrayList concerts = new Gson().fromJson((String) result, ArrayList.class);
-            fillList(concerts);
-        } catch (Exception error) {
-            HandlerState.handle(error, getApplicationContext());
+        if(result != null && !result.equals("") && !((String)result).split("\"")[1].equals("errors")) {
+            try {
+                ArrayList<Concert> concerts = new Gson().fromJson(((String) result).substring(20,((String)result).length()-2),new TypeToken<List<Concert>>(){}.getType());
+                System.out.println(concerts.get(0).getTitle());
+                fillList(concerts);
+            } catch (Exception error) {
+                HandlerState.handle(error, getApplicationContext());
+            }
+        } else {
+            HandlerState.handle(getApplicationContext());
         }
+        swipeRefreshLayout.setRefreshing(false);
     }
     @Override public void onRefresh () {
         this.getConcerts();
     }
     private void getConcerts () {
         try {
-            TaskExecuteGraphQLQuery getConcerts = new TaskExecuteGraphQLQuery(getString(R.string.webservice_get_concerts_url), uID, this);
+            TaskExecuteGraphQLQuery getConcerts = new TaskExecuteGraphQLQuery(getString(R.string.webservice_get_concerts), uID, this);
             getConcerts.execute();
         } catch (Exception error) {
             HandlerState.handle(error, this);

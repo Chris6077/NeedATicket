@@ -26,9 +26,11 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
     private String uID;
     private String sID;
     @BindView(R.id.category_image_ticket_list_item) ImageView imageCategory;
+    @BindView(R.id.loadingPanel) View mProgressView;
     @BindView(R.id.list_item_ticket_title) TextView header;
     @BindView(R.id.list_item_ticket_seller) TextView seller;
     @BindView(R.id.list_item_ticket_price) TextView price;
+    @BindView(R.id.list_item_ticket_count) TextView count;
     @BindView(R.id.tvPrice) TextView totalPrice;
     @BindView(R.id.tvAmount) TextView amountSelected;
     @BindView(R.id.anchorFade) FrameLayout anchor;
@@ -40,9 +42,9 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy);
         ButterKnife.bind(this);
-        this.setListener();
         this.uID = getIntent().getStringExtra("uID");
         this.sID = getIntent().getStringExtra("sID");
+        this.setListener();
         this.setContent();
         cx = this;
     }
@@ -56,9 +58,10 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
         header.setText(getIntent().getStringExtra("ticketTitle"));
         seller.setText(getIntent().getStringExtra("sellerName"));
         price.setText(getIntent().getStringExtra("price"));
+        count.setText(getIntent().getStringExtra("amount"));
         amountSelected.setText(getIntent().getStringExtra("amountSelected"));
         totalPrice.setText(String.format("%s", round(Double.parseDouble(price.getText().toString()) * Double.parseDouble(amountSelected.getText().toString()), 2)));
-        setUpIconCategory(TicketType.valueOf(getIntent().getStringExtra("ticketType")));
+        //setUpIconCategory(TicketType.valueOf(getIntent().getStringExtra("ticketType")));
     }
     private void setListenerNavigationHeader () {
         View navHeader;
@@ -73,41 +76,51 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
     }
     private void setUpIconCategory (TicketType ticketType) {
         switch (ticketType) {
-            case CONCERT:
+            case TICKET_CONCERT:
                 imageCategory.setImageResource(R.drawable.category_ticket_concert);
                 break;
-            case FESTIVAL:
+            case TICKET_FESTIVAL:
                 imageCategory.setImageResource(R.drawable.category_ticket_festival);
                 break;
         }
     }
     private void purchase () {
         try {
-            TaskExecuteGraphQLMutation purchaseTicket = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_purchase_ticket).replace("$cID", getIntent().getStringExtra("cID")).replace("$sID", sID).replace("$price", "" + price).replace("$amount", amountSelected.getText()), uID,this);
+            TaskExecuteGraphQLMutation purchaseTicket = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_purchase_ticket).replace("$cID", getIntent().getStringExtra("cID")).replace("$sID", sID).replace("$price", "" + price.getText()).replace("$amount", "" + amountSelected.getText()), uID,this);
             purchaseTicket.execute();
         } catch (Exception error) {
             HandlerState.handle(error, this);
         }
     }
     @Override public void onPreExecute (Class resource) {
-        // Maybe implement a loading screen in the future
+        showProgress(true);
     }
     @Override public void onPostExecute (Object result, Class resource) {
-        try {
-            anchor.setVisibility(View.GONE);
-            checker.check();
-            new android.os.Handler().postDelayed(new Runnable() {
-                public void run () {
-                    Intent concertActivity = new Intent(cx, ConcertActivity.class);
-                    concertActivity.putExtra("uID", uID);
-                    concertActivity.putExtra("cID", getIntent().getStringExtra("cID"));
-                    finish();
-                    startActivity(concertActivity);
-                }
-            }, 1300);
-        } catch (Exception e) {
-            HandlerState.handle(e, getApplicationContext());
+        showProgress(false);
+        if(result != null && !result.equals("") && !((String)result).split("\"")[1].equals("errors")) {
+            try {
+                anchor.setVisibility(View.GONE);
+                checker.check();
+                new android.os.Handler().postDelayed(new Runnable() {
+                    public void run () {
+                        Intent concertActivity = new Intent(cx, ConcertActivity.class);
+                        concertActivity.putExtra("uID", uID);
+                        concertActivity.putExtra("cID", getIntent().getStringExtra("cID"));
+                        finish();
+                        startActivity(concertActivity);
+                    }
+                }, 1300);
+            } catch (Exception e) {
+                HandlerState.handle(e, getApplicationContext());
+            }
+        } else {
+            HandlerState.handle(getApplicationContext());
         }
+    }
+    private void showProgress (final boolean show) {
+        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        mProgressView.setBackgroundColor(show ? getColor(R.color.white) : getColor(R.color.transparency));
+        anchor.setVisibility(show ? View.GONE : View.VISIBLE);
     }
     private class PurchaseListener implements View.OnClickListener {
         @Override public void onClick (View v) {

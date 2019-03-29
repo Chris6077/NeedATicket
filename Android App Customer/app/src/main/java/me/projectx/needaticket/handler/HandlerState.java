@@ -9,4 +9,7 @@ public abstract class HandlerState {
     public static void handle (Exception error, Context context) {
         FancyToast.makeText(context, error.toString(), FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
     }
+    public static void handle (Context context){
+        FancyToast.makeText(context, "Error: Please check your connection!", FancyToast.LENGTH_SHORT, FancyToast.ERROR, false).show();
+    }
 }

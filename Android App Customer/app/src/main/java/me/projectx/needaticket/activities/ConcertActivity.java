@@ -11,6 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,6 +37,7 @@ import me.projectx.needaticket.pojo.Ticket;
 import me.projectx.needaticket.pojo.TicketType;
 public class ConcertActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
     private String uID;
+    private String cID;
     private ListView listViewConcertTickets;
     private NavigationView navigation;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -44,13 +47,11 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tickets);
         try {
+            this.uID = getIntent().getStringExtra("uID");
+            this.cID = getIntent().getStringExtra("cID");
             this.setViews();
             this.setListener();
-            this.uID = getIntent().getStringExtra("uID");
-            //this.getConcert();
-            //this.getTickets();
-            setConcertContent();
-            fillList();
+            this.getData();
         } catch (Exception e) {
             Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
@@ -73,16 +74,9 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         TextView artist = findViewById(R.id.list_item_concert_artist);
         TextView location = findViewById(R.id.list_item_concert_location);
         TextView date = findViewById(R.id.list_item_concert_date);
-        StringBuilder artists = new StringBuilder();
-        /*for (Artist a : concert.getArtists()) {
-            artists.append(a.getName()).append(", ");
-        }
-        artists = new StringBuilder(artists.substring(0, artists.length() - 2));*/
         location.setText(concert.getAddress());
-        @SuppressLint ("SimpleDateFormat")
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
-        date.setText(dateFormat.format(concert.getDate()));
-        artist.setText(artists.toString());
+        date.setText(concert.getDate().substring(0,concert.getDate().length()-14));
+        artist.setText(concert.getArtist().getName());
         //genre.setText(concert.getGenre().toString());
         //setUpIconCategory(concert.getTickets().get(0).getType());
         header.setText(concert.getTitle());
@@ -103,47 +97,38 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
     private void setUpIconCategory (TicketType ticketType) {
         ImageView imageviewHeaderImageCategory = findViewById(R.id.category_image_concert_list_item);
         switch (ticketType) {
-            case CONCERT:
+            case TICKET_CONCERT:
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_concert);
                 break;
-            case FESTIVAL:
+            case TICKET_FESTIVAL:
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_festival);
                 break;
-        }
-    }
-    private void getConcert () {
-        try {
-            Intent intent = getIntent();
-            String cID = intent.getStringExtra("cID");
-            TaskExecuteGraphQLQuery getConcert = new TaskExecuteGraphQLQuery(getString(R.string.webservice_get_concert_url), uID, this);
-            getConcert.execute();
-        } catch (Exception error) {
-            HandlerState.handle(error, this);
         }
     }
     @Override public void onPreExecute (Class resource) {
         swipeRefreshLayout.setRefreshing(true);
     }
     @Override public void onPostExecute (Object result, Class resource) {
-        try {
-            swipeRefreshLayout.setRefreshing(false);
-            concert = new Gson().fromJson((String) result, Concert.class);
-            setConcertContent();
-        } catch (Exception error) {
+        if(result != null && !result.equals("") && !((String)result).split("\"")[1].equals("errors")) {
             try {
-                tickets = (ArrayList<Ticket>) result;
+                tickets = new Gson().fromJson(((String) result).substring(26,((String)result).length()-2),new TypeToken<List<Ticket>>(){}.getType());
+                concert = tickets.get(0).getConcert();
+                setConcertContent();
                 fillList();
             } catch (Exception e) {
                 HandlerState.handle(e, getApplicationContext());
             }
+        } else {
+            HandlerState.handle(getApplicationContext());
         }
+        swipeRefreshLayout.setRefreshing(false);
     }
     @Override public void onRefresh () {
-        this.getTickets();
+        this.getData();
     }
-    private void getTickets () {
+    private void getData () {
         try {
-            TaskExecuteGraphQLQuery getTickets = new TaskExecuteGraphQLQuery(getString(R.string.webservice_get_tickets).replace("$cID", concert.get_id()), uID,this);
+            TaskExecuteGraphQLQuery getTickets = new TaskExecuteGraphQLQuery(getString(R.string.webservice_get_tickets).replace("$cID", cID), uID,this);
             getTickets.execute();
         } catch (Exception error) {
             swipeRefreshLayout.setRefreshing(false);

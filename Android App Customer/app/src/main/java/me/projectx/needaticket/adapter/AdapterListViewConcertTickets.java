@@ -47,9 +47,9 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
         TextView seller = rowView.findViewById(R.id.list_item_ticket_seller);
         TextView price = rowView.findViewById(R.id.list_item_ticket_price);
         TextView amount = rowView.findViewById(R.id.list_item_ticket_count);
-        seller.setText(ticket.getSeller().getName());
+        seller.setText(ticket.getSeller().getUsername());
         price.setText(ticket.getPrice() + " €");
-        amount.setText(ticket.getAvailable());
+        amount.setText("" + ticket.getAvailable());
         //setUpIconCategory(rowView, ticket.getType());
         header.setText(ticket.getConcert().getTitle());
         this.setUpRowViewListener(rowView, ticket);
@@ -65,10 +65,10 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
     private void setUpIconCategory (View rowView, TicketType ticketType) {
         ImageView imageviewHeaderImageCategory = rowView.findViewById(R.id.category_image_ticket_list_item);
         switch (ticketType) {
-            case CONCERT:
+            case TICKET_CONCERT:
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_concert);
                 break;
-            case FESTIVAL:
+            case TICKET_FESTIVAL:
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_festival);
                 break;
         }
@@ -99,12 +99,12 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
     @Override public void onValueChange (NumberPicker picker, int oldVal, int newVal, Ticket t) {
         Intent buyActivity = new Intent(getAppCompatActivityResource(), BuyActivity.class);
         buyActivity.putExtra("uID", uID);
-        buyActivity.putExtra("sellerName", t.getSeller().getName());
-        buyActivity.putExtra("sellerID", t.getSeller().getId());
+        buyActivity.putExtra("sellerName", t.getSeller().getUsername());
+        buyActivity.putExtra("sID", t.getSeller().get_id());
         buyActivity.putExtra("ticketTitle", t.getConcert().getTitle());
         buyActivity.putExtra("price", "" + t.getPrice());
         //buyActivity.putExtra("ticketType", t.getType().toString());
-        buyActivity.putExtra("amount", t.getAvailable());
+        buyActivity.putExtra("amount", "" + t.getAvailable());
         buyActivity.putExtra("amountSelected", "" + newVal);
         buyActivity.putExtra("cID", cID);
         getAppCompatActivityResource().startActivity(buyActivity);

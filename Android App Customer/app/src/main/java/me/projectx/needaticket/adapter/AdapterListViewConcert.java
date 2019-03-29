@@ -50,17 +50,11 @@ public class AdapterListViewConcert extends ArrayAdapter<Concert> {
         TextView artist = rowView.findViewById(R.id.list_item_concert_artist);
         TextView location = rowView.findViewById(R.id.list_item_concert_location);
         TextView date = rowView.findViewById(R.id.list_item_concert_date);
-        StringBuilder artists = new StringBuilder();
-        /*for (Artist a : concert.getArtists()) {
-            artists.append(a.getName()).append(", ");
-        }
-        artists = new StringBuilder(artists.substring(0, artists.length() - 2));
-        artist.setText(artists.toString());
-        genre.setText(concert.getGenre().toString());
+        artist.setText(concert.getArtist().getName());
+        //genre.setText(concert.getGenre().toString());
         location.setText(concert.getAddress());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
-        date.setText(dateFormat.format(concert.getDate()));
-        setUpIconCategory(rowView, concert.getTickets().get(0).getType());*/
+        date.setText(concert.getDate().substring(0,concert.getDate().length()-14));
+        //setUpIconCategory(rowView, concert.get(0).getType());
         header.setText(concert.getTitle());
         this.setUpRowViewListener(rowView, concert);
         this.setUpTitleListener(rowView, concert);
@@ -69,10 +63,10 @@ public class AdapterListViewConcert extends ArrayAdapter<Concert> {
     private void setUpIconCategory (View rowView, TicketType ticketType) {
         ImageView imageviewHeaderImageCategory = rowView.findViewById(R.id.category_image_concert_list_item);
         switch (ticketType) {
-            case CONCERT:
+            case TICKET_CONCERT:
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_concert);
                 break;
-            case FESTIVAL:
+            case TICKET_FESTIVAL:
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_festival);
                 break;
         }

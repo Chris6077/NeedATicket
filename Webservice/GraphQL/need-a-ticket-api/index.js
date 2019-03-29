@@ -176,104 +176,27 @@ const resolvers = {
     },
 
     async staffLogin(_, { concertId }) {
-      const concert = await Concert.findOne(Types.ObjectId(concertId))
-
-      if (!concert) {
-        throw new Error('No concert with that id')
-      }
-
-      // Return json web token
-      return await jsonwebtoken.sign(
-        { id: concert.id, role: "staff" },
-        global.config.secret,
-        { expiresIn: '1y' }
-      )
+      return logic.User.loginStaff({concertId})
     },
 
     async createArtist(_, {name}) {
-      let artist = new Artist({name})
-      await artist.save((err) => {
-        if (err)
-          throw err
-      })
-      return artist
+      return logic.Artist.insertOne({name})
     },
 
-    async createConcert(_,{title,date,address,capacity,artistId}) {
-      artistId = Types.ObjectId(artistId)
-      let concert = new Concert({
-        title,date,address,capacity,artistId
-      })
-      await concert.save((err) => {
-        if(err)
-          throw err
-      })
-      return concert
+    async createConcert(_,{title,date,address,capacity,artistId},context) {
+      return logic.Concert.insertOne({title,date,address,capacity,artistId,sellerId: context.user.id})
     },
 
     async createTicket(_,{type,price,concertId,redeemedAt,buyerId},context){
-      sellerId = Types.ObjectId(context.user.id)
-      concertId = Types.ObjectId(concertId)
-      let redeemed = false
-      if(buyerId)
-        buyerId = Types.ObjectId(buyerId)
-      let ticket = new Ticket({
-        type,price,redeemed,redeemedAt,sellerId,buyerId,concertId
-      })
-      await ticket.save((err)=>{
-        if(err)
-          throw err
-      })
-      return ticket
+      return await logic.Ticket.insertOne({type,price,concertId,redeemedAt,buyerId,sellerId: context.user.id})
     },
 
     async createTickets(_,{amount,type,price,concertId,redeemedAt,buyerId},context){
-      sellerId = Types.ObjectId(context.user.id)
-      concertId = Types.ObjectId(concertId)
-      if(buyerId)
-        buyerId = Types.ObjectId(buyerId)
-      let redeemed = false
-      let tickets = []
-
-      for(let count = 0; count < amount;count++){
-        tickets.push(
-          new Ticket({
-            type,price,redeemed,redeemedAt,sellerId,buyerId,concertId
-          })
-        )
-      }
-      await Ticket.collection.insertMany(tickets)
-      return tickets
+      return logic.Ticket.insertMany({amount,type,price,concertId,redeemedAt,buyerId,sellerId: context.user.id})
     },
 
     async updateUser(_,{email,password},context){
-      let _id = Types.ObjectId(context.user.id)
-      if(email){
-        await User.updateOne(
-          { _id },
-          { $set : { email } }
-        )
-      }
-      if(password){
-        let passwordStrength = await new PasswordMeter({},{
-          "50": "very weak",  // 001 <= x <  040
-          "100": "weak",  // 040 <= x <  080
-          "150": "average", // 080 <= x <  120
-          "200": "strong", // 120 <= x <  180
-          "_": "very strong"   //        x >= 200
-        }).getResult(password)
-        await User.updateOne(
-          { _id },
-          { $set : { password: await bcrypt.hash(password, 10) , passwordStrength} }
-        )
-      }
-      let user = await User.aggregate([
-        {$lookup: { from: 'wallets',localField:'walletId',foreignField: '_id',as: 'wallet'}},
-        {$unwind: "$wallet"},
-        {$match : { _id }},
-        {$limit : 1}
-      ])
-      return user.shift()
+      return logic.User.updateOne({email,password,userId:context.user.id})
     },
 
     async buy(_,{ticketId},context){

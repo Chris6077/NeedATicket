@@ -234,26 +234,127 @@ async function login ({email,password}){
 		{ expiresIn: '1y' }
 	)
 }
+//		loggs in staff members for a concert
+async function loginStaff({concertId}){
+	const concert = await Concert.findOne(Types.ObjectId(concertId))
+
+	if (!concert) {
+		throw new Error('No concert with that id')
+	}
+
+	// Return json web token
+	return await jsonwebtoken.sign(
+		{ id: concert.id, role: "staff" },
+		global.config.secret,
+		{ expiresIn: '1y' }
+	)
+}
+//		inserts one artist	
+async function insertOneArtist({name}){
+	let artist = new Artist({name})
+	await artist.save((err) => {
+	if (err)
+		throw err
+	})
+	return artist
+}
+// 		insert one concert
+async function insertOneConcert({title,date,address,capacity,artistId,sellerId}){
+	artistId = Types.ObjectId(artistId)
+	let concert = new Concert({
+		title,date,address,capacity,artistId,sellerId
+	})
+	await concert.save((err) => {
+	if(err)
+		throw err
+	})
+	return await findOneConcert({id: concert._id.toString()})
+}
+//		insert one ticket
+async function insertOneTicket({type,price,concertId,redeemedAt,buyerId,sellerId}){
+	sellerId = Types.ObjectId(sellerId)
+	concertId = Types.ObjectId(concertId)
+	let redeemed = false
+	if(buyerId)
+	buyerId = Types.ObjectId(buyerId)
+	let ticket = new Ticket({
+	type,price,redeemed,redeemedAt,sellerId,buyerId,concertId
+	})
+	await ticket.save((err)=>{
+	if(err)
+		throw err
+	})
+	return ticket
+}
+//		insert many tickets
+async function insertManyTickets({amount,type,price,concertId,redeemedAt,buyerId,sellerId}){
+	sellerId = Types.ObjectId(context.user.id)
+	concertId = Types.ObjectId(concertId)
+	if(buyerId)
+		buyerId = Types.ObjectId(buyerId)
+	let redeemed = false
+	let tickets = []
+
+	for(let count = 0; count < amount;count++){
+		tickets.push(
+			new Ticket({
+				type,price,redeemed,redeemedAt,sellerId,buyerId,concertId
+			})
+		)
+	}
+	await Ticket.collection.insertMany(tickets)
+	return tickets
+}
+// 		update one user
+async function updateOneUser({email,password,userId}){
+	let _id = Types.ObjectId(userId)
+	if(email){
+		await User.updateOne(
+			{ _id },
+			{ $set : { email } }
+		)
+	}
+	if(password){
+		let passwordStrength = await new PasswordMeter({},{
+			"50": "very weak",  // 001 <= x <  040
+			"100": "weak",  // 040 <= x <  080
+			"150": "average", // 080 <= x <  120
+			"200": "strong", // 120 <= x <  180
+			"_": "very strong"   //        x >= 200
+		}).getResult(password)
+		await User.updateOne(
+			{ _id },
+			{ $set : { password: await bcrypt.hash(password, 10) , passwordStrength} }
+		)
+	}
+	return await findOneUser({id:_id})
+}
 
 const logic = {
 	User: {
 		findOne: findOneUser,
 		find: findAllUsers,
 		signup: signUp,
-		login: login
+		updateOne: updateOneUser,
+		login: login,
+		loginStaff: loginStaff
 	},
 	Artist: {
 		findOne: findOneArtist,
-		find: findAllArtists
+		find: findAllArtists,
+		insertOne: insertOneArtist
 	},
 	Concert: {
 		findOne: findOneConcert,
-		find: findAllConcerts
+		find: findAllConcerts,
+		insertOne: insertOneConcert
 	},
 	Ticket: {
 		findOne: findOneTicket,
 		find: findAllTickets,
-		findAndGroup: findAndGroupTickets
+		findAndGroup: findAndGroupTickets,
+		insertOne: insertOneTicket,
+		insertMany: insertManyTickets
 	},
 	Transaction: {
 		findOne: findOneTransaction,

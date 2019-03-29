@@ -200,132 +200,19 @@ const resolvers = {
     },
 
     async buy(_,{ticketId},context){
-      //need to create transaction / update both receiver and payer Wallet / and update ticket
-      payerId = Types.ObjectId(context.user.id)
-      ticketId = Types.ObjectId(ticketId)
-      date = new Date()
-
-      let ticket = await Ticket.findOne(ticketId)
-      let receiverId = Types.ObjectId(ticket.sellerId)
-      let amount = ticket.price 
-      let payer = await User.findOne(payerId)
-      let receiver = await User.findOne(receiverId)
-
-      
-      //decrease payer wallet
-      await Wallet.updateOne(
-        { "_id" : payer.walletId },
-        { $inc : { balance: amount } }
-      )
-
-      //increase receiver wallet
-      await Wallet.updateOne(
-        { "_id" : receiver.walletId },
-        { $inc : { balance: -amount } }
-      )
-      
-      //create the transaction
-      let transaction = new Transaction({
-        amount,date,payerId,receiverId,ticketId
-      })
-
-      await transaction.save()
-
-      //update buyer in ticket
-      await Ticket.updateOne(
-          { "_id" : ticketId },
-          { $set : { buyerId: payerId } }
-      )
-
-      return transaction
+      return logic.Ticket.buyOne({ticketId,userId: context.user.id})
     },
 
     async buyBulk(_,{number,concertId,sellerId,price},context){
-      //need to create transaction / update both receiver and payer Wallet / and update ticket
-      payerId = Types.ObjectId(context.user.id)
-      concertId = Types.ObjectId(concertId)
-      sellerId = Types.ObjectId(sellerId)
-      //buy tickets
-      date = new Date()
-      
-      let receiverId = Types.ObjectId(sellerId)
-      let payer = await User.findOne(payerId)
-      let receiver = await User.findOne(receiverId)
-      let amount = price * number
-
-      //decrease payer wallet
-      await Wallet.updateOne(
-          { "_id" : payer.walletId },
-          { $inc : { balance: amount } }
-      )
-
-      //increase receiver wallet
-      await Wallet.updateOne(
-          { "_id" : receiver.walletId },
-          { $inc : { balance: -amount } }
-      )
-
-      //create the transaction
-      let transaction = new Transaction({
-        amount,date,payerId,receiverId,concertId
-      })
-
-      await transaction.save()
-
-      //update buyer in ticket
-      let tickets = await Ticket.find({
-        concertId,sellerId,price
-      }).limit(number)
-
-      await tickets.forEach( async (el) => { 
-        el.buyerId = payerId
-        await Ticket.collection.save(el)
-      })
-
-      return transaction
+      return logic.Ticket.buyMany({number,concertId,sellerId,price,userId:context.user.id})
     },
 
     async deposit(_,{amount},context){
-      userId = Types.ObjectId(context.user.id)
-
-      let user = await User.findOne(userId)
-
-      await Wallet.updateOne(
-        { "_id" : user.walletId },
-        { $inc : { balance: amount } }
-      )
-
-      return Wallet.findOne(user.walletId)
+      return logic.User.deposit({amount,userId:context.user.id})
     },
 
     async redeem(_,{ticketId},context){
-      ticketId = Types.ObjectId(ticketId)
-      let redeemedAt = new Date()
-      let ticket = await Ticket.findOne(ticketId)
-      if(context.user.role != "staff")
-        throw new AuthenticationError("your not logged in as staff")
-      if(ticket.concertId +"" !=  Types.ObjectId(context.user.id)+"")
-        throw new AuthenticationError("you cannot redeem tickets for other concerts")
-      if(!ticket)
-        throw new ApolloError("ticket not found", 404)
-      if(ticket.redeemed)
-        throw new ApolloError("ticket already redeemed.",400)
-      await Ticket.updateOne(
-        { "_id" : ticketId },
-        { $set : { redeemed: true, redeemedAt } }
-      )
-
-      ticket = await Ticket.aggregate([
-          {$lookup: { from: 'users',localField:'sellerId',foreignField: '_id',as: 'seller'}},
-          {$unwind: "$seller"},
-          {$lookup: { from: 'users',localField:'buyerId',foreignField: '_id',as: 'buyer'}},
-          {$unwind: { path:"$buyer", preserveNullAndEmptyArrays: true}},
-          {$lookup: { from: 'concerts',localField:'concertId',foreignField: '_id',as: 'concert'}},
-          {$unwind: "$concert"},
-          {$match : {_id : ticketId}},
-          {$limit : 1}
-      ])
-      return ticket.shift()
+      return logic.Ticket.redeemOne({ticketId,user: context.user})
     }
 
   }

@@ -288,7 +288,7 @@ async function insertOneTicket({type,price,concertId,redeemedAt,buyerId,sellerId
 }
 //		insert many tickets
 async function insertManyTickets({amount,type,price,concertId,redeemedAt,buyerId,sellerId}){
-	sellerId = Types.ObjectId(context.user.id)
+	sellerId = Types.ObjectId(sellerId)
 	concertId = Types.ObjectId(concertId)
 	if(buyerId)
 		buyerId = Types.ObjectId(buyerId)
@@ -329,6 +329,125 @@ async function updateOneUser({email,password,userId}){
 	}
 	return await findOneUser({id:_id})
 }
+// 		buy one ticket
+async function buyOneTicket({ticketId,userId}){
+	//need to create transaction / update both receiver and payer Wallet / and update ticket
+	payerId = Types.ObjectId(userId)
+	ticketId = Types.ObjectId(ticketId)
+	date = new Date()
+
+	let ticket = await Ticket.findOne(ticketId)
+	let receiverId = Types.ObjectId(ticket.sellerId)
+	let amount = ticket.price 
+	let payer = await User.findOne(payerId)
+	let receiver = await User.findOne(receiverId)
+
+	
+	//decrease payer wallet
+	await Wallet.updateOne(
+	  { "_id" : payer.walletId },
+	  { $inc : { balance: amount } }
+	)
+
+	//increase receiver wallet
+	await Wallet.updateOne(
+	  { "_id" : receiver.walletId },
+	  { $inc : { balance: -amount } }
+	)
+	
+	//create the transaction
+	let transaction = new Transaction({
+	  amount,date,payerId,receiverId,ticketId
+	})
+
+	await transaction.save()
+
+	//update buyer in ticket
+	await Ticket.updateOne(
+		{ "_id" : ticketId },
+		{ $set : { buyerId: payerId } }
+	)
+
+	return transaction
+}
+//		buy many tickets
+async function buyManyTickets({number,concertId,sellerId,price,userId}){
+	//need to create transaction / update both receiver and payer Wallet / and update ticket
+	payerId = Types.ObjectId(userId)
+	concertId = Types.ObjectId(concertId)
+	sellerId = Types.ObjectId(sellerId)
+	//buy tickets
+	date = new Date()
+	
+	let receiverId = Types.ObjectId(sellerId)
+	let payer = await User.findOne(payerId)
+	let receiver = await User.findOne(receiverId)
+	let amount = price * number
+
+	//decrease payer wallet
+	await Wallet.updateOne(
+		{ "_id" : payer.walletId },
+		{ $inc : { balance: amount } }
+	)
+
+	//increase receiver wallet
+	await Wallet.updateOne(
+		{ "_id" : receiver.walletId },
+		{ $inc : { balance: -amount } }
+	)
+
+	//create the transaction
+	let transaction = new Transaction({
+	  amount,date,payerId,receiverId,concertId
+	})
+
+	await transaction.save()
+
+	//update buyer in ticket
+	let tickets = await Ticket.find({
+	  concertId,sellerId,price
+	}).limit(number)
+
+	await tickets.forEach( async (el) => { 
+	  el.buyerId = payerId
+	  await Ticket.collection.save(el)
+	})
+
+	return transaction
+}
+//		deposit or withdraw money from an users wallet
+async function deposit({amount,userId}){
+	userId = Types.ObjectId(userId)
+
+	let user = await User.findOne(userId)
+
+	await Wallet.updateOne(
+	  { "_id" : user.walletId },
+	  { $inc : { balance: amount } }
+	)
+
+	return Wallet.findOne(user.walletId)
+}
+// 		redeem an ticket if not already redeemed
+async function redeemOneTicket({ticketId,user}){
+	ticketId = Types.ObjectId(ticketId)
+	let redeemedAt = new Date()
+	let ticket = await Ticket.findOne(ticketId)
+	if(user.role != "staff")
+	throw new AuthenticationError("your not logged in as staff")
+	if(ticket.concertId +"" !=  Types.ObjectId(user.id)+"")
+	throw new AuthenticationError("you cannot redeem tickets for other concerts")
+	if(!ticket)
+	throw new ApolloError("ticket not found", 404)
+	if(ticket.redeemed)
+	throw new ApolloError("ticket already redeemed.",400)
+	await Ticket.updateOne(
+	{ "_id" : ticketId },
+	{ $set : { redeemed: true, redeemedAt } }
+	)
+
+	return findOneTicket({id: ticketId})
+}
 
 const logic = {
 	User: {
@@ -336,6 +455,7 @@ const logic = {
 		find: findAllUsers,
 		signup: signUp,
 		updateOne: updateOneUser,
+		deposit: deposit,
 		login: login,
 		loginStaff: loginStaff
 	},
@@ -354,7 +474,10 @@ const logic = {
 		find: findAllTickets,
 		findAndGroup: findAndGroupTickets,
 		insertOne: insertOneTicket,
-		insertMany: insertManyTickets
+		insertMany: insertManyTickets,
+		buyOne: buyOneTicket,
+		buyMany: buyManyTickets,
+		redeemOne: redeemOneTicket
 	},
 	Transaction: {
 		findOne: findOneTransaction,

@@ -168,58 +168,11 @@ const resolvers = {
 
   Mutation: {
     async signup(_, { username, email, password }) {
-      if(email)
-        if(await User.findOne({email}))
-          throw new ApolloError("an user with this email already exists")
-      let wallet = new Wallet({
-        balance: 0
-      })
-      let passwordStrength = await new PasswordMeter({},{
-        "50": "very weak",  // 001 <= x <  040
-        "100": "weak",  // 040 <= x <  080
-        "150": "average", // 080 <= x <  120
-        "200": "strong", // 120 <= x <  180
-        "_": "very strong"   //        x >= 200
-      }).getResult(password)
-
-      await wallet.save()
-
-      let user = new User({
-        username,
-        email,
-        password: await bcrypt.hash(password, 10),
-        walletId: wallet._id,
-        passwordStrength
-      })
-      await user.save()
-
-      // Return json web token
-      return jsonwebtoken.sign(
-        { id: user.id, email: user.email },
-        global.config.secret,
-        { expiresIn: '1y' }
-      )
+      return logic.User.signup({username,email,password})
     },
 
     async login(_, { email, password }) {
-      const user = await User.findOne({ email: email })
-
-      if (!user) {
-        throw new Error('No user with that email')
-      }
-
-      const valid = await bcrypt.compare(password, user.password)
-
-      if (!valid) {
-        throw new Error('Incorrect password')
-      }
-
-      // Return json web token
-      return await jsonwebtoken.sign(
-        { id: user.id, email: user.email },
-        global.config.secret,
-        { expiresIn: '1y' }
-      )
+      return logic.User.login({email,password})
     },
 
     async staffLogin(_, { concertId }) {

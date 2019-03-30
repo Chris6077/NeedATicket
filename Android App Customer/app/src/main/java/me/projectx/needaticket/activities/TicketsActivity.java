@@ -89,7 +89,7 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
     @Override public void onPostExecute (Object result, Class resource) {
         if(result != null && !result.equals("") && !((String)result).split("\"")[1].equals("errors")) {
             try {
-                ArrayList tickets = new Gson().fromJson(((String) result).substring(26,((String)result).length()-2),new TypeToken<List<Ticket>>(){}.getType());
+                ArrayList tickets = new Gson().fromJson(((String) result).substring(24,((String)result).length()-3),new TypeToken<List<Ticket>>(){}.getType());
                 fillList(tickets);
             } catch (Exception error) {
                 HandlerState.handle(error, getApplicationContext());

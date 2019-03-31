@@ -50,7 +50,8 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
         seller.setText(ticket.getSeller().getUsername());
         price.setText(ticket.getPrice() + " €");
         amount.setText("" + ticket.getAvailable());
-        //setUpIconCategory(rowView, ticket.getType());
+        //ToDo: remove after data fix
+        if(ticket.getType() != null) setUpIconCategory(rowView, ticket.getType());
         header.setText(ticket.getConcert().getTitle());
         this.setUpRowViewListener(rowView, ticket);
         this.setUpTitleListener(rowView, ticket);
@@ -70,6 +71,9 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
                 break;
             case TICKET_FESTIVAL:
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_festival);
+                break;
+            default:
+                imageviewHeaderImageCategory.setImageResource(R.drawable.category_concert);
                 break;
         }
     }

@@ -51,7 +51,8 @@ public class AdapterListViewConcert extends ArrayAdapter<Concert> {
         TextView location = rowView.findViewById(R.id.list_item_concert_location);
         TextView date = rowView.findViewById(R.id.list_item_concert_date);
         artist.setText(concert.getArtist().getName());
-        //genre.setText(concert.getGenre().toString());
+        //ToDo: remove if after data got fixed
+        if(concert.getGenre() != null) genre.setText(concert.getGenre().toString());
         location.setText(concert.getAddress());
         date.setText(concert.getDate().substring(0,concert.getDate().length()-14));
         //setUpIconCategory(rowView, concert.get(0).getType());
@@ -91,6 +92,12 @@ public class AdapterListViewConcert extends ArrayAdapter<Concert> {
                 Intent concertActivity = new Intent(getAppCompatActivityResource(), ConcertActivity.class);
                 concertActivity.putExtra("uID", uID);
                 concertActivity.putExtra("cID", concert.get_id());
+                concertActivity.putExtra("cTitle", concert.getTitle());
+                concertActivity.putExtra("cDate", concert.getDate().substring(0, concert.getDate().length()-14));
+                concertActivity.putExtra("cAddress", concert.getAddress());
+                concertActivity.putExtra("cArtistName", concert.getArtist().getName());
+                //ToDo: remove if after data fix
+                if(concert.getGenre() != null) concertActivity.putExtra("cGenre", concert.getGenre());
                 getAppCompatActivityResource().startActivity(concertActivity);
             }
         });

@@ -51,6 +51,7 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
             this.cID = getIntent().getStringExtra("cID");
             this.setViews();
             this.setListener();
+            this.setConcertContent();
             this.getData();
         } catch (Exception e) {
             Logger.getGlobal().log(Level.SEVERE, e.getMessage());
@@ -74,18 +75,19 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         TextView artist = findViewById(R.id.list_item_concert_artist);
         TextView location = findViewById(R.id.list_item_concert_location);
         TextView date = findViewById(R.id.list_item_concert_date);
-        location.setText(concert.getAddress());
-        date.setText(concert.getDate().substring(0,concert.getDate().length()-14));
-        artist.setText(concert.getArtist().getName());
-        //genre.setText(concert.getGenre().toString());
+        location.setText(getIntent().getStringExtra("cAddress"));
+        date.setText(getIntent().getStringExtra("cDate"));
+        artist.setText(getIntent().getStringExtra("cArtistName"));
+        //ToDo: remove try after data fix
+        try {genre.setText(getIntent().getStringExtra("cGenre"));} catch(Exception ex){}
         //setUpIconCategory(concert.getTickets().get(0).getType());
-        header.setText(concert.getTitle());
+        header.setText(getIntent().getStringExtra("cTitle"));
     }
     private void fillList () throws ContentException {
         if (tickets == null) {
             throw new ContentException("no Content found");
         } else {
-            AdapterListViewConcertTickets adapter = new AdapterListViewConcertTickets(this, uID, concert.get_id(), R.layout.listview_item_concert_ticket, tickets);
+            AdapterListViewConcertTickets adapter = new AdapterListViewConcertTickets(this, uID, cID, R.layout.listview_item_concert_ticket, tickets);
             this.listViewConcertTickets.setAdapter(adapter);
         }
     }
@@ -112,8 +114,6 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         if(result != null && !result.equals("") && !((String)result).split("\"")[1].equals("errors")) {
             try {
                 tickets = new Gson().fromJson(((String) result).substring(26,((String)result).length()-2),new TypeToken<List<Ticket>>(){}.getType());
-                concert = tickets.get(0).getConcert();
-                setConcertContent();
                 fillList();
             } catch (Exception e) {
                 HandlerState.handle(e, getApplicationContext());

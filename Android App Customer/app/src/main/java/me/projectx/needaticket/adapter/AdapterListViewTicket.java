@@ -70,7 +70,8 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
         TextView header = rowView.findViewById(R.id.list_item_ticket_title);
         TextView price = rowView.findViewById(R.id.list_item_ticket_price);
         price.setText(ticket.getPrice() + " €");
-        //setUpIconCategory(rowView, ticket.getType());
+        //ToDo: remove if after data fix
+        if(ticket.getType() != null) setUpIconCategory(rowView, ticket.getType());
         header.setText(ticket.getConcert().getTitle());
         this.setUpRowViewListener(rowView, ticket);
         return rowView;
@@ -89,6 +90,9 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
                 break;
             case TICKET_FESTIVAL:
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_festival);
+                break;
+            default:
+                imageviewHeaderImageCategory.setImageResource(R.drawable.category_concert);
                 break;
         }
     }
@@ -139,12 +143,7 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
         dialog.show();
     }
     private String encryptString(String pt) throws Exception {
-        X509EncodedKeySpec spec = new X509EncodedKeySpec(primaryKeyBin);
-        KeyFactory kF = KeyFactory.getInstance("RSA");
-        PublicKey pk = kF.generatePublic(spec);
-        Cipher cipher = Cipher.getInstance("RSA");
-        cipher.init(Cipher.ENCRYPT_MODE, pk);
-        byte[] res = Base64.encode(cipher.doFinal(Base64.encode(pt.getBytes(), Base64.DEFAULT)), Base64.URL_SAFE);
+        byte[] res = Base64.encode(pt.getBytes(), Base64.URL_SAFE);
         return new String(res);
     }
     private void revealShow (View dialogView, boolean b, final Dialog dialog, View rowView) {

@@ -79,7 +79,6 @@ public class ConcertsActivity extends AppCompatActivity implements InterfaceTask
         if(result != null && !result.equals("") && !((String)result).split("\"")[1].equals("errors")) {
             try {
                 ArrayList<Concert> concerts = new Gson().fromJson(((String) result).substring(20,((String)result).length()-2),new TypeToken<List<Concert>>(){}.getType());
-                System.out.println(concerts.get(0).getTitle());
                 fillList(concerts);
             } catch (Exception error) {
                 HandlerState.handle(error, getApplicationContext());

@@ -3,12 +3,14 @@ import java.util.ArrayList;
 import java.util.List;
 public class Ticket {
     private String _id;
+    private TicketType type;
     private Concert concert;
     private Seller seller;
     private int available;
     private float price;
-    public Ticket (String _id, Concert concert, Seller seller, int available, float price) {
+    public Ticket (String _id, TicketType type, Concert concert, Seller seller, int available, float price) {
         this._id = _id;
+        this.type = type;
         this.concert = concert;
         this.seller = seller;
         this.available = available;
@@ -19,6 +21,12 @@ public class Ticket {
     }
     public void set_id (String _id) {
         this._id = _id;
+    }
+    public TicketType getType () {
+        return type;
+    }
+    public void setType (TicketType type) {
+        this.type = type;
     }
     public Concert getConcert () {
         return concert;
@@ -45,6 +53,6 @@ public class Ticket {
         this.price = price;
     }
     @Override public String toString () {
-        return "Ticket{" + "_id=" + _id + ", concert=" + concert + ", seller=" + seller + ", available=" + available + ", price=" + price + '}';
+        return "Ticket{" + "_id='" + _id + '\'' + ", type=" + type + ", concert=" + concert + ", seller=" + seller + ", available=" + available + ", price=" + price + '}';
     }
 }

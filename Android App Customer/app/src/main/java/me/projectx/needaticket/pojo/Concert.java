@@ -7,12 +7,14 @@ public class Concert {
     private String title;
     private String date;
     private String address;
+    private Genre genre;
     private Artist artist;
-    public Concert (String _id, String title, String date, String address, Artist artist) {
+    public Concert (String _id, String title, String date, String address, Genre genre, Artist artist) {
         this._id = _id;
         this.title = title;
         this.date = date;
         this.address = address;
+        this.genre = genre;
         this.artist = artist;
     }
     public String get_id () {
@@ -39,6 +41,12 @@ public class Concert {
     public void setAddress (String address) {
         this.address = address;
     }
+    public Genre getGenre () {
+        return genre;
+    }
+    public void setGenre (Genre genre) {
+        this.genre = genre;
+    }
     public Artist getArtist () {
         return artist;
     }
@@ -46,6 +54,6 @@ public class Concert {
         this.artist = artist;
     }
     @Override public String toString () {
-        return "Concert{" + "_id='" + _id + '\'' + ", title='" + title + '\'' + ", date='" + date + '\'' + ", address='" + address + '\'' + ", artist=" + artist + '}';
+        return "Concert{" + "_id='" + _id + '\'' + ", title='" + title + '\'' + ", date='" + date + '\'' + ", address='" + address + '\'' + ", genre=" + genre + ", artist=" + artist + '}';
     }
 }

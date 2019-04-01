@@ -14,7 +14,6 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 
 import me.projectx.needaticketqr.R;
 import me.projectx.needaticketqr.asynctask.TaskExecuteGraphQLMutation;
-import me.projectx.needaticketqr.asynctask.TaskLogin;
 import me.projectx.needaticketqr.handler.HandlerState;
 import me.projectx.needaticketqr.interfaces.InterfaceTaskDefault;
 

@@ -26,7 +26,6 @@ import java.util.List;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import me.itangqi.waveloadingview.WaveLoadingView;
 import me.projectx.needaticketqr.R;
-import me.projectx.needaticketqr.asynctask.TaskCheckTicket;
 import me.projectx.needaticketqr.asynctask.TaskExecuteGraphQLMutation;
 import me.projectx.needaticketqr.handler.HandlerState;
 

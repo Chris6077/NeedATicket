@@ -43,7 +43,6 @@ async function findOneUser({id}){
 		{$limit : 1}
 	])
 	user = await user.shift()
-	console.log(selling)
 	user.totalSelling = totalselling
 	user.totalBought = totalbought
 	user.totalRedeemed = totalredeemed;
@@ -74,7 +73,8 @@ async function findOneConcert({id}){
 	let concert = await Concert.aggregate([
         {$lookup: { from: 'artists',localField:'artistId',foreignField: '_id',as: 'artist'}},
         {$unwind: "$artist"},
-        {$lookup: { from: 'tickets', localField: '_id', foreignField: 'concertId' , as : 'tickets' }},
+		{$lookup: { from: 'tickets', localField: '_id', foreignField: 'concertId' , as : 'tickets' }},
+		{$project: {_id:"$_id",title:"$title",date:"$date",address:"$address",genre:"$genre",capacity:"$capacity",tickets:"$tickets",artist:"$artist",totalTickets:{$size:"$tickets"}}},
         {$match : {_id : Types.ObjectId(id)}},
         {$limit : 1}
 	])
@@ -91,7 +91,8 @@ async function findAllConcerts(){
 	let concerts = await Concert.aggregate([
 		{$lookup: { from: 'artists',localField:'artistId',foreignField: '_id',as: 'artist'}},
 		{$unwind: "$artist"},
-		{$lookup: { from: 'tickets', localField: '_id', foreignField: 'concertId' , as : 'tickets' }}
+		{$lookup: { from: 'tickets', localField: '_id', foreignField: 'concertId' , as : 'tickets' }},
+		{$project: {_id:"$_id",title:"$title",date:"$date",address:"$address",genre:"$genre",capacity:"$capacity",tickets:"$tickets",artist:"$artist",totalTickets:{$size:"$tickets"}}}
 	])
 	await concerts.forEach(	async(concert) => {
 		await concert.tickets.forEach( async(ticket) => {

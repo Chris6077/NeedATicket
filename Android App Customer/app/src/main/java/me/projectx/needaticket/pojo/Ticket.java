@@ -8,13 +8,15 @@ public class Ticket {
     private Seller seller;
     private int available;
     private float price;
-    public Ticket (String _id, TicketType type, Concert concert, Seller seller, int available, float price) {
+    private boolean redeemed;
+    public Ticket (String _id, TicketType type, Concert concert, Seller seller, int available, float price, boolean redeemed) {
         this._id = _id;
         this.type = type;
         this.concert = concert;
         this.seller = seller;
         this.available = available;
         this.price = price;
+        this.redeemed = redeemed;
     }
     public String get_id () {
         return _id;
@@ -52,7 +54,13 @@ public class Ticket {
     public void setPrice (float price) {
         this.price = price;
     }
+    public boolean isRedeemed () {
+        return redeemed;
+    }
+    public void setRedeemed (boolean redeemed) {
+        this.redeemed = redeemed;
+    }
     @Override public String toString () {
-        return "Ticket{" + "_id='" + _id + '\'' + ", type=" + type + ", concert=" + concert + ", seller=" + seller + ", available=" + available + ", price=" + price + '}';
+        return "Ticket{" + "_id='" + _id + '\'' + ", type=" + type + ", concert=" + concert + ", seller=" + seller + ", available=" + available + ", price=" + price + ", redeemed=" + redeemed + '}';
     }
 }

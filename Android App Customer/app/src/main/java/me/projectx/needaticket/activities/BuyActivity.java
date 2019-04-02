@@ -106,6 +106,12 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
                         Intent concertActivity = new Intent(cx, ConcertActivity.class);
                         concertActivity.putExtra("uID", uID);
                         concertActivity.putExtra("cID", getIntent().getStringExtra("cID"));
+                        concertActivity.putExtra("cTitle", getIntent().getStringExtra("cTitle"));
+                        concertActivity.putExtra("cDate", getIntent().getStringExtra("cDate"));
+                        concertActivity.putExtra("cAddress", getIntent().getStringExtra("cAddress"));
+                        concertActivity.putExtra("cArtistName", getIntent().getStringExtra("cArtistName"));
+                        //ToDo: remove if after data fix
+                        if(getIntent().getStringExtra("cGenre") != null) concertActivity.putExtra("cGenre", getIntent().getStringExtra("cGenre"));
                         finish();
                         startActivity(concertActivity);
                     }

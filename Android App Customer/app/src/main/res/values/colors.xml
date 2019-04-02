@@ -6,4 +6,5 @@
     <color name="white">#ffff</color>
     <color name="transparency">#80ffffff</color>
     <color name="tbars">#80000000</color>
+    <color name="lowred">#dd7777</color>
 </resources>

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
@@ -54,26 +55,31 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
     private AppCompatActivity appCompatActivityResource;
     private ArrayList<Ticket> data;
     private Context cx;
-    private byte[] primaryKeyBin;
     public AdapterListViewTicket (AppCompatActivity res,
-                                  @LayoutRes int resource, List<Ticket> data, byte[] primaryKeyBin) {
+                                  @LayoutRes int resource, List<Ticket> data) {
         super(res, resource, data);
         this.appCompatActivityResource = res;
         this.data = (ArrayList<Ticket>) data;
-        this.primaryKeyBin = primaryKeyBin;
+        data.sort((a,b) -> {
+            if(a.isRedeemed() == b.isRedeemed()) return a.getConcert().getTitle().compareToIgnoreCase(b.getConcert().getTitle());
+            if(a.isRedeemed()) return 1;
+            return -1;
+        });
     }
     @NonNull @Override
     public View getView (int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         Ticket ticket = this.data.get(position);
         LayoutInflater inflater = (LayoutInflater) this.getAppCompatActivityResource().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.listview_item_ticket, parent, false);
+        View rowView;
+        if(!ticket.isRedeemed()) rowView = inflater.inflate(R.layout.listview_item_ticket, parent, false);
+        else rowView = inflater.inflate(R.layout.listview_item_ticket_redeemed, parent, false);
         TextView header = rowView.findViewById(R.id.list_item_ticket_title);
         TextView price = rowView.findViewById(R.id.list_item_ticket_price);
         price.setText(ticket.getPrice() + " €");
         //ToDo: remove if after data fix
         if(ticket.getType() != null) setUpIconCategory(rowView, ticket.getType());
         header.setText(ticket.getConcert().getTitle());
-        this.setUpRowViewListener(rowView, ticket);
+        if(!ticket.isRedeemed()) this.setUpRowViewListener(rowView, ticket);
         return rowView;
     }
     public AppCompatActivity getAppCompatActivityResource () {
@@ -143,7 +149,7 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
         dialog.show();
     }
     private String encryptString(String pt) throws Exception {
-        byte[] res = Base64.encode(pt.getBytes(), Base64.URL_SAFE);
+        byte[] res = Base64.encode(pt.getBytes(), Base64.DEFAULT);
         return new String(res);
     }
     private void revealShow (View dialogView, boolean b, final Dialog dialog, View rowView) {

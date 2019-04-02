@@ -67,10 +67,8 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
         if (tickets == null) {
             throw new ContentException("no Content found");
         } else {
-            InputStream ins = getResources().openRawResource(getResources().getIdentifier("public_key", "raw", getPackageName()));
             try {
-                byte[] pK = IOUtils.toByteArray(ins);
-                AdapterListViewTicket adapter = new AdapterListViewTicket(this, R.layout.listview_item_ticket, tickets, pK);
+                AdapterListViewTicket adapter = new AdapterListViewTicket(this, R.layout.listview_item_ticket, tickets);
                 adapter.addContext(TicketsActivity.this);
                 this.listViewTickets.setAdapter(adapter);
             } catch(Exception ex){

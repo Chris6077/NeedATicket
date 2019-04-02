@@ -111,6 +111,12 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
         buyActivity.putExtra("amount", "" + t.getAvailable());
         buyActivity.putExtra("amountSelected", "" + newVal);
         buyActivity.putExtra("cID", cID);
+        buyActivity.putExtra("cTitle", t.getConcert().getTitle());
+        buyActivity.putExtra("cDate", t.getConcert().getDate().substring(0, t.getConcert().getDate().length()-14));
+        buyActivity.putExtra("cAddress", t.getConcert().getAddress());
+        buyActivity.putExtra("cArtistName", t.getConcert().getArtist().getName());
+        //ToDo: remove if after data fix
+        if(t.getConcert().getGenre() != null) buyActivity.putExtra("cGenre", t.getConcert().getGenre());
         getAppCompatActivityResource().startActivity(buyActivity);
     }
 }

@@ -101,7 +101,7 @@ const typeDefs = gql`
     buy (ticketId: ID!): Transaction
     buyBulk (number: Float!, concertId: ID!, sellerId: ID!, price: Float!): Transaction 
     deposit (amount: Float!): Wallet
-    redeem (ticketId: ID!): Ticket
+    redeem (ticketId: String!): Ticket
   }
 `
 

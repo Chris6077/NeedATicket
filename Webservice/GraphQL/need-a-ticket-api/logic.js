@@ -289,10 +289,10 @@ async function insertOneArtist({name}){
 	return artist
 }
 // 		insert one concert
-async function insertOneConcert({title,date,address,genre,capacity,artistId,sellerId}){
+async function insertOneConcert({title,date,address,genre,type,capacity,artistId,sellerId}){
 	artistId = Types.ObjectId(artistId)
 	let concert = new Concert({
-		title,date,address,genre,capacity,artistId,sellerId
+		title,date,address,genre,type,capacity,artistId,sellerId
 	})
 	await concert.save((err) => {
 	if(err)
@@ -413,7 +413,9 @@ async function buyManyTickets({number,concertId,sellerId,price,userId}){
 	let payer = await User.findOne(payerId)
 	let receiver = await User.findOne(receiverId)
 	let amount = price * number
-
+	let payerWallet = await Wallet.findOne({userId: payerId})
+	if(payerWallet.balance < amount)
+		throw new ApolloError("price too high, you cannot overdraw your balance")
 	//checks
 	let seller = await User.findOne(sellerId)
 	if(!seller)
@@ -444,7 +446,7 @@ async function buyManyTickets({number,concertId,sellerId,price,userId}){
 	//update buyer in ticket
 	let tickets = await Ticket.find({
 	  concertId,sellerId,price
-	}).limit(number)
+	}).limit(number+1)
 
 	await tickets.forEach( async (el) => { 
 	  el.buyerId = payerId
@@ -487,7 +489,6 @@ async function redeemOneTicket({ticketId,user}){
 		{ "_id" : ticketId },
 		{ $set : { redeemed: true, redeemedAt } }
 	)
-
 	return findOneTicket({id: ticketId})
 }
 

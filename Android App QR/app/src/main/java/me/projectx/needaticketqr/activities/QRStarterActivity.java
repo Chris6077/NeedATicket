@@ -128,7 +128,7 @@ public class QRStarterActivity extends AppCompatActivity implements View.OnClick
         try {
             qrCodeScanner.stopCamera();
             qrCodeScanner.setVisibility(View.INVISIBLE);
-            mCheckTask = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_check_ticket).replace("$hash", result.getText()), hash, this);
+            mCheckTask = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_check_ticket).replace("$hash", result.getText().substring(0,result.getText().length()-1)), hash, this);
             mCheckTask.execute();
         }
         catch(Exception ex){

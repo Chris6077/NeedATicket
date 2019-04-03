@@ -1,6 +1,4 @@
 package me.projectx.needaticket.pojo;
-import java.util.ArrayList;
-import java.util.List;
 public class Seller {
     private String _id;
     private String username;

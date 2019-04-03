@@ -10,11 +10,7 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.apache.commons.io.IOUtils;
-
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,14 +25,7 @@ import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
 import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
-import me.projectx.needaticket.pojo.Artist;
-import me.projectx.needaticket.pojo.Concert;
-import me.projectx.needaticket.pojo.Genre;
-import me.projectx.needaticket.pojo.Seller;
 import me.projectx.needaticket.pojo.Ticket;
-import me.projectx.needaticket.pojo.TicketType;
-import me.projectx.needaticket.pojo.User;
-import me.projectx.needaticket.pojo.Wallet;
 public class TicketsActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.listview_tickets) ListView listViewTickets;
     @BindView(R.id.navigation_drawer) NavigationView navigation;
@@ -61,9 +50,6 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
         this.swipeRefreshLayout.setOnRefreshListener(this);
     }
     private void fillList (ArrayList<Ticket> tickets) throws ContentException {
-        //tickets = new ArrayList<>();
-        //Ticket t = new Ticket("5c8614daf6bb801464d2c072", new Concert("id","Lol","","",new Artist("","")),new Seller("_",""),2,2);
-        //tickets.add(t);
         if (tickets == null) {
             throw new ContentException("no Content found");
         } else {

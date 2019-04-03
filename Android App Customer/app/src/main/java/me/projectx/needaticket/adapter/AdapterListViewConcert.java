@@ -13,17 +13,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.activities.ConcertActivity;
 import me.projectx.needaticket.listener.ListenerDoubleTap;
-import me.projectx.needaticket.pojo.Artist;
 import me.projectx.needaticket.pojo.Concert;
 import me.projectx.needaticket.pojo.ConcertType;
-import me.projectx.needaticket.pojo.TicketType;
 public class AdapterListViewConcert extends ArrayAdapter<Concert> {
     private AppCompatActivity appCompatActivityResource;
     private ArrayList<Concert> data;

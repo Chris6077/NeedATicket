@@ -13,7 +13,6 @@ import com.google.gson.reflect.TypeToken;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,12 +27,7 @@ import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
 import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
-import me.projectx.needaticket.pojo.Artist;
 import me.projectx.needaticket.pojo.Concert;
-import me.projectx.needaticket.pojo.Genre;
-import me.projectx.needaticket.pojo.Seller;
-import me.projectx.needaticket.pojo.Ticket;
-import me.projectx.needaticket.pojo.TicketType;
 public class ConcertsActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.listview_concerts) ListView listViewConcerts;
     @BindView(R.id.navigation_drawer) NavigationView navigation;

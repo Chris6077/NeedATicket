@@ -5,10 +5,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,7 +19,6 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,20 +28,8 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
-import java.nio.file.Files;
-import java.security.KeyFactory;
-import java.security.PublicKey;
-import java.security.SecureRandom;
-import java.security.interfaces.RSAKey;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.PKCS8EncodedKeySpec;
-import java.security.spec.RSAKeyGenParameterSpec;
-import java.security.spec.RSAPublicKeySpec;
-import java.security.spec.X509EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.crypto.Cipher;
 
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.activities.TicketsActivity;
@@ -153,7 +138,7 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
     }
-    private String encryptString(String pt) throws Exception {
+    private String encryptString(String pt) {
         byte[] res = Base64.encode(pt.getBytes(), Base64.DEFAULT);
         return new String(res);
     }
@@ -185,7 +170,7 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
     public void addContext (TicketsActivity ticketsActivity) {
         cx = ticketsActivity;
     }
-    private Bitmap hashToQR(String hash) throws WriterException, NullPointerException {
+    private Bitmap hashToQR(String hash) throws WriterException {
         BitMatrix bitMatrix;
         Display dpl = getAppCompatActivityResource().getWindowManager(). getDefaultDisplay();
         Point size = new Point();
@@ -194,7 +179,7 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
         try {
             bitMatrix = new MultiFormatWriter().encode(hash, BarcodeFormat.QR_CODE,
                                                        qrSize, qrSize, null);
-        } catch (IllegalArgumentException Illegalargumentexception) {
+        } catch (IllegalArgumentException illegalargumentexception) {
             return null;
         }
 

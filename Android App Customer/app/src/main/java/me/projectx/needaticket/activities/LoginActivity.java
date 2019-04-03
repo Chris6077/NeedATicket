@@ -10,8 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.VideoView;
 
-import com.shashank.sony.fancytoastlib.FancyToast;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.projectx.needaticket.R;
@@ -21,7 +19,6 @@ import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 public class LoginActivity extends AppCompatActivity implements InterfaceTaskDefault {
     MediaPlayer mMediaPlayer;
     int mCurrentVideoPosition;
-    private TaskExecuteGraphQLMutation mAuthTask;
     @BindView(R.id.etEmailAddress) EditText mEmailView;
     @BindView(R.id.etPassword) EditText mPasswordView;
     @BindView(R.id.loadingPanel) View mProgressView;
@@ -77,17 +74,7 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
     }
     private void attemptLogin () {
         try {
-            /*
-            Intent concertsActivity = new Intent(this, ConcertsActivity.class);
-            concertsActivity.putExtra("uID", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjOThhYTY3YzU1NWEyMDAxNzlmYWQ5YSIsImVtYWlsIjoiY2hyaXNAYmFzaGl0Lm1lIiwiaWF0IjoxNTUzNjA4MzUyLCJleHAiOjE1ODUxNjU5NTJ9.PoDTQ4XjEFp7QVRvUTR0OE-MntkKEvxAl24Dus1S6Qs");
-            try {
-                finish();
-                startActivity(concertsActivity);
-            } catch (Exception e) {
-                HandlerState.handle(e, getApplicationContext());
-            }*/
-
-            mAuthTask = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_login).replace("$email", mEmailView.getText()).replace("$password", mPasswordView.getText()), "", this);
+            TaskExecuteGraphQLMutation mAuthTask = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_login).replace("$email", mEmailView.getText()).replace("$password", mPasswordView.getText()), "", this);
             mAuthTask.execute();
         }
         catch(Exception ex){

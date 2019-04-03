@@ -1,7 +1,4 @@
 package me.projectx.needaticket.pojo;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 public class Concert {
     private String _id;
     private ConcertType type;

@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.text.DecimalFormat;
 

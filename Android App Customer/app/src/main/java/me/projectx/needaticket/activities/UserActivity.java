@@ -21,37 +21,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.shashank.sony.fancytoastlib.FancyToast;
-
-import java.util.ArrayList;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.asynctask.TaskExecuteGraphQLMutation;
 import me.projectx.needaticket.asynctask.TaskExecuteGraphQLQuery;
-import me.projectx.needaticket.exceptions.PasswordException;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
 import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
-import me.projectx.needaticket.pojo.Artist;
-import me.projectx.needaticket.pojo.Concert;
-import me.projectx.needaticket.pojo.Genre;
-import me.projectx.needaticket.pojo.Seller;
-import me.projectx.needaticket.pojo.Ticket;
-import me.projectx.needaticket.pojo.TicketType;
 import me.projectx.needaticket.pojo.User;
-import me.projectx.needaticket.pojo.Wallet;
 public class UserActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.user_swipe_to_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     private User user;
     private String uID;
     private View dialogView;
     private Dialog dialog;
-    private String newPara;
     @BindView(R.id.textview_email) TextView email;
     @BindView(R.id.textview_password) TextView password;
     @BindView(R.id.etOldPassword) @Nullable EditText dialogOldPassword;
@@ -91,7 +77,7 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
         try {
             boolean cancel = false;
             View focusView = null;
-            EditText mEmailView = (EditText)dialog.findViewById(R.id.etEmailAddress);
+            EditText mEmailView = dialog.findViewById(R.id.etEmailAddress);
             if (TextUtils.isEmpty(mEmailView.getText())) {
                 mEmailView.setError(getString(R.string.error_field_required));
                 focusView = mEmailView;

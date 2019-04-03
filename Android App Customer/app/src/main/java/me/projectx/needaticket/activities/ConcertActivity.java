@@ -1,6 +1,4 @@
 package me.projectx.needaticket.activities;
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,11 +10,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.shashank.sony.fancytoastlib.FancyToast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,13 +24,9 @@ import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
 import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
-import me.projectx.needaticket.pojo.Artist;
 import me.projectx.needaticket.pojo.Concert;
 import me.projectx.needaticket.pojo.ConcertType;
-import me.projectx.needaticket.pojo.Genre;
-import me.projectx.needaticket.pojo.Seller;
 import me.projectx.needaticket.pojo.Ticket;
-import me.projectx.needaticket.pojo.TicketType;
 public class ConcertActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
     private String uID;
     private String cID;

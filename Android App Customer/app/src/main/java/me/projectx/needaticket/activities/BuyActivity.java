@@ -22,7 +22,6 @@ import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
 import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
 import me.projectx.needaticket.pojo.ConcertType;
-import me.projectx.needaticket.pojo.TicketType;
 public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefault {
     private String uID;
     private String sID;
@@ -108,20 +107,18 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
             try {
                 anchor.setVisibility(View.GONE);
                 checker.check();
-                new android.os.Handler().postDelayed(new Runnable() {
-                    public void run () {
-                        Intent concertActivity = new Intent(cx, ConcertActivity.class);
-                        concertActivity.putExtra("uID", uID);
-                        concertActivity.putExtra("cID", getIntent().getStringExtra("cID"));
-                        concertActivity.putExtra("cTitle", getIntent().getStringExtra("cTitle"));
-                        concertActivity.putExtra("cType", getIntent().getStringExtra("cType"));
-                        concertActivity.putExtra("cDate", getIntent().getStringExtra("cDate"));
-                        concertActivity.putExtra("cAddress", getIntent().getStringExtra("cAddress"));
-                        concertActivity.putExtra("cArtistName", getIntent().getStringExtra("cArtistName"));
-                        concertActivity.putExtra("cGenre", getIntent().getStringExtra("cGenre"));
-                        finish();
-                        startActivity(concertActivity);
-                    }
+                new android.os.Handler().postDelayed(() -> {
+                    Intent concertActivity = new Intent(cx, ConcertActivity.class);
+                    concertActivity.putExtra("uID", uID);
+                    concertActivity.putExtra("cID", getIntent().getStringExtra("cID"));
+                    concertActivity.putExtra("cTitle", getIntent().getStringExtra("cTitle"));
+                    concertActivity.putExtra("cType", getIntent().getStringExtra("cType"));
+                    concertActivity.putExtra("cDate", getIntent().getStringExtra("cDate"));
+                    concertActivity.putExtra("cAddress", getIntent().getStringExtra("cAddress"));
+                    concertActivity.putExtra("cArtistName", getIntent().getStringExtra("cArtistName"));
+                    concertActivity.putExtra("cGenre", getIntent().getStringExtra("cGenre"));
+                    finish();
+                    startActivity(concertActivity);
                 }, 1300);
             } catch (Exception e) {
                 HandlerState.handle(e, getApplicationContext());

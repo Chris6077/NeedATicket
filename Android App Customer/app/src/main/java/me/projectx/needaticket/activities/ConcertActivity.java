@@ -31,6 +31,7 @@ import me.projectx.needaticket.listener.ListenerNavigationMenu;
 import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
 import me.projectx.needaticket.pojo.Artist;
 import me.projectx.needaticket.pojo.Concert;
+import me.projectx.needaticket.pojo.ConcertType;
 import me.projectx.needaticket.pojo.Genre;
 import me.projectx.needaticket.pojo.Seller;
 import me.projectx.needaticket.pojo.Ticket;
@@ -78,9 +79,8 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         location.setText(getIntent().getStringExtra("cAddress"));
         date.setText(getIntent().getStringExtra("cDate"));
         artist.setText(getIntent().getStringExtra("cArtistName"));
-        //ToDo: remove try after data fix
-        try {genre.setText(getIntent().getStringExtra("cGenre"));} catch(Exception ex){}
-        //setUpIconCategory(concert.getTickets().get(0).getType());
+        genre.setText(getIntent().getStringExtra("cGenre"));
+        setUpIconCategory(concert.getType());
         header.setText(getIntent().getStringExtra("cTitle"));
     }
     private void fillList () throws ContentException {
@@ -96,14 +96,20 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         navHeader = navigation.getHeaderView(0);
         navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this, uID));
     }
-    private void setUpIconCategory (TicketType ticketType) {
+    private void setUpIconCategory (ConcertType concertType) {
         ImageView imageviewHeaderImageCategory = findViewById(R.id.category_image_concert_list_item);
-        switch (ticketType) {
-            case TICKET_CONCERT:
+        switch (concertType) {
+            case CONCERT:
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_concert);
                 break;
-            case TICKET_FESTIVAL:
+            case FESTIVAL:
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_festival);
+                break;
+            case REHEARSAL:
+                imageviewHeaderImageCategory.setImageResource(R.drawable.category_concert);
+                break;
+            default:
+                imageviewHeaderImageCategory.setImageResource(R.drawable.category_concert);
                 break;
         }
     }

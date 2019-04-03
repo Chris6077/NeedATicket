@@ -4,13 +4,15 @@ import java.util.Date;
 import java.util.List;
 public class Concert {
     private String _id;
+    private ConcertType type;
     private String title;
     private String date;
     private String address;
     private Genre genre;
     private Artist artist;
-    public Concert (String _id, String title, String date, String address, Genre genre, Artist artist) {
+    public Concert (String _id, ConcertType type, String title, String date, String address, Genre genre, Artist artist) {
         this._id = _id;
+        this.type = type;
         this.title = title;
         this.date = date;
         this.address = address;
@@ -22,6 +24,12 @@ public class Concert {
     }
     public void set_id (String _id) {
         this._id = _id;
+    }
+    public ConcertType getType () {
+        return type;
+    }
+    public void setType (ConcertType type) {
+        this.type = type;
     }
     public String getTitle () {
         return title;
@@ -54,6 +62,6 @@ public class Concert {
         this.artist = artist;
     }
     @Override public String toString () {
-        return "Concert{" + "_id='" + _id + '\'' + ", title='" + title + '\'' + ", date='" + date + '\'' + ", address='" + address + '\'' + ", genre=" + genre + ", artist=" + artist + '}';
+        return "Concert{" + "_id='" + _id + '\'' + ", type=" + type + ", title='" + title + '\'' + ", date='" + date + '\'' + ", address='" + address + '\'' + ", genre=" + genre + ", artist=" + artist + '}';
     }
 }

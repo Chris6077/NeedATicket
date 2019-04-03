@@ -22,6 +22,7 @@ import me.projectx.needaticket.activities.ConcertActivity;
 import me.projectx.needaticket.listener.ListenerDoubleTap;
 import me.projectx.needaticket.pojo.Artist;
 import me.projectx.needaticket.pojo.Concert;
+import me.projectx.needaticket.pojo.ConcertType;
 import me.projectx.needaticket.pojo.TicketType;
 public class AdapterListViewConcert extends ArrayAdapter<Concert> {
     private AppCompatActivity appCompatActivityResource;
@@ -51,24 +52,29 @@ public class AdapterListViewConcert extends ArrayAdapter<Concert> {
         TextView location = rowView.findViewById(R.id.list_item_concert_location);
         TextView date = rowView.findViewById(R.id.list_item_concert_date);
         artist.setText(concert.getArtist().getName());
-        //ToDo: remove if after data got fixed
-        if(concert.getGenre() != null) genre.setText(concert.getGenre().toString());
+        genre.setText(concert.getGenre().toString());
         location.setText(concert.getAddress());
         date.setText(concert.getDate().substring(0,concert.getDate().length()-14));
-        //setUpIconCategory(rowView, concert.get(0).getType());
+        setUpIconCategory(rowView, concert.getType());
         header.setText(concert.getTitle());
         this.setUpRowViewListener(rowView, concert);
         this.setUpTitleListener(rowView, concert);
         return rowView;
     }
-    private void setUpIconCategory (View rowView, TicketType ticketType) {
+    private void setUpIconCategory (View rowView, ConcertType concertType) {
         ImageView imageviewHeaderImageCategory = rowView.findViewById(R.id.category_image_concert_list_item);
-        switch (ticketType) {
-            case TICKET_CONCERT:
+        switch (concertType) {
+            case CONCERT:
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_concert);
                 break;
-            case TICKET_FESTIVAL:
+            case FESTIVAL:
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_festival);
+                break;
+            case REHEARSAL:
+                imageviewHeaderImageCategory.setImageResource(R.drawable.category_concert);
+                break;
+            default:
+                imageviewHeaderImageCategory.setImageResource(R.drawable.category_concert);
                 break;
         }
     }
@@ -93,11 +99,11 @@ public class AdapterListViewConcert extends ArrayAdapter<Concert> {
                 concertActivity.putExtra("uID", uID);
                 concertActivity.putExtra("cID", concert.get_id());
                 concertActivity.putExtra("cTitle", concert.getTitle());
+                concertActivity.putExtra("cType", concert.getType());
                 concertActivity.putExtra("cDate", concert.getDate().substring(0, concert.getDate().length()-14));
                 concertActivity.putExtra("cAddress", concert.getAddress());
                 concertActivity.putExtra("cArtistName", concert.getArtist().getName());
-                //ToDo: remove if after data fix
-                if(concert.getGenre() != null) concertActivity.putExtra("cGenre", concert.getGenre());
+                concertActivity.putExtra("cGenre", concert.getGenre());
                 getAppCompatActivityResource().startActivity(concertActivity);
             }
         });

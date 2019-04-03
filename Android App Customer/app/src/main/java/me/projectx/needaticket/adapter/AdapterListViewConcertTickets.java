@@ -50,8 +50,7 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
         seller.setText(ticket.getSeller().getUsername());
         price.setText(ticket.getPrice() + " €");
         amount.setText("" + ticket.getAvailable());
-        //ToDo: remove after data fix
-        if(ticket.getType() != null) setUpIconCategory(rowView, ticket.getType());
+        setUpIconCategory(rowView, ticket.getType());
         header.setText(ticket.getConcert().getTitle());
         this.setUpRowViewListener(rowView, ticket);
         this.setUpTitleListener(rowView, ticket);
@@ -72,8 +71,14 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
             case TICKET_FESTIVAL:
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_festival);
                 break;
+            case TICKET_FESTIVAL_DAY:
+                imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_festival);
+                break;
+            case TICKET_REHEARSAL:
+                imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_concert);
+                break;
             default:
-                imageviewHeaderImageCategory.setImageResource(R.drawable.category_concert);
+                imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_concert);
                 break;
         }
     }
@@ -107,16 +112,16 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
         buyActivity.putExtra("sID", t.getSeller().get_id());
         buyActivity.putExtra("ticketTitle", t.getConcert().getTitle());
         buyActivity.putExtra("price", "" + t.getPrice());
-        //buyActivity.putExtra("ticketType", t.getType().toString());
+        buyActivity.putExtra("ticketType", t.getType().toString());
         buyActivity.putExtra("amount", "" + t.getAvailable());
         buyActivity.putExtra("amountSelected", "" + newVal);
         buyActivity.putExtra("cID", cID);
         buyActivity.putExtra("cTitle", t.getConcert().getTitle());
+        buyActivity.putExtra("cType", t.getConcert().getType().toString());
         buyActivity.putExtra("cDate", t.getConcert().getDate().substring(0, t.getConcert().getDate().length()-14));
         buyActivity.putExtra("cAddress", t.getConcert().getAddress());
         buyActivity.putExtra("cArtistName", t.getConcert().getArtist().getName());
-        //ToDo: remove if after data fix
-        if(t.getConcert().getGenre() != null) buyActivity.putExtra("cGenre", t.getConcert().getGenre());
+        buyActivity.putExtra("cGenre", t.getConcert().getGenre());
         getAppCompatActivityResource().startActivity(buyActivity);
     }
 }

@@ -76,8 +76,7 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
         TextView header = rowView.findViewById(R.id.list_item_ticket_title);
         TextView price = rowView.findViewById(R.id.list_item_ticket_price);
         price.setText(ticket.getPrice() + " €");
-        //ToDo: remove if after data fix
-        if(ticket.getType() != null) setUpIconCategory(rowView, ticket.getType());
+        setUpIconCategory(rowView, ticket.getType());
         header.setText(ticket.getConcert().getTitle());
         if(!ticket.isRedeemed()) this.setUpRowViewListener(rowView, ticket);
         return rowView;
@@ -97,8 +96,14 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
             case TICKET_FESTIVAL:
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_festival);
                 break;
+            case TICKET_FESTIVAL_DAY:
+                imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_festival);
+                break;
+            case TICKET_REHEARSAL:
+                imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_concert);
+                break;
             default:
-                imageviewHeaderImageCategory.setImageResource(R.drawable.category_concert);
+                imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_concert);
                 break;
         }
     }

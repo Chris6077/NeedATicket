@@ -21,6 +21,7 @@ import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
 import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
+import me.projectx.needaticket.pojo.ConcertType;
 import me.projectx.needaticket.pojo.TicketType;
 public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefault {
     private String uID;
@@ -61,7 +62,7 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
         count.setText(getIntent().getStringExtra("amount"));
         amountSelected.setText(getIntent().getStringExtra("amountSelected"));
         totalPrice.setText(String.format("%s", round(Double.parseDouble(price.getText().toString()) * Double.parseDouble(amountSelected.getText().toString()), 2)));
-        //setUpIconCategory(TicketType.valueOf(getIntent().getStringExtra("ticketType")));
+        setUpIconCategory(ConcertType.valueOf(getIntent().getStringExtra("cType")));
     }
     private void setListenerNavigationHeader () {
         View navHeader;
@@ -74,13 +75,19 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
-    private void setUpIconCategory (TicketType ticketType) {
-        switch (ticketType) {
-            case TICKET_CONCERT:
-                imageCategory.setImageResource(R.drawable.category_ticket_concert);
+    private void setUpIconCategory (ConcertType concertType) {
+        switch (concertType) {
+            case CONCERT:
+                imageCategory.setImageResource(R.drawable.category_concert);
                 break;
-            case TICKET_FESTIVAL:
-                imageCategory.setImageResource(R.drawable.category_ticket_festival);
+            case FESTIVAL:
+                imageCategory.setImageResource(R.drawable.category_festival);
+                break;
+            case REHEARSAL:
+                imageCategory.setImageResource(R.drawable.category_concert);
+                break;
+            default:
+                imageCategory.setImageResource(R.drawable.category_concert);
                 break;
         }
     }
@@ -107,11 +114,11 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
                         concertActivity.putExtra("uID", uID);
                         concertActivity.putExtra("cID", getIntent().getStringExtra("cID"));
                         concertActivity.putExtra("cTitle", getIntent().getStringExtra("cTitle"));
+                        concertActivity.putExtra("cType", getIntent().getStringExtra("cType"));
                         concertActivity.putExtra("cDate", getIntent().getStringExtra("cDate"));
                         concertActivity.putExtra("cAddress", getIntent().getStringExtra("cAddress"));
                         concertActivity.putExtra("cArtistName", getIntent().getStringExtra("cArtistName"));
-                        //ToDo: remove if after data fix
-                        if(getIntent().getStringExtra("cGenre") != null) concertActivity.putExtra("cGenre", getIntent().getStringExtra("cGenre"));
+                        concertActivity.putExtra("cGenre", getIntent().getStringExtra("cGenre"));
                         finish();
                         startActivity(concertActivity);
                     }

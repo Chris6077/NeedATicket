@@ -23,7 +23,6 @@ import butterknife.ButterKnife;
 public class LoginActivity extends AppCompatActivity implements InterfaceTaskDefault {
     MediaPlayer mMediaPlayer;
     int mCurrentVideoPosition;
-    private TaskExecuteGraphQLMutation mAuthTask;
     @BindView(R.id.etHash) EditText mHashView;
     @BindView(R.id.loadingPanel) View mProgressView;
     @BindView(R.id.login_form) View mLoginFormView;
@@ -61,16 +60,8 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
         });
     }
     private void attemptLogin () {
-        /*final Intent concertsActivity = new Intent(this, QRStarterActivity.class);
-        concertsActivity.putExtra("uID", "lol");
         try {
-            finish();
-            startActivity(concertsActivity);
-        } catch (Exception e) {
-            HandlerState.handle(e, getApplicationContext());
-        }*/
-        try {
-            mAuthTask = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_login).replace("$concertId", mHashView.getText()), "", this);
+            TaskExecuteGraphQLMutation mAuthTask = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_login).replace("$concertId", mHashView.getText()), "", this);
             mAuthTask.execute();
         }
         catch(Exception ex){

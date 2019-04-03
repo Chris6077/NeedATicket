@@ -21,22 +21,19 @@ import com.google.zxing.Result;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import me.itangqi.waveloadingview.WaveLoadingView;
 import me.projectx.needaticketqr.R;
 import me.projectx.needaticketqr.asynctask.TaskExecuteGraphQLMutation;
 import me.projectx.needaticketqr.handler.HandlerState;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import me.projectx.needaticketqr.interfaces.InterfaceTaskDefault;
 
 import static android.os.Build.MANUFACTURER;
 import static butterknife.internal.Utils.arrayOf;
 public class QRStarterActivity extends AppCompatActivity implements View.OnClickListener, InterfaceTaskDefault, ZXingScannerView.ResultHandler {
-    private TaskExecuteGraphQLMutation mCheckTask;
     private String hash;
     private long backPressedTime;
     private Toast backToast;
@@ -87,10 +84,8 @@ public class QRStarterActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void readQRCode(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 1);
-            }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 1);
         }
         qrCodeScanner.startCamera();
         qrCodeScanner.setVisibility(View.VISIBLE);
@@ -128,7 +123,7 @@ public class QRStarterActivity extends AppCompatActivity implements View.OnClick
         try {
             qrCodeScanner.stopCamera();
             qrCodeScanner.setVisibility(View.INVISIBLE);
-            mCheckTask = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_check_ticket).replace("$hash", result.getText().substring(0,result.getText().length()-1)), hash, this);
+            TaskExecuteGraphQLMutation mCheckTask = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_check_ticket).replace("$hash", result.getText().substring(0,result.getText().length()-1)), hash, this);
             mCheckTask.execute();
         }
         catch(Exception ex){

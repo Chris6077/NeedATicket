@@ -10,7 +10,7 @@
 
     <!-- Webservice Queries -->
     <string name="webservice_get_my_tickets">https://need-a-ticket-api.herokuapp.com/graphql?query={me{bought{_id, type, price, seller{_id,username}, concert{title, type, date, address, genre, artist{_id,name}}, redeemed}}}</string>
-    <string name="webservice_get_tickets">https://need-a-ticket-api.herokuapp.com/graphql?query={ticketsGrouped(concertId:%22$cID%22){concert{_id,title,date,address,genre,artist{_id,name}},price,seller{_id,username},type,available}}</string>
+    <string name="webservice_get_tickets">https://need-a-ticket-api.herokuapp.com/graphql?query={ticketsGrouped(concertId:%22$cID%22){concert{_id,type,title,date,address,genre,artist{_id,name}},price,seller{_id,username},type,available}}</string>
     <string name="webservice_get_concerts">https://need-a-ticket-api.herokuapp.com/graphql?query={concerts{_id,title,type,date,address,genre,artist{_id,name}}}</string>
     <string name="webservice_get_user">https://need-a-ticket-api.herokuapp.com/graphql?query={me{_id,email,totalBought,passwordStrength{status}}}</string>
     <string name="webservice_get_wallet">https://need-a-ticket-api.herokuapp.com/graphql?query={me{wallet{_id, balance}}}</string>

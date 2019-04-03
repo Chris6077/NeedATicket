@@ -90,19 +90,17 @@ public class AdapterListViewConcert extends ArrayAdapter<Concert> {
     }
     private void changeActivity (View rowView, final Concert concert) {
         final LinearLayout contentTitle = rowView.findViewById(R.id.list_item_header_title);
-        contentTitle.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick (View v) {
-                Intent concertActivity = new Intent(getAppCompatActivityResource(), ConcertActivity.class);
-                concertActivity.putExtra("uID", uID);
-                concertActivity.putExtra("cID", concert.get_id());
-                concertActivity.putExtra("cTitle", concert.getTitle());
-                concertActivity.putExtra("cType", concert.getType());
-                concertActivity.putExtra("cDate", concert.getDate().substring(0, concert.getDate().length()-14));
-                concertActivity.putExtra("cAddress", concert.getAddress());
-                concertActivity.putExtra("cArtistName", concert.getArtist().getName());
-                concertActivity.putExtra("cGenre", concert.getGenre());
-                getAppCompatActivityResource().startActivity(concertActivity);
-            }
+        contentTitle.setOnClickListener(v -> {
+            Intent concertActivity = new Intent(getAppCompatActivityResource(), ConcertActivity.class);
+            concertActivity.putExtra("uID", uID);
+            concertActivity.putExtra("cID", concert.get_id());
+            concertActivity.putExtra("cTitle", concert.getTitle());
+            concertActivity.putExtra("cType", concert.getType().toString());
+            concertActivity.putExtra("cDate", concert.getDate().substring(0, concert.getDate().length()-14));
+            concertActivity.putExtra("cAddress", concert.getAddress());
+            concertActivity.putExtra("cArtistName", concert.getArtist().getName());
+            concertActivity.putExtra("cGenre", concert.getGenre().toString());
+            getAppCompatActivityResource().startActivity(concertActivity);
         });
     }
 }

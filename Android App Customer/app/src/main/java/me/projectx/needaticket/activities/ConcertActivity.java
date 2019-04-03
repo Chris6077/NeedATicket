@@ -33,7 +33,6 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
     private ListView listViewConcertTickets;
     private NavigationView navigation;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private Concert concert;
     private ArrayList<Ticket> tickets;
     @Override protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +70,7 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         date.setText(getIntent().getStringExtra("cDate"));
         artist.setText(getIntent().getStringExtra("cArtistName"));
         genre.setText(getIntent().getStringExtra("cGenre"));
-        setUpIconCategory(concert.getType());
+        setUpIconCategory(ConcertType.valueOf(getIntent().getStringExtra("cType")));
         header.setText(getIntent().getStringExtra("cTitle"));
     }
     private void fillList () throws ContentException {

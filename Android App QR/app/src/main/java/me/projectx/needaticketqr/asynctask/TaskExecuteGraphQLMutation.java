@@ -1,11 +1,7 @@
 package me.projectx.needaticketqr.asynctask;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 
-import com.google.gson.Gson;
-
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -14,16 +10,16 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import me.projectx.needaticketqr.R;
 import me.projectx.needaticketqr.interfaces.InterfaceTaskDefault;
-import me.projectx.needaticketqr.pojo.LoginWrapper;
-public class TaskLogin extends AsyncTask<String, Void, String> {
+public class TaskExecuteGraphQLMutation extends AsyncTask<String, Void, String> {
     private String url;
-    private String hash;
+    private String query;
+    private String auth;
     private InterfaceTaskDefault listener;
-    public TaskLogin (String url, String hash, InterfaceTaskDefault listener) {
+    public TaskExecuteGraphQLMutation (String url, String query, String auth, InterfaceTaskDefault listener) {
         this.url = url;
-        this.hash = hash;
+        this.query = query;
+        this.auth = auth;
         this.listener = listener;
     }
     @Override protected String doInBackground (String... params) {
@@ -45,19 +41,18 @@ public class TaskLogin extends AsyncTask<String, Void, String> {
         super.onPostExecute(result);
     }
     private void postData (HttpURLConnection conn, String... params) {
-        BufferedWriter writer;
         try {
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
-            conn.setRequestProperty("API_KEY", Resources.getSystem().getString(R.string.API_KEY));
-            writer = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-            LoginWrapper lw = new LoginWrapper(hash);
-            writer.write(new Gson().toJson(lw));
-            writer.flush();
-            writer.close();
-            conn.getResponseCode();
+            conn.setRequestProperty("Accept", "application/json");
+            if(auth != null && auth != "") conn.setRequestProperty("authorization", "bearer " + auth);
+            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+            wr.write(query);
+            wr.flush();
+            wr.close();
+            if(conn.getResponseCode() != 200) throw new Exception("Error when connecting!");
         } catch (Exception e) {
-            Logger.getGlobal().log(Level.SEVERE, e.getMessage());
+            Logger.getGlobal().log(Level.SEVERE, "Error connecting to the server. Check your connection.");
         }
     }
     private String getData (HttpURLConnection conn) {

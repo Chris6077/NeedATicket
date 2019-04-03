@@ -9,10 +9,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,18 +21,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.adapter.AdapterListViewConcert;
-import me.projectx.needaticket.asynctask.TaskGetConcerts;
+import me.projectx.needaticket.asynctask.TaskExecuteGraphQLQuery;
 import me.projectx.needaticket.exceptions.ContentException;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
 import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
-import me.projectx.needaticket.pojo.Artist;
 import me.projectx.needaticket.pojo.Concert;
-import me.projectx.needaticket.pojo.Genre;
-import me.projectx.needaticket.pojo.Seller;
-import me.projectx.needaticket.pojo.Ticket;
-import me.projectx.needaticket.pojo.TicketType;
 public class ConcertsActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.listview_concerts) ListView listViewConcerts;
     @BindView(R.id.navigation_drawer) NavigationView navigation;
@@ -44,10 +40,9 @@ public class ConcertsActivity extends AppCompatActivity implements InterfaceTask
         setContentView(R.layout.activity_concerts);
         ButterKnife.bind(this);
         try {
-            this.setListener();
-            //this.getConcerts();
-            this.fillList(new ArrayList<Concert>());
             this.uID = getIntent().getStringExtra("uID");
+            this.setListener();
+            this.getConcerts();
         } catch (Exception e) {
             Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
@@ -59,7 +54,6 @@ public class ConcertsActivity extends AppCompatActivity implements InterfaceTask
         this.swipeRefreshLayout.setOnRefreshListener(this);
     }
     private void fillList (ArrayList<Concert> concerts) throws ContentException {
-        fillWithDummy(concerts);
         if (concerts == null) {
             throw new ContentException("no Content found");
         } else {
@@ -72,56 +66,28 @@ public class ConcertsActivity extends AppCompatActivity implements InterfaceTask
         navHeader = navigation.getHeaderView(0);
         navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this, uID));
     }
-    private void fillWithDummy (ArrayList<Concert> concerts) {
-        Artist a = new Artist("lol", "Martin Garrix");
-        Artist b = new Artist("lol2", "Kollegah");
-        Artist e = new Artist("lol3", "Beethoven");
-        Artist d = new Artist("lol4", "Madonna");
-        ArrayList<Artist> artists = new ArrayList<>();
-        artists.add(a);
-        ArrayList<Artist> artists2 = new ArrayList<>();
-        artists2.add(b);
-        ArrayList<Artist> artists3 = new ArrayList<>();
-        artists3.add(e);
-        ArrayList<Artist> artists4 = new ArrayList<>();
-        artists4.add(d);
-        ArrayList<Ticket> tickets1 = new ArrayList<>(0);
-        ArrayList<Ticket> tickets2 = new ArrayList<>(0);
-        Concert c1 = new Concert("lol", "We are here", new Date(), new Date(), "Loliweg 3", artists, Genre.DANCE, tickets2);
-        Concert c2 = new Concert("lol2", "Kollegah", new Date(), new Date(), "Leelstraße 5", artists2, Genre.RAP, tickets1);
-        Concert c3 = new Concert("lol3", "Beethoven", new Date(), new Date(), "London 4", artists3, Genre.CLASSICAL, tickets1);
-        Concert c4 = new Concert("lol4", "Madonna", new Date(), new Date(), "Suedalley 8", artists4, Genre.POP, tickets1);
-        Seller oe = new Seller("iiooo", "OETicket@oe.com");
-        Ticket t1 = new Ticket(1, TicketType.CONCERT, "Day 1 Ticket", (float) 22.99, oe, null, c1);
-        Ticket t2 = new Ticket(2, TicketType.CONCERT, "Day 2 Ticket", (float) 22.99, oe, null, c1);
-        Ticket t3 = new Ticket(3, TicketType.FESTIVAL, "Festival Pass", (float) 33.99, oe, null, c1);
-        tickets1.add(t1);
-        tickets1.add(t2);
-        tickets1.add(t3);
-        tickets2.add(t3);
-        concerts.add(c1);
-        concerts.add(c2);
-        concerts.add(c3);
-        concerts.add(c4);
-    }
     @Override public void onPreExecute (Class resource) {
         swipeRefreshLayout.setRefreshing(true);
     }
     @Override public void onPostExecute (Object result, Class resource) {
-        try {
-            swipeRefreshLayout.setRefreshing(false);
-            ArrayList concerts = new Gson().fromJson((String) result, ArrayList.class);
-            fillList(concerts);
-        } catch (Exception error) {
-            HandlerState.handle(error, getApplicationContext());
+        if(result != null && !result.equals("") && !((String)result).split("\"")[1].equals("errors")) {
+            try {
+                ArrayList<Concert> concerts = new Gson().fromJson(((String) result).substring(20,((String)result).length()-2),new TypeToken<List<Concert>>(){}.getType());
+                fillList(concerts);
+            } catch (Exception error) {
+                HandlerState.handle(error, getApplicationContext());
+            }
+        } else {
+            HandlerState.handle(getApplicationContext());
         }
+        swipeRefreshLayout.setRefreshing(false);
     }
     @Override public void onRefresh () {
         this.getConcerts();
     }
     private void getConcerts () {
         try {
-            TaskGetConcerts getConcerts = new TaskGetConcerts(getString(R.string.webservice_get_concerts_url), uID, this);
+            TaskExecuteGraphQLQuery getConcerts = new TaskExecuteGraphQLQuery(getString(R.string.webservice_get_concerts), uID, this);
             getConcerts.execute();
         } catch (Exception error) {
             HandlerState.handle(error, this);

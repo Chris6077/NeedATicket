@@ -1,6 +1,4 @@
 package me.projectx.needaticket.activities;
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,64 +9,42 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.adapter.AdapterListViewConcertTickets;
-import me.projectx.needaticket.asynctask.TaskGetConcert;
-import me.projectx.needaticket.asynctask.TaskGetConcertTickets;
+import me.projectx.needaticket.asynctask.TaskExecuteGraphQLQuery;
 import me.projectx.needaticket.exceptions.ContentException;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
 import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
-import me.projectx.needaticket.pojo.Artist;
 import me.projectx.needaticket.pojo.Concert;
-import me.projectx.needaticket.pojo.Genre;
-import me.projectx.needaticket.pojo.Seller;
+import me.projectx.needaticket.pojo.ConcertType;
 import me.projectx.needaticket.pojo.Ticket;
-import me.projectx.needaticket.pojo.TicketType;
 public class ConcertActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
     private String uID;
+    private String cID;
     private ListView listViewConcertTickets;
     private NavigationView navigation;
     private SwipeRefreshLayout swipeRefreshLayout;
     private Concert concert;
+    private ArrayList<Ticket> tickets;
     @Override protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tickets);
         try {
+            this.uID = getIntent().getStringExtra("uID");
+            this.cID = getIntent().getStringExtra("cID");
             this.setViews();
             this.setListener();
-            this.uID = getIntent().getStringExtra("uID");
-            //this.getConcert();
-            //this.getTickets();
-            Artist a = new Artist("lol", "Martin Garrix");
-            ArrayList<Artist> artists = new ArrayList<>();
-            artists.add(a);
-            ArrayList<Ticket> tickets = new ArrayList<>(0);
-            Concert c1 = new Concert("lol", "We are here", new Date(), new Date(), "Loliweg 3", artists, Genre.DANCE, tickets);
-            Seller oe = new Seller("iiooo", "OETicket@oe.com");
-            Ticket t1 = new Ticket(1, TicketType.CONCERT, "Day 1 Ticket", (float) 22.99, oe, null, c1);
-            Ticket t2 = new Ticket(2, TicketType.CONCERT, "Day 2 Ticket", (float) 22.99, oe, null, c1);
-            Ticket t3 = new Ticket(3, TicketType.FESTIVAL, "Festival Pass", (float) 33.99, oe, null, c1);
-            tickets.add(t3);
-            tickets.add(t1);
-            tickets.add(t2);
-            tickets.add(t1);
-            tickets.add(t2);
-            tickets.add(t3);
-            tickets.add(t1);
-            tickets.add(t2);
-            tickets.add(t3);
-            concert = c1;
-            setConcertContent(c1);
-            fillList(tickets);
+            this.setConcertContent();
+            this.getData();
         } catch (Exception e) {
             Logger.getGlobal().log(Level.SEVERE, e.getMessage());
         }
@@ -85,31 +61,24 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         this.navigation.setItemIconTintList(null); //THIS LITTLE PIECE OF ... FIXES THE ICONS NOT SHOWING IN THE NAVMENU >:(
         this.swipeRefreshLayout.setOnRefreshListener(this);
     }
-    private void setConcertContent (Concert concert) {
+    private void setConcertContent () {
         TextView header = findViewById(R.id.list_item_concert_name);
         TextView genre = findViewById(R.id.list_item_concert_genre);
         TextView artist = findViewById(R.id.list_item_concert_artist);
         TextView location = findViewById(R.id.list_item_concert_location);
         TextView date = findViewById(R.id.list_item_concert_date);
-        StringBuilder artists = new StringBuilder();
-        for (Artist a : concert.getArtists()) {
-            artists.append(a.getName()).append(", ");
-        }
-        artists = new StringBuilder(artists.substring(0, artists.length() - 2));
-        location.setText(concert.getAddress());
-        @SuppressLint ("SimpleDateFormat")
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
-        date.setText(dateFormat.format(concert.getDate()));
-        artist.setText(artists.toString());
-        genre.setText(concert.getGenre().toString());
-        setUpIconCategory(concert.getTickets().get(0).getType());
-        header.setText(concert.getTitle());
+        location.setText(getIntent().getStringExtra("cAddress"));
+        date.setText(getIntent().getStringExtra("cDate"));
+        artist.setText(getIntent().getStringExtra("cArtistName"));
+        genre.setText(getIntent().getStringExtra("cGenre"));
+        setUpIconCategory(concert.getType());
+        header.setText(getIntent().getStringExtra("cTitle"));
     }
-    private void fillList (ArrayList<Ticket> tickets) throws ContentException {
+    private void fillList () throws ContentException {
         if (tickets == null) {
             throw new ContentException("no Content found");
         } else {
-            AdapterListViewConcertTickets adapter = new AdapterListViewConcertTickets(this, uID, concert.getId(), R.layout.listview_item_concert_ticket, tickets);
+            AdapterListViewConcertTickets adapter = new AdapterListViewConcertTickets(this, uID, cID, R.layout.listview_item_concert_ticket, tickets);
             this.listViewConcertTickets.setAdapter(adapter);
         }
     }
@@ -118,50 +87,45 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         navHeader = navigation.getHeaderView(0);
         navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this, uID));
     }
-    private void setUpIconCategory (TicketType ticketType) {
+    private void setUpIconCategory (ConcertType concertType) {
         ImageView imageviewHeaderImageCategory = findViewById(R.id.category_image_concert_list_item);
-        switch (ticketType) {
+        switch (concertType) {
             case CONCERT:
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_concert);
                 break;
             case FESTIVAL:
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_festival);
                 break;
-        }
-    }
-    private void getConcert () {
-        try {
-            Intent intent = getIntent();
-            String cID = intent.getStringExtra("cID");
-            TaskGetConcert getConcert = new TaskGetConcert(getString(R.string.webservice_get_concert_url) + cID, uID, this);
-            getConcert.execute();
-        } catch (Exception error) {
-            HandlerState.handle(error, this);
+            case REHEARSAL:
+                imageviewHeaderImageCategory.setImageResource(R.drawable.category_concert);
+                break;
+            default:
+                imageviewHeaderImageCategory.setImageResource(R.drawable.category_concert);
+                break;
         }
     }
     @Override public void onPreExecute (Class resource) {
         swipeRefreshLayout.setRefreshing(true);
     }
     @Override public void onPostExecute (Object result, Class resource) {
-        try {
-            swipeRefreshLayout.setRefreshing(false);
-            concert = new Gson().fromJson((String) result, Concert.class);
-            setConcertContent(concert);
-        } catch (Exception error) {
+        if(result != null && !result.equals("") && !((String)result).split("\"")[1].equals("errors")) {
             try {
-                ArrayList<Ticket> tickets = (ArrayList<Ticket>) result;
-                fillList(tickets);
+                tickets = new Gson().fromJson(((String) result).substring(26,((String)result).length()-2),new TypeToken<List<Ticket>>(){}.getType());
+                fillList();
             } catch (Exception e) {
                 HandlerState.handle(e, getApplicationContext());
             }
+        } else {
+            HandlerState.handle(getApplicationContext());
         }
+        swipeRefreshLayout.setRefreshing(false);
     }
     @Override public void onRefresh () {
-        this.getTickets();
+        this.getData();
     }
-    private void getTickets () {
+    private void getData () {
         try {
-            TaskGetConcertTickets getTickets = new TaskGetConcertTickets(getString(R.string.webservice_get_concert_url) + "/" + concert.getId() + "/tickets", uID, concert.getId(), this);
+            TaskExecuteGraphQLQuery getTickets = new TaskExecuteGraphQLQuery(getString(R.string.webservice_get_tickets).replace("$cID", cID), uID,this);
             getTickets.execute();
         } catch (Exception error) {
             swipeRefreshLayout.setRefreshing(false);

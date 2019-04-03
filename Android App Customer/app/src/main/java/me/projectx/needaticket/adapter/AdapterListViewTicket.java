@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,7 +19,6 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,20 +28,8 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
-import java.nio.file.Files;
-import java.security.KeyFactory;
-import java.security.PublicKey;
-import java.security.SecureRandom;
-import java.security.interfaces.RSAKey;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.PKCS8EncodedKeySpec;
-import java.security.spec.RSAKeyGenParameterSpec;
-import java.security.spec.RSAPublicKeySpec;
-import java.security.spec.X509EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.crypto.Cipher;
 
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.activities.TicketsActivity;
@@ -54,25 +40,30 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
     private AppCompatActivity appCompatActivityResource;
     private ArrayList<Ticket> data;
     private Context cx;
-    private byte[] primaryKeyBin;
     public AdapterListViewTicket (AppCompatActivity res,
-                                  @LayoutRes int resource, List<Ticket> data, byte[] primaryKeyBin) {
+                                  @LayoutRes int resource, List<Ticket> data) {
         super(res, resource, data);
         this.appCompatActivityResource = res;
         this.data = (ArrayList<Ticket>) data;
-        this.primaryKeyBin = primaryKeyBin;
+        data.sort((a,b) -> {
+            if(a.isRedeemed() == b.isRedeemed()) return a.getConcert().getTitle().compareToIgnoreCase(b.getConcert().getTitle());
+            if(a.isRedeemed()) return 1;
+            return -1;
+        });
     }
     @NonNull @Override
     public View getView (int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         Ticket ticket = this.data.get(position);
         LayoutInflater inflater = (LayoutInflater) this.getAppCompatActivityResource().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.listview_item_ticket, parent, false);
+        View rowView;
+        if(!ticket.isRedeemed()) rowView = inflater.inflate(R.layout.listview_item_ticket, parent, false);
+        else rowView = inflater.inflate(R.layout.listview_item_ticket_redeemed, parent, false);
         TextView header = rowView.findViewById(R.id.list_item_ticket_title);
         TextView price = rowView.findViewById(R.id.list_item_ticket_price);
-        price.setText(ticket.getPrice() + "€");
+        price.setText(ticket.getPrice() + " €");
         setUpIconCategory(rowView, ticket.getType());
-        header.setText(ticket.getTitle());
-        this.setUpRowViewListener(rowView, ticket);
+        header.setText(ticket.getConcert().getTitle());
+        if(!ticket.isRedeemed()) this.setUpRowViewListener(rowView, ticket);
         return rowView;
     }
     public AppCompatActivity getAppCompatActivityResource () {
@@ -84,11 +75,20 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
     private void setUpIconCategory (View rowView, TicketType ticketType) {
         ImageView imageviewHeaderImageCategory = rowView.findViewById(R.id.category_image_ticket_list_item);
         switch (ticketType) {
-            case CONCERT:
+            case TICKET_CONCERT:
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_concert);
                 break;
-            case FESTIVAL:
+            case TICKET_FESTIVAL:
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_festival);
+                break;
+            case TICKET_FESTIVAL_DAY:
+                imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_festival);
+                break;
+            case TICKET_REHEARSAL:
+                imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_concert);
+                break;
+            default:
+                imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_concert);
                 break;
         }
     }
@@ -115,7 +115,7 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
         });
         ImageView qrView = dialog.findViewById(R.id.image_qr_ticket);
         try {
-            Bitmap bitmap = hashToQR(encryptString("" + t.getId() + ":=:" + t.getSeller().getId() + ":=:" + t.getBuyer().getId() + ":=:" + t.getPrice()));
+            Bitmap bitmap = hashToQR(encryptString(t.get_id()));
             qrView.setImageBitmap(bitmap);
         } catch (Exception ex) {
             qrView.setImageDrawable(getAppCompatActivityResource().getDrawable(R.drawable.error));
@@ -138,13 +138,8 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
     }
-    private String encryptString(String pt) throws Exception {
-        X509EncodedKeySpec spec = new X509EncodedKeySpec(primaryKeyBin);
-        KeyFactory kF = KeyFactory.getInstance("RSA");
-        PublicKey pk = kF.generatePublic(spec);
-        Cipher cipher = Cipher.getInstance("RSA");
-        cipher.init(Cipher.ENCRYPT_MODE, pk);
-        byte[] res = Base64.encode(cipher.doFinal(Base64.encode(pt.getBytes(), Base64.DEFAULT)), Base64.URL_SAFE);
+    private String encryptString(String pt) {
+        byte[] res = Base64.encode(pt.getBytes(), Base64.DEFAULT);
         return new String(res);
     }
     private void revealShow (View dialogView, boolean b, final Dialog dialog, View rowView) {
@@ -175,16 +170,16 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
     public void addContext (TicketsActivity ticketsActivity) {
         cx = ticketsActivity;
     }
-    private Bitmap hashToQR(String hash) throws WriterException, NullPointerException {
+    private Bitmap hashToQR(String hash) throws WriterException {
         BitMatrix bitMatrix;
         Display dpl = getAppCompatActivityResource().getWindowManager(). getDefaultDisplay();
         Point size = new Point();
         dpl.getSize(size);
         int qrSize = size.x-30;
         try {
-            bitMatrix = new MultiFormatWriter().encode(hash, BarcodeFormat.DATA_MATRIX.QR_CODE,
+            bitMatrix = new MultiFormatWriter().encode(hash, BarcodeFormat.QR_CODE,
                                                        qrSize, qrSize, null);
-        } catch (IllegalArgumentException Illegalargumentexception) {
+        } catch (IllegalArgumentException illegalargumentexception) {
             return null;
         }
 

@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -21,33 +22,22 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Optional;
 import me.projectx.needaticket.R;
-import me.projectx.needaticket.asynctask.TaskChangeEmail;
-import me.projectx.needaticket.asynctask.TaskChangePassword;
-import me.projectx.needaticket.asynctask.TaskGetUser;
-import me.projectx.needaticket.exceptions.PasswordException;
+import me.projectx.needaticket.asynctask.TaskExecuteGraphQLMutation;
+import me.projectx.needaticket.asynctask.TaskExecuteGraphQLQuery;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
 import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
-import me.projectx.needaticket.pojo.Artist;
-import me.projectx.needaticket.pojo.Concert;
-import me.projectx.needaticket.pojo.Genre;
-import me.projectx.needaticket.pojo.Seller;
-import me.projectx.needaticket.pojo.Ticket;
-import me.projectx.needaticket.pojo.TicketType;
 import me.projectx.needaticket.pojo.User;
-import me.projectx.needaticket.pojo.Wallet;
 public class UserActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.user_swipe_to_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     private User user;
     private String uID;
+    private View dialogView;
+    private Dialog dialog;
     @BindView(R.id.textview_email) TextView email;
     @BindView(R.id.textview_password) TextView password;
     @BindView(R.id.etOldPassword) @Nullable EditText dialogOldPassword;
@@ -62,20 +52,9 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         ButterKnife.bind(this);
-        this.setListener();
         this.uID = getIntent().getStringExtra("uID");
-        //this.getUser();
-        ArrayList<Ticket> tickets = new ArrayList<>();
-        Artist a = new Artist("lol", "Martin Garrix");
-        ArrayList<Ticket> tickets2 = new ArrayList<>();
-        ArrayList<Artist> artists = new ArrayList<>();
-        artists.add(a);
-        Concert c1 = new Concert("lol", "We are here", new Date(), new Date(), "Loliweg 3", artists, Genre.DANCE, tickets2);
-        Seller oe = new Seller("iiooo", "OETicket@oe.com");
-        Ticket t1 = new Ticket(1, TicketType.CONCERT, "Day 1 Ticket", (float) 22.99, oe, null, c1);
-        tickets.add(t1);
-        User u = new User("lol", "user@bashit.me", tickets, new Wallet(1, Float.parseFloat("1337.17")));
-        setContent(u);
+        this.setListener();
+        this.getUser();
     }
     private void setListener () {
         this.navigation.setNavigationItemSelectedListener(new ListenerNavigationMenu(this, uID));
@@ -84,10 +63,10 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
         this.swipeRefreshLayout.setOnRefreshListener(this);
         this.fabUser.setOnClickListener(new EditUserListener());
     }
-    private void setContent (User user) {
+    private void setContent () {
         email.setText(user.getEmail());
-        boughtTickets.setText("" + user.getTickets().size());
-        password.setText("Strong");
+        boughtTickets.setText("" + user.getTotalBought());
+        password.setText(user.getPasswordStrength().getStatus());
     }
     private void setListenerNavigationHeader () {
         View navHeader;
@@ -96,25 +75,58 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
     }
     private void changeMail () {
         try {
-            TaskChangeEmail changeEmail = new TaskChangeEmail(getString(R.string.webservice_change_email) + "/" + user.getId(), user.getId(), dialogNewEmail.getText().toString(), dialogPassword.getText().toString(), this);
-            changeEmail.execute();
+            boolean cancel = false;
+            View focusView = null;
+            EditText mEmailView = dialog.findViewById(R.id.etEmailAddress);
+            if (TextUtils.isEmpty(mEmailView.getText())) {
+                mEmailView.setError(getString(R.string.error_field_required));
+                focusView = mEmailView;
+                cancel = true;
+            } else if (!mEmailView.getText().toString().contains("@")) {
+                mEmailView.setError(getString(R.string.error_invalid_email));
+                focusView = mEmailView;
+                cancel = true;
+            }
+            if (cancel) {
+                focusView.requestFocus();
+            } else {
+                TaskExecuteGraphQLMutation changeEmail = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_change_email).replace("$email", mEmailView.getText()), uID, this);
+                changeEmail.execute();
+            }
         } catch (Exception error) {
             HandlerState.handle(error, this);
         }
     }
     private void changePassword () {
         try {
-            if (dialogNewPassword != dialogConfirmNewPassword)
-                throw new PasswordException("Passwords don't match!");
-            TaskChangePassword changePassword = new TaskChangePassword(getString(R.string.webservice_change_password) + "/" + user.getId(), user.getId(), dialogOldPassword.getText().toString(), dialogNewPassword.getText().toString(), this);
-            changePassword.execute();
+            boolean cancel = false;
+            View focusView = null;
+            EditText mPasswordView = dialog.findViewById(R.id.etNewPassword);
+            EditText mPasswordConfirmView = dialog.findViewById(R.id.etPasswordConfirm);
+            if (TextUtils.isEmpty(mPasswordView.getText()) || mPasswordView.getText().toString().length() <= 4) {
+                mPasswordView.setError(getString(R.string.error_invalid_password));
+                focusView = mPasswordView;
+                cancel = true;
+            }
+            if(!mPasswordView.getText().toString().equals(mPasswordConfirmView.getText().toString())){
+                mPasswordView.setError(getString(R.string.error_passwords_dont_match));
+                mPasswordConfirmView.setError(getString(R.string.error_passwords_dont_match));
+                focusView = mPasswordConfirmView;
+                cancel = true;
+            }
+            if (cancel) {
+                focusView.requestFocus();
+            } else {
+                TaskExecuteGraphQLMutation changePassword = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_change_password).replace("$password", mPasswordView.getText()), uID, this);
+                changePassword.execute();
+            }
         } catch (Exception error) {
             HandlerState.handle(error, this);
         }
     }
     private void showDiag () {
-        final View dialogView = View.inflate(this, R.layout.dialog_edit_user, null);
-        final Dialog dialog = new Dialog(this, R.style.UserAlertStyle);
+        dialogView = View.inflate(this, R.layout.dialog_edit_user, null);
+        dialog = new Dialog(this, R.style.UserAlertStyle);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(dialogView);
         ImageView imageView = dialog.findViewById(R.id.closeDialog);
@@ -174,20 +186,23 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
         swipeRefreshLayout.setRefreshing(true);
     }
     @Override public void onPostExecute (Object result, Class resource) {
+        if(dialogView != null && dialog != null && dialog.isShowing()) revealShow(dialogView, false, dialog);
+        if(result != null && !result.equals("") && !((String)result).split("\"")[1].equals("errors")) {
+            try {
+                user = new Gson().fromJson("{" + ((String) result).split("\\{")[3].split("\\}")[0] + "{" + ((String) result).split("\\{")[4].split("\\}")[0] + "}" + "}", User.class);
+                setContent();
+            } catch (Exception e) {
+                HandlerState.handle(new Exception("Error: Check your connection!"), getApplicationContext());
+            }
+        } else HandlerState.handle(getApplicationContext());
         swipeRefreshLayout.setRefreshing(false);
-        try {
-            user = new Gson().fromJson((String) result, User.class);
-            setContent(user);
-        } catch (Exception e) {
-            HandlerState.handle(e, getApplicationContext());
-        }
     }
     @Override public void onRefresh () {
         getUser();
     }
     private void getUser () {
         try {
-            TaskGetUser getUser = new TaskGetUser(getString(R.string.webservice_get_user) + uID, uID, this);
+            TaskExecuteGraphQLQuery getUser = new TaskExecuteGraphQLQuery(getString(R.string.webservice_get_user), uID, this);
             getUser.execute();
         } catch (Exception error) {
             HandlerState.handle(error, this);

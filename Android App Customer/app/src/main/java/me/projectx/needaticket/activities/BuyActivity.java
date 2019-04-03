@@ -16,19 +16,21 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cdflynn.android.library.checkview.CheckView;
 import me.projectx.needaticket.R;
-import me.projectx.needaticket.asynctask.TaskPurchaseTicket;
+import me.projectx.needaticket.asynctask.TaskExecuteGraphQLMutation;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
 import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
-import me.projectx.needaticket.pojo.TicketType;
+import me.projectx.needaticket.pojo.ConcertType;
 public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefault {
     private String uID;
-    private String tID;
+    private String sID;
     @BindView(R.id.category_image_ticket_list_item) ImageView imageCategory;
+    @BindView(R.id.loadingPanel) View mProgressView;
     @BindView(R.id.list_item_ticket_title) TextView header;
     @BindView(R.id.list_item_ticket_seller) TextView seller;
     @BindView(R.id.list_item_ticket_price) TextView price;
+    @BindView(R.id.list_item_ticket_count) TextView count;
     @BindView(R.id.tvPrice) TextView totalPrice;
     @BindView(R.id.tvAmount) TextView amountSelected;
     @BindView(R.id.anchorFade) FrameLayout anchor;
@@ -40,9 +42,9 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy);
         ButterKnife.bind(this);
-        this.setListener();
         this.uID = getIntent().getStringExtra("uID");
-        this.tID = getIntent().getStringExtra("tID");
+        this.sID = getIntent().getStringExtra("sID");
+        this.setListener();
         this.setContent();
         cx = this;
     }
@@ -56,9 +58,10 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
         header.setText(getIntent().getStringExtra("ticketTitle"));
         seller.setText(getIntent().getStringExtra("sellerName"));
         price.setText(getIntent().getStringExtra("price"));
+        count.setText(getIntent().getStringExtra("amount"));
         amountSelected.setText(getIntent().getStringExtra("amountSelected"));
         totalPrice.setText(String.format("%s", round(Double.parseDouble(price.getText().toString()) * Double.parseDouble(amountSelected.getText().toString()), 2)));
-        setUpIconCategory(TicketType.valueOf(getIntent().getStringExtra("ticketType")));
+        setUpIconCategory(ConcertType.valueOf(getIntent().getStringExtra("cType")));
     }
     private void setListenerNavigationHeader () {
         View navHeader;
@@ -71,43 +74,63 @@ public class BuyActivity extends AppCompatActivity implements InterfaceTaskDefau
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
-    private void setUpIconCategory (TicketType ticketType) {
-        switch (ticketType) {
+    private void setUpIconCategory (ConcertType concertType) {
+        switch (concertType) {
             case CONCERT:
-                imageCategory.setImageResource(R.drawable.category_ticket_concert);
+                imageCategory.setImageResource(R.drawable.category_concert);
                 break;
             case FESTIVAL:
-                imageCategory.setImageResource(R.drawable.category_ticket_festival);
+                imageCategory.setImageResource(R.drawable.category_festival);
+                break;
+            case REHEARSAL:
+                imageCategory.setImageResource(R.drawable.category_concert);
+                break;
+            default:
+                imageCategory.setImageResource(R.drawable.category_concert);
                 break;
         }
     }
     private void purchase () {
         try {
-            TaskPurchaseTicket purchaseTicket = new TaskPurchaseTicket(getString(R.string.webservice_purchase_ticket), tID, uID, Integer.parseInt(amountSelected.getText().toString()), this);
+            TaskExecuteGraphQLMutation purchaseTicket = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_purchase_ticket).replace("$cID", getIntent().getStringExtra("cID")).replace("$sID", sID).replace("$price", "" + price.getText()).replace("$amount", "" + amountSelected.getText()), uID,this);
             purchaseTicket.execute();
         } catch (Exception error) {
             HandlerState.handle(error, this);
         }
     }
     @Override public void onPreExecute (Class resource) {
-        // Maybe implement a loading screen in the future
+        showProgress(true);
     }
     @Override public void onPostExecute (Object result, Class resource) {
-        try {
-            anchor.setVisibility(View.GONE);
-            checker.check();
-            new android.os.Handler().postDelayed(new Runnable() {
-                public void run () {
+        showProgress(false);
+        if(result != null && !result.equals("") && !((String)result).split("\"")[1].equals("errors")) {
+            try {
+                anchor.setVisibility(View.GONE);
+                checker.check();
+                new android.os.Handler().postDelayed(() -> {
                     Intent concertActivity = new Intent(cx, ConcertActivity.class);
                     concertActivity.putExtra("uID", uID);
                     concertActivity.putExtra("cID", getIntent().getStringExtra("cID"));
+                    concertActivity.putExtra("cTitle", getIntent().getStringExtra("cTitle"));
+                    concertActivity.putExtra("cType", getIntent().getStringExtra("cType"));
+                    concertActivity.putExtra("cDate", getIntent().getStringExtra("cDate"));
+                    concertActivity.putExtra("cAddress", getIntent().getStringExtra("cAddress"));
+                    concertActivity.putExtra("cArtistName", getIntent().getStringExtra("cArtistName"));
+                    concertActivity.putExtra("cGenre", getIntent().getStringExtra("cGenre"));
                     finish();
                     startActivity(concertActivity);
-                }
-            }, 1300);
-        } catch (Exception e) {
-            HandlerState.handle(e, getApplicationContext());
+                }, 1300);
+            } catch (Exception e) {
+                HandlerState.handle(e, getApplicationContext());
+            }
+        } else {
+            HandlerState.handle(getApplicationContext());
         }
+    }
+    private void showProgress (final boolean show) {
+        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        mProgressView.setBackgroundColor(show ? getColor(R.color.white) : getColor(R.color.transparency));
+        anchor.setVisibility(show ? View.GONE : View.VISIBLE);
     }
     private class PurchaseListener implements View.OnClickListener {
         @Override public void onClick (View v) {

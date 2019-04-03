@@ -1,31 +1,32 @@
 package me.projectx.needaticket.pojo;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 public class Concert {
-    private String id;
+    private String _id;
+    private ConcertType type;
     private String title;
-    private Date date;
-    private Date redeemed;
+    private String date;
     private String address;
-    private ArrayList<Artist> artists;
     private Genre genre;
-    private ArrayList<Ticket> tickets;
-    public Concert (String id, String title, Date date, Date redeemed, String address, List<Artist> artists, Genre genre, List<Ticket> tickets) {
-        this.id = id;
+    private Artist artist;
+    public Concert (String _id, ConcertType type, String title, String date, String address, Genre genre, Artist artist) {
+        this._id = _id;
+        this.type = type;
         this.title = title;
         this.date = date;
-        this.redeemed = redeemed;
         this.address = address;
-        this.artists = (ArrayList<Artist>) artists;
         this.genre = genre;
-        this.tickets = (ArrayList<Ticket>) tickets;
+        this.artist = artist;
     }
-    public String getId () {
-        return id;
+    public String get_id () {
+        return _id;
     }
-    public void setId (String id) {
-        this.id = id;
+    public void set_id (String _id) {
+        this._id = _id;
+    }
+    public ConcertType getType () {
+        return type;
+    }
+    public void setType (ConcertType type) {
+        this.type = type;
     }
     public String getTitle () {
         return title;
@@ -33,17 +34,11 @@ public class Concert {
     public void setTitle (String title) {
         this.title = title;
     }
-    public Date getDate () {
+    public String getDate () {
         return date;
     }
-    public void setDate (Date date) {
+    public void setDate (String date) {
         this.date = date;
-    }
-    public Date getRedeemed () {
-        return redeemed;
-    }
-    public void setRedeemed (Date redeemed) {
-        this.redeemed = redeemed;
     }
     public String getAddress () {
         return address;
@@ -51,25 +46,19 @@ public class Concert {
     public void setAddress (String address) {
         this.address = address;
     }
-    public List<Artist> getArtists () {
-        return artists;
-    }
-    public void setArtists (List<Artist> artists) {
-        this.artists = (ArrayList<Artist>) artists;
-    }
     public Genre getGenre () {
         return genre;
     }
     public void setGenre (Genre genre) {
         this.genre = genre;
     }
-    public List<Ticket> getTickets () {
-        return tickets;
+    public Artist getArtist () {
+        return artist;
     }
-    public void setTickets (List<Ticket> tickets) {
-        this.tickets = (ArrayList<Ticket>) tickets;
+    public void setArtist (Artist artist) {
+        this.artist = artist;
     }
     @Override public String toString () {
-        return "Concert{" + "id=" + id + ", title='" + title + '\'' + ", date=" + date + ", redeemed='" + redeemed + '\'' + ", address='" + address + '\'' + ", artists=" + artists + ", genre=" + genre + ", tickets=" + tickets + '}';
+        return "Concert{" + "_id='" + _id + '\'' + ", type=" + type + ", title='" + title + '\'' + ", date='" + date + '\'' + ", address='" + address + '\'' + ", genre=" + genre + ", artist=" + artist + '}';
     }
 }

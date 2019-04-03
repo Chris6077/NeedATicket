@@ -11,17 +11,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.VideoView;
 
-import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.projectx.needaticket.R;
-import me.projectx.needaticket.asynctask.TaskRegister;
+import me.projectx.needaticket.asynctask.TaskExecuteGraphQLMutation;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 public class RegisterActivity extends AppCompatActivity implements InterfaceTaskDefault {
     MediaPlayer mMediaPlayer;
     int mCurrentVideoPosition;
-    private TaskRegister mAuthTask;
+    private TaskExecuteGraphQLMutation mAuthTask;
     @BindView(R.id.etEmailAddress) EditText mEmailView;
     @BindView(R.id.etPassword) EditText mPasswordView;
     @BindView(R.id.etPasswordConfirm) EditText mPasswordConfirmView;
@@ -98,11 +97,17 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
             focusView = mEmailView;
             cancel = true;
         }
+        if(!password.equals(confirmPassword)){
+            mPasswordView.setError(getString(R.string.error_passwords_dont_match));
+            mPasswordConfirmView.setError(getString(R.string.error_passwords_dont_match));
+            focusView = mPasswordConfirmView;
+            cancel = true;
+        }
         if (cancel) {
             focusView.requestFocus();
         } else {
             try {
-                mAuthTask = new TaskRegister(getString(R.string.webservice_register), email, password, confirmPassword, this);
+                mAuthTask = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_register).replace("$email", email).replace("$password", password), "", this);
                 mAuthTask.execute();
             } catch (Exception ex) {
                 showProgress(false);
@@ -127,7 +132,23 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
     }
     private void showProgress (final boolean show) {
         mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        mProgressView.setBackgroundColor(show ? getColor(R.color.colorPrimary) : getColor(R.color.transparency));
         mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        videoBG.setVisibility(show ? View.GONE : View.VISIBLE);
+        if(!show) {
+            videoBG.start();
+            videoBG.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override public void onPrepared (MediaPlayer mp) {
+                    mMediaPlayer = mp;
+                    mMediaPlayer.setLooping(true);
+                    if (mCurrentVideoPosition != 0) {
+                        mMediaPlayer.seekTo(mCurrentVideoPosition);
+                        mMediaPlayer.start();
+                    }
+                }
+            });
+        }
+        else videoBG.pause();
     }
     @Override protected void onDestroy () {
         super.onDestroy();
@@ -139,7 +160,6 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
     @Override protected void onPause () {
         super.onPause();
         // Capture the current video position and pause the video.
-        mCurrentVideoPosition = mMediaPlayer.getCurrentPosition();
         videoBG.pause();
     }
     @Override protected void onResume () {
@@ -151,14 +171,19 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
         showProgress(true);
     }
     @Override public void onPostExecute (Object result, Class resource) {
-        Intent concertsActivity = new Intent(this, ConcertsActivity.class);
-        concertsActivity.putExtra("uID", (String) result);
-        try {
-            finish();
-            startActivity(concertsActivity);
-        } catch (Exception e) {
-            HandlerState.handle(e, getApplicationContext());
+        if(result != null && !result.equals("") && !((String)result).split("\"")[1].equals("errors")) {
+            Intent concertsActivity = new Intent(this, ConcertsActivity.class);
+            concertsActivity.putExtra("uID", ((String) result).split(":")[2].split("\"")[1]);
+            try {
+                finish();
+                startActivity(concertsActivity);
+            } catch (Exception e) {
+                HandlerState.handle(e, getApplicationContext());
+            }
+        } else{
+            HandlerState.handle(getApplicationContext());
         }
+        showProgress(false);
     }
     @Override
     public void onBackPressed() {

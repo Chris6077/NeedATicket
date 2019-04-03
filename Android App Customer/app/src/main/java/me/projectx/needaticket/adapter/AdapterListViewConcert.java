@@ -13,16 +13,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import me.projectx.needaticket.R;
 import me.projectx.needaticket.activities.ConcertActivity;
 import me.projectx.needaticket.listener.ListenerDoubleTap;
-import me.projectx.needaticket.pojo.Artist;
 import me.projectx.needaticket.pojo.Concert;
-import me.projectx.needaticket.pojo.TicketType;
+import me.projectx.needaticket.pojo.ConcertType;
 public class AdapterListViewConcert extends ArrayAdapter<Concert> {
     private AppCompatActivity appCompatActivityResource;
     private ArrayList<Concert> data;
@@ -50,30 +48,30 @@ public class AdapterListViewConcert extends ArrayAdapter<Concert> {
         TextView artist = rowView.findViewById(R.id.list_item_concert_artist);
         TextView location = rowView.findViewById(R.id.list_item_concert_location);
         TextView date = rowView.findViewById(R.id.list_item_concert_date);
-        StringBuilder artists = new StringBuilder();
-        for (Artist a : concert.getArtists()) {
-            artists.append(a.getName()).append(", ");
-        }
-        artists = new StringBuilder(artists.substring(0, artists.length() - 2));
-        artist.setText(artists.toString());
+        artist.setText(concert.getArtist().getName());
         genre.setText(concert.getGenre().toString());
         location.setText(concert.getAddress());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
-        date.setText(dateFormat.format(concert.getDate()));
-        setUpIconCategory(rowView, concert.getTickets().get(0).getType());
+        date.setText(concert.getDate().substring(0,concert.getDate().length()-14));
+        setUpIconCategory(rowView, concert.getType());
         header.setText(concert.getTitle());
         this.setUpRowViewListener(rowView, concert);
         this.setUpTitleListener(rowView, concert);
         return rowView;
     }
-    private void setUpIconCategory (View rowView, TicketType ticketType) {
+    private void setUpIconCategory (View rowView, ConcertType concertType) {
         ImageView imageviewHeaderImageCategory = rowView.findViewById(R.id.category_image_concert_list_item);
-        switch (ticketType) {
+        switch (concertType) {
             case CONCERT:
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_concert);
                 break;
             case FESTIVAL:
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_festival);
+                break;
+            case REHEARSAL:
+                imageviewHeaderImageCategory.setImageResource(R.drawable.category_concert);
+                break;
+            default:
+                imageviewHeaderImageCategory.setImageResource(R.drawable.category_concert);
                 break;
         }
     }
@@ -96,7 +94,13 @@ public class AdapterListViewConcert extends ArrayAdapter<Concert> {
             @Override public void onClick (View v) {
                 Intent concertActivity = new Intent(getAppCompatActivityResource(), ConcertActivity.class);
                 concertActivity.putExtra("uID", uID);
-                concertActivity.putExtra("cID", concert.getId());
+                concertActivity.putExtra("cID", concert.get_id());
+                concertActivity.putExtra("cTitle", concert.getTitle());
+                concertActivity.putExtra("cType", concert.getType());
+                concertActivity.putExtra("cDate", concert.getDate().substring(0, concert.getDate().length()-14));
+                concertActivity.putExtra("cAddress", concert.getAddress());
+                concertActivity.putExtra("cArtistName", concert.getArtist().getName());
+                concertActivity.putExtra("cGenre", concert.getGenre());
                 getAppCompatActivityResource().startActivity(concertActivity);
             }
         });

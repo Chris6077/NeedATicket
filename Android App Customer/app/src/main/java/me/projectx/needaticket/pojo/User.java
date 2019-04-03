@@ -1,22 +1,20 @@
 package me.projectx.needaticket.pojo;
-import java.util.ArrayList;
-import java.util.List;
 public class User {
-    private String id;
+    private String _id;
     private String email;
-    private ArrayList<Ticket> tickets;
-    private Wallet wallet;
-    public User (String id, String email, List<Ticket> tickets, Wallet wallet) {
-        this.id = id;
+    private int totalBought;
+    private PasswordStrength passwordStrength;
+    public User (String _id, String email, int totalBought, PasswordStrength passwordStrength) {
+        this._id = _id;
         this.email = email;
-        this.tickets = (ArrayList<Ticket>) tickets;
-        this.wallet = wallet;
+        this.totalBought = totalBought;
+        this.passwordStrength = passwordStrength;
     }
-    public String getId () {
-        return id;
+    public String get_id () {
+        return _id;
     }
-    public void setId (String id) {
-        this.id = id;
+    public void set_id (String _id) {
+        this._id = _id;
     }
     public String getEmail () {
         return email;
@@ -24,19 +22,19 @@ public class User {
     public void setEmail (String email) {
         this.email = email;
     }
-    public List<Ticket> getTickets () {
-        return tickets;
+    public int getTotalBought () {
+        return totalBought;
     }
-    public void setTickets (List<Ticket> tickets) {
-        this.tickets = (ArrayList<Ticket>) tickets;
+    public void setTotalBought (int totalBought) {
+        this.totalBought = totalBought;
     }
-    public Wallet getWallet () {
-        return wallet;
+    public PasswordStrength getPasswordStrength () {
+        return passwordStrength;
     }
-    public void setWallet (Wallet wallet) {
-        this.wallet = wallet;
+    public void setPasswordStrength (PasswordStrength passwordStrength) {
+        this.passwordStrength = passwordStrength;
     }
     @Override public String toString () {
-        return "User{" + "id=" + id + "email=" + email + ", tickets=" + tickets + ", wallet=" + wallet + '}';
+        return "User{" + "_id='" + _id + '\'' + ", email='" + email + '\'' + ", totalBought=" + totalBought + ", passwordStrength=" + passwordStrength + '}';
     }
 }

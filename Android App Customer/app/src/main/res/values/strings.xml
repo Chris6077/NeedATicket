@@ -2,23 +2,28 @@
     <string name="app_name">NeedATicket</string>
     <string name="app_name_lower_case">needaticket</string>
 
-    <!-- Strings related to login -->
+    <!-- Strings related to login and changeUser -->
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_field_required">This field is required</string>
+    <string name="error_passwords_dont_match">These passwords don\'t match</string>
 
-    <!-- Strings related to asynctasks -->
-    <string name="webservice_get_my_tickets_url">https://www.bashit.me/</string><!-- NOPE -->
-    <string name="webservice_get_concerts_url">https://need-a-ticket-api.herokuapp.com/graphql?query={concerts{_id,title,date,address,capacity,artist{_id,name}}}</string>
-    <string name="webservice_get_concert_url">https://need-a-ticket-api.herokuapp.com/graphql?query={concert(id:%22$cID%22){tickets{price,type,seller{username}}}}</string><!-- NOPE -->
-    <string name="webservice_get_user">https://need-a-ticket-api.herokuapp.com/graphql?query={user(id:%22$uID%22{email}}</string><!-- NOPE -->
-    <string name="webservice_change_email">https://www.bashit.me</string><!-- NOPE -->
-    <string name="webservice_change_password">https://www.bashit.me</string><!-- NOPE -->
-    <string name="webservice_register">https://www.bashit.me</string><!-- NOPE -->
-    <string name="webservice_purchase_ticket">https://need-a-ticket-api.herokuapp.com/graphql?mutation={buy(ticketId:%22$tID%22,payerId:%22$uID%22){_id}}</string>
-    <string name="webservice_get_wallet">https://need-a-ticket-api.herokuapp.com/graphql?query={user(id:%22$uID%22){wallet{_id,balance}}}</string>
-    <string name="webservice_upload">https://need-a-ticket-api.herokuapp.com/graphql?mutation={deposit(userId:%22$uID%22,amount:$amount){balance}}</string>
-    <string name="webservice_cashout">https://need-a-ticket-api.herokuapp.com/graphql?mutation={deposit(userId:%22$uID%22,amount:-$amount){balance}}</string>
+    <!-- Webservice Queries -->
+    <string name="webservice_get_my_tickets">https://need-a-ticket-api.herokuapp.com/graphql?query={me{bought{_id, type, price, seller{_id,username}, concert{title, type, date, address, genre, artist{_id,name}}, redeemed}}}</string>
+    <string name="webservice_get_tickets">https://need-a-ticket-api.herokuapp.com/graphql?query={ticketsGrouped(concertId:%22$cID%22){concert{_id,title,date,address,genre,artist{_id,name}},price,seller{_id,username},type,available}}</string>
+    <string name="webservice_get_concerts">https://need-a-ticket-api.herokuapp.com/graphql?query={concerts{_id,title,type,date,address,genre,artist{_id,name}}}</string>
+    <string name="webservice_get_user">https://need-a-ticket-api.herokuapp.com/graphql?query={me{_id,email,totalBought,passwordStrength{status}}}</string>
+    <string name="webservice_get_wallet">https://need-a-ticket-api.herokuapp.com/graphql?query={me{wallet{_id, balance}}}</string>
+    <string name="webservice_default">https://need-a-ticket-api.herokuapp.com/graphql/</string>
+
+    <!-- Webservice Mutations -->
+    <string name="webservice_change_email">{\"query\": \"mutation{updateUser(email:\\\"$email\\\"){_id,email,totalBought,passwordStrength{status}}}\"}</string>
+    <string name="webservice_change_password">{\"query\": \"mutation{updateUser(password:\\\"$password\\\"){_id,email,totalBought,passwordStrength{status}}}\"}</string>
+    <string name="webservice_login">{\"query\": \"mutation{login(email:\\\"$email\\\",password:\\\"$password\\\")}\"}</string>
+    <string name="webservice_register">{\"query\": \"mutation{signup(email:\\\"$email\\\",password:\\\"$password\\\")}\"}</string>
+    <string name="webservice_purchase_ticket">{\"query\": \"mutation{buyBulk(number:$amount,concertId:\\\"$cID\\\",sellerId:\\\"$sID\\\",price:$price){_id}}\"}</string>
+    <string name="webservice_upload">{\"query\": \"mutation{deposit(amount:$amount){_id, balance}}\"}</string>
+    <string name="webservice_cashout">{\"query\": \"mutation{deposit(amount:-$amount){_id, balance}}\"}</string>
 
     <!-- Strings related to navbar -->
     <string name="navmenu_concerts">Concerts</string>
@@ -27,5 +32,4 @@
     <string name="navmenu_logout">Logout</string>
 
     <!-- API Key -->
-    <string name="API_KEY">API_111</string>
 </resources>

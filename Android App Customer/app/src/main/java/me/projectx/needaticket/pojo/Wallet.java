@@ -1,24 +1,21 @@
 package me.projectx.needaticket.pojo;
 public class Wallet {
-    private int id;
+    private String _id;
     private float balance;
-    public Wallet (int id, float balance) {
-        this.id = id;
+    public Wallet (String _id, float balance) {
+        this._id = _id;
         this.balance = balance;
     }
-    public int getId () {
-        return id;
+    public String get_id () {
+        return _id;
     }
-    public void setId (int id) {
-        this.id = id;
+    public void set_id (String _id) {
+        this._id = _id;
     }
     public float getBalance () {
         return balance;
     }
     public void setBalance (float balance) {
         this.balance = balance;
-    }
-    @Override public String toString () {
-        return "Wallet{" + "id=" + id + ", balance=" + balance + '}';
     }
 }

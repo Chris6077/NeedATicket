@@ -18,9 +18,8 @@ import java.text.DecimalFormat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.projectx.needaticket.R;
-import me.projectx.needaticket.asynctask.TaskCashOut;
-import me.projectx.needaticket.asynctask.TaskGetWallet;
-import me.projectx.needaticket.asynctask.TaskUpload;
+import me.projectx.needaticket.asynctask.TaskExecuteGraphQLMutation;
+import me.projectx.needaticket.asynctask.TaskExecuteGraphQLQuery;
 import me.projectx.needaticket.customgui.InputFilterMin;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
@@ -40,10 +39,9 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet);
         ButterKnife.bind(this);
-        this.setListener();
         this.uID = getIntent().getStringExtra("uID");
+        this.setListener();
         this.getWallet();
-        this.setContent();
     }
     private void setListener () {
         this.navigation.setNavigationItemSelectedListener(new ListenerNavigationMenu(this, uID));
@@ -54,8 +52,7 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
         this.cashOut.setOnClickListener(new CashOutListener());
     }
     private void getWallet () {
-        wallet = new Wallet(1, Float.parseFloat("1325.12"));
-        TaskGetWallet getWallet = new TaskGetWallet(getString(R.string.webservice_get_wallet) + uID, uID, this);
+        TaskExecuteGraphQLQuery getWallet = new TaskExecuteGraphQLQuery(getString(R.string.webservice_get_wallet), uID, this);
         getWallet.execute();
     }
     private void setContent () {
@@ -71,42 +68,46 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
         ValueAnimator animator = ValueAnimator.ofFloat(0, newBalance);
         animator.setDuration(2000);
         final DecimalFormat df = new DecimalFormat();
+        df.setMinimumFractionDigits(2);
         df.setMaximumFractionDigits(2);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             public void onAnimationUpdate (ValueAnimator animation) {
-                balance.setText(df.format(animation.getAnimatedValue()));
+                balance.setText(df.format(animation.getAnimatedValue()) + " €");
             }
         });
         animator.start();
     }
     private void upload () {
-        TaskUpload tUpload = new TaskUpload(getString(R.string.webservice_upload), uID, Float.parseFloat(amount.getText().toString()), this);
+        TaskExecuteGraphQLMutation tUpload = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_upload).replace("$amount", amount.getText()), uID, this);
         tUpload.execute();
     }
     private void cashOut () {
-        TaskCashOut tCashOut = new TaskCashOut(getString(R.string.webservice_cashout), uID, Float.parseFloat(amount.getText().toString()), this);
+        TaskExecuteGraphQLMutation tCashOut = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_cashout).replace("$amount", amount.getText()), uID, this);
         tCashOut.execute();
     }
     @Override public void onPreExecute (Class resource) {
         swipeRefreshLayout.setRefreshing(true);
     }
     @Override public void onPostExecute (Object result, Class resource) {
-        swipeRefreshLayout.setRefreshing(false);
-        try {
-            float f = Float.parseFloat((String) result);
-            startCountAnimation(f);
-        } catch (Exception error) {
+        if(result != null && !result.equals("") && !((String)result).split("\"")[1].equals("errors")) {
             try {
-                wallet = new Gson().fromJson((String) result, Wallet.class);
+                wallet = new Gson().fromJson("{" + ((String) result).split("\\{")[4].split("\\}")[0] + "}", Wallet.class);
                 setContent();
             } catch (Exception e) {
-                HandlerState.handle(e, getApplicationContext());
+                try {
+                    wallet = new Gson().fromJson("{" + ((String) result).split("\\{")[3].split("\\}")[0] + "}", Wallet.class);
+                    setContent();
+                } catch(Exception ex){
+                    HandlerState.handle(ex, getApplicationContext());
+                }
             }
+        } else {
+            HandlerState.handle(getApplicationContext());
         }
+        swipeRefreshLayout.setRefreshing(false);
     }
     @Override public void onRefresh () {
         getWallet();
-        setContent();
     }
     private class UploadListener implements View.OnClickListener {
         @Override public void onClick (View v) {

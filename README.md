@@ -24,6 +24,8 @@ This group of applications will act as a platform for concert management and con
 
 [SonarQube](https://www.sonarqube.org/)
 
+[SonarLint](https://www.sonarlint.org/)
+
 [BCrypt](https://mvnrepository.com/artifact/at.favre.lib/bcrypt)
 
 [Checkview](https://github.com/cdflynn/checkview)
@@ -36,15 +38,22 @@ This group of applications will act as a platform for concert management and con
 
 [ButterKnife](https://jakewharton.github.io/butterknife/)
 
+[Android Annotations](https://github.com/androidannotations/androidannotations)
+
+[Android Annotations Interval Click](https://github.com/m0er/androidannotations-interval-click-plugin)
+
 [CommonsIO](https://commons.apache.org/proper/commons-io/)
 ## Tools and Frameworks
 * Android Studio
 * SonarQube (For continuous inspection and refactoring)
+* SonarLint
 * GSON
 * Checkview
 * FancyToast
 * Zxing
 * ButterKnife
+* Android Annotations
+* Android Annotations Interval Click
 * Commons IO
 
 # Android App for staff (QR Code Reader)
@@ -52,6 +61,8 @@ This group of applications will act as a platform for concert management and con
 [Repository](https://github.com/Chris6077/NeedATicket/tree/master/Android%20App%20QR)
 
 [SonarQube](https://www.sonarqube.org/)
+
+[SonarLint](https://www.sonarlint.org/)
 
 [FancyToast](https://github.com/Shashank02051997/FancyToast-Android)
 

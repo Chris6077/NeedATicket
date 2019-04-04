@@ -19,7 +19,6 @@ import me.projectx.needaticketqr.interfaces.InterfaceTaskDefault;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
 public class LoginActivity extends AppCompatActivity implements InterfaceTaskDefault {
     MediaPlayer mMediaPlayer;
     int mCurrentVideoPosition;
@@ -32,7 +31,6 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
         //Video URI
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.c1);
         //Set URI to video
@@ -108,7 +106,6 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
             });
         }
         else videoBG.pause();
-
     }
     @Override public void onPostExecute (Object result, Class resource) {
         if(result != null && !result.equals("") && !((String)result).split("\"")[1].equals("errors")) {
@@ -120,9 +117,7 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
             } catch (Exception e) {
                 HandlerState.handle(e, getApplicationContext());
             }
-        } else {
-            FancyToast.makeText(getApplicationContext(), "Error when logging in! Please check your credentials.", FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
-        }
+        } else FancyToast.makeText(getApplicationContext(), "Error when logging in! Please check your credentials.", FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
         showProgress(false);
     }
 }

@@ -21,6 +21,7 @@ import me.projectx.needaticket.activities.ConcertActivity;
 import me.projectx.needaticket.listener.ListenerDoubleTap;
 import me.projectx.needaticket.pojo.Concert;
 import me.projectx.needaticket.pojo.ConcertType;
+import moer.intervalclick.api.IntervalClick;
 public class AdapterListViewConcert extends ArrayAdapter<Concert> {
     private AppCompatActivity appCompatActivityResource;
     private ArrayList<Concert> data;
@@ -34,9 +35,6 @@ public class AdapterListViewConcert extends ArrayAdapter<Concert> {
     }
     public AppCompatActivity getAppCompatActivityResource () {
         return appCompatActivityResource;
-    }
-    public void setAppCompatActivityResource (AppCompatActivity appCompatActivityResource) {
-        this.appCompatActivityResource = appCompatActivityResource;
     }
     @NonNull @Override
     public View getView (int position, @Nullable View convertView, @NonNull ViewGroup parent) {

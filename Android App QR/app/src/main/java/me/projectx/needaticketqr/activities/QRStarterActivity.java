@@ -76,17 +76,13 @@ public class QRStarterActivity extends AppCompatActivity implements View.OnClick
         qrCodeScanner.setAutoFocus(true);
         qrCodeScanner.setLaserColor(R.color.colorAccent);
         qrCodeScanner.setMaskColor(R.color.colorAccent);
-        if (MANUFACTURER.equals("HUAWEI"))
-            qrCodeScanner.setAspectTolerance(0.5f);
+        if (MANUFACTURER.equals("HUAWEI")) qrCodeScanner.setAspectTolerance(0.5f);
     }
     @Override public void onClick (View v) {
         readQRCode();
     }
-
     private void readQRCode(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 1);
-        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 1);
         qrCodeScanner.startCamera();
         qrCodeScanner.setVisibility(View.VISIBLE);
         qrCodeScanner.setResultHandler(this);
@@ -103,13 +99,10 @@ public class QRStarterActivity extends AppCompatActivity implements View.OnClick
         try{
             if(((String)result).contains("ticket already redeemed")) {
                 FancyToast.makeText(getApplicationContext(), "Ticket already redeemed", Toast.LENGTH_SHORT, FancyToast.ERROR, false).show();
-                readQRCode();
             } else if(((String)result).contains("Argument passed in must be a single String")){
                 FancyToast.makeText(getApplicationContext(), "Invalid ticket!", Toast.LENGTH_SHORT, FancyToast.ERROR, false).show();
-                readQRCode();
             } else if(((String)result).contains("errors")) {
                 FancyToast.makeText(getApplicationContext(), "Error redeeming ticket!", Toast.LENGTH_SHORT, FancyToast.ERROR, false).show();
-                readQRCode();
             } else {
                 FancyToast.makeText(getApplicationContext(), "Ticket valid - redeemed", Toast.LENGTH_SHORT, FancyToast.SUCCESS, false).show();
                 readQRCode();

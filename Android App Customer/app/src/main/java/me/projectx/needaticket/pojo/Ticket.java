@@ -19,44 +19,23 @@ public class Ticket {
     public String get_id () {
         return _id;
     }
-    public void set_id (String _id) {
-        this._id = _id;
-    }
     public TicketType getType () {
         return type;
-    }
-    public void setType (TicketType type) {
-        this.type = type;
     }
     public Concert getConcert () {
         return concert;
     }
-    public void setConcert (Concert concert) {
-        this.concert = concert;
-    }
     public Seller getSeller () {
         return seller;
-    }
-    public void setSeller (Seller seller) {
-        this.seller = seller;
     }
     public int getAvailable () {
         return available;
     }
-    public void setAvailable (int available) {
-        this.available = available;
-    }
     public float getPrice () {
         return price;
     }
-    public void setPrice (float price) {
-        this.price = price;
-    }
     public boolean isRedeemed () {
         return redeemed;
-    }
-    public void setRedeemed (boolean redeemed) {
-        this.redeemed = redeemed;
     }
     @Override public String toString () {
         return "Ticket{" + "_id='" + _id + '\'' + ", type=" + type + ", concert=" + concert + ", seller=" + seller + ", available=" + available + ", price=" + price + ", redeemed=" + redeemed + '}';

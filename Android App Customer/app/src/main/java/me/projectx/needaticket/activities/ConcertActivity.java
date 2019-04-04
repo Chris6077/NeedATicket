@@ -24,7 +24,6 @@ import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
 import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
-import me.projectx.needaticket.pojo.Concert;
 import me.projectx.needaticket.pojo.ConcertType;
 import me.projectx.needaticket.pojo.Ticket;
 public class ConcertActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
@@ -74,9 +73,8 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
         header.setText(getIntent().getStringExtra("cTitle"));
     }
     private void fillList () throws ContentException {
-        if (tickets == null) {
-            throw new ContentException("no Content found");
-        } else {
+        if (tickets == null) throw new ContentException("no Content found");
+        else {
             AdapterListViewConcertTickets adapter = new AdapterListViewConcertTickets(this, uID, cID, R.layout.listview_item_concert_ticket, tickets);
             this.listViewConcertTickets.setAdapter(adapter);
         }
@@ -114,9 +112,7 @@ public class ConcertActivity extends AppCompatActivity implements InterfaceTaskD
             } catch (Exception e) {
                 HandlerState.handle(e, getApplicationContext());
             }
-        } else {
-            HandlerState.handle(getApplicationContext());
-        }
+        } else HandlerState.handle(getApplicationContext());
         swipeRefreshLayout.setRefreshing(false);
     }
     @Override public void onRefresh () {

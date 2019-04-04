@@ -10,12 +10,6 @@ public class User {
         this.totalBought = totalBought;
         this.passwordStrength = passwordStrength;
     }
-    public String get_id () {
-        return _id;
-    }
-    public void set_id (String _id) {
-        this._id = _id;
-    }
     public String getEmail () {
         return email;
     }
@@ -25,14 +19,8 @@ public class User {
     public int getTotalBought () {
         return totalBought;
     }
-    public void setTotalBought (int totalBought) {
-        this.totalBought = totalBought;
-    }
     public PasswordStrength getPasswordStrength () {
         return passwordStrength;
-    }
-    public void setPasswordStrength (PasswordStrength passwordStrength) {
-        this.passwordStrength = passwordStrength;
     }
     @Override public String toString () {
         return "User{" + "_id='" + _id + '\'' + ", email='" + email + '\'' + ", totalBought=" + totalBought + ", passwordStrength=" + passwordStrength + '}';

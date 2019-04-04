@@ -45,9 +45,7 @@ public class TaskExecuteGraphQLQuery extends AsyncTask<Object, Object, String> {
             reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             StringBuilder sb = new StringBuilder();
             String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-            }
+            while ((line = reader.readLine()) != null) sb.append(line);
             content = sb.toString();
             reader.close();
             conn.disconnect();

@@ -3,7 +3,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
@@ -36,6 +35,7 @@ import me.projectx.needaticket.activities.TicketsActivity;
 import me.projectx.needaticket.listener.ListenerDoubleTap;
 import me.projectx.needaticket.pojo.Ticket;
 import me.projectx.needaticket.pojo.TicketType;
+import moer.intervalclick.api.IntervalClick;
 public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
     private AppCompatActivity appCompatActivityResource;
     private ArrayList<Ticket> data;
@@ -69,9 +69,6 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
     public AppCompatActivity getAppCompatActivityResource () {
         return appCompatActivityResource;
     }
-    public void setAppCompatActivityResource (AppCompatActivity appCompatActivityResource) {
-        this.appCompatActivityResource = appCompatActivityResource;
-    }
     private void setUpIconCategory (View rowView, TicketType ticketType) {
         ImageView imageviewHeaderImageCategory = rowView.findViewById(R.id.category_image_ticket_list_item);
         switch (ticketType) {
@@ -82,7 +79,7 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_festival);
                 break;
             case TICKET_FESTIVAL_DAY:
-                imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_festival);
+                imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_concert);
                 break;
             case TICKET_REHEARSAL:
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_concert);
@@ -94,9 +91,11 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
     }
     private void setUpRowViewListener (final View rowView, final Ticket ticket) {
         rowView.setOnClickListener(new ListenerDoubleTap() {
+            @IntervalClick(intervalMilliseconds = 2000)
             @Override public void onSingleClick (View v) {
                 showDiag(v, ticket);
             }
+            @IntervalClick(intervalMilliseconds = 2000)
             @Override public void onDoubleClick (View v) {
                 showDiag(v, ticket);
             }
@@ -108,11 +107,7 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(dialogView);
         ImageView imageView = dialog.findViewById(R.id.closeDialogQR);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick (View v) {
-                revealShow(dialogView, false, dialog, tv);
-            }
-        });
+        imageView.setOnClickListener(v -> revealShow(dialogView, false, dialog, tv));
         ImageView qrView = dialog.findViewById(R.id.image_qr_ticket);
         try {
             Bitmap bitmap = hashToQR(encryptString(t.get_id()));
@@ -120,20 +115,13 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
         } catch (Exception ex) {
             qrView.setImageDrawable(getAppCompatActivityResource().getDrawable(R.drawable.error));
         }
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override public void onShow (DialogInterface dialogInterface) {
-                revealShow(dialogView, true, null, tv);
+        dialog.setOnShowListener(dialogInterface -> revealShow(dialogView, true, null, tv));
+        dialog.setOnKeyListener((dialogInterface, i, keyEvent) -> {
+            if (i == KeyEvent.KEYCODE_BACK) {
+                revealShow(dialogView, false, dialog, tv);
+                return true;
             }
-        });
-        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey (DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
-                if (i == KeyEvent.KEYCODE_BACK) {
-                    revealShow(dialogView, false, dialog, tv);
-                    return true;
-                }
-                return false;
-            }
+            return false;
         });
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
@@ -177,16 +165,13 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
         dpl.getSize(size);
         int qrSize = size.x-30;
         try {
-            bitMatrix = new MultiFormatWriter().encode(hash, BarcodeFormat.QR_CODE,
-                                                       qrSize, qrSize, null);
+            bitMatrix = new MultiFormatWriter().encode(hash, BarcodeFormat.QR_CODE, qrSize, qrSize, null);
         } catch (IllegalArgumentException illegalargumentexception) {
             return null;
         }
-
         int bitMatrixWidth = bitMatrix.getWidth();
         int bitMatrixHeight = bitMatrix.getHeight();
         int[] pixels = new int[bitMatrixWidth * bitMatrixHeight];
-
         int colorWhite = 0xFFFFFFFF;
         int colorBlack = 0xFF000000;
 
@@ -197,7 +182,6 @@ public class AdapterListViewTicket extends ArrayAdapter<Ticket> {
             }
         }
         Bitmap bitmap = Bitmap.createBitmap(bitMatrixWidth, bitMatrixHeight, Bitmap.Config.ARGB_4444);
-
         bitmap.setPixels(pixels, 0, qrSize, 0, 0, bitMatrixWidth, bitMatrixHeight);
         return bitmap;
     }

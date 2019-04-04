@@ -7,7 +7,7 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_field_required">This field is required</string>
 
-    <!-- Strings related to asynctasks -->
+    <!-- Strings related to graphql connection -->
     <string name="webservice_default">https://need-a-ticket-api.herokuapp.com/graphql/</string>
     <string name="webservice_login">{\"query\": \"mutation{staffLogin(concertId:\\\"$concertId\\\")}\"}</string>
     <string name="webservice_check_ticket">{\"query\": \"mutation{redeem(ticketId:\\\"$hash\\\"){redeemed}}\"}</string>
@@ -17,7 +17,4 @@
     <string name="navmenu_my_tickets">My Tickets</string>
     <string name="navmenu_wallet">Wallet</string>
     <string name="navmenu_logout">Logout</string>
-
-    <!-- API Key -->
-    <string name="API_KEY">API_111</string>
 </resources>

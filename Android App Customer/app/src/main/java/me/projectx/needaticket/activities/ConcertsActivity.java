@@ -54,9 +54,8 @@ public class ConcertsActivity extends AppCompatActivity implements InterfaceTask
         this.swipeRefreshLayout.setOnRefreshListener(this);
     }
     private void fillList (ArrayList<Concert> concerts) throws ContentException {
-        if (concerts == null) {
-            throw new ContentException("no Content found");
-        } else {
+        if (concerts == null) throw new ContentException("no Content found");
+        else {
             AdapterListViewConcert adapter = new AdapterListViewConcert(this, uID, R.layout.listview_item_concert, concerts);
             this.listViewConcerts.setAdapter(adapter);
         }
@@ -77,9 +76,7 @@ public class ConcertsActivity extends AppCompatActivity implements InterfaceTask
             } catch (Exception error) {
                 HandlerState.handle(error, getApplicationContext());
             }
-        } else {
-            HandlerState.handle(getApplicationContext());
-        }
+        } else HandlerState.handle(getApplicationContext());
         swipeRefreshLayout.setRefreshing(false);
     }
     @Override public void onRefresh () {

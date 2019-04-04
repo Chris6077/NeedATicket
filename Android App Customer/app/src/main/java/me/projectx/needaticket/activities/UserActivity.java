@@ -2,7 +2,6 @@ package me.projectx.needaticket.activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,6 +31,7 @@ import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
 import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
 import me.projectx.needaticket.pojo.User;
+import moer.intervalclick.api.IntervalClick;
 public class UserActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.user_swipe_to_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     private User user;
@@ -69,8 +69,7 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
         password.setText(user.getPasswordStrength().getStatus());
     }
     private void setListenerNavigationHeader () {
-        View navHeader;
-        navHeader = navigation.getHeaderView(0);
+        View navHeader = navigation.getHeaderView(0);
         navHeader.setOnClickListener(new ListenerNavigationMenuHeader(this, uID));
     }
     private void changeMail () {
@@ -87,9 +86,8 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
                 focusView = mEmailView;
                 cancel = true;
             }
-            if (cancel) {
-                focusView.requestFocus();
-            } else {
+            if (cancel) focusView.requestFocus();
+            else {
                 TaskExecuteGraphQLMutation changeEmail = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_change_email).replace("$email", mEmailView.getText()), uID, this);
                 changeEmail.execute();
             }
@@ -114,9 +112,8 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
                 focusView = mPasswordConfirmView;
                 cancel = true;
             }
-            if (cancel) {
-                focusView.requestFocus();
-            } else {
+            if (cancel) focusView.requestFocus();
+            else {
                 TaskExecuteGraphQLMutation changePassword = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_change_password).replace("$password", mPasswordView.getText()), uID, this);
                 changePassword.execute();
             }
@@ -130,29 +127,18 @@ public class UserActivity extends AppCompatActivity implements InterfaceTaskDefa
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(dialogView);
         ImageView imageView = dialog.findViewById(R.id.closeDialog);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick (View v) {
-                revealShow(dialogView, false, dialog);
-            }
-        });
+        imageView.setOnClickListener(v -> revealShow(dialogView, false, dialog));
         Button changeEmail = dialog.findViewById(R.id.btChangeEmail);
         changeEmail.setOnClickListener(new ChangeEmailListener());
         Button changePassword = dialog.findViewById(R.id.btChangePassword);
         changePassword.setOnClickListener(new ChangePasswordListener());
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override public void onShow (DialogInterface dialogInterface) {
-                revealShow(dialogView, true, null);
+        dialog.setOnShowListener(dialogInterface -> revealShow(dialogView, true, null));
+        dialog.setOnKeyListener((dialogInterface, i, keyEvent) -> {
+            if (i == KeyEvent.KEYCODE_BACK) {
+                revealShow(dialogView, false, dialog);
+                return true;
             }
-        });
-        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey (DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
-                if (i == KeyEvent.KEYCODE_BACK) {
-                    revealShow(dialogView, false, dialog);
-                    return true;
-                }
-                return false;
-            }
+            return false;
         });
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();

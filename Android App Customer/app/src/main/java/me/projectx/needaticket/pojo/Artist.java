@@ -6,17 +6,8 @@ public class Artist {
         this._id = _id;
         this.name = name;
     }
-    public String get_Id () {
-        return _id;
-    }
-    public void set_Id (String _id) {
-        this._id = _id;
-    }
     public String getName () {
         return name;
-    }
-    public void setName (String name) {
-        this.name = name;
     }
     @Override public String toString () {
         return "Artist{" + "_id=" + _id + ", name='" + name + '\'' + '}';

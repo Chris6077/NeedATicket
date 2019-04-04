@@ -24,6 +24,7 @@ import me.projectx.needaticket.listener.ListenerDoubleTap;
 import me.projectx.needaticket.listener.ListenerNumberPicked;
 import me.projectx.needaticket.pojo.Ticket;
 import me.projectx.needaticket.pojo.TicketType;
+import moer.intervalclick.api.IntervalClick;
 public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implements ListenerNumberPicked {
     private AppCompatActivity appCompatActivityResource;
     private ArrayList<Ticket> data;
@@ -59,9 +60,6 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
     public AppCompatActivity getAppCompatActivityResource () {
         return appCompatActivityResource;
     }
-    public void setAppCompatActivityResource (AppCompatActivity appCompatActivityResource) {
-        this.appCompatActivityResource = appCompatActivityResource;
-    }
     private void setUpIconCategory (View rowView, TicketType ticketType) {
         ImageView imageviewHeaderImageCategory = rowView.findViewById(R.id.category_image_ticket_list_item);
         switch (ticketType) {
@@ -72,7 +70,7 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_festival);
                 break;
             case TICKET_FESTIVAL_DAY:
-                imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_festival);
+                imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_concert);
                 break;
             case TICKET_REHEARSAL:
                 imageviewHeaderImageCategory.setImageResource(R.drawable.category_ticket_concert);
@@ -97,12 +95,10 @@ public class AdapterListViewConcertTickets extends ArrayAdapter<Ticket> implemen
     }
     private void changeActivity (View rowView, final Ticket ticket) {
         final LinearLayout contentTitle = rowView.findViewById(R.id.list_item_header_title);
-        contentTitle.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick (View v) {
-                NumberPickerDialog npd = new NumberPickerDialog(ticket, ticket.getAvailable());
-                npd.setValueChangeListener(listener);
-                npd.show(appCompatActivityResource.getSupportFragmentManager(), "time picker");
-            }
+        contentTitle.setOnClickListener(v -> {
+            NumberPickerDialog npd = new NumberPickerDialog(ticket, ticket.getAvailable());
+            npd.setValueChangeListener(listener);
+            npd.show(appCompatActivityResource.getSupportFragmentManager(), "time picker");
         });
     }
     @Override public void onValueChange (NumberPicker picker, int oldVal, int newVal, Ticket t) {

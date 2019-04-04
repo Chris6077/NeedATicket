@@ -50,9 +50,8 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
         this.swipeRefreshLayout.setOnRefreshListener(this);
     }
     private void fillList (ArrayList<Ticket> tickets) throws ContentException {
-        if (tickets == null) {
-            throw new ContentException("no Content found");
-        } else {
+        if (tickets == null) throw new ContentException("no Content found");
+        else {
             try {
                 AdapterListViewTicket adapter = new AdapterListViewTicket(this, R.layout.listview_item_ticket, tickets);
                 adapter.addContext(TicketsActivity.this);
@@ -78,9 +77,7 @@ public class TicketsActivity extends AppCompatActivity implements InterfaceTaskD
             } catch (Exception error) {
                 HandlerState.handle(error, getApplicationContext());
             }
-        } else {
-            HandlerState.handle(getApplicationContext());
-        }
+        } else HandlerState.handle(getApplicationContext());
         swipeRefreshLayout.setRefreshing(false);
     }
     @Override public void onRefresh () {

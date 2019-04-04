@@ -5,7 +5,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "me.projectx.needaticket"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -22,6 +22,8 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    productFlavors {
+    }
 }
 
 dependencies {
@@ -36,6 +38,12 @@ dependencies {
     implementation 'com.google.zxing:core:3.3.0'
     implementation 'commons-io:commons-io:2.6'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.0.1'
+    annotationProcessor "org.androidannotations:androidannotations:4.6.0"
+    implementation 'org.androidannotations:androidannotations-api:4.6.0'
+    annotationProcessor 'org.androidannotations:androidannotations:4.1.0'
+    implementation 'org.androidannotations:androidannotations-api:4.1.0'
+    annotationProcessor 'com.github.m0er.androidannotations-interval-click-plugin:intervalclick:1.0.2'
+    implementation 'com.github.m0er.androidannotations-interval-click-plugin:intervalclick-api:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

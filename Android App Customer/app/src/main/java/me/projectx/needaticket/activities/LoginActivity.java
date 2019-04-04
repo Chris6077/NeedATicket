@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.VideoView;
@@ -16,6 +15,7 @@ import me.projectx.needaticket.R;
 import me.projectx.needaticket.asynctask.TaskExecuteGraphQLMutation;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
+import moer.intervalclick.api.IntervalClick;
 public class LoginActivity extends AppCompatActivity implements InterfaceTaskDefault {
     MediaPlayer mMediaPlayer;
     int mCurrentVideoPosition;
@@ -39,29 +39,19 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
         videoBG.setBackgroundColor(getResources().getColor(R.color.transparency));
         //Start video
         videoBG.start();
-        videoBG.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override public void onPrepared (MediaPlayer mp) {
-                mMediaPlayer = mp;
-                mMediaPlayer.setLooping(true);
-                if (mCurrentVideoPosition != 0) {
-                    mMediaPlayer.seekTo(mCurrentVideoPosition);
-                    mMediaPlayer.start();
-                }
+        videoBG.setOnPreparedListener(mp -> {
+            mMediaPlayer = mp;
+            mMediaPlayer.setLooping(true);
+            if (mCurrentVideoPosition != 0) {
+                mMediaPlayer.seekTo(mCurrentVideoPosition);
+                mMediaPlayer.start();
             }
         });
         registrateEventHandlers();
     }
     private void registrateEventHandlers () {
-        btRegister.setOnClickListener(new OnClickListener() {
-            @Override public void onClick (View v) {
-                showRegisterIntent();
-            }
-        });
-        btLogin.setOnClickListener(new OnClickListener() {
-            @Override public void onClick (View v) {
-                attemptLogin();
-            }
-        });
+        btRegister.setOnClickListener(v -> showRegisterIntent());
+        btLogin.setOnClickListener(v ->  attemptLogin());
     }
     private void showRegisterIntent () {
         final Intent registerActivity = new Intent(this, RegisterActivity.class);
@@ -109,14 +99,12 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
         videoBG.setVisibility(show ? View.GONE : View.VISIBLE);
         if(!show) {
             videoBG.start();
-            videoBG.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override public void onPrepared (MediaPlayer mp) {
-                    mMediaPlayer = mp;
-                    mMediaPlayer.setLooping(true);
-                    if (mCurrentVideoPosition != 0) {
-                        mMediaPlayer.seekTo(mCurrentVideoPosition);
-                        mMediaPlayer.start();
-                    }
+            videoBG.setOnPreparedListener(mp -> {
+                mMediaPlayer = mp;
+                mMediaPlayer.setLooping(true);
+                if (mCurrentVideoPosition != 0) {
+                    mMediaPlayer.seekTo(mCurrentVideoPosition);
+                    mMediaPlayer.start();
                 }
             });
         }
@@ -132,9 +120,7 @@ public class LoginActivity extends AppCompatActivity implements InterfaceTaskDef
             } catch (Exception e) {
                 HandlerState.handle(e, getApplicationContext());
             }
-        } else {
-            HandlerState.handle(getApplicationContext());
-        }
+        } else HandlerState.handle(getApplicationContext());
         showProgress(false);
     }
     @Override

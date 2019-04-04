@@ -26,6 +26,7 @@ import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
 import me.projectx.needaticket.listener.ListenerNavigationMenu;
 import me.projectx.needaticket.listener.ListenerNavigationMenuHeader;
 import me.projectx.needaticket.pojo.Wallet;
+import moer.intervalclick.api.IntervalClick;
 public class WalletActivity extends AppCompatActivity implements InterfaceTaskDefault, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.user_swipe_to_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     private Wallet wallet;
@@ -70,11 +71,7 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
         final DecimalFormat df = new DecimalFormat();
         df.setMinimumFractionDigits(2);
         df.setMaximumFractionDigits(2);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            public void onAnimationUpdate (ValueAnimator animation) {
-                balance.setText(df.format(animation.getAnimatedValue()) + " €");
-            }
-        });
+        animator.addUpdateListener(animation -> balance.setText(df.format(animation.getAnimatedValue()) + " €"));
         animator.start();
     }
     private void upload () {
@@ -101,9 +98,7 @@ public class WalletActivity extends AppCompatActivity implements InterfaceTaskDe
                     HandlerState.handle(ex, getApplicationContext());
                 }
             }
-        } else {
-            HandlerState.handle(getApplicationContext());
-        }
+        } else HandlerState.handle(getApplicationContext());
         swipeRefreshLayout.setRefreshing(false);
     }
     @Override public void onRefresh () {

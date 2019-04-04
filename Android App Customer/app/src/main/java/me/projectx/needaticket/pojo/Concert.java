@@ -19,44 +19,23 @@ public class Concert {
     public String get_id () {
         return _id;
     }
-    public void set_id (String _id) {
-        this._id = _id;
-    }
     public ConcertType getType () {
         return type;
-    }
-    public void setType (ConcertType type) {
-        this.type = type;
     }
     public String getTitle () {
         return title;
     }
-    public void setTitle (String title) {
-        this.title = title;
-    }
     public String getDate () {
         return date;
-    }
-    public void setDate (String date) {
-        this.date = date;
     }
     public String getAddress () {
         return address;
     }
-    public void setAddress (String address) {
-        this.address = address;
-    }
     public Genre getGenre () {
         return genre;
     }
-    public void setGenre (Genre genre) {
-        this.genre = genre;
-    }
     public Artist getArtist () {
         return artist;
-    }
-    public void setArtist (Artist artist) {
-        this.artist = artist;
     }
     @Override public String toString () {
         return "Concert{" + "_id='" + _id + '\'' + ", type=" + type + ", title='" + title + '\'' + ", date='" + date + '\'' + ", address='" + address + '\'' + ", genre=" + genre + ", artist=" + artist + '}';

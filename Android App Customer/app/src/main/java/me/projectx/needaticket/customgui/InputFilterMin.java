@@ -10,18 +10,12 @@ public class InputFilterMin implements InputFilter {
         this.min = min;
         mPattern=Pattern.compile("[0-9]{0," + (7-1) + "}+((\\.[0-9]{0," + (2-1) + "})?)||(\\.)?");
     }
-    public InputFilterMin (String min) {
-        this.min = Integer.parseInt(min);
-        mPattern=Pattern.compile("[0-9]{0," + (7-1) + "}+((\\.[0-9]{0," + (2-1) + "})?)||(\\.)?");
-    }
     @Override
     public CharSequence filter (CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
         try {
             float input = Float.parseFloat(dest.toString() + source.toString());
             if (isInRange(min, Float.MAX_VALUE, input) && mPattern.matcher(dest).matches()) return null;
-        } catch (NumberFormatException nfe) {
-            // We don't care about this
-        }
+        } catch (NumberFormatException nfe) { /* We don't care about this */}
         return "Invalid amount!";
     }
     private boolean isInRange (float a, float b, float c) {

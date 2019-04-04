@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.VideoView;
@@ -17,6 +16,7 @@ import me.projectx.needaticket.R;
 import me.projectx.needaticket.asynctask.TaskExecuteGraphQLMutation;
 import me.projectx.needaticket.handler.HandlerState;
 import me.projectx.needaticket.interfaces.InterfaceTaskDefault;
+import moer.intervalclick.api.IntervalClick;
 public class RegisterActivity extends AppCompatActivity implements InterfaceTaskDefault {
     MediaPlayer mMediaPlayer;
     int mCurrentVideoPosition;
@@ -42,34 +42,22 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
         videoBG.setBackgroundColor(getResources().getColor(R.color.transparency));
         //Start video
         videoBG.start();
-        videoBG.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override public void onPrepared (MediaPlayer mp) {
-                mMediaPlayer = mp;
-                mMediaPlayer.setLooping(true);
-                if (mCurrentVideoPosition != 0) {
-                    mMediaPlayer.seekTo(mCurrentVideoPosition);
-                    mMediaPlayer.start();
-                }
+        videoBG.setOnPreparedListener(mp -> {
+            mMediaPlayer = mp;
+            mMediaPlayer.setLooping(true);
+            if (mCurrentVideoPosition != 0) {
+                mMediaPlayer.seekTo(mCurrentVideoPosition);
+                mMediaPlayer.start();
             }
         });
         registrateEventHandlers();
     }
     private void registrateEventHandlers () {
-        btRegister.setOnClickListener(new OnClickListener() {
-            @Override public void onClick (View v) {
-                attemptLogin();
-            }
-        });
-        btSignIn.setOnClickListener(new OnClickListener() {
-            @Override public void onClick (View v) {
-                showLoginIntent();
-            }
-        });
+        btRegister.setOnClickListener(v -> attemptLogin());
+        btSignIn.setOnClickListener(v -> showLoginIntent());
     }
     private void attemptLogin () {
-        if (mAuthTask != null) {
-            return;
-        }
+        if (mAuthTask != null) return;
         mEmailView.setError(null);
         mPasswordView.setError(null);
         mPasswordConfirmView.setError(null);
@@ -103,9 +91,8 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
             focusView = mPasswordConfirmView;
             cancel = true;
         }
-        if (cancel) {
-            focusView.requestFocus();
-        } else {
+        if (cancel) focusView.requestFocus();
+        else {
             try {
                 mAuthTask = new TaskExecuteGraphQLMutation(getString(R.string.webservice_default), getString(R.string.webservice_register).replace("$email", email).replace("$password", password), "", this);
                 mAuthTask.execute();
@@ -137,14 +124,12 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
         videoBG.setVisibility(show ? View.GONE : View.VISIBLE);
         if(!show) {
             videoBG.start();
-            videoBG.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override public void onPrepared (MediaPlayer mp) {
-                    mMediaPlayer = mp;
-                    mMediaPlayer.setLooping(true);
-                    if (mCurrentVideoPosition != 0) {
-                        mMediaPlayer.seekTo(mCurrentVideoPosition);
-                        mMediaPlayer.start();
-                    }
+            videoBG.setOnPreparedListener(mp -> {
+                mMediaPlayer = mp;
+                mMediaPlayer.setLooping(true);
+                if (mCurrentVideoPosition != 0) {
+                    mMediaPlayer.seekTo(mCurrentVideoPosition);
+                    mMediaPlayer.start();
                 }
             });
         }
@@ -180,9 +165,7 @@ public class RegisterActivity extends AppCompatActivity implements InterfaceTask
             } catch (Exception e) {
                 HandlerState.handle(e, getApplicationContext());
             }
-        } else{
-            HandlerState.handle(getApplicationContext());
-        }
+        } else HandlerState.handle(getApplicationContext());
         showProgress(false);
     }
     @Override

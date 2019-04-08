@@ -5,14 +5,12 @@ import java.util.List;
 public class User {
     private  int id;
     private String email;
-    private String password;
     private List<Ticket> tickets;
     private Wallet wallet;
 
     public User(int id, String email, String password, List<Ticket> tickets, Wallet wallet) {
         this.id = id;
         this.email = email;
-        this.password = password;
         this.tickets = tickets;
         this.wallet = wallet;
     }
@@ -31,14 +29,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public List<Ticket> getTickets() {
@@ -62,7 +52,6 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 ", tickets=" + tickets +
                 ", wallet=" + wallet +
                 '}';

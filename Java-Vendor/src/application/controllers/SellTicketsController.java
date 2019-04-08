@@ -178,9 +178,16 @@ public class SellTicketsController implements Initializable {
             throw new Exception("Please select a concert!");
         if (!view_map.containsKey(CREATE_CONCERT_VIEW)) {
                 // play load spinner then change content
-                Parent newView = getANDchangeConent(CREATE_CONCERT_VIEW);
+                FXMLLoader loadder = new FXMLLoader(getClass().getResource(CREATE_CONCERT_VIEW));
+                CreateConcertController cont = new CreateConcertController();
+                cont.setConcert(concert);
+                loadder.setController(cont);
+                Parent menu = loadder.load();
+                multiFormRootPane.getChildren().removeAll();
+                multiFormRootPane.getChildren().setAll(menu);
                 
-                view_map.put(CREATE_CONCERT_VIEW, newView);
+                
+                view_map.put(CREATE_CONCERT_VIEW, menu);
             } else {
                 Parent view = view_map.get(CREATE_CONCERT_VIEW);
                 

@@ -10,8 +10,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="344.0" prefWidth="952.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.ItemController">
-   <children>
+<AnchorPane id="AnchorPane" prefHeight="344.0" prefWidth="952.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
       <Pane layoutX="14.0" layoutY="40.0" prefHeight="264.0" prefWidth="920.0" style="-fx-background-color: #fff;">
          <children>
             <ImageView fitHeight="79.0" fitWidth="75.0" layoutX="27.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
@@ -45,7 +45,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="58.0" layoutY="139.0" text="Val" textFill="#4d4c4c">
+            <Label fx:id="lbl_Seller" layoutX="58.0" layoutY="139.0" text="Val" textFill="#4d4c4c">
                <font>
                   <Font size="13.0" />
                </font>
@@ -55,7 +55,7 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label fx:id="lbl_price" layoutX="287.0" layoutY="211.0" text="1459" textFill="#4d4c4c">
+            <Label fx:id="lbl_numberOfTickets" layoutX="287.0" layoutY="211.0" text="1459" textFill="#4d4c4c">
                <font>
                   <Font size="13.0" />
                </font>
@@ -65,7 +65,7 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label layoutX="576.0" layoutY="113.0" text="ARTISTS" textFill="#aeacac">
+            <Label layoutX="576.0" layoutY="113.0" text="ARTIST" textFill="#aeacac">
                <font>
                   <Font size="14.0" />
                </font>
@@ -96,22 +96,7 @@
             </Label>
             <VBox layoutX="630.0" layoutY="137.0" prefHeight="119.0" prefWidth="92.0" spacing="7.0">
                <children>
-                  <Label prefHeight="19.0" prefWidth="81.0" style="-fx-background-color: #aeacac;" text="Alexis Texas" textFill="#fffefe">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Label>
-                  <Label prefHeight="19.0" prefWidth="81.0" style="-fx-background-color: #aeacac;" text="Mia Malkova" textFill="#fffefe">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Label>
-                  <Label prefHeight="19.0" prefWidth="74.0" style="-fx-background-color: #aeacac;" text="Scarllet Red" textFill="#fffefe">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Label>
-                  <Label prefHeight="19.0" prefWidth="62.0" style="-fx-background-color: #aeacac;" text="Tori Black" textFill="#fffefe">
+                  <Label fx:id="lbl_artist" prefHeight="19.0" prefWidth="81.0" style="-fx-background-color: #aeacac;" textFill="#fffefe">
                      <font>
                         <Font size="13.0" />
                      </font>

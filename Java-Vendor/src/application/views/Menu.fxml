@@ -44,11 +44,6 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton fx:id="btn_transactions" buttonType="RAISED" onAction="#handle_logout" prefHeight="30.0" prefWidth="120.0" ripplerFill="WHITE" styleClass="login-btn" text="Transcations">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </JFXButton>
                         <JFXButton fx:id="btn_sellTicket" buttonType="RAISED" onAction="#handle_logout" prefHeight="30.0" prefWidth="120.0" ripplerFill="WHITE" styleClass="login-btn" text="Sell Ticket">
                            <font>
                               <Font name="System Bold" size="14.0" />

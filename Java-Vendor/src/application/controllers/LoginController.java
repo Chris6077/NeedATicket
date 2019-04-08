@@ -56,6 +56,7 @@ public class LoginController implements Initializable {
 
     private double xOffSet = 0;
     private double yOffSet = 0;
+    private Database database;
 
     private final AnimationGenerator animationGenerator = new AnimationGenerator();
 
@@ -85,8 +86,13 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        gif.setOpacity(0.5);
-        makeStageDragable();
+        try {
+            gif.setOpacity(0.5);
+            makeStageDragable();
+            this.database = Database.getInstance();
+        } catch (Exception ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void makeStageDragable() {
@@ -179,7 +185,7 @@ public class LoginController implements Initializable {
     private void login() throws Exception {
         if(tft_email.getText().equals("") || tft_password.getText().equals(""))
             throw new Exception("Please enter username and password!");
-        Database.login(tft_email.getText(), tft_password.getText());
+        database.login(tft_email.getText(), tft_password.getText());
     }
 
     private void register() {

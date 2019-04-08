@@ -4,20 +4,22 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Concert {
+    private String _id;
     private String title;
-    private LocalDate date;
+    private String date;
     private String address;
-    private List<Artist> artists;
-    private Genre genre;
-    private List<Ticket> tickets;
+    private Artist artist;
+    private String genre;
+    private String totalTickets;
 
-    public Concert(String title, LocalDate date, String address, List<Artist> artists, Genre genre, List<Ticket> tickets) {
+    public Concert(String _id, String title, String date, String address, Artist artist, String genre, String totalTickets) {
         this.title = title;
         this.date = date;
         this.address = address;
-        this.artists = artists;
+        this.artist = artist;
         this.genre = genre;
-        this.tickets = tickets;
+        this.totalTickets = totalTickets;
+        this._id = _id;
     }
 
     public String getTitle() {
@@ -28,11 +30,11 @@ public class Concert {
         this.title = title;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -44,39 +46,55 @@ public class Concert {
         this.address = address;
     }
 
-    public List<Artist> getArtists() {
-        return artists;
+    public Artist getArtists() {
+        return artist;
     }
 
-    public void setArtists(List<Artist> artists) {
-        this.artists = artists;
+    public void setArtists(Artist artists) {
+        this.artist = artists;
     }
 
-    public Genre getGenre() {
+    public String getGenre() {
         return genre;
     }
 
-    public void setGenre(Genre genre) {
+    public String getId() {
+        return _id;
+    }
+
+    public void setId(String _id) {
+        this._id = _id;
+    }
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
+    public void setGenre(String genre) {
         this.genre = genre;
     }
 
-    public List<Ticket> getTickets() {
-        return tickets;
+    public String getTotalTickets() {
+        return totalTickets;
     }
 
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
+    public void setTotalTickets(String totalTickets) {
+        this.totalTickets = totalTickets;
     }
 
     @Override
     public String toString() {
-        return "Concert{" +
-                "title='" + title + '\'' +
-                ", date=" + date +
-                ", address='" + address + '\'' +
-                ", artists=" + artists +
-                ", genre=" + genre +
-                ", tickets=" + tickets +
-                '}';
+        return "Concert{"
+                + "title='" + title + '\''
+                + ", date=" + date
+                + ", address='" + address + '\''
+                + ", artist=" + artist
+                + ", genre=" + genre
+                + ", tickets=" + totalTickets
+                + '}';
     }
 }

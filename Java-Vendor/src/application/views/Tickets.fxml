@@ -15,17 +15,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Label text="22000" textFill="#2a73ff">
-                     <font>
-                        <Font name="System Bold" size="26.0" />
-                     </font>
-                  </Label>
-                  <Label text="Total Transactions" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Label text="24000" textFill="#fa5f7e">
+                  <Label fx:id="lbl_totalTickets" text="24000" textFill="#fa5f7e">
                      <font>
                         <Font name="System Bold" size="26.0" />
                      </font>
@@ -35,22 +25,12 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Label text="1500" textFill="#26bfbc">
+                  <Label fx:id="lbl_totalConcerts" text="1500" textFill="#26bfbc">
                      <font>
                         <Font name="System Bold" size="26.0" />
                      </font>
                   </Label>
                   <Label text="Total Concerts" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Label text="150" textFill="#de0000">
-                     <font>
-                        <Font name="System Bold" size="26.0" />
-                     </font>
-                  </Label>
-                  <Label text="Orders on Hold" />
                </children>
             </VBox>
          </children>

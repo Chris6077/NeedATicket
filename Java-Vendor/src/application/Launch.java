@@ -12,7 +12,7 @@ public class Launch extends Application {
     public static Stage stage = null;
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/application/views/Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/application/views/Menu.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.initStyle(StageStyle.UNDECORATED);

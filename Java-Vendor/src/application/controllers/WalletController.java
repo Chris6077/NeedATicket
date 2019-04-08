@@ -5,6 +5,7 @@
  */
 package application.controllers;
 
+import application.data.Wallet;
 import application.helpers.DecreaseButtonListener;
 import application.helpers.IncreaseButtonListener;
 import com.jfoenix.controls.JFXButton;
@@ -14,6 +15,7 @@ import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import com.jfoenix.controls.events.JFXDialogEvent;
+import database.Database;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -198,10 +200,14 @@ public class WalletController implements Initializable {
 
     // since boolean is immutable when passing arround I needed a mutable type
     private final AtomicBoolean cashOutMode = new AtomicBoolean(true);
+    private Database database;
+    private Wallet currentWallet;
 
     // buttons + -  and amount - textfields
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.database = new Database();
+        
         initAmountBttns();
         set();
 

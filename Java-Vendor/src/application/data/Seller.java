@@ -1,59 +1,35 @@
 package application.data;
 
-import java.util.List;
 
 public class Seller {
-    private int id;
-    private String name;
-    private Wallet wallet;
-    private List<Ticket> tickets;
 
-    public Seller(int id, String name, Wallet wallet, List<Ticket> tickets) {
-        this.id = id;
-        this.name = name;
-        this.wallet = wallet;
-        this.tickets = tickets;
+    private String _id;
+    private String username;
+
+    public Seller(String id, String name) {
+        this._id = id;
+        this.username = name;
     }
 
-    public int getId() {
-        return id;
+    public String getId() {
+        return _id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(String id) {
+        this._id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Wallet getWallet() {
-        return wallet;
-    }
-
-    public void setWallet(Wallet wallet) {
-        this.wallet = wallet;
-    }
-
-    public List<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
     public String toString() {
-        return "Seller{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", wallet=" + wallet +
-                ", tickets=" + tickets +
-                '}';
+        return "Seller{" + "id=" + _id + ", name=" + username + '}';
     }
+
 }

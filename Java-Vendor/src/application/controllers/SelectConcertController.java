@@ -11,6 +11,7 @@ import application.data.Genre;
 import application.data.Ticket;
 import application.helpers.SellTicketsViewsController;
 import com.jfoenix.controls.JFXButton;
+import database.Database;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -45,26 +46,37 @@ public class SelectConcertController implements Initializable {
     @FXML
     private Label lblMessage;
     
+    Database db;
+    ArrayList<Concert> allConcerts;
     
     Node[] nodes;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.setListener();
-        SellTicketsViewsController.setChildController(this);
-        HashMap<String, String> concerts = new HashMap<>();
-        sp_tickets.getItems().clear();
-        nodes = new Node[15];
-
-        for (int i = 0; i < 10; i++) {
-            try {
-                nodes[i] = (Node) FXMLLoader.load(getClass().getResource("/application/views/Concert.fxml"));
-                nodes[i].setId("concertID");
-                sp_tickets.getItems().add(nodes[i]); 
-            } catch (IOException ex) {
-                Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            db = new Database();
+            this.setListener();
+            SellTicketsViewsController.setChildController(this);
+            allConcerts = db.getConcerts();
+            sp_tickets.getItems().clear();
+            nodes = new Node[allConcerts.size()];
+            
+            for (int i = 0; i < allConcerts.size(); i++) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/views/Concert.fxml"));
+                    ConcertController controller = new ConcertController();
+                    controller.setCurrentTicket(allConcerts.get(i));
+                    loader.setController(controller);
+                    nodes[i] = (Node) loader.load();
+                    nodes[i].setId(allConcerts.get(i).getId());
+                    sp_tickets.getItems().add(nodes[i]);
+                } catch (IOException ex) {
+                    Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
-
+        } catch (Exception ex) {
+            Logger.getLogger(SelectConcertController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -97,10 +109,13 @@ public class SelectConcertController implements Initializable {
             throw new Exception("Please select a concert!");
         String concertid = this.sp_tickets.getSelectionModel().getSelectedItem().getId();
         SellTicketsController parentController = SellTicketsViewsController.getParentController();
+        Concert c = null;
+        for(Concert concert : allConcerts)
+            if(concert.getId() == concertid)
+                c = concert;
         if(parentController == null)
             throw new Exception("parent controller has not been set");
-        parentController.setConcert(new Concert("Test", LocalDate.now(), "", new ArrayList<Artist>(),
-                new Genre("a"), new ArrayList<Ticket>()));
+        parentController.setConcert(c);
         parentController.nextView();
     }
 
